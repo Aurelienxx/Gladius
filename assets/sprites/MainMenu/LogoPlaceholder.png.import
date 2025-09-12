@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfgkmjdb2eyhu"
-path="res://.godot/imported/corporate_matttttthieu.png-a4ceee9dceaa9a21ac85ffce36b2fee7.ctex"
+uid="uid://4axkcu8dlg1g"
+path="res://.godot/imported/LogoPlaceholder.png-9423d4d1ec2475f410eda5bbd8f563da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sons/corporate_matttttthieu.png"
-dest_files=["res://.godot/imported/corporate_matttttthieu.png-a4ceee9dceaa9a21ac85ffce36b2fee7.ctex"]
+source_file="res://assets/sprites/MainMenu/LogoPlaceholder.png"
+dest_files=["res://.godot/imported/LogoPlaceholder.png-9423d4d1ec2475f410eda5bbd8f563da.ctex"]
 
 [params]
 
