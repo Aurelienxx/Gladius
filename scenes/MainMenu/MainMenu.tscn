@@ -1,28 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjrpfy8gcaf1y"]
+[gd_scene load_steps=6 format=3 uid="uid://dkffyav4kxpkg"]
 
-[ext_resource type="Script" uid="uid://bw4ya621wy6o8" path="res://scenes/MainMenu/main_menu.gd" id="1_l6cm7"]
-[ext_resource type="Texture2D" uid="uid://bqof8vb4y6qk6" path="res://assets/sprites/MainMenu/BackgroundPlaceholder.png" id="2_ekxnf"]
-[ext_resource type="Texture2D" uid="uid://4axkcu8dlg1g" path="res://assets/sprites/MainMenu/LogoPlaceholder.png" id="3_bqqt6"]
+[ext_resource type="Script" uid="uid://bw4ya621wy6o8" path="res://scenes/MainMenu/main_menu.gd" id="1_2wh52"]
+[ext_resource type="Texture2D" uid="uid://bqof8vb4y6qk6" path="res://assets/sprites/MainMenu/BackgroundPlaceholder.png" id="2_ow34m"]
+[ext_resource type="Texture2D" uid="uid://4axkcu8dlg1g" path="res://assets/sprites/MainMenu/LogoPlaceholder.png" id="3_l72w3"]
+[ext_resource type="AudioStream" uid="uid://cims2y35r3y1l" path="res://assets/sons/MainMenu/Snare drum solo, snare drum march, snare solo, military drums.mp3" id="4_ow34m"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bqqt6"]
-texture = ExtResource("3_bqqt6")
-
-[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_bqqt6"]
+texture = ExtResource("3_l72w3")
 
 [node name="MainMenu" type="Node2D"]
-script = ExtResource("1_l6cm7")
+script = ExtResource("1_2wh52")
 
-[node name="Fond" type="Panel" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Images" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
 
-[node name="TextureRect" type="TextureRect" parent="Fond"]
-layout_mode = 0
-offset_right = 439.0
-offset_bottom = 245.0
-texture = ExtResource("2_ekxnf")
+[node name="Fond" type="Panel" parent="Images"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Logo" type="Panel" parent="."]
+[node name="TextureRect" type="TextureRect" parent="Images/Fond"]
+layout_mode = 1
+anchors_preset = -1
+texture = ExtResource("2_ow34m")
+
+[node name="Logo" type="Panel" parent="Images"]
 offset_left = 774.0
 offset_top = 6.0
 offset_right = 1139.0
@@ -32,18 +40,18 @@ size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_bqqt6")
 
 [node name="MainTheme" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamMP3_bqqt6")
+stream = ExtResource("4_ow34m")
 
 [node name="MenuPrincipal" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuPrincipal"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 775.0
+offset_bottom = 477.0
 
 [node name="StartButton" type="Button" parent="MenuPrincipal/VBoxContainer"]
 layout_mode = 2
