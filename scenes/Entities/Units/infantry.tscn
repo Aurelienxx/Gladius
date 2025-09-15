@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhux22vlnyg6f"]
 
-[ext_resource type="Script" uid="uid://qg1ys2mgj640" path="res://scripts/Entites/Units/infantry.gd" id="1_3wili"]
+[ext_resource type="Script" uid="uid://qg1ys2mgj640" path="res://scripts/Entities/Units/infantry.gd" id="1_3wili"]
 [ext_resource type="Texture2D" uid="uid://bfgkmjdb2eyhu" path="res://assets/sprites/corporate_matttttthieu.png" id="2_8ibam"]
 
 [node name="Infantry" type="Node2D"]
