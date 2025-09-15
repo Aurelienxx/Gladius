@@ -9,7 +9,7 @@ Equipe :
  - Fontaine Aurélien
 
 La norme suivit pour le développement sera du Upper Camel Case
-avec des noms de variables ou fonctions en anglais.
+avec des noms de variables et fonctions en anglais.
 
 La gestion du projet est réalisée sur le Trello suivant : 
 https://trello.com/invite/b/68c7b69d83c39c49c8d5fcba/ATTId097a3f4f1ccf409b3ea46bba4743bcf80C00D2B/gladius
