@@ -11,5 +11,6 @@ config_version=5
 [application]
 
 config/name="GLADIUS"
+run/main_scene="uid://cjrpfy8gcaf1y"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/sprites/icon.svg"

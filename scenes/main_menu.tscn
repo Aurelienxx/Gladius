@@ -32,6 +32,7 @@ size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_bqqt6")
 
 [node name="MainTheme" type="AudioStreamPlayer2D" parent="."]
+visible = false
 stream = SubResource("AudioStreamMP3_bqqt6")
 
 [node name="MenuPrincipal" type="Control" parent="."]
