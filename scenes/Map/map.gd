@@ -3,6 +3,7 @@ extends Node
 const ARRAY_LONG = 50
 const ARRAY_HEIGHT = 30
 const CELL_SIZE = 32
+const MARGIN_RATIO = 0.05
 
 func _ready():
 	var map = generate_map()
@@ -47,15 +48,20 @@ func display_map(array_map):
 	print(array_map)
 	
 	#Affichage de la carte (sprites)
+	var screen_size = get_viewport().get_visible_rect().size
+	var cell_width = screen_size.x / ARRAY_LONG
+	var cell_height = screen_size.y / ARRAY_HEIGHT
+	
 	for i in range(ARRAY_HEIGHT):
 		for j in range(ARRAY_LONG):
+			var tile_value = array_map[i][j]
 			var sprite = Sprite2D.new()
-			sprite.texture = tiles[array_map[i][j]]
-			sprite.position = Vector2(j * CELL_SIZE, i * CELL_SIZE)
-
+			sprite.texture = tiles[tile_value]
+			
+			sprite.position = Vector2(j * cell_width, i * cell_height)
+			
 			var tex_size = sprite.texture.get_size()
-			var scale_factor = CELL_SIZE / tex_size.x
-			sprite.scale = Vector2(scale_factor, scale_factor)
+			sprite.scale = Vector2(cell_width / tex_size.x, cell_height / tex_size.y)
 			
 			add_child(sprite)
 	
