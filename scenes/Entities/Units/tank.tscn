@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://gnfo0a028kgl"]
+
+[ext_resource type="Script" uid="uid://bue0y50lj2mjr" path="res://scripts/Entities/Units/tank.gd" id="1_o4obn"]
+
+
+[node name="Tank" type="Node2D"]
+script = ExtResource("1_o4obn")
