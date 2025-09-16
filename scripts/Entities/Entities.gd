@@ -1,22 +1,18 @@
 extends Node2D
 class_name Entities
 
-# Statistiques
 var hp: int
-var sprite: String
+var sprite: Sprite2D
 
-var current_hp: int
-
-
-# Initalisation des statistiques de l'unité
-func _init(
-		_hp: int = 0,
-		_sprite: String = "res://assets/sprites/cotar.png",
-	):
+func _init(_hp: int = 100, _texture: Texture2D = null):
 	hp = _hp
-	current_hp = _hp
-	sprite = _sprite
 
-# Fonction de dégats
-func get_damage(damages: int) -> void:
-	current_hp = max(current_hp - damages, 0)
+	# Création du sprite
+	sprite = Sprite2D.new()
+	if _texture != null:
+		sprite.texture = _texture
+	add_child(sprite)
+
+func get_damage(damage: int) -> void:
+	hp = max(hp - damage, 0)
+	print("HP restants = ", hp)

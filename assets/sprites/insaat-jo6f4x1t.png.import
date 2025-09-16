@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dt8onvuoxxdvc"
-path="res://.godot/imported/barb_wire.png-5a04b4f2c54c530d5b82e98ddd996904.ctex"
+uid="uid://ctg2cinhqeu6v"
+path="res://.godot/imported/insaat-jo6f4x1t.png-5855dcf7b12dfd9fb2b5cb1272e7bd83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/grounds/barb_wire.png"
-dest_files=["res://.godot/imported/barb_wire.png-5a04b4f2c54c530d5b82e98ddd996904.ctex"]
+source_file="res://assets/sprites/insaat-jo6f4x1t.png"
+dest_files=["res://.godot/imported/insaat-jo6f4x1t.png-5855dcf7b12dfd9fb2b5cb1272e7bd83.ctex"]
 
 [params]
 
