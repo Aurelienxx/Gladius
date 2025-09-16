@@ -1,7 +1,4 @@
-extends Node2D
-
-func _ready():
-	$MainTheme.play()
+extends Control
 
 func _on_setting_button_pressed():
 	$MenuPrincipal.visible = false
