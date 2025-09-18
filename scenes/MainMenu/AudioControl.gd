@@ -1,11 +1,11 @@
 extends HSlider
+@export var audioBusName: String
 
+var audioBusId: int
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _ready():
+	audioBusId = AudioServer.get_bus_index("Main menu music")
+	
+func _on_value_changed(sound_value: float) -> void:
+	var db = linear_to_db(sound_value)
+	AudioServer.set_bus_volume_db(audioBusId, db)
