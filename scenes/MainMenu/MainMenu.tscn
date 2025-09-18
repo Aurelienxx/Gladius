@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1e4qtotfslu8"]
+[gd_scene load_steps=13 format=3 uid="uid://c1e4qtotfslu8"]
 
 [ext_resource type="Script" uid="uid://018u7ywc34y1" path="res://scenes/MainMenu/MainMenu.gd" id="1_gwiro"]
 [ext_resource type="Texture2D" uid="uid://bqof8vb4y6qk6" path="res://assets/sprites/MainMenu/BackgroundPlaceholder.png" id="2_ow34m"]
 [ext_resource type="Texture2D" uid="uid://4axkcu8dlg1g" path="res://assets/sprites/MainMenu/LogoPlaceholder.png" id="3_l72w3"]
+[ext_resource type="AudioStream" uid="uid://cims2y35r3y1l" path="res://assets/sons/MainMenu/Snare drum solo, snare drum march, snare solo, military drums.mp3" id="4_oheeu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gwiro"]
 texture = ExtResource("2_ow34m")
@@ -17,6 +18,30 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwiro"]
+bg_color = Color(0.45840502, 0.45840508, 0.45840502, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oheeu"]
+bg_color = Color(0.74138474, 0.7413847, 0.74138457, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gwiro"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_6p86p"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_r8q81"]
+color = Color(0.2739671, 0.2664278, 0.2856591, 1)
+thickness = 6
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -26,7 +51,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gwiro")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,7 +60,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_gwiro")
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="Logo" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -48,42 +73,137 @@ offset_bottom = 294.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_oheeu")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.55
+anchor_top = 0.628
 anchor_right = 0.5
-anchor_bottom = 0.55
+anchor_bottom = 0.628
 offset_left = -380.0
-offset_top = -143.75
+offset_top = -152.99005
 offset_right = 382.0
-offset_bottom = 161.75
+offset_bottom = 152.50995
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 18
 alignment = 1
 
-[node name="StartButton" type="Button" parent="VBoxContainer"]
+[node name="StartButton" type="Button" parent="Buttons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 44
 theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oheeu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 text = "Lancer une partie"
 
-[node name="ParametersButton" type="Button" parent="VBoxContainer"]
+[node name="ParametersButton" type="Button" parent="Buttons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 44
 theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oheeu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 text = "Paramètres"
 
-[node name="ExitButton2" type="Button" parent="VBoxContainer"]
+[node name="ExitButton" type="Button" parent="Buttons"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 44
 theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oheeu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 text = "Quitter le jeu"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_oheeu")
+volume_db = -15.0
+bus = &"Main menu music"
+
+[node name="Settings" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.605
+anchor_right = 0.5
+anchor_bottom = 0.605
+offset_left = -448.0
+offset_top = -294.40002
+offset_right = 448.0
+offset_bottom = 293.59998
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Settings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.187
+offset_bottom = 1.3289948
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 78
+text = "Paramètres"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="Settings/Label"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 4.8030005
+anchor_right = 0.5
+anchor_bottom = 4.8030005
+offset_left = -254.5
+offset_top = -49.501892
+offset_right = 254.5
+offset_bottom = 49.498108
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 44
+theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oheeu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
+text = "Revenir en arrière"
+
+[node name="AudioControl" type="HSlider" parent="Settings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.504
+anchor_top = 0.23300001
+anchor_right = 0.504
+anchor_bottom = 0.354
+offset_left = -333.584
+offset_top = -0.0040130615
+offset_right = 333.416
+offset_bottom = -0.15200806
+theme_override_styles/slider = SubResource("StyleBoxLine_6p86p")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_r8q81")
+value = 50.0
+
+[connection signal="pressed" from="Buttons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Buttons/ParametersButton" to="." method="_on_parameters_button_pressed"]
+[connection signal="pressed" from="Buttons/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Settings/Label/Back" to="." method="_on_back_settings_pressed"]
