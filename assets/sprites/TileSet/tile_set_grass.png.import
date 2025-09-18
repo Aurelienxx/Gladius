@@ -2,22 +2,24 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dt8onvuoxxdvc"
-path="res://.godot/imported/barb_wire.png-5a04b4f2c54c530d5b82e98ddd996904.ctex"
+uid="uid://brxd7ajeu6321"
+path="res://.godot/imported/tile_set_grass.png-91555d7b0e0f887ef67d55265ad66c5c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/grounds/barb_wire.png"
-dest_files=["res://.godot/imported/barb_wire.png-5a04b4f2c54c530d5b82e98ddd996904.ctex"]
+source_file="res://assets/sprites/TileSet/tile_set_grass.png"
+dest_files=["res://.godot/imported/tile_set_grass.png-91555d7b0e0f887ef67d55265ad66c5c.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
@@ -25,6 +27,10 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

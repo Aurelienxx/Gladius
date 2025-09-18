@@ -1,97 +1,42 @@
-extends Node2D
+extends Node
 class_name Map
 
 const ARRAY_LONG = 50
 const ARRAY_HEIGHT = 30
 
-var terrain  = [
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0]
+@onready var tilemap_grass: TileMapLayer = $TileMap_Grass
+@onready var tilemap_dirt: TileMapLayer = $TileMap_Dirt
 
-]
-
-# modificateur selon le terrain
-var terrain_modifier = {
-	0: 1.0,  # herbe
-	1: 0.5,  # boue
-	2: 0.0,  # barbelé
-	3: 1.0   # gaz
-}
-
-# tailles des cellules calculées dynamiquement
-var cell_width: float
-var cell_height: float
+var rng = RandomNumberGenerator.new()
 
 func _ready():
-	# Calcul automatique de la taille des cellules pour remplir l'écran
-	var screen_size = get_viewport_rect().size
-	cell_width = screen_size.x / ARRAY_LONG
-	cell_height = screen_size.y / ARRAY_HEIGHT
+	# Randomly generates a map using the tilesets
+	""" 
+	tilemap_grass.clear()
+	tilemap_dirt.clear()
 	
-
-	#generate_map()
-	display_map()
-
-func generate_map():
-	terrain.resize(ARRAY_HEIGHT)
-	var rng = RandomNumberGenerator.new()
-	for y in range(ARRAY_HEIGHT):
-		terrain[y] = []
-		for x in range(ARRAY_LONG):
-			terrain[y].append(rng.randi_range(0, 2))
-
-func display_map():
+	var tab_grass_tile_placed = []
+	var tab_dirt_placed = []
+	
 	for y in range(ARRAY_HEIGHT):
 		for x in range(ARRAY_LONG):
-			var sprite = Sprite2D.new()
-			sprite.centered = false  # pivot en haut-gauche
 			
-			match terrain[y][x]:
-				0: sprite.texture = preload("res://assets/sprites/grounds/grass.png")
-				1: sprite.texture = preload("res://assets/sprites/grounds/mud.png")
-				2: sprite.texture = preload("res://assets/sprites/grounds/barb_wire.png")
-				3: sprite.texture = preload("res://assets/sprites/grounds/gaz.png")
+			var pos = Vector2i(x, y)
 			
-			# position sur la grille
-			sprite.position = Vector2(x * cell_width, y * cell_height)
+			var source_id_dirt = 0
+			var atlas_cord_dirt = Vector2i(1,1) 
+			tilemap_dirt.set_cell(pos, source_id_dirt, atlas_cord_dirt)
+			tab_dirt_placed.append(pos)
 			
-			# scale pour remplir la cellule
-			if sprite.texture:
-				var tex_size = sprite.texture.get_size()
-				sprite.scale = Vector2(cell_width / tex_size.x, cell_height / tex_size.y)
+			var random_number = rng.randi_range(0, 10)
+			if random_number==0:
+				var source_id_grass = 0
+				var atlas_cord_grass = Vector2i(4,1)
+				tilemap_grass.set_cell(pos, source_id_grass, atlas_cord_grass)
+				tab_grass_tile_placed.append(pos)
 			
-			add_child(sprite)
-
-
-func get_terrain_modifier(grid_pos: Vector2i) -> float:
-	if grid_pos.x < 0 or grid_pos.x >= ARRAY_LONG or grid_pos.y < 0 or grid_pos.y >= ARRAY_HEIGHT:
-		return 1.0
-	return terrain_modifier[terrain[grid_pos.y][grid_pos.x]]
+			
+	tilemap_dirt.set_cells_terrain_connect(tab_dirt_placed, 0, 0, true)	
+	tilemap_grass.set_cells_terrain_connect(tab_grass_tile_placed, 0, 0,false)
+	"""
+	

@@ -7,6 +7,7 @@ var highlight_nodes: Array = []
 
 func _ready():
 	# Instanciation de la map
+	"""
 	map_node = Map.new()
 	add_child(map_node)
 
@@ -100,3 +101,4 @@ func get_reachable_positions(start_pos: Vector2i, base_range: int) -> Array:
 			if distance <= allowed_range:
 				positions.append(pos)
 	return positions
+"""
