@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://casx0iw2asrlb"]
+[gd_scene load_steps=27 format=3 uid="uid://casx0iw2asrlb"]
 
 [ext_resource type="PackedScene" uid="uid://bk2008b5w4go1" path="res://scenes/HUD/Tank/DamageTank.tscn" id="1_rufx2"]
 [ext_resource type="PackedScene" uid="uid://b3e6m5oyvo7gb" path="res://scenes/HUD/Tank/HealthTank.tscn" id="2_gipir"]
@@ -21,20 +21,26 @@
 [ext_resource type="PackedScene" uid="uid://b22nj0oj8quhm" path="res://scenes/HUD/Artillerie/RangeArti.tscn" id="15_jkcte"]
 [ext_resource type="PackedScene" uid="uid://ccgnhdyf551wv" path="res://scenes/HUD/Artillerie/PriceArti.tscn" id="16_rlmth"]
 [ext_resource type="PackedScene" uid="uid://r6jdlx44euej" path="res://scenes/HUD/Camion/PriceCamion.tscn" id="16_wg7py"]
+[ext_resource type="PackedScene" uid="uid://db5skndj1nrwa" path="res://scenes/HUD/PlayerInfo/Gain.tscn" id="22_jkcte"]
+[ext_resource type="PackedScene" uid="uid://bt2ut4pukdnxj" path="res://scenes/HUD/PlayerInfo/Loss.tscn" id="23_rlmth"]
+[ext_resource type="PackedScene" uid="uid://226gkofstpj5" path="res://scenes/HUD/PlayerInfo/Profit.tscn" id="24_pmr33"]
+[ext_resource type="PackedScene" uid="uid://soyhnbcfdmn6" path="res://scenes/HUD/PlayerInfo/CurrentMoney.tscn" id="25_rlmth"]
+[ext_resource type="PackedScene" uid="uid://0qwxh71txf7f" path="res://scenes/HUD/PlayerInfo/CurrentCapacity.tscn" id="26_pmr33"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
 [node name="Infanterie" type="CanvasLayer" parent="."]
 
 [node name="CanvasGroup" type="CanvasGroup" parent="Infanterie"]
-position = Vector2(0, 1)
+position = Vector2(0, -1)
 scale = Vector2(0.8, 0.8)
 
 [node name="ColorRect2" type="ColorRect" parent="Infanterie/CanvasGroup"]
 offset_top = 1.0
-offset_right = 337.0
-offset_bottom = 236.0
+offset_right = 336.24997
+offset_bottom = 234.99998
 color = Color(0.5729883, 0.5729883, 0.5729883, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Infanterie/CanvasGroup/ColorRect2"]
 layout_mode = 0
@@ -71,32 +77,32 @@ layout_mode = 2
 [node name="Range" parent="Infanterie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("10_miyln")]
 layout_mode = 2
 
-[node name="Price" parent="Infanterie/CanvasGroup/ColorRect2" instance=ExtResource("5_gsk3d")]
+[node name="Price" parent="Infanterie/CanvasGroup/ColorRect2/Control" instance=ExtResource("5_gsk3d")]
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 30.0
-offset_top = 23.0
-offset_right = 70.0
-offset_bottom = 23.0
+offset_left = -80.0
+offset_top = 3.999998
+offset_right = -40.0
+offset_bottom = 3.999998
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="Tank" type="Sprite2D" parent="Infanterie/CanvasGroup/ColorRect2"]
-position = Vector2(104, 138)
-scale = Vector2(6, 6)
+[node name="Tank" type="Sprite2D" parent="Infanterie/CanvasGroup/ColorRect2/Control"]
+position = Vector2(-6, 119)
+scale = Vector2(5.9999995, 5.9999995)
 texture = ExtResource("5_wqij7")
 
 [node name="Camion" type="CanvasLayer" parent="."]
 
 [node name="CanvasGroup" type="CanvasGroup" parent="Camion"]
-position = Vector2(0, 191.00003)
+position = Vector2(0, 188)
 scale = Vector2(0.8, 0.8)
 
 [node name="ColorRect2" type="ColorRect" parent="Camion/CanvasGroup"]
 offset_top = 1.0
-offset_right = 337.0
+offset_right = 336.24997
 offset_bottom = 236.0
 color = Color(0.5729883, 0.5729883, 0.5729883, 1)
 
@@ -135,27 +141,27 @@ layout_mode = 2
 [node name="Range" parent="Camion/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("15_b6c1m")]
 layout_mode = 2
 
-[node name="Price" parent="Camion/CanvasGroup/ColorRect2" instance=ExtResource("16_wg7py")]
+[node name="Price" parent="Camion/CanvasGroup/ColorRect2/Control" instance=ExtResource("16_wg7py")]
 layout_mode = 1
-offset_left = 26.249998
-offset_top = 27.749956
-offset_right = 26.25
-offset_bottom = 27.74997
+offset_left = -83.75
+offset_top = 8.7499695
+offset_right = -83.75
+offset_bottom = 8.749985
 
-[node name="Tank" type="Sprite2D" parent="Camion/CanvasGroup/ColorRect2"]
-position = Vector2(104, 138)
-scale = Vector2(6, 6)
+[node name="Tank" type="Sprite2D" parent="Camion/CanvasGroup/ColorRect2/Control"]
+position = Vector2(-6, 119)
+scale = Vector2(5.9999995, 5.9999995)
 texture = ExtResource("5_wqij7")
 
 [node name="Artillerie" type="CanvasLayer" parent="."]
 
 [node name="CanvasGroup" type="CanvasGroup" parent="Artillerie"]
-position = Vector2(0, 381)
+position = Vector2(0, 378)
 scale = Vector2(0.8, 0.8)
 
 [node name="ColorRect2" type="ColorRect" parent="Artillerie/CanvasGroup"]
 offset_top = 1.0
-offset_right = 337.0
+offset_right = 336.24997
 offset_bottom = 236.0
 color = Color(0.5729883, 0.5729883, 0.5729883, 1)
 
@@ -194,27 +200,27 @@ layout_mode = 2
 [node name="Range" parent="Artillerie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("15_jkcte")]
 layout_mode = 2
 
-[node name="Price" parent="Artillerie/CanvasGroup/ColorRect2" instance=ExtResource("16_rlmth")]
+[node name="Price" parent="Artillerie/CanvasGroup/ColorRect2/Control" instance=ExtResource("16_rlmth")]
 layout_mode = 1
-offset_left = 26.249998
-offset_top = 24.000013
-offset_right = 26.25
-offset_bottom = 24.0
+offset_left = -83.75
+offset_top = 5.0
+offset_right = -83.75
+offset_bottom = 4.9999847
 
-[node name="Tank" type="Sprite2D" parent="Artillerie/CanvasGroup/ColorRect2"]
-position = Vector2(104, 138)
-scale = Vector2(6, 6)
+[node name="Tank" type="Sprite2D" parent="Artillerie/CanvasGroup/ColorRect2/Control"]
+position = Vector2(-6, 119)
+scale = Vector2(5.9999995, 5.9999995)
 texture = ExtResource("5_wqij7")
 
 [node name="Tank" type="CanvasLayer" parent="."]
 
 [node name="CanvasGroup" type="CanvasGroup" parent="Tank"]
-position = Vector2(0, 571)
+position = Vector2(0, 568)
 scale = Vector2(0.8, 0.8)
 
 [node name="ColorRect2" type="ColorRect" parent="Tank/CanvasGroup"]
 offset_top = 1.0
-offset_right = 337.0
+offset_right = 336.24997
 offset_bottom = 236.0
 color = Color(0.5729883, 0.5729883, 0.5729883, 1)
 
@@ -253,14 +259,90 @@ layout_mode = 2
 [node name="Range" parent="Tank/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("4_wa322")]
 layout_mode = 2
 
-[node name="Price" parent="Tank/CanvasGroup/ColorRect2" instance=ExtResource("5_ykc18")]
+[node name="Price" parent="Tank/CanvasGroup/ColorRect2/Control" instance=ExtResource("5_ykc18")]
 layout_mode = 1
-offset_left = 30.0
-offset_top = 23.0
-offset_right = 30.0
-offset_bottom = 23.0
+offset_left = -80.0
+offset_top = 4.0
+offset_right = -80.0
+offset_bottom = 4.0
 
-[node name="Tank" type="Sprite2D" parent="Tank/CanvasGroup/ColorRect2"]
-position = Vector2(104, 138)
-scale = Vector2(6, 6)
+[node name="Tank" type="Sprite2D" parent="Tank/CanvasGroup/ColorRect2/Control"]
+position = Vector2(-6, 119)
+scale = Vector2(5.9999995, 5.9999995)
 texture = ExtResource("5_wqij7")
+
+[node name="PlayerInfo" type="CanvasLayer" parent="."]
+
+[node name="MoneyVariation" type="CanvasGroup" parent="PlayerInfo"]
+scale = Vector2(0.8, 0.8)
+
+[node name="ColorRect2" type="ColorRect" parent="PlayerInfo/MoneyVariation"]
+offset_top = 948.74994
+offset_right = 336.24997
+offset_bottom = 1183.75
+color = Color(0.5729883, 0.5729883, 0.5729883, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerInfo/MoneyVariation/ColorRect2"]
+layout_mode = 0
+offset_left = 17.500008
+offset_top = 20.000063
+offset_right = 57.500008
+offset_bottom = 170.00006
+theme_override_constants/separation = 31
+
+[node name="Control" parent="PlayerInfo/MoneyVariation/ColorRect2/VBoxContainer" instance=ExtResource("22_jkcte")]
+layout_mode = 2
+
+[node name="Control2" parent="PlayerInfo/MoneyVariation/ColorRect2/VBoxContainer" instance=ExtResource("23_rlmth")]
+layout_mode = 2
+
+[node name="Control3" parent="PlayerInfo/MoneyVariation/ColorRect2/VBoxContainer" instance=ExtResource("24_pmr33")]
+layout_mode = 2
+
+[node name="ColorRect2" type="ColorRect" parent="PlayerInfo/MoneyVariation/ColorRect2"]
+layout_mode = 0
+offset_left = 161.25
+offset_top = -1.2499313
+offset_right = 163.43185
+offset_bottom = 116.25001
+
+[node name="ColorRect3" type="ColorRect" parent="PlayerInfo/MoneyVariation/ColorRect2"]
+layout_mode = 0
+offset_top = 116.25011
+offset_right = 336.24997
+offset_bottom = 120.00011
+
+[node name="CurrentStats" type="CanvasGroup" parent="PlayerInfo"]
+position = Vector2(161, 783)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerInfo/CurrentStats"]
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 40.0
+theme_override_constants/separation = 35
+
+[node name="Control" parent="PlayerInfo/CurrentStats/VBoxContainer" instance=ExtResource("25_rlmth")]
+layout_mode = 2
+
+[node name="Control2" parent="PlayerInfo/CurrentStats/VBoxContainer" instance=ExtResource("26_pmr33")]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_top = 186.0
+offset_right = 269.0
+offset_bottom = 191.0
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_top = 756.0
+offset_right = 269.0
+offset_bottom = 761.0
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_top = 566.0
+offset_right = 269.0
+offset_bottom = 571.0
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+offset_top = 376.0
+offset_right = 269.0
+offset_bottom = 381.0

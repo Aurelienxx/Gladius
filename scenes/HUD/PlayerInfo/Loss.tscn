@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt2ut4pukdnxj"]
+
+[ext_resource type="FontFile" uid="uid://drpljacq6mxs0" path="res://assets/sprites/HUD/Pixel Digivolve.otf" id="1_dx7l8"]
+[ext_resource type="Texture2D" uid="uid://drbryfs4ods8r" path="res://assets/sprites/HUD/Piece.png" id="1_w5ffb"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(0.6476611, 0.17023501, 0.19706753, 1)
+theme_override_fonts/font = ExtResource("1_dx7l8")
+theme_override_font_sizes/font_size = 16
+text = "- 14 /tour"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_w5ffb")
