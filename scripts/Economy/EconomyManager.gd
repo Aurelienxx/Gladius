@@ -1,11 +1,11 @@
 extends Node
 
+var current_money = 100
+var money_gain = 0
+var money_loose = 0
+var economic_result = 0
+
 func _ready():
-	var current_money = 100
-	var money_gain = 0
-	var money_loose = 0
-	var economic_result = 0
-	
 	money_gain = change_money_gain(money_gain, 25)
 	money_loose = change_money_loose(money_loose, 15)
 	
