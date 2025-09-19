@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bibxvdufm4ljc"]
+[gd_scene load_steps=11 format=3 uid="uid://bibxvdufm4ljc"]
 
 [ext_resource type="Texture2D" uid="uid://bhy1jpwxvygh6" path="res://assets/sprites/Entities/building/HQ_sketch.png" id="1_6la3f"]
 [ext_resource type="Texture2D" uid="uid://buwjevumksyvs" path="res://assets/sprites/UpgradeHUD/GoldCoin.png" id="1_6wnka"]
@@ -23,6 +23,9 @@ texture = ExtResource("1_6la3f")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6la3f"]
 texture = ExtResource("1_6wnka")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6tx4s"]
+texture = ExtResource("4_6tx4s")
 
 [node name="UpgradeHUD" type="Control"]
 layout_mode = 3
@@ -400,7 +403,6 @@ text = "Niveau 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Arrow" type="Sprite2D" parent="."]
-position = Vector2(334, 201)
-scale = Vector2(3.4285715, 3.4285715)
-texture = ExtResource("4_6tx4s")
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_6tx4s")
