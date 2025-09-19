@@ -12,5 +12,4 @@ func _process(delta: float) -> void:
 
 
 func _on_main_menu_pressed() -> void:
-	#get_tree().change_scene_to_file()
-	pass #changer le chemin vers le fichier de la scène du menu principal
+	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")
