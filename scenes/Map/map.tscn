@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=4 uid="uid://bli8po88bo6ci"]
+[gd_scene load_steps=10 format=4 uid="uid://bli8po88bo6ci"]
 
 [ext_resource type="Script" uid="uid://77ktlgk2748d" path="res://scripts/Map/map.gd" id="2_2rm8l"]
 [ext_resource type="PackedScene" uid="uid://n3ggusxw272m" path="res://scenes/Map/utils/player_view.tscn" id="2_app3p"]
 [ext_resource type="Texture2D" uid="uid://brxd7ajeu6321" path="res://assets/sprites/TileSet/tile_set_grass.png" id="2_exngo"]
 [ext_resource type="Texture2D" uid="uid://ciotxau2s77sa" path="res://assets/sprites/TileSet/tile_set_dirt.png" id="3_2rm8l"]
-[ext_resource type="PackedScene" uid="uid://daojiiriqi2tk" path="res://scenes/Map/Entities/Units/tank_unit.tscn" id="6_ykc5i"]
 [ext_resource type="Script" uid="uid://trts1e0kexka" path="res://scenes/Map/game_manager.gd" id="7_2yrau"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2yrau"]
@@ -261,8 +260,6 @@ sources/0 = SubResource("TileSetAtlasSource_app3p")
 
 [node name="Map" type="Node2D"]
 script = ExtResource("7_2yrau")
-
-[node name="Tank_unit" parent="." instance=ExtResource("6_ykc5i")]
 
 [node name="Player_view" parent="." instance=ExtResource("2_app3p")]
 
