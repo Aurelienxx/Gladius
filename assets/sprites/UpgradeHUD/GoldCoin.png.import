@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbj6pmnlppdaf"
-path="res://.godot/imported/cotar.png-c3943e707923fa500b490a2e2bffef95.ctex"
+uid="uid://buwjevumksyvs"
+path="res://.godot/imported/GoldCoin.png-5a898297d8a85d45f04a441bde6a8fb6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/PlaceHolders/cotar.png"
-dest_files=["res://.godot/imported/cotar.png-c3943e707923fa500b490a2e2bffef95.ctex"]
+source_file="res://assets/sprites/UpgradeHUD/GoldCoin.png"
+dest_files=["res://.godot/imported/GoldCoin.png-5a898297d8a85d45f04a441bde6a8fb6.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbj6pmnlppdaf"
-path="res://.godot/imported/cotar.png-c3943e707923fa500b490a2e2bffef95.ctex"
+uid="uid://dquxkbae8djjl"
+path="res://.godot/imported/tile_set_dirt.png-63a11565156ed4603367174f2fd9ea96.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/PlaceHolders/cotar.png"
-dest_files=["res://.godot/imported/cotar.png-c3943e707923fa500b490a2e2bffef95.ctex"]
+source_file="res://assets/sprites/TileSets/tile_set_dirt.png"
+dest_files=["res://.godot/imported/tile_set_dirt.png-63a11565156ed4603367174f2fd9ea96.ctex"]
 
 [params]
 
