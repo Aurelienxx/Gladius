@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://casx0iw2asrlb"]
+[gd_scene load_steps=28 format=3 uid="uid://casx0iw2asrlb"]
 
 [ext_resource type="PackedScene" uid="uid://bk2008b5w4go1" path="res://scenes/HUD/Tank/DamageTank.tscn" id="1_rufx2"]
 [ext_resource type="PackedScene" uid="uid://b3e6m5oyvo7gb" path="res://scenes/HUD/Tank/HealthTank.tscn" id="2_gipir"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://226gkofstpj5" path="res://scenes/HUD/PlayerInfo/Profit.tscn" id="24_pmr33"]
 [ext_resource type="PackedScene" uid="uid://soyhnbcfdmn6" path="res://scenes/HUD/PlayerInfo/CurrentMoney.tscn" id="25_rlmth"]
 [ext_resource type="PackedScene" uid="uid://0qwxh71txf7f" path="res://scenes/HUD/PlayerInfo/CurrentCapacity.tscn" id="26_pmr33"]
+[ext_resource type="PackedScene" uid="uid://bw7daeog8o1ta" path="res://scenes/HUD/PlayerInfo/LifeBar.tscn" id="27_rpo1f"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -326,6 +327,14 @@ layout_mode = 2
 
 [node name="Control2" parent="PlayerInfo/CurrentStats/VBoxContainer" instance=ExtResource("26_pmr33")]
 layout_mode = 2
+
+[node name="CanvasGroup" type="CanvasGroup" parent="PlayerInfo"]
+
+[node name="Control" parent="PlayerInfo/CanvasGroup" instance=ExtResource("27_rpo1f")]
+offset_left = 28.0
+offset_top = 903.0
+offset_right = 28.0
+offset_bottom = 903.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_top = 186.0

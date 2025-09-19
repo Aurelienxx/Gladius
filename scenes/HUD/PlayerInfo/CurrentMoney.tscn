@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://soyhnbcfdmn6"]
+[gd_scene load_steps=4 format=3 uid="uid://soyhnbcfdmn6"]
 
 [ext_resource type="FontFile" uid="uid://drpljacq6mxs0" path="res://assets/sprites/HUD/Pixel Digivolve.otf" id="1_5v3k5"]
 [ext_resource type="Texture2D" uid="uid://drbryfs4ods8r" path="res://assets/sprites/HUD/Piece.png" id="1_618ca"]
+[ext_resource type="Script" uid="uid://caqvu5nlgsywp" path="res://scripts/HUD/PlayerInfo/CurrentMoney.gd" id="2_fn5dl"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -10,8 +11,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_fn5dl")
 
-[node name="Label" type="Label" parent="."]
+[node name="LabelCurrentMoney" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 23.0
 offset_top = -12.0
