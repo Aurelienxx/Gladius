@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1e4qtotfslu8"]
+[gd_scene load_steps=16 format=3 uid="uid://c1e4qtotfslu8"]
 
 [ext_resource type="Script" uid="uid://018u7ywc34y1" path="res://scenes/MainMenu/MainMenu.gd" id="1_gwiro"]
 [ext_resource type="Texture2D" uid="uid://bqof8vb4y6qk6" path="res://assets/sprites/MainMenu/BackgroundPlaceholder.png" id="2_ow34m"]
 [ext_resource type="Texture2D" uid="uid://4axkcu8dlg1g" path="res://assets/sprites/MainMenu/LogoPlaceholder.png" id="3_l72w3"]
 [ext_resource type="AudioStream" uid="uid://cims2y35r3y1l" path="res://assets/sons/MainMenu/Snare drum solo, snare drum march, snare solo, military drums.mp3" id="4_oheeu"]
 [ext_resource type="Script" uid="uid://b6b88c7mw2r88" path="res://scenes/MainMenu/AudioControl.gd" id="5_6p86p"]
+[ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="5_7j8ul"]
 [ext_resource type="Script" uid="uid://c767oe3cj6mmn" path="res://scenes/MainMenu/FullScreenControl.gd" id="5_r8q81"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gwiro"]
@@ -53,6 +54,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gwiro")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_oheeu")
+autoplay = true
+bus = &"Main menu music"
+
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -99,6 +105,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_7j8ul")
 theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
@@ -113,6 +120,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_7j8ul")
 theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
@@ -127,17 +135,13 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_7j8ul")
 theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oheeu")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 text = "Quitter le jeu"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_oheeu")
-autoplay = true
-bus = &"Main menu music"
 
 [node name="Settings" type="Panel" parent="."]
 layout_mode = 1
@@ -166,6 +170,7 @@ offset_right = 232.25806
 offset_bottom = 16.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_7j8ul")
 theme_override_font_sizes/font_size = 38
 text = "FullScreen"
 script = ExtResource("5_r8q81")
@@ -177,12 +182,13 @@ anchor_right = 1.0
 anchor_bottom = 0.187
 offset_bottom = 1.3289948
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_7j8ul")
 theme_override_font_sizes/font_size = 48
 text = "Paramètres"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Back" type="Button" parent="Settings/Label"]
+[node name="BackParameters" type="Button" parent="Settings/Label"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -200,6 +206,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_7j8ul")
 theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
@@ -227,9 +234,125 @@ value = 1.0
 script = ExtResource("5_6p86p")
 audioBusName = "Main menu music"
 
+[node name="GameChoice" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -333.7143
+offset_top = -219.0
+offset_right = 333.7143
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="JoueurContreJoueur" type="Button" parent="GameChoice"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.068
+anchor_right = 1.0
+anchor_bottom = 0.208
+offset_left = 90.714294
+offset_top = 0.2159977
+offset_right = -90.714294
+offset_bottom = -0.104003906
+grow_horizontal = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_7j8ul")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oheeu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
+text = "Joueur vs Joueur"
+
+[node name="JoueurContreIA" type="Button" parent="GameChoice"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.29000002
+anchor_right = 1.0
+anchor_bottom = 0.42900002
+offset_left = 90.714294
+offset_top = -0.020011902
+offset_right = -90.714294
+offset_bottom = 0.09799194
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_7j8ul")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oheeu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
+text = "Joueur vs IA"
+
+[node name="IAContreIA" type="Button" parent="GameChoice"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.48400003
+anchor_right = 1.0
+anchor_bottom = 0.623
+offset_left = 90.714294
+offset_top = 0.0079956055
+offset_right = -90.714294
+offset_bottom = 0.12597656
+grow_horizontal = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_7j8ul")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oheeu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
+text = "IA VS IA"
+
+[node name="BackChoice" type="Button" parent="GameChoice"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.73300004
+anchor_right = 1.0
+anchor_bottom = 0.87200004
+offset_left = 90.714294
+offset_top = -0.054016113
+offset_right = -90.714294
+offset_bottom = 0.06399536
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_7j8ul")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_46ljs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oheeu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
+text = "Revenir en arrière"
+
 [connection signal="pressed" from="Buttons/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Buttons/ParametersButton" to="." method="_on_parameters_button_pressed"]
 [connection signal="pressed" from="Buttons/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="toggled" from="Settings/FullScreenControl" to="Settings/FullScreenControl" method="_on_toggled"]
-[connection signal="pressed" from="Settings/Label/Back" to="." method="_on_back_settings_pressed"]
+[connection signal="pressed" from="Settings/Label/BackParameters" to="." method="_on_back_parameters_pressed"]
 [connection signal="value_changed" from="Settings/AudioControl" to="Settings/AudioControl" method="_on_value_changed"]
+[connection signal="pressed" from="GameChoice/JoueurContreJoueur" to="." method="_on_joueur_contre_joueur_pressed"]
+[connection signal="pressed" from="GameChoice/JoueurContreIA" to="." method="_on_joueur_contre_ia_pressed"]
+[connection signal="pressed" from="GameChoice/IAContreIA" to="." method="_on_ia_contre_ia_pressed"]
+[connection signal="pressed" from="GameChoice/BackChoice" to="." method="_on_back_choice_pressed"]
