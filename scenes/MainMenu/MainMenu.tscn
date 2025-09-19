@@ -1,9 +1,9 @@
 [gd_scene load_steps=16 format=3 uid="uid://c1e4qtotfslu8"]
 
 [ext_resource type="Script" uid="uid://018u7ywc34y1" path="res://scenes/MainMenu/MainMenu.gd" id="1_gwiro"]
+[ext_resource type="AudioStream" uid="uid://ckmhkaod7t408" path="res://assets/sons/MainMenu/Snare drum solo, snare drum march, snare solo, military drums copy.mp3" id="2_7j8ul"]
 [ext_resource type="Texture2D" uid="uid://bqof8vb4y6qk6" path="res://assets/sprites/MainMenu/BackgroundPlaceholder.png" id="2_ow34m"]
 [ext_resource type="Texture2D" uid="uid://4axkcu8dlg1g" path="res://assets/sprites/MainMenu/LogoPlaceholder.png" id="3_l72w3"]
-[ext_resource type="AudioStream" uid="uid://cims2y35r3y1l" path="res://assets/sons/MainMenu/Snare drum solo, snare drum march, snare solo, military drums.mp3" id="4_oheeu"]
 [ext_resource type="Script" uid="uid://b6b88c7mw2r88" path="res://scenes/MainMenu/AudioControl.gd" id="5_6p86p"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="5_7j8ul"]
 [ext_resource type="Script" uid="uid://c767oe3cj6mmn" path="res://scenes/MainMenu/FullScreenControl.gd" id="5_r8q81"]
@@ -55,7 +55,7 @@ grow_vertical = 2
 script = ExtResource("1_gwiro")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_oheeu")
+stream = ExtResource("2_7j8ul")
 autoplay = true
 bus = &"Main menu music"
 
