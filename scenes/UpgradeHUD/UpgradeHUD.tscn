@@ -1,14 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://bibxvdufm4ljc"]
+[gd_scene load_steps=12 format=3 uid="uid://bibxvdufm4ljc"]
 
 [ext_resource type="Texture2D" uid="uid://bhy1jpwxvygh6" path="res://assets/sprites/Entities/building/HQ_sketch.png" id="1_6la3f"]
 [ext_resource type="Texture2D" uid="uid://buwjevumksyvs" path="res://assets/sprites/UpgradeHUD/GoldCoin.png" id="1_6wnka"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_c7y0l"]
 [ext_resource type="Texture2D" uid="uid://la05tx5lpuw6" path="res://assets/sprites/UpgradeHUD/Arrow.png" id="4_6tx4s"]
+[ext_resource type="Texture2D" uid="uid://d12m6gpi5yo3x" path="res://assets/sprites/UpgradeHUD/Lock.png" id="5_4ydxa"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c7y0l"]
-bg_color = Color(0.13333334, 0.13333334, 0.13333334, 0.6784314)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6tx4s"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="Theme" id="Theme_c7y0l"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6tx4s"]
+texture = ExtResource("4_6tx4s")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4bce"]
 bg_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
@@ -24,8 +26,8 @@ texture = ExtResource("1_6la3f")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6la3f"]
 texture = ExtResource("1_6wnka")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6tx4s"]
-texture = ExtResource("4_6tx4s")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ydxa"]
+bg_color = Color(0, 0, 0, 0.6431373)
 
 [node name="UpgradeHUD" type="Control"]
 layout_mode = 3
@@ -35,26 +37,46 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Background" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1056.0
+offset_bottom = 402.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6tx4s")
+
+[node name="Arrow1" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.91600007
-anchor_bottom = 0.619
-offset_right = -0.23205566
-offset_bottom = -0.11199951
-theme_override_styles/panel = SubResource("StyleBoxFlat_c7y0l")
+anchor_left = 0.257
+anchor_top = 0.116000004
+anchor_right = 0.326
+anchor_bottom = 0.508
+offset_left = -0.06399536
+offset_top = -0.16799927
+offset_right = 0.44799805
+offset_bottom = -0.184021
+theme_override_styles/panel = SubResource("StyleBoxTexture_6tx4s")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
-layout_mode = 2
-theme = SubResource("Theme_c7y0l")
-theme_override_constants/separation = 100
+[node name="Arrow2" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.59000003
+anchor_top = 0.116000004
+anchor_right = 0.66
+anchor_bottom = 0.508
+offset_left = 0.3199463
+offset_top = -0.16799927
+offset_right = -0.32000732
+offset_bottom = -0.184021
+theme_override_styles/panel = SubResource("StyleBoxTexture_6tx4s")
 
-[node name="Level1" type="Panel" parent="PanelContainer/HBoxContainer"]
-layout_mode = 2
+[node name="Level1" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 401.0
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_u4bce")
 
-[node name="Separator1" type="ColorRect" parent="PanelContainer/HBoxContainer/Level1"]
+[node name="Separator1" type="ColorRect" parent="Level1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.14500001
@@ -64,7 +86,7 @@ offset_top = -0.14500427
 offset_bottom = -0.12000275
 color = Color(0, 0, 0, 1)
 
-[node name="Separator2" type="ColorRect" parent="PanelContainer/HBoxContainer/Level1"]
+[node name="Separator2" type="ColorRect" parent="Level1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.30100003
@@ -74,7 +96,7 @@ offset_top = 0.07498932
 offset_bottom = 0.099990845
 color = Color(0, 0, 0, 1)
 
-[node name="Separator3" type="ColorRect" parent="PanelContainer/HBoxContainer/Level1"]
+[node name="Separator3" type="ColorRect" parent="Level1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.84000003
@@ -84,7 +106,7 @@ offset_top = 0.15997314
 offset_bottom = 0.18493652
 color = Color(0, 0, 0, 1)
 
-[node name="State" type="Label" parent="PanelContainer/HBoxContainer/Level1"]
+[node name="State" type="Label" parent="Level1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -101,7 +123,7 @@ text = "Dévérouillé"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Bonus2" type="Label" parent="PanelContainer/HBoxContainer/Level1"]
+[node name="Bonus2" type="Label" parent="Level1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -118,7 +140,7 @@ text = "+ 15 / tour"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HQ1Sprite" type="Panel" parent="PanelContainer/HBoxContainer/Level1"]
+[node name="HQ1Sprite" type="Panel" parent="Level1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -133,7 +155,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_c7y0l")
 
-[node name="Coin" type="Panel" parent="PanelContainer/HBoxContainer/Level1"]
+[node name="Coin" type="Panel" parent="Level1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.008
@@ -148,7 +170,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_6la3f")
 
-[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/Level1"]
+[node name="Label" type="Label" parent="Level1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -167,12 +189,15 @@ text = "Niveau 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Level2" type="Panel" parent="PanelContainer/HBoxContainer"]
-layout_mode = 2
+[node name="Level2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 385.0
+offset_right = 670.0
+offset_bottom = 401.0
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_u4bce")
 
-[node name="Separator1" type="ColorRect" parent="PanelContainer/HBoxContainer/Level2"]
+[node name="Separator1" type="ColorRect" parent="Level2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.14500001
@@ -182,7 +207,7 @@ offset_top = -0.14500427
 offset_bottom = -0.12000275
 color = Color(0, 0, 0, 1)
 
-[node name="Separator2" type="ColorRect" parent="PanelContainer/HBoxContainer/Level2"]
+[node name="Separator2" type="ColorRect" parent="Level2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.30100003
@@ -192,7 +217,7 @@ offset_top = 0.07498932
 offset_bottom = 0.099990845
 color = Color(0, 0, 0, 1)
 
-[node name="Separator3" type="ColorRect" parent="PanelContainer/HBoxContainer/Level2"]
+[node name="Separator3" type="ColorRect" parent="Level2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.84000003
@@ -202,7 +227,7 @@ offset_top = 0.15997314
 offset_bottom = 0.18493652
 color = Color(0, 0, 0, 1)
 
-[node name="State" type="Label" parent="PanelContainer/HBoxContainer/Level2"]
+[node name="State" type="Label" parent="Level2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -219,7 +244,7 @@ text = "Dévérouillé"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Bonus2" type="Label" parent="PanelContainer/HBoxContainer/Level2"]
+[node name="Bonus2" type="Label" parent="Level2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -236,7 +261,7 @@ text = "+ 15 / tour"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HQ1Sprite" type="Panel" parent="PanelContainer/HBoxContainer/Level2"]
+[node name="HQ1Sprite" type="Panel" parent="Level2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -251,7 +276,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_c7y0l")
 
-[node name="Coin" type="Panel" parent="PanelContainer/HBoxContainer/Level2"]
+[node name="Coin" type="Panel" parent="Level2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.31300002
@@ -266,7 +291,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_6la3f")
 
-[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/Level2"]
+[node name="Label" type="Label" parent="Level2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -285,12 +310,15 @@ text = "Niveau 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Level3" type="Panel" parent="PanelContainer/HBoxContainer"]
-layout_mode = 2
+[node name="Level3" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 770.0
+offset_right = 1055.0
+offset_bottom = 401.0
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_u4bce")
 
-[node name="Separator1" type="ColorRect" parent="PanelContainer/HBoxContainer/Level3"]
+[node name="Separator1" type="ColorRect" parent="Level3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.14500001
@@ -300,7 +328,7 @@ offset_top = -0.14500427
 offset_bottom = -0.12000275
 color = Color(0, 0, 0, 1)
 
-[node name="Separator2" type="ColorRect" parent="PanelContainer/HBoxContainer/Level3"]
+[node name="Separator2" type="ColorRect" parent="Level3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.30100003
@@ -310,7 +338,7 @@ offset_top = 0.07498932
 offset_bottom = 0.099990845
 color = Color(0, 0, 0, 1)
 
-[node name="Separator3" type="ColorRect" parent="PanelContainer/HBoxContainer/Level3"]
+[node name="Separator3" type="ColorRect" parent="Level3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.84000003
@@ -320,7 +348,7 @@ offset_top = 0.15997314
 offset_bottom = 0.18493652
 color = Color(0, 0, 0, 1)
 
-[node name="State" type="Label" parent="PanelContainer/HBoxContainer/Level3"]
+[node name="State" type="Label" parent="Level3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -337,7 +365,7 @@ text = "Dévérouillé"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Bonus2" type="Label" parent="PanelContainer/HBoxContainer/Level3"]
+[node name="Bonus2" type="Label" parent="Level3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -354,7 +382,7 @@ text = "+ 15 / tour"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HQ1Sprite" type="Panel" parent="PanelContainer/HBoxContainer/Level3"]
+[node name="HQ1Sprite" type="Panel" parent="Level3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -369,7 +397,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_c7y0l")
 
-[node name="Coin" type="Panel" parent="PanelContainer/HBoxContainer/Level3"]
+[node name="Coin" type="Panel" parent="Level3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.31300002
@@ -384,7 +412,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_6la3f")
 
-[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/Level3"]
+[node name="Label" type="Label" parent="Level3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -403,6 +431,14 @@ text = "Niveau 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_6tx4s")
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.33400002
+anchor_right = 0.582
+anchor_bottom = 0.619
+offset_left = 0.23196411
+offset_right = -0.46398926
+offset_bottom = -0.11199951
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ydxa")
+icon = ExtResource("5_4ydxa")
