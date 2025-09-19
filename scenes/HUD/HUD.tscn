@@ -1,3 +1,136 @@
-[gd_scene format=3 uid="uid://bfvtbdjgnvsv6"]
+[gd_scene load_steps=12 format=3 uid="uid://casx0iw2asrlb"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://bk2008b5w4go1" path="res://scenes/HUD/Tank/DamageTank.tscn" id="1_rufx2"]
+[ext_resource type="PackedScene" uid="uid://b3e6m5oyvo7gb" path="res://scenes/HUD/Tank/HealthTank.tscn" id="2_gipir"]
+[ext_resource type="PackedScene" uid="uid://hq8x1k5kd6so" path="res://scenes/HUD/Tank/MovementTank.tscn" id="3_4undd"]
+[ext_resource type="PackedScene" uid="uid://1s83js10e5q1" path="res://scenes/HUD/Tank/RangeTank.tscn" id="4_wa322"]
+[ext_resource type="PackedScene" uid="uid://vctopn0kv32i" path="res://scenes/HUD/Infanterie/PriceInf.tscn" id="5_gsk3d"]
+[ext_resource type="Texture2D" uid="uid://dssjphch5jiwl" path="res://assets/sprites/HUD/Tank.png" id="5_wqij7"]
+[ext_resource type="PackedScene" uid="uid://cx4qn3fjnhqpb" path="res://scenes/HUD/Tank/PriceTank.tscn" id="5_ykc18"]
+[ext_resource type="PackedScene" uid="uid://7weyedg6mjud" path="res://scenes/HUD/Infanterie/DamageInf.tscn" id="7_ykc18"]
+[ext_resource type="PackedScene" uid="uid://drv50kbvft5a8" path="res://scenes/HUD/Infanterie/HealthInf.tscn" id="8_gsk3d"]
+[ext_resource type="PackedScene" uid="uid://cq3nwo6jjbnnt" path="res://scenes/HUD/Infanterie/MovementInf.tscn" id="9_147eb"]
+[ext_resource type="PackedScene" uid="uid://b2x4ijm7httya" path="res://scenes/HUD/Infanterie/RangeInf.tscn" id="10_miyln"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Infanterie" type="CanvasLayer" parent="."]
+
+[node name="CanvasGroup" type="CanvasGroup" parent="Infanterie"]
+position = Vector2(0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Infanterie/CanvasGroup"]
+offset_top = 1.0
+offset_right = 337.0
+offset_bottom = 236.0
+color = Color(0.5729883, 0.5729883, 0.5729883, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Infanterie/CanvasGroup/ColorRect2"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 51.0
+offset_right = 204.0
+offset_bottom = 223.0
+color = Color(0, 0, 0, 0.21960784)
+
+[node name="Control" type="Control" parent="Infanterie/CanvasGroup/ColorRect2"]
+anchors_preset = 0
+offset_left = 110.0
+offset_top = 19.0
+offset_right = 150.0
+offset_bottom = 59.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Infanterie/CanvasGroup/ColorRect2/Control"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 44.0
+offset_right = 168.0
+offset_bottom = 194.0
+theme_override_constants/separation = 50
+
+[node name="Damage" parent="Infanterie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("7_ykc18")]
+layout_mode = 2
+
+[node name="Health" parent="Infanterie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("8_gsk3d")]
+layout_mode = 2
+
+[node name="Movement" parent="Infanterie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("9_147eb")]
+layout_mode = 2
+
+[node name="Range" parent="Infanterie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("10_miyln")]
+layout_mode = 2
+
+[node name="Price" parent="Infanterie/CanvasGroup/ColorRect2" instance=ExtResource("5_gsk3d")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 30.0
+offset_top = 23.0
+offset_right = 70.0
+offset_bottom = 23.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Tank" type="Sprite2D" parent="Infanterie/CanvasGroup/ColorRect2"]
+position = Vector2(104, 138)
+scale = Vector2(6, 6)
+texture = ExtResource("5_wqij7")
+
+[node name="Tank" type="CanvasLayer" parent="."]
+
+[node name="CanvasGroup" type="CanvasGroup" parent="Tank"]
+position = Vector2(0, 645)
+
+[node name="ColorRect2" type="ColorRect" parent="Tank/CanvasGroup"]
+offset_top = 1.0
+offset_right = 337.0
+offset_bottom = 236.0
+color = Color(0.5729883, 0.5729883, 0.5729883, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Tank/CanvasGroup/ColorRect2"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 51.0
+offset_right = 204.0
+offset_bottom = 223.0
+color = Color(0, 0, 0, 0.21960784)
+
+[node name="Control" type="Control" parent="Tank/CanvasGroup/ColorRect2"]
+anchors_preset = 0
+offset_left = 110.0
+offset_top = 19.0
+offset_right = 150.0
+offset_bottom = 59.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tank/CanvasGroup/ColorRect2/Control"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 44.0
+offset_right = 168.0
+offset_bottom = 194.0
+theme_override_constants/separation = 50
+
+[node name="Damage" parent="Tank/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("1_rufx2")]
+layout_mode = 2
+
+[node name="Health" parent="Tank/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("2_gipir")]
+layout_mode = 2
+
+[node name="Movement" parent="Tank/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("3_4undd")]
+layout_mode = 2
+
+[node name="Range" parent="Tank/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("4_wa322")]
+layout_mode = 2
+
+[node name="Price" parent="Tank/CanvasGroup/ColorRect2" instance=ExtResource("5_ykc18")]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 23.0
+offset_right = 30.0
+offset_bottom = 23.0
+
+[node name="Tank" type="Sprite2D" parent="Tank/CanvasGroup/ColorRect2"]
+position = Vector2(104, 138)
+scale = Vector2(6, 6)
+texture = ExtResource("5_wqij7")

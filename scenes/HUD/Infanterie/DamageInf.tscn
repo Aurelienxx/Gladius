@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://7weyedg6mjud"]
+
+[ext_resource type="FontFile" uid="uid://drpljacq6mxs0" path="res://assets/sprites/HUD/Pixel Digivolve.otf" id="1_qgy5s"]
+[ext_resource type="Texture2D" uid="uid://dpg5hb1nakdcj" path="res://assets/sprites/HUD/Damage.png" id="2_ddgdo"]
+
+[sub_resource type="GDScript" id="GDScript_l4ry6"]
+
+[node name="Damage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_l4ry6")
+
+[node name="LabelDamage" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 23.0
+offset_top = -22.0
+offset_right = 41.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_qgy5s")
+theme_override_font_sizes/font_size = 32
+text = "30"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ddgdo")
