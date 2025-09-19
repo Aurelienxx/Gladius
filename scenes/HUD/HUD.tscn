@@ -1,5 +1,6 @@
-[gd_scene load_steps=28 format=3 uid="uid://casx0iw2asrlb"]
+[gd_scene load_steps=33 format=3 uid="uid://casx0iw2asrlb"]
 
+[ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
 [ext_resource type="PackedScene" uid="uid://bk2008b5w4go1" path="res://scenes/HUD/Tank/DamageTank.tscn" id="1_rufx2"]
 [ext_resource type="PackedScene" uid="uid://b3e6m5oyvo7gb" path="res://scenes/HUD/Tank/HealthTank.tscn" id="2_gipir"]
 [ext_resource type="PackedScene" uid="uid://hq8x1k5kd6so" path="res://scenes/HUD/Tank/MovementTank.tscn" id="3_4undd"]
@@ -28,7 +29,20 @@
 [ext_resource type="PackedScene" uid="uid://0qwxh71txf7f" path="res://scenes/HUD/PlayerInfo/CurrentCapacity.tscn" id="26_pmr33"]
 [ext_resource type="PackedScene" uid="uid://bw7daeog8o1ta" path="res://scenes/HUD/PlayerInfo/LifeBar.tscn" id="27_rpo1f"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbjyg"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qmbb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ygrn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l5g1i"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_kbjyg")
 
 [node name="Infanterie" type="CanvasLayer" parent="."]
 
@@ -95,6 +109,14 @@ position = Vector2(-6, 119)
 scale = Vector2(5.9999995, 5.9999995)
 texture = ExtResource("5_wqij7")
 
+[node name="ButtonInf" type="Button" parent="Infanterie/CanvasGroup/ColorRect2/Control"]
+layout_mode = 0
+offset_left = -109.99999
+offset_top = -19.999998
+offset_right = 224.99997
+offset_bottom = 214.99998
+theme_override_styles/normal = SubResource("StyleBoxFlat_kbjyg")
+
 [node name="Camion" type="CanvasLayer" parent="."]
 
 [node name="CanvasGroup" type="CanvasGroup" parent="Camion"]
@@ -153,6 +175,14 @@ offset_bottom = 8.749985
 position = Vector2(-6, 119)
 scale = Vector2(5.9999995, 5.9999995)
 texture = ExtResource("5_wqij7")
+
+[node name="ButtonCamion" type="Button" parent="Camion/CanvasGroup/ColorRect2/Control"]
+layout_mode = 0
+offset_left = -109.99999
+offset_top = -18.749985
+offset_right = 224.99997
+offset_bottom = 214.99998
+theme_override_styles/normal = SubResource("StyleBoxFlat_8qmbb")
 
 [node name="Artillerie" type="CanvasLayer" parent="."]
 
@@ -213,6 +243,14 @@ position = Vector2(-6, 119)
 scale = Vector2(5.9999995, 5.9999995)
 texture = ExtResource("5_wqij7")
 
+[node name="ButtonArtillerie" type="Button" parent="Artillerie/CanvasGroup/ColorRect2/Control"]
+layout_mode = 0
+offset_left = -109.99999
+offset_top = -18.74997
+offset_right = 226.24997
+offset_bottom = 216.24997
+theme_override_styles/normal = SubResource("StyleBoxFlat_6ygrn")
+
 [node name="Tank" type="CanvasLayer" parent="."]
 
 [node name="CanvasGroup" type="CanvasGroup" parent="Tank"]
@@ -271,6 +309,14 @@ offset_bottom = 4.0
 position = Vector2(-6, 119)
 scale = Vector2(5.9999995, 5.9999995)
 texture = ExtResource("5_wqij7")
+
+[node name="ButtonTank" type="Button" parent="Tank/CanvasGroup/ColorRect2/Control"]
+layout_mode = 0
+offset_left = -109.99999
+offset_top = -18.75
+offset_right = 226.24997
+offset_bottom = 216.25
+theme_override_styles/normal = SubResource("StyleBoxFlat_l5g1i")
 
 [node name="PlayerInfo" type="CanvasLayer" parent="."]
 
@@ -355,3 +401,8 @@ offset_bottom = 571.0
 offset_top = 376.0
 offset_right = 269.0
 offset_bottom = 381.0
+
+[connection signal="pressed" from="Infanterie/CanvasGroup/ColorRect2/Control/ButtonInf" to="." method="_on_button_inf_pressed"]
+[connection signal="pressed" from="Camion/CanvasGroup/ColorRect2/Control/ButtonCamion" to="." method="_on_button_camion_pressed"]
+[connection signal="pressed" from="Artillerie/CanvasGroup/ColorRect2/Control/ButtonArtillerie" to="." method="_on_button_artillerie_pressed"]
+[connection signal="pressed" from="Tank/CanvasGroup/ColorRect2/Control/ButtonTank" to="." method="_on_button_tank_pressed"]
