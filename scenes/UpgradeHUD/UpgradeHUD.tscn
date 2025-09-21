@@ -177,3 +177,5 @@ grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_4ydxa")
 icon = ExtResource("5_4ydxa")
 icon_alignment = 1
+
+[connection signal="pressed" from="LevelCard/Button" to="LevelCard" method="_on_button_pressed"]
