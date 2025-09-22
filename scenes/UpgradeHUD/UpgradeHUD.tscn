@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://bibxvdufm4ljc"]
 
-[ext_resource type="Script" uid="uid://40pxxvm8dvvi" path="res://scripts/UpgradeHUD/LevelCard.gd" id="1_4ydxa"]
-[ext_resource type="Texture2D" uid="uid://bauq7585fje8p" path="res://assets/sprites/EntitySprite/Buildings/HQ_sketch.png" id="1_6la3f"]
-[ext_resource type="Texture2D" uid="uid://ce2rl4e6fxvdq" path="res://assets/sprites/LevelCard/GoldCoin.png" id="1_6wnka"]
-[ext_resource type="FontFile" path="res://assets/fonts/Pixel Digivolve.otf" id="1_c7y0l"]
-[ext_resource type="Texture2D" uid="uid://xa32imtabdfa" path="res://assets/sprites/LevelCard/Lock.png" id="5_4ydxa"]
+[ext_resource type="Script" uid="uid://ccm7e26ocx2sa" path="res://scenes/UpgradeHUD/LevelCard.gd" id="1_4ydxa"]
+[ext_resource type="Texture2D" uid="uid://bhy1jpwxvygh6" path="res://assets/sprites/Entities/building/HQ_sketch.png" id="1_6la3f"]
+[ext_resource type="Texture2D" uid="uid://buwjevumksyvs" path="res://assets/sprites/UpgradeHUD/GoldCoin.png" id="1_6wnka"]
+[ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_c7y0l"]
+[ext_resource type="Texture2D" uid="uid://d12m6gpi5yo3x" path="res://assets/sprites/UpgradeHUD/Lock.png" id="5_4ydxa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4bce"]
 bg_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
