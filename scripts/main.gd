@@ -8,8 +8,10 @@ var mode: String = ""
 
 var terrain_costs = {
 	"TileMap_Dirt": 2,   # boue : coût double (50% de vitesse)
-	"TileMap_Grass": 1   # herbe : coût normal
+	"TileMap_Grass": 1,  # herbe : coût normal
 }
+
+var actual_player = 1
 
 func _ready():
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
@@ -38,11 +40,15 @@ func _on_unit_clicked(unit: CharacterBody2D):
 	highlight.clear()
 
 	if manager.is_selected:
-		var start_cell = map.local_to_map(unit.global_position)
-		var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
-		for cell in reachable_cells:
-			highlight.set_cell(cell, 0, Vector2i(1,1))
-		highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
+		if selected_unit.equipe == actual_player:
+			var start_cell = map.local_to_map(unit.global_position)
+			var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
+			for cell in reachable_cells:
+				highlight.set_cell(cell, 0, Vector2i(1,1))
+			highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
+		else: 
+			pass #ajouter des choses
+		
 
 
 
@@ -75,9 +81,11 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 		for offset in [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]:
 			var next_cell = current_pos + offset
 
+			# Vérifie que la cellule est bien sur un Tile du terrain (pas vide, pas hors map)
 			if map.get_cell_source_id(next_cell) == -1:
 				continue
 
+			# Vérifie qu'il n'y a pas déjà une unité
 			if is_cell_occupied(next_cell):
 				continue
 
@@ -124,12 +132,12 @@ func make_path(start: Vector2i, goal: Vector2i) -> Array:
 			next.y += 1
 		elif current.y > goal.y:
 			next.y -= 1
-
 		if is_cell_occupied(next) or $TileMapContainer/TileMap_Dirt.get_cell_source_id(next) == -1:
 			break
 
 		path.append(next)
 		current = next
+		
 	return path
 
 
@@ -147,3 +155,25 @@ func _unhandled_input(event):
 				var manager: Node = selected_unit.get_node("MovementManager")
 				manager.set_path(path, map)
 				highlight.clear()
+				#verify_end_turn()
+
+func next_player():
+	if actual_player == 1:
+		actual_player = 2
+	else :
+		actual_player = 1
+		
+#func verify_end_turn():
+	#for unit in all_units:
+		#if unit.equipe == actual_player and unit.movement == true and unit.attack == true:
+			#next_player()
+	#return true
+
+func _input(event):
+	if event is InputEventKey:
+		if event.keycode == KEY_SPACE and event.pressed:
+			_on_space_pressed()
+
+func _on_space_pressed():
+	print("Espace pressé !")
+	next_player()
