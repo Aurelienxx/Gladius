@@ -19,12 +19,11 @@ var lv3 = {
 	"gain": 20,
 	"lv":3,
 }
+
 func _init():
 	super("Towns", 1, 500, 30, 10, 9)
-	
-	
-	
-	func upgrade():
+
+func upgrade():
 	super.upgrade()
 	level_bonus()
 
