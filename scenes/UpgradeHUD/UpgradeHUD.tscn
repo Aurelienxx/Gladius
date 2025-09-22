@@ -1,0 +1,181 @@
+[gd_scene load_steps=10 format=3 uid="uid://bibxvdufm4ljc"]
+
+[ext_resource type="Script" uid="uid://40pxxvm8dvvi" path="res://scripts/UpgradeHUD/LevelCard.gd" id="1_4ydxa"]
+[ext_resource type="Texture2D" uid="uid://bauq7585fje8p" path="res://assets/sprites/EntitySprite/Buildings/HQ_sketch.png" id="1_6la3f"]
+[ext_resource type="Texture2D" uid="uid://ce2rl4e6fxvdq" path="res://assets/sprites/LevelCard/GoldCoin.png" id="1_6wnka"]
+[ext_resource type="FontFile" path="res://assets/fonts/Pixel Digivolve.otf" id="1_c7y0l"]
+[ext_resource type="Texture2D" uid="uid://xa32imtabdfa" path="res://assets/sprites/LevelCard/Lock.png" id="5_4ydxa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4bce"]
+bg_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c7y0l"]
+texture = ExtResource("1_6la3f")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6la3f"]
+texture = ExtResource("1_6wnka")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ydxa"]
+bg_color = Color(0, 0, 0, 0.6431373)
+
+[node name="UpgradeHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelCard" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.5
+offset_top = -200.5
+offset_right = 142.5
+offset_bottom = 200.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_u4bce")
+script = ExtResource("1_4ydxa")
+
+[node name="Separator1" type="ColorRect" parent="LevelCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.14500001
+anchor_right = 1.0
+anchor_bottom = 0.15200001
+offset_top = -0.14500427
+offset_bottom = -0.12000275
+color = Color(0, 0, 0, 1)
+
+[node name="Separator2" type="ColorRect" parent="LevelCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.30100003
+anchor_right = 1.0
+anchor_bottom = 0.30800003
+offset_top = 0.07498932
+offset_bottom = 0.099990845
+color = Color(0, 0, 0, 1)
+
+[node name="Separator3" type="ColorRect" parent="LevelCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.84000003
+anchor_right = 1.0
+anchor_bottom = 0.84700006
+offset_top = 0.15997314
+offset_bottom = 0.18493652
+color = Color(0, 0, 0, 1)
+
+[node name="State" type="Label" parent="LevelCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.007
+anchor_top = 0.0050000004
+anchor_right = 0.99300003
+anchor_bottom = 0.14500001
+offset_left = 0.004999995
+offset_top = -0.0050001144
+offset_right = -0.005004883
+offset_bottom = -0.14500427
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_c7y0l")
+text = "Dévérouillé"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bonus2" type="Label" parent="LevelCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.007
+anchor_top = 0.15200001
+anchor_right = 0.99300003
+anchor_bottom = 0.30200002
+offset_left = 0.004999995
+offset_top = 0.04799652
+offset_right = -0.005004883
+offset_bottom = -0.102005005
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_c7y0l")
+text = "+ 15 / tour"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HQ1Sprite" type="Panel" parent="LevelCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.007
+anchor_top = 0.30900002
+anchor_right = 0.99200004
+anchor_bottom = 0.84000003
+offset_left = 30.212507
+offset_top = 18.07499
+offset_right = -29.927505
+offset_bottom = -22.080017
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_c7y0l")
+
+[node name="Coin" type="Panel" parent="LevelCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.31300002
+anchor_top = 0.18100001
+anchor_right = 0.31300002
+anchor_bottom = 0.18100001
+offset_left = -24.27301
+offset_top = 0.07499695
+offset_right = -0.06300354
+offset_bottom = 23.316994
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_6la3f")
+
+[node name="Label" type="Label" parent="LevelCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.007
+anchor_top = 0.84800005
+anchor_right = 0.99300003
+anchor_bottom = 0.99500006
+offset_left = 0.004999995
+offset_top = -0.048034668
+offset_right = -0.005004883
+offset_bottom = 0.0049743652
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_c7y0l")
+text = "Niveau 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="LevelCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0050000004
+anchor_top = 0.004
+anchor_right = 0.99500006
+anchor_bottom = 1.0
+offset_left = 0.07499993
+offset_top = -0.10400009
+offset_right = -0.07501221
+offset_bottom = -1.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ydxa")
+icon = ExtResource("5_4ydxa")
+icon_alignment = 1
+
+[connection signal="pressed" from="LevelCard/Button" to="LevelCard" method="_on_button_pressed"]
