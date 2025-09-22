@@ -6,5 +6,5 @@ func _ready() -> void:
 	%LabelCurrentMoney.text = str(startValue)
 
 func updateCurrentMoney(value: int):
-	startValue += value
+	startValue = value
 	%LabelCurrentMoney.text = str(startValue)

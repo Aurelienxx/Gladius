@@ -8,6 +8,6 @@ func _ready() -> void:
 	%LabelGain.text = str(startValue)
 
 func updateGainValue(value: int):
-	startValue += value
+	startValue = value
 	%LabelGain.text = "+ " + str(startValue) + " /turn"
 	emit_signal("gain_updated", startValue)
