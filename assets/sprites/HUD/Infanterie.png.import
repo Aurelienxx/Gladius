@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4axkcu8dlg1g"
-path="res://.godot/imported/LogoPlaceholder.png-9423d4d1ec2475f410eda5bbd8f563da.ctex"
+uid="uid://gave64ibdl7x"
+path="res://.godot/imported/Infanterie.png-f544e38e7d9371ae955a821dada2b28b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/MainMenu/LogoPlaceholder.png"
-dest_files=["res://.godot/imported/LogoPlaceholder.png-9423d4d1ec2475f410eda5bbd8f563da.ctex"]
+source_file="res://assets/sprites/HUD/Infanterie.png"
+dest_files=["res://.godot/imported/Infanterie.png-f544e38e7d9371ae955a821dada2b28b.ctex"]
 
 [params]
 
