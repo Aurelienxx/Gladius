@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://n3ggusxw272m"]
+
+[ext_resource type="Script" uid="uid://iq7338i0akdh" path="res://scripts/Map/player_view.gd" id="1_7tx1p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_app3p"]
+
+[node name="Player_view" type="CharacterBody2D"]
+script = ExtResource("1_7tx1p")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+limit_left = -50
+limit_top = -50
+limit_right = 50
+limit_bottom = 50
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_app3p")
+debug_color = Color(0, 0.59575534, 0.7256819, 0.41960785)
