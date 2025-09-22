@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bli8po88bo6ci"]
+[gd_scene load_steps=14 format=4 uid="uid://bli8po88bo6ci"]
 
 [ext_resource type="Script" uid="uid://dkkr5exuxgoet" path="res://scripts/main.gd" id="1_4rr3d"]
 [ext_resource type="Script" uid="uid://77ktlgk2748d" path="res://scripts/Map/map.gd" id="2_2rm8l"]
@@ -354,9 +354,6 @@ terrain_set_0/terrain_0/name = "Autotile_Highlight"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_m76i7")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2yrau"]
-size = Vector2(74, 903.497)
-
 [node name="Map" type="Node2D"]
 script = ExtResource("1_4rr3d")
 
@@ -382,25 +379,3 @@ tile_set = SubResource("TileSet_dmbmi")
 
 [node name="PlayerUnits" type="Node2D" parent="Units"]
 script = ExtResource("6_2yrau")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="Left" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-453, -9.5)
-shape = SubResource("RectangleShape2D_2yrau")
-
-[node name="Right" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(485, -17)
-shape = SubResource("RectangleShape2D_2yrau")
-
-[node name="Top" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(12.248497, -357.0401)
-rotation = 1.5703666
-scale = Vector2(0.9999999, 0.9999999)
-shape = SubResource("RectangleShape2D_2yrau")
-
-[node name="Bottom" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(11.000001, 323.99994)
-rotation = 1.5703666
-scale = Vector2(0.9999999, 0.9999999)
-shape = SubResource("RectangleShape2D_2yrau")

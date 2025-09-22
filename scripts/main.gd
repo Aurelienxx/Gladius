@@ -3,25 +3,61 @@ extends Node2D
 var selected_unit: CharacterBody2D
 var all_units: Array = []
 
+var attack_unit: CharacterBody2D = null 
+var mode: String = ""
+
 func _ready():
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
-	for unit in $Units.get_children():
+	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
+
+	var player_units = $Units/PlayerUnits
+
+	for unit in player_units.get_children():
 		all_units.append(unit)
 
+
 func _on_unit_clicked(unit: CharacterBody2D):
+	var manager: Node = unit.get_node("MovementManager")
+
+	# Le joueur souhaite attaquer
+	if mode == "attack" and attack_unit != null and unit != attack_unit:
+		_on_unit_attack(attack_unit, unit)
+		return
+
+	# Le joueur souhaite déplacer l'unité 
 	selected_unit = unit
+	mode = "move"
+
 	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
 	var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
 	highlight.clear()
-	if unit.is_selected:
-		var start_cell = map.local_to_map(unit.global_position)
-		var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
-		for cell in reachable_cells:
-			var source_id_highlight = 0
-			var atlas_cord_highlight = Vector2i(1,1) 
-			highlight.set_cell(cell, source_id_highlight, atlas_cord_highlight)
-		highlight.set_cells_terrain_connect(reachable_cells, 0, 0,false)
 
+	if manager.is_selected:
+		var start_cell = map.local_to_map(unit.global_position)
+		var reachable_cells = get_reachable_cells(map, start_cell, manager.move_range)
+		for cell in reachable_cells:
+			highlight.set_cell(cell, 0, Vector2i(1,1))
+		highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
+
+
+
+
+
+func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
+	if target == null:
+		# Le joueur souhaite attaquer avec l'unité 
+		attack_unit = attacker
+		mode = "attack"
+	else:
+		# Le joueur souhaite attaquer l'unité 
+		
+		
+		
+		# Réinitialisation du système d'attaque
+		attack_unit = null
+		mode = ""
+
+	
 func get_reachable_cells(map: TileMapLayer, start: Vector2i, range: int) -> Array:
 	var cells = []
 	for x_offset in range(-range, range + 1):
@@ -68,5 +104,6 @@ func _unhandled_input(event):
 		var clicked_cell = map.local_to_map(mouse_pos)
 		if highlight.get_cell_source_id(clicked_cell) != -1:
 			var path = make_path(map.local_to_map(selected_unit.global_position), clicked_cell)
-			selected_unit.set_path(path, map)
+			var manager: Node = selected_unit.get_node("MovementManager")
+			manager.set_path(path, map)
 			highlight.clear()

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cc1okjsltc6ac"]
+[gd_scene load_steps=8 format=3 uid="uid://cc1okjsltc6ac"]
 
 [ext_resource type="Texture2D" uid="uid://di2aly72m3r26" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png" id="1_3x6ji"]
 [ext_resource type="Script" uid="uid://cw4n0xq4emyo6" path="res://scripts/Entities/Units/TankUnit.gd" id="1_2868h"]
 [ext_resource type="Texture2D" uid="uid://b6wlhesk6tsan" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank2.png" id="2_2868h"]
 [ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_y68kv"]
+[ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/movement_manager.gd" id="5_id60o"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y68kv"]
 animations = [{
@@ -35,3 +36,6 @@ script = ExtResource("4_y68kv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_wsick")
+
+[node name="MovementManager" type="Node" parent="."]
+script = ExtResource("5_id60o")
