@@ -21,10 +21,10 @@ var lv3 = {
 func _init():
 	super("Village", 1, 1000, 30, 10, 9)
 
-
 func upgrade():
-	super.upgrade()
+	lv=lv+1
 	level_bonus()
+
 
 func level_bonus():
 	match lv:

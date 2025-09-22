@@ -17,8 +17,8 @@ config/icon="res://assets/sprites/icon.svg"
 
 [autoload]
 
-GlobalSignal="*res://GlobalSignal/GlobalSignal.gd"
 EconomyManager="*res://scripts/Economy/EconomyManager.gd"
+GlobalSignal="*res://GlobalSignal/GlobalSignal.gd"
 
 [display]
 
