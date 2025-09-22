@@ -24,10 +24,11 @@ func _init():
 	
 	
 	
-	func upgrade():
-	super.upgrade()
+func upgrade():
+	lv=lv+1
 	level_bonus()
-
+	
+	
 func level_bonus():
 	match lv:
 		1:
