@@ -6,6 +6,11 @@ var all_units: Array = []
 var attack_unit: CharacterBody2D = null 
 var mode: String = ""
 
+var terrain_costs = {
+	"TileMap_Dirt": 2,   # boue : coût double (50% de vitesse)
+	"TileMap_Grass": 1   # herbe : coût normal
+}
+
 func _ready():
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
@@ -34,7 +39,7 @@ func _on_unit_clicked(unit: CharacterBody2D):
 
 	if manager.is_selected:
 		var start_cell = map.local_to_map(unit.global_position)
-		var reachable_cells = get_reachable_cells(map, start_cell, manager.move_range)
+		var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
 		for cell in reachable_cells:
 			highlight.set_cell(cell, 0, Vector2i(1,1))
 		highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
@@ -58,15 +63,42 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 		mode = ""
 
 	
-func get_reachable_cells(map: TileMapLayer, start: Vector2i, range: int) -> Array:
+func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
 	var cells = []
-	for x_offset in range(-range, range + 1):
-		for y_offset in range(-range, range + 1):
-			var cell = start + Vector2i(x_offset, y_offset)
-			if not cell == start and abs(x_offset) + abs(y_offset) <= range:
-				if map.get_cell_source_id(cell) != -1 and not is_cell_occupied(cell):
-					cells.append(cell)
+	var open_cells = [{ "pos": start, "cost": 0 }]
+	
+	while open_cells.size() > 0:
+		var current = open_cells.pop_front()
+		var current_pos = current["pos"]
+		var current_cost = current["cost"]
+
+		for offset in [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]:
+			var next_cell = current_pos + offset
+
+			if is_cell_occupied(next_cell):
+				continue
+
+			# Récupérer le TileMap correspondant au terrain
+			var terrain = get_terrain_at_cell(next_cell)
+			var terrain_multiplier = terrain_costs.get(terrain, 1)
+			
+			var new_cost = current_cost + terrain_multiplier
+			if new_cost <= max_range and not cells.has(next_cell):
+				cells.append(next_cell)
+				open_cells.append({ "pos": next_cell, "cost": new_cost })
+	
 	return cells
+
+func get_terrain_at_cell(cell: Vector2i) -> String:
+	var dirt_map = $TileMapContainer/TileMap_Dirt
+	var grass_map = $TileMapContainer/TileMap_Grass
+
+	if grass_map.get_cell_source_id(cell) != -1:
+		return "TileMap_Grass"
+	elif dirt_map.get_cell_source_id(cell) != -1:
+		return "TileMap_Dirt"
+	return "Unknown"
+
 
 func is_cell_occupied(cell: Vector2i) -> bool:
 	for unit in all_units:
@@ -103,7 +135,8 @@ func _unhandled_input(event):
 		var mouse_pos = get_global_mouse_position()
 		var clicked_cell = map.local_to_map(mouse_pos)
 		if highlight.get_cell_source_id(clicked_cell) != -1:
-			var path = make_path(map.local_to_map(selected_unit.global_position), clicked_cell)
-			var manager: Node = selected_unit.get_node("MovementManager")
-			manager.set_path(path, map)
-			highlight.clear()
+			if not is_cell_occupied(clicked_cell):
+				var path = make_path(map.local_to_map(selected_unit.global_position), clicked_cell)
+				var manager: Node = selected_unit.get_node("MovementManager")
+				manager.set_path(path, map)
+				highlight.clear()

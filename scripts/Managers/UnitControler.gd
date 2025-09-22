@@ -1,9 +1,9 @@
 extends Node2D
 
-@export var unit_scene : PackedScene = preload("res://scenes/Entities/TankUnit.tscn")        # ta scène d'unité (ex: res://Unit.tscn)
+@export var unit_scene : PackedScene = preload("res://scenes/Entities/Units/TankUnit.tscn")        # ta scène d'unité (ex: res://Unit.tscn)
 @export var spawn_count: int = 8            
 @export var spawn_radius: float = 100.0     # distance autour du point
-@export var randomize: bool = false         # true = positions aléatoires, false = cercle régulier
+
 
 func _ready() -> void:
 	

@@ -4,8 +4,6 @@ extends Node
 @export var area2D : Area2D 
 
 @export var move_speed: float = 200.0
-@export var move_range: int = 5
-@export var attack_range: int = 4
 
 var is_selected: bool = false
 var path: Array = []

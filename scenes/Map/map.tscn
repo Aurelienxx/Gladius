@@ -384,6 +384,15 @@ tile_set = SubResource("TileSet_dmbmi")
 script = ExtResource("6_2yrau")
 
 [node name="Walls" type="StaticBody2D" parent="."]
+visibility_layer = 2
+disable_mode = 2
+
+[node name="Top" type="CollisionShape2D" parent="Walls"]
+physics_interpolation_mode = 1
+position = Vector2(12.248497, -357.0401)
+rotation = 1.5703666
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("RectangleShape2D_2yrau")
 
 [node name="Left" type="CollisionShape2D" parent="Walls"]
 position = Vector2(-453, -9.5)
@@ -391,12 +400,6 @@ shape = SubResource("RectangleShape2D_2yrau")
 
 [node name="Right" type="CollisionShape2D" parent="Walls"]
 position = Vector2(485, -17)
-shape = SubResource("RectangleShape2D_2yrau")
-
-[node name="Top" type="CollisionShape2D" parent="Walls"]
-position = Vector2(12.248497, -357.0401)
-rotation = 1.5703666
-scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("RectangleShape2D_2yrau")
 
 [node name="Bottom" type="CollisionShape2D" parent="Walls"]
