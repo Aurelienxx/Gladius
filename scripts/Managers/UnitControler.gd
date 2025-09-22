@@ -9,6 +9,7 @@ func _ready() -> void:
 	
 	for i in range(spawn_count):
 		var unit = unit_scene.instantiate()
+		unit.setup((i%2)+1)
 		
 		var angle = 0.0
 		

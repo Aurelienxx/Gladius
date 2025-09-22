@@ -11,6 +11,8 @@ var terrain_costs = {
 	"TileMap_Grass": 1,  # herbe : coût normal
 }
 
+var actual_player = 1
+
 func _ready():
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
@@ -38,11 +40,15 @@ func _on_unit_clicked(unit: CharacterBody2D):
 	highlight.clear()
 
 	if manager.is_selected:
-		var start_cell = map.local_to_map(unit.global_position)
-		var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
-		for cell in reachable_cells:
-			highlight.set_cell(cell, 0, Vector2i(1,1))
-		highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
+		if selected_unit.equipe == actual_player:
+			var start_cell = map.local_to_map(unit.global_position)
+			var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
+			for cell in reachable_cells:
+				highlight.set_cell(cell, 0, Vector2i(1,1))
+			highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
+		else: 
+			pass #ajouter des choses
+		
 
 
 
@@ -129,6 +135,7 @@ func make_path(start: Vector2i, goal: Vector2i) -> Array:
 			break
 		path.append(next)
 		current = next
+		
 	return path
 
 func _unhandled_input(event):
@@ -145,3 +152,17 @@ func _unhandled_input(event):
 				var manager: Node = selected_unit.get_node("MovementManager")
 				manager.set_path(path, map)
 				highlight.clear()
+				verify_end_turn()
+
+func next_player():
+	if actual_player == 1:
+		actual_player = 2
+	else :
+		actual_player = 1
+		
+func verify_end_turn():
+	for unit in all_units:
+		if unit.equipe == actual_player and unit.movement == true and unit.attack == true:
+			next_player()
+	return true
+	
