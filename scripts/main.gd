@@ -8,7 +8,7 @@ var mode: String = ""
 
 var terrain_costs = {
 	"TileMap_Dirt": 2,   # boue : coût double (50% de vitesse)
-	"TileMap_Grass": 1   # herbe : coût normal
+	"TileMap_Grass": 1,  # herbe : coût normal
 }
 
 func _ready():
@@ -75,10 +75,15 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 		for offset in [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]:
 			var next_cell = current_pos + offset
 
+			# Vérifie que la cellule est bien sur un Tile du terrain (pas vide, pas hors map)
+			if map.get_cell_source_id(next_cell) == -1:
+				continue
+
+			# Vérifie qu'il n'y a pas déjà une unité
 			if is_cell_occupied(next_cell):
 				continue
 
-			# Récupérer le TileMap correspondant au terrain
+			# Récupère le type de terrain et applique son coût
 			var terrain = get_terrain_at_cell(next_cell)
 			var terrain_multiplier = terrain_costs.get(terrain, 1)
 			
@@ -120,7 +125,7 @@ func make_path(start: Vector2i, goal: Vector2i) -> Array:
 			next.y += 1
 		elif current.y > goal.y:
 			next.y -= 1
-		if is_cell_occupied(next):
+		if is_cell_occupied(next) or $TileMapContainer/TileMap_Dirt.get_cell_source_id(next) == -1:
 			break
 		path.append(next)
 		current = next
