@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4cxrrugw53mu"]
+
+[ext_resource type="Script" uid="uid://gy8ueqbl0fb7" path="res://scripts/Entities/Units/TruckUnit.gd" id="1_wsuu6"]
+[ext_resource type="Texture2D" uid="uid://of4f3lyxof7h" path="res://assets/sprites/EntitySprite/Units/Spritetruck/Truck.png" id="2_wsuu6"]
+[ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_vcqc8"]
+[ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/movement_manager.gd" id="5_4quyo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y68kv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wsuu6")
+}],
+"loop": true,
+"name": &"Truck",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsick"]
+size = Vector2(31, 27)
+
+[node name="TruckUnit" type="CharacterBody2D"]
+script = ExtResource("1_wsuu6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y68kv")
+animation = &"Truck"
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("4_vcqc8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_wsick")
+
+[node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
+script = ExtResource("5_4quyo")
+area2D = NodePath("../Area2D")
