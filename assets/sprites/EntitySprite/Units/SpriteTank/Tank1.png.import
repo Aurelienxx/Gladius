@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4axkcu8dlg1g"
-path="res://.godot/imported/LogoPlaceholder.png-9423d4d1ec2475f410eda5bbd8f563da.ctex"
+uid="uid://di2aly72m3r26"
+path="res://.godot/imported/Tank1.png-009060ad1178f731b6a81c31345e4f2e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/MainMenu/LogoPlaceholder.png"
-dest_files=["res://.godot/imported/LogoPlaceholder.png-9423d4d1ec2475f410eda5bbd8f563da.ctex"]
+source_file="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"
+dest_files=["res://.godot/imported/Tank1.png-009060ad1178f731b6a81c31345e4f2e.ctex"]
 
 [params]
 

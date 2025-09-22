@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4axkcu8dlg1g"
-path="res://.godot/imported/LogoPlaceholder.png-9423d4d1ec2475f410eda5bbd8f563da.ctex"
+uid="uid://ciotxau2s77sa"
+path="res://.godot/imported/tile_set_dirt.png-06916be3fe7c48b12d88a73b2deaa717.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/MainMenu/LogoPlaceholder.png"
-dest_files=["res://.godot/imported/LogoPlaceholder.png-9423d4d1ec2475f410eda5bbd8f563da.ctex"]
+source_file="res://assets/sprites/TileSet/tile_set_dirt.png"
+dest_files=["res://.godot/imported/tile_set_dirt.png-06916be3fe7c48b12d88a73b2deaa717.ctex"]
 
 [params]
 
