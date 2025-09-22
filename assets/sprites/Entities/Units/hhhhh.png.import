@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbj6pmnlppdaf"
-path="res://.godot/imported/cotar.png-c3943e707923fa500b490a2e2bffef95.ctex"
+uid="uid://cyw5sh635oik4"
+path="res://.godot/imported/hhhhh.png-007528c21415c73f454ff3e0ee2c3d08.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/PlaceHolders/cotar.png"
-dest_files=["res://.godot/imported/cotar.png-c3943e707923fa500b490a2e2bffef95.ctex"]
+source_file="res://assets/sprites/Entities/Units/hhhhh.png"
+dest_files=["res://.godot/imported/hhhhh.png-007528c21415c73f454ff3e0ee2c3d08.ctex"]
 
 [params]
 

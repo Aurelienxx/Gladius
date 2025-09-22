@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbj6pmnlppdaf"
-path="res://.godot/imported/cotar.png-c3943e707923fa500b490a2e2bffef95.ctex"
+uid="uid://nskcssj0r5dq"
+path="res://.godot/imported/HQ_sketch.png-11aa8aae89ccb146bb8277ed51b4cf3b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/PlaceHolders/cotar.png"
-dest_files=["res://.godot/imported/cotar.png-c3943e707923fa500b490a2e2bffef95.ctex"]
+source_file="res://assets/sprites/Entities/building/HQ_sketch.png"
+dest_files=["res://.godot/imported/HQ_sketch.png-11aa8aae89ccb146bb8277ed51b4cf3b.ctex"]
 
 [params]
 

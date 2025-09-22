@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbj6pmnlppdaf"
-path="res://.godot/imported/cotar.png-c3943e707923fa500b490a2e2bffef95.ctex"
+uid="uid://pci525og0whd"
+path="res://.godot/imported/Tank.png-e3acc868e9d0c647d2ebd7abba8e9264.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/PlaceHolders/cotar.png"
-dest_files=["res://.godot/imported/cotar.png-c3943e707923fa500b490a2e2bffef95.ctex"]
+source_file="res://assets/sprites/Entities/Units/Tank.png"
+dest_files=["res://.godot/imported/Tank.png-e3acc868e9d0c647d2ebd7abba8e9264.ctex"]
 
 [params]
 
