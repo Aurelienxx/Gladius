@@ -75,10 +75,13 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 		for offset in [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]:
 			var next_cell = current_pos + offset
 
+			if map.get_cell_source_id(next_cell) == -1:
+				continue
+
 			if is_cell_occupied(next_cell):
 				continue
 
-			# Récupérer le TileMap correspondant au terrain
+			# Récupère le type de terrain et applique son coût
 			var terrain = get_terrain_at_cell(next_cell)
 			var terrain_multiplier = terrain_costs.get(terrain, 1)
 			
@@ -88,6 +91,7 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 				open_cells.append({ "pos": next_cell, "cost": new_cost })
 	
 	return cells
+
 
 func get_terrain_at_cell(cell: Vector2i) -> String:
 	var dirt_map = $TileMapContainer/TileMap_Dirt
@@ -120,11 +124,14 @@ func make_path(start: Vector2i, goal: Vector2i) -> Array:
 			next.y += 1
 		elif current.y > goal.y:
 			next.y -= 1
-		if is_cell_occupied(next):
+
+		if is_cell_occupied(next) or $TileMapContainer/TileMap_Dirt.get_cell_source_id(next) == -1:
 			break
+
 		path.append(next)
 		current = next
 	return path
+
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
