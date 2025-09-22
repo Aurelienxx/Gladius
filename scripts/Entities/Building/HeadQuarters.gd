@@ -2,20 +2,20 @@ extends Building
 class_name HeadQuarters
 
 var current_gain = 0
-var lv1 = {
+var HQ1 = {
 	"name":"QG",
 	"attack": 15,
 	"gain": 15,
 	"lv":1,
 }
-var lv2 = {
+var HQ2 = {
 	"name":"QG",
 	"attack": 15,
 	"cost": 125,
 	"gain": 25,
 	"lv":2,
 }
-var lv3 = {
+var HQ3 = {
 	"name":"QG",
 	"attack": 15,
 	"cost": 150,

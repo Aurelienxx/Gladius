@@ -78,7 +78,7 @@ offset_top = 0.15997314
 offset_bottom = 0.18493652
 color = Color(0, 0, 0, 1)
 
-[node name="State" type="Label" parent="LevelCard"]
+[node name="Name" type="Label" parent="LevelCard"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -91,7 +91,7 @@ offset_right = -0.005004883
 offset_bottom = -0.14500427
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_c7y0l")
-text = "Dévérouillé"
+text = "QG 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 

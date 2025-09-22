@@ -1,18 +1,18 @@
 extends Building
 class_name Towns
 
-var lv1 = {
+var Town1 = {
 	"name":"Town",
 	"gain": 15,
 	"lv":1,
 }
-var lv2 = {
+var Town2 = {
 	"name":"Town",
 	"cost": 85,
 	"gain": 18,
 	"lv":2,
 }
-var lv3 = {
+var Town3 = {
 	"name":"Town",
 	"attack": 15,
 	"cost": 100,

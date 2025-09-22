@@ -1,17 +1,17 @@
 extends Building
 class_name Villages
-var lv1 = {
+var Vlg1 = {
 	"name":"Village",
 	"gain": 10,
 	"lv":1,
 }
-var lv2 = {
+var Vlg2 = {
 	"name":"Village",
 	"cost": 65,
 	"gain": 13,
 	"lv":2,
 }
-var lv3 = {
+var Vlg3 = {
 	"name":"Village",
 	"attack": 15,
 	"cost": 80,
