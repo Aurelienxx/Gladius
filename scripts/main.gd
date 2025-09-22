@@ -40,7 +40,7 @@ func _on_unit_clicked(unit: CharacterBody2D):
 	highlight.clear()
 
 	if manager.is_selected:
-		if selected_unit.equipe == actual_player:
+		if selected_unit.equipe == actual_player and selected_unit.movement == false:
 			var start_cell = map.local_to_map(unit.global_position)
 			var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
 			for cell in reachable_cells:
@@ -49,10 +49,6 @@ func _on_unit_clicked(unit: CharacterBody2D):
 		else: 
 			pass #ajouter des choses
 		
-
-
-
-
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	if target == null:
@@ -100,7 +96,6 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 	
 	return cells
 
-
 func get_terrain_at_cell(cell: Vector2i) -> String:
 	var dirt_map = $TileMapContainer/TileMap_Dirt
 	var grass_map = $TileMapContainer/TileMap_Grass
@@ -134,12 +129,10 @@ func make_path(start: Vector2i, goal: Vector2i) -> Array:
 			next.y -= 1
 		if is_cell_occupied(next) or $TileMapContainer/TileMap_Dirt.get_cell_source_id(next) == -1:
 			break
-
 		path.append(next)
 		current = next
 		
 	return path
-
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -155,25 +148,35 @@ func _unhandled_input(event):
 				var manager: Node = selected_unit.get_node("MovementManager")
 				manager.set_path(path, map)
 				highlight.clear()
-				#verify_end_turn()
+				selected_unit.movement = true
+				verify_end_turn()
 
 func next_player():
 	if actual_player == 1:
 		actual_player = 2
+		for unit in all_units:
+			if unit.equipe == 2:
+				unit.movement = false
+				unit.attack = false
 	else :
 		actual_player = 1
+		for unit in all_units:
+			if unit.equipe == 1:
+				unit.movement = false
+				unit.attack = false
 		
-#func verify_end_turn():
-	#for unit in all_units:
-		#if unit.equipe == actual_player and unit.movement == true and unit.attack == true:
-			#next_player()
-	#return true
+func verify_end_turn():
+	var i = 0
+	for unit in all_units:
+		if unit.equipe == actual_player and unit.movement == false: #and unit.attack == true
+			i = 1
+	if i == 0:
+		next_player()
 
 func _input(event):
 	if event is InputEventKey:
-		if event.keycode == KEY_SPACE and event.pressed:
-			_on_space_pressed()
+		if event.keycode == KEY_ENTER and event.pressed:
+			_on_enter_pressed()
 
-func _on_space_pressed():
-	print("Espace pressé !")
+func _on_enter_pressed():
 	next_player()
