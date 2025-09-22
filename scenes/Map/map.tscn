@@ -1,11 +1,11 @@
 [gd_scene load_steps=15 format=4 uid="uid://bli8po88bo6ci"]
 
-[ext_resource type="Script" uid="uid://dkkr5exuxgoet" path="res://scripts/main.gd" id="1_4rr3d"]
+[ext_resource type="Script" uid="uid://bsgqqschj1jqm" path="res://scripts/main.gd" id="1_4rr3d"]
 [ext_resource type="Script" uid="uid://77ktlgk2748d" path="res://scripts/Map/map.gd" id="2_2rm8l"]
 [ext_resource type="PackedScene" uid="uid://n3ggusxw272m" path="res://scenes/Map/utils/player_view.tscn" id="2_app3p"]
 [ext_resource type="Texture2D" uid="uid://brxd7ajeu6321" path="res://assets/sprites/TileSet/tile_set_grass.png" id="2_exngo"]
 [ext_resource type="Texture2D" uid="uid://ciotxau2s77sa" path="res://assets/sprites/TileSet/tile_set_dirt.png" id="3_2rm8l"]
-[ext_resource type="Script" uid="uid://cw3ty15gjfhmy" path="res://scripts/Managers/UnitControler.gd" id="6_2yrau"]
+[ext_resource type="Script" uid="uid://dlni02mxt13sj" path="res://scripts/Managers/UnitControler.gd" id="6_2yrau"]
 [ext_resource type="Texture2D" uid="uid://cbikwlq1608wg" path="res://assets/sprites/TileSet/tile_set_highlight.png" id="6_57bgo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2yrau"]
@@ -393,16 +393,24 @@ position = Vector2(12.248497, -357.0401)
 rotation = 1.5703666
 scale = Vector2(0.9999998, 0.9999998)
 shape = SubResource("RectangleShape2D_2yrau")
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 
-[node name="Left" type="CollisionShape2D" parent="Walls"]
+[node name="Left" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-453, -9.5)
 shape = SubResource("RectangleShape2D_2yrau")
 
-[node name="Right" type="CollisionShape2D" parent="Walls"]
+[node name="Right" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(485, -17)
 shape = SubResource("RectangleShape2D_2yrau")
 
 [node name="Bottom" type="CollisionShape2D" parent="Walls"]
+[node name="Top" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(12.248497, -357.0401)
+rotation = 1.5703666
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("RectangleShape2D_2yrau")
+
+[node name="Bottom" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(11.000001, 323.99994)
 rotation = 1.5703666
 scale = Vector2(0.9999999, 0.9999999)

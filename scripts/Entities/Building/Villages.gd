@@ -1,17 +1,18 @@
 extends Building
 class_name Villages
-var lv1 = {
+var current_gain = 0
+var Vlg1 = {
 	"name":"Village",
 	"gain": 10,
 	"lv":1,
 }
-var lv2 = {
+var Vlg2 = {
 	"name":"Village",
 	"cost": 65,
 	"gain": 13,
 	"lv":2,
 }
-var lv3 = {
+var Vlg3 = {
 	"name":"Village",
 	"attack": 15,
 	"cost": 80,
@@ -21,20 +22,20 @@ var lv3 = {
 func _init():
 	super("Village", 1, 1000, 30, 10, 9)
 
-
 func upgrade():
-	super.upgrade()
+	lv=lv+1
 	level_bonus()
+
 
 func level_bonus():
 	match lv:
 		1:
-			Economy_Manager.change_money_gain(0,10)
+			current_gain=EconomyManager.change_money_gain(current_gain,10)
 		2:
-			Economy_Manager.change_money_gain(10,3)
-			damage += 5
+			current_gain=EconomyManager.change_money_gain(current_gain,13)
+			attack += 5
 			attack_range += 3
 		3:
-			Economy_Manager.change_money_gain(13,2)
-			damage += 10
+			current_gain=EconomyManager.change_money_gain(current_gain,15)
+			attack += 10
 			attack_range += 5
