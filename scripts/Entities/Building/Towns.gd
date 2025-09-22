@@ -1,6 +1,6 @@
 extends Building
 class_name Towns
-
+var current_gain =0
 var lv1 = {
 	"name":"Town",
 	"gain": 15,
@@ -27,17 +27,15 @@ func _init():
 func upgrade():
 	lv=lv+1
 	level_bonus()
-	
-	
 func level_bonus():
 	match lv:
 		1:
-			Economy_Manager.change_money_gain(0,15)
+			current_gain=EconomyManager.change_money_gain(current_gain,15)
 		2:
-			Economy_Manager.change_money_gain(15,3)
-			damage += 5
+			current_gain=EconomyManager.change_money_gain(current_gain,18)
+			attack += 5
 			attack_range += 3
 		3:
-			Economy_Manager.change_money_gain(18,2)
-			damage += 10
+			current_gain=EconomyManager.change_money_gain(current_gain,20)
+			attack += 10
 			attack_range += 5
