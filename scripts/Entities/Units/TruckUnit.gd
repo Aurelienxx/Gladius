@@ -7,6 +7,8 @@ extends CharacterBody2D
 @export var damage: int = 30
 @export var move_range: int = 10
 @export var attack_range: int = 3  
+@export var movement: bool = false
+@export var attack: bool = false
 
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int
