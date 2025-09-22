@@ -152,7 +152,7 @@ func _unhandled_input(event):
 				var manager: Node = selected_unit.get_node("MovementManager")
 				manager.set_path(path, map)
 				highlight.clear()
-				verify_end_turn()
+				#verify_end_turn()
 
 func next_player():
 	if actual_player == 1:
@@ -160,9 +160,17 @@ func next_player():
 	else :
 		actual_player = 1
 		
-func verify_end_turn():
-	for unit in all_units:
-		if unit.equipe == actual_player and unit.movement == true and unit.attack == true:
-			next_player()
-	return true
-	
+#func verify_end_turn():
+	#for unit in all_units:
+		#if unit.equipe == actual_player and unit.movement == true and unit.attack == true:
+			#next_player()
+	#return true
+
+func _input(event):
+	if event is InputEventKey:
+		if event.keycode == KEY_SPACE and event.pressed:
+			_on_space_pressed()
+
+func _on_space_pressed():
+	print("Espace pressé !")
+	next_player()
