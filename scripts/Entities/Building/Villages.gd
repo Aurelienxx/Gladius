@@ -1,6 +1,23 @@
 extends Building
 class_name Villages
-
+var lv1 = {
+	"name":"Village",
+	"gain": 10,
+	"lv":1,
+}
+var lv2 = {
+	"name":"Village",
+	"cost": 65,
+	"gain": 13,
+	"lv":2,
+}
+var lv3 = {
+	"name":"Village",
+	"attack": 15,
+	"cost": 80,
+	"gain": 15,
+	"lv":3,
+}
 func _init():
 	super("Village", 1, 1000, 30, 10, 9)
 
