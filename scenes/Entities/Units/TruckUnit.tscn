@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c4cxrrugw53mu"]
 
-[ext_resource type="Script" uid="uid://gy8ueqbl0fb7" path="res://scripts/Entities/Units/truck_unit.gd" id="1_wsuu6"]
+[ext_resource type="Script" uid="uid://gy8ueqbl0fb7" path="res://scripts/Entities/Units/TruckUnit.gd" id="1_wsuu6"]
 [ext_resource type="Texture2D" uid="uid://of4f3lyxof7h" path="res://assets/sprites/EntitySprite/Units/Spritetruck/Truck.png" id="2_wsuu6"]
 [ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_vcqc8"]
 [ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/movement_manager.gd" id="5_4quyo"]

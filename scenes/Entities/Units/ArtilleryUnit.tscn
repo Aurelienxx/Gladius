@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cnywfqbg0wjpb"]
 
-[ext_resource type="Script" uid="uid://o5smydf2bdkc" path="res://scripts/Entities/Units/artillery_unit.gd" id="1_wso3m"]
+[ext_resource type="Script" uid="uid://o5smydf2bdkc" path="res://scripts/Entities/Units/ArtilleryUnit.gd" id="1_wso3m"]
 [ext_resource type="Texture2D" uid="uid://c6rdyxchrqn34" path="res://assets/sprites/EntitySprite/Units/SpriteArtillery/artillery.png" id="2_wso3m"]
 [ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_srvsw"]
 [ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/movement_manager.gd" id="5_36nl8"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dogkmflijdlsd"]
 
-[ext_resource type="Script" uid="uid://c6k1n0k2eqnby" path="res://scripts/Entities/Units/infantry.gd" id="1_ul1d2"]
+[ext_resource type="Script" uid="uid://c6k1n0k2eqnby" path="res://scripts/Entities/Units/InfantryUnit.gd" id="1_ul1d2"]
 [ext_resource type="Texture2D" uid="uid://b57xl0qudkskl" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Infantry_1.png" id="2_6on2y"]
 [ext_resource type="Texture2D" uid="uid://di2aly72m3r26" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png" id="2_ul1d2"]
 [ext_resource type="Texture2D" uid="uid://b6wlhesk6tsan" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank2.png" id="3_6on2y"]
