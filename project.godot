@@ -11,26 +11,5 @@ config_version=5
 [application]
 
 config/name="GLADIUS"
-<<<<<<< HEAD
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://assets/sprites/icon.svg"
-=======
-run/main_scene="uid://cjrpfy8gcaf1y"
-config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://assets/sprites/icon.svg"
-
-[autoload]
-
-GlobalSignal="*res://GlobalSignal/GlobalSignal.gd"
-EconomyManager="*res://scripts/Economy/EconomyManager.gd"
-
-[display]
-
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/size/mode=2
-
-[rendering]
-
-textures/canvas_textures/default_texture_filter=0
->>>>>>> unites
