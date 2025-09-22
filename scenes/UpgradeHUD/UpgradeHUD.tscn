@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://40pxxvm8dvvi" path="res://scripts/UpgradeHUD/LevelCard.gd" id="1_4ydxa"]
 [ext_resource type="Texture2D" uid="uid://bauq7585fje8p" path="res://assets/sprites/EntitySprite/Buildings/HQ_sketch.png" id="1_6la3f"]
 [ext_resource type="Texture2D" uid="uid://ce2rl4e6fxvdq" path="res://assets/sprites/LevelCard/GoldCoin.png" id="1_6wnka"]
-[ext_resource type="FontFile" path="res://assets/fonts/Pixel Digivolve.otf" id="1_c7y0l"]
+[ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_c7y0l"]
 [ext_resource type="Texture2D" uid="uid://xa32imtabdfa" path="res://assets/sprites/LevelCard/Lock.png" id="5_4ydxa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4bce"]
