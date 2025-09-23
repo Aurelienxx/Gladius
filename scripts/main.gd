@@ -24,14 +24,11 @@ func _ready():
 
 
 func _on_unit_clicked(unit: CharacterBody2D):
-	var manager: Node = unit.get_node("MovementManager")
-
-	# Le joueur souhaite attaquer
 	if mode == "attack" and attack_unit != null and unit != attack_unit:
 		_on_unit_attack(attack_unit, unit)
 		return
 
-	# Le joueur souhaite déplacer l'unité 
+	var manager: Node = unit.get_node("MovementManager")
 	selected_unit = unit
 	mode = "move"
 
@@ -46,23 +43,51 @@ func _on_unit_clicked(unit: CharacterBody2D):
 			for cell in reachable_cells:
 				highlight.set_cell(cell, 0, Vector2i(1,1))
 			highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
-		else: 
-			pass #ajouter des choses
-		
+		else:
+			pass
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
+	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
+
 	if target == null:
-		# Le joueur souhaite attaquer avec l'unité 
+		if attacker.equipe != actual_player or attacker.attack == true:
+			return
+
 		attack_unit = attacker
 		mode = "attack"
-	else:
-		# Le joueur souhaite attaquer l'unité 
-		
-		
-		
-		# Réinitialisation du système d'attaque
-		attack_unit = null
-		mode = ""
+
+		# Affiche la zone d'attaque
+		var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
+		highlight.clear()
+
+		var start_cell = map.local_to_map(attacker.global_position)
+		var attack_cells = get_attack_cells(map, start_cell, attacker.attack_range)
+		for cell in attack_cells:
+			highlight.set_cell(cell, 0, Vector2i(2,2))
+		highlight.set_cells_terrain_connect(attack_cells, 0, 0, false)
+		return
+
+	if target.equipe != attacker.equipe:
+		var start_cell = map.local_to_map(attacker.global_position)
+		var target_cell = map.local_to_map(target.global_position)
+
+		if start_cell.distance_to(target_cell) <= attacker.attack_range:
+			target.current_hp -= attacker.damage
+			print("%s attaque %s pour %d dégâts" % [attacker.name, target.name, attacker.damage])
+			attacker.attack = true
+			attacker.movement = true
+
+			if target.current_hp <= 0:
+				all_units.erase(target)
+				target.queue_free()
+
+	attack_unit = null
+	mode = ""
+	$TileMapContainer/TileMap_Highlight.clear()
+	verify_end_turn()
+
+
+
 
 	
 func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
@@ -77,24 +102,30 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 		for offset in [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]:
 			var next_cell = current_pos + offset
 
-			# Vérifie que la cellule est bien sur un Tile du terrain (pas vide, pas hors map)
-			if map.get_cell_source_id(next_cell) == -1:
-				continue
-
-			# Vérifie qu'il n'y a pas déjà une unité
-			if is_cell_occupied(next_cell):
+			# Vérifie que la cellule est bien sur un Tile du terrain et qu'il n'y a pas déjà une unité
+			if map.get_cell_source_id(next_cell) == -1 and is_cell_occupied(next_cell):
 				continue
 
 			# Récupère le type de terrain et applique son coût
 			var terrain = get_terrain_at_cell(next_cell)
 			var terrain_multiplier = terrain_costs.get(terrain, 1)
-			
 			var new_cost = current_cost + terrain_multiplier
 			if new_cost <= max_range and not cells.has(next_cell):
 				cells.append(next_cell)
 				open_cells.append({ "pos": next_cell, "cost": new_cost })
 	
 	return cells
+
+func get_attack_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
+	var cells = []
+	for x in range(-max_range, max_range + 1):
+		for y in range(-max_range, max_range + 1):
+			var cell = start + Vector2i(x, y)
+			if start.distance_to(cell) <= max_range:
+				if map.get_cell_source_id(cell) != -1:
+					cells.append(cell)
+	return cells
+
 
 func get_terrain_at_cell(cell: Vector2i) -> String:
 	var dirt_map = $TileMapContainer/TileMap_Dirt
@@ -136,6 +167,10 @@ func make_path(start: Vector2i, goal: Vector2i) -> Array:
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if mode == "attack":
+			return
+
+		# Déplacement uniquement si on n’est pas en mode attaque
 		if selected_unit == null:
 			return
 		var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
@@ -150,6 +185,7 @@ func _unhandled_input(event):
 				highlight.clear()
 				selected_unit.movement = true
 				verify_end_turn()
+
 
 func next_player():
 	if actual_player == 1:
@@ -168,10 +204,11 @@ func next_player():
 func verify_end_turn():
 	var i = 0
 	for unit in all_units:
-		if unit.equipe == actual_player and unit.movement == false: #and unit.attack == true
+		if unit.equipe == actual_player and unit.movement == false and unit.attack == false :
 			i = 1
 	if i == 0:
 		next_player()
+		print("C'est au tour de l'équipe : ", actual_player)
 
 func _input(event):
 	if event is InputEventKey:
