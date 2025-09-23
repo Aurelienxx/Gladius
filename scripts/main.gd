@@ -202,18 +202,46 @@ func next_player():
 				unit.attack = false
 		
 func verify_end_turn():
-	var i = 0
+	var all_done = true
 	for unit in all_units:
-		if unit.equipe == actual_player and unit.movement == false and unit.attack == false :
-			i = 1
-	if i == 0:
+		if unit.equipe == actual_player and (unit.movement == false or unit.attack == false):
+			all_done = false
+			break
+
+	if all_done:
 		next_player()
 		print("C'est au tour de l'équipe : ", actual_player)
+
+
+func quick_select():
+	var moved = false
+	for unit in all_units:
+		if unit.equipe == actual_player and unit.movement == false:
+			var manager: Node = unit.get_node("MovementManager")
+			manager.is_selected = true
+			_on_unit_clicked(unit)
+			moved = true
+			break 
+
+	if not moved:
+		for unit in all_units:
+			if unit.equipe == actual_player and unit.attack == false:
+				_on_unit_attack(unit, null)
+				break
+
+
+
+			
 
 func _input(event):
 	if event is InputEventKey:
 		if event.keycode == KEY_ENTER and event.pressed:
 			_on_enter_pressed()
+		elif event.keycode == KEY_SPACE and event.pressed:
+			_on_space_pressed()
 
 func _on_enter_pressed():
 	next_player()
+	
+func _on_space_pressed():
+	quick_select()
