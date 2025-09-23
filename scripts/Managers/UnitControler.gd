@@ -7,16 +7,15 @@ extends Node2D
 
 
 func _ready() -> void:
-	
 	for i in range(spawn_count):
 			var angle = float(i) / spawn_count * TAU   # répartis en cercle
 			var offset = Vector2(cos(angle), sin(angle)) * spawn_radius
 
 			if i % 2 == 0:
 				var tank = unit_tank.instantiate()
-				tank.setup(1)  # équipe 1
-				tank.position = position + offset
 				add_child(tank)
+				tank.setup(1)
+				tank.position = position + offset
 			else:
 				var infantry = unit_infantry.instantiate()
 				infantry.setup(2)  # équipe 2
