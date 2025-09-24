@@ -2,6 +2,7 @@ extends Node2D
 
 var selected_unit: CharacterBody2D
 var all_units: Array = []
+var all_buildings: Array = []
 
 var attack_unit: CharacterBody2D = null 
 var mode: String = ""
@@ -17,38 +18,35 @@ func _ready():
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
 
-	var player_units = $Units/PlayerUnits
 
-	for unit in player_units.get_children():
-		all_units.append(unit)
+	all_units = get_tree().get_nodes_in_group("units")
+	all_buildings = get_tree().get_nodes_in_group("buildings")
 
 
 func _on_unit_clicked(unit: CharacterBody2D):
 	if mode == "attack" and attack_unit != null and unit != attack_unit:
 		_on_unit_attack(attack_unit, unit)
 		return
+	if not  unit.is_in_group("buildings"):
+		var manager: Node = unit.get_node("MovementManager")
+		selected_unit = unit
+		mode = "move"
 
-	var manager: Node = unit.get_node("MovementManager")
-	selected_unit = unit
-	mode = "move"
+		var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
+		var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
+		highlight.clear()
 
-	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
-	var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
-	highlight.clear()
-
-	if manager.is_selected:
-		if selected_unit.equipe == actual_player and selected_unit.movement == false:
-			var start_cell = map.local_to_map(unit.global_position)
-			var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
-			for cell in reachable_cells:
-				highlight.set_cell(cell, 0, Vector2i(1,1))
-			highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
-		else:
-			pass
+		if manager.is_selected:
+			if selected_unit.equipe == actual_player and selected_unit.movement == false:
+				var start_cell = map.local_to_map(unit.global_position)
+				var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
+				for cell in reachable_cells:
+					highlight.set_cell(cell, 0, Vector2i(0,0))
+			else:
+				pass
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
-
 	if target == null:
 		if attacker.equipe != actual_player or attacker.attack == true:
 			return
@@ -63,11 +61,11 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 		var start_cell = map.local_to_map(attacker.global_position)
 		var attack_cells = get_attack_cells(map, start_cell, attacker.attack_range)
 		for cell in attack_cells:
-			highlight.set_cell(cell, 0, Vector2i(2,2))
-		highlight.set_cells_terrain_connect(attack_cells, 0, 0, false)
+			highlight.set_cell(cell, 0, Vector2i(0,0), 0)
 		return
-
+		
 	if target.equipe != attacker.equipe:
+		print(attacker, " attaque ", target)
 		var start_cell = map.local_to_map(attacker.global_position)
 		var target_cell = map.local_to_map(target.global_position)
 
@@ -137,13 +135,37 @@ func get_terrain_at_cell(cell: Vector2i) -> String:
 		return "TileMap_Dirt"
 	return "Unknown"
 
+func get_occupied_cells(unit: CharacterBody2D) -> Array:
+	var cells = []
+	var map = $TileMapContainer/TileMap_Dirt
+	var center_cell = map.local_to_map(unit.global_position)
+
+	var size_x = 1
+	var size_y = 1
+	if "size_x" in unit:
+		size_x = unit.size_x
+	if "size_y" in unit:
+		size_y = unit.size_y
+
+	for x in range(size_x):
+		for y in range(size_y):
+			var offset = Vector2i(x - size_x / 2, y - size_y / 2)
+			cells.append(center_cell + offset)
+
+	return cells
+
 
 func is_cell_occupied(cell: Vector2i) -> bool:
 	for unit in all_units:
-		var unit_cell = $TileMapContainer/TileMap_Dirt.local_to_map(unit.global_position)
-		if unit_cell == cell:
+		var occupied = get_occupied_cells(unit)
+		if cell in occupied:
+			return true
+	for unit in all_buildings:
+		var occupied = get_occupied_cells(unit)
+		if cell in occupied:
 			return true
 	return false
+
 
 func make_path(start: Vector2i, goal: Vector2i) -> Array:
 	var path: Array = []

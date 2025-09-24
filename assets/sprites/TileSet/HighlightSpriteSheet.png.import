@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbikwlq1608wg"
-path="res://.godot/imported/tile_set_highlight.png-f9017210c1c7057081516a412558f4b3.ctex"
+uid="uid://4545fuvmbm6m"
+path="res://.godot/imported/HighlightSpriteSheet.png-171f50dd02241480e19b8da7b7e718d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/TileSet/tile_set_highlight.png"
-dest_files=["res://.godot/imported/tile_set_highlight.png-f9017210c1c7057081516a412558f4b3.ctex"]
+source_file="res://assets/sprites/TileSet/HighlightSpriteSheet.png"
+dest_files=["res://.godot/imported/HighlightSpriteSheet.png-171f50dd02241480e19b8da7b7e718d9.ctex"]
 
 [params]
 
