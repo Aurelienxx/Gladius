@@ -15,4 +15,5 @@ var current_hp: int
 var equipe: int
 
 func setup(_equipe: int) -> void:
+	equipe = _equipe
 	current_hp = max_hp

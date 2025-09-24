@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GLADIUS"
-run/main_scene="uid://dsdfrj6xjdqml"
+run/main_scene="uid://cjrpfy8gcaf1y"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://assets/sprites/icon.svg"
 
@@ -24,6 +24,7 @@ EconomyManager="*res://scripts/Economy/EconomyManager.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=2
 
 [rendering]
 
