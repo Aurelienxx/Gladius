@@ -20,6 +20,7 @@ func _ready():
 	couleur = $AnimatedSprite2D/PointLight2D
 
 func setup(_equipe: int) -> void:
+	equipe = _equipe
 	current_hp = max_hp
 	if (_equipe == 1):
 		couleur.color = Color(0, 0, 1, 0.5)
