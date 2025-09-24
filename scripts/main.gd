@@ -32,9 +32,29 @@ func _on_unit_clicked(unit: CharacterBody2D):
 		selected_unit = unit
 		mode = "move"
 
+<<<<<<< Updated upstream
 		var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
 		var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
 		highlight.clear()
+=======
+	# Le joueur souhaite déplacer l'unité 
+	selected_unit = unit
+	mode = "move"
+
+	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
+	var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
+	highlight.clear()
+
+	if manager.is_selected:
+		if selected_unit.equipe == actual_player:
+			var start_cell = map.local_to_map(unit.global_position)
+			var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
+			for cell in reachable_cells:
+				highlight.set_cell(cell, 0, Vector2i(1,1))
+			highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
+		else: 
+			pass #ajouter des choses
+>>>>>>> Stashed changes
 
 		if manager.is_selected:
 			if selected_unit.equipe == actual_player and selected_unit.movement == false:
@@ -64,6 +84,7 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 			highlight.set_cell(cell, 0, Vector2i(0,0), 0)
 		return
 		
+<<<<<<< Updated upstream
 	if target.equipe != attacker.equipe:
 		print(attacker, " attaque ", target)
 		var start_cell = map.local_to_map(attacker.global_position)
@@ -86,6 +107,11 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 
 
 
+=======
+		# Réinitialisation du système d'attaque
+		attack_unit = null
+		mode = ""
+>>>>>>> Stashed changes
 
 	
 func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
