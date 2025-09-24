@@ -27,7 +27,7 @@ func _on_unit_clicked(unit: CharacterBody2D):
 	if mode == "attack" and attack_unit != null and unit != attack_unit:
 		_on_unit_attack(attack_unit, unit)
 		return
-	if not  unit.is_in_group("buildings"):
+	if not unit.is_in_group("buildings"):
 		var manager: Node = unit.get_node("MovementManager")
 		selected_unit = unit
 		mode = "move"
@@ -105,8 +105,8 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 
 
 		# Réinitialisation du système d'attaque
-		attack_unit = null
-		mode = ""
+	attack_unit = null
+	mode = ""
 
 	
 func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
