@@ -12,7 +12,7 @@ var terrain_costs = {
 	"TileMap_Grass": 1,  # herbe : coût normal
 }
 
-var actual_player = 1
+var current_player = 1
 
 func _ready():
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
@@ -32,11 +32,9 @@ func _on_unit_clicked(unit: CharacterBody2D):
 		selected_unit = unit
 		mode = "move"
 
-<<<<<<< Updated upstream
 		var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
 		var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
 		highlight.clear()
-=======
 	# Le joueur souhaite déplacer l'unité 
 	selected_unit = unit
 	mode = "move"
@@ -46,7 +44,8 @@ func _on_unit_clicked(unit: CharacterBody2D):
 	highlight.clear()
 
 	if manager.is_selected:
-		if selected_unit.equipe == actual_player:
+
+		if selected_unit.equipe == current_player and selected_unit.movement == false:
 			var start_cell = map.local_to_map(unit.global_position)
 			var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
 			for cell in reachable_cells:
@@ -54,7 +53,6 @@ func _on_unit_clicked(unit: CharacterBody2D):
 			highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
 		else: 
 			pass #ajouter des choses
->>>>>>> Stashed changes
 
 		if manager.is_selected:
 			if selected_unit.equipe == actual_player and selected_unit.movement == false:
@@ -68,7 +66,7 @@ func _on_unit_clicked(unit: CharacterBody2D):
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
 	if target == null:
-		if attacker.equipe != actual_player or attacker.attack == true:
+		if attacker.equipe != current_player or attacker.attack == true:
 			return
 
 		attack_unit = attacker
@@ -84,7 +82,6 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 			highlight.set_cell(cell, 0, Vector2i(0,0), 0)
 		return
 		
-<<<<<<< Updated upstream
 	if target.equipe != attacker.equipe:
 		print(attacker, " attaque ", target)
 		var start_cell = map.local_to_map(attacker.global_position)
@@ -107,11 +104,9 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 
 
 
-=======
 		# Réinitialisation du système d'attaque
 		attack_unit = null
 		mode = ""
->>>>>>> Stashed changes
 
 	
 func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
@@ -236,32 +231,60 @@ func _unhandled_input(event):
 
 
 func next_player():
-	if actual_player == 1:
-		actual_player = 2
+	if current_player == 1:
+		current_player = 2
 		for unit in all_units:
 			if unit.equipe == 2:
 				unit.movement = false
 				unit.attack = false
 	else :
-		actual_player = 1
+		current_player = 1
 		for unit in all_units:
 			if unit.equipe == 1:
 				unit.movement = false
 				unit.attack = false
 		
 func verify_end_turn():
-	var i = 0
+	var all_done = true
 	for unit in all_units:
-		if unit.equipe == actual_player and unit.movement == false and unit.attack == false :
-			i = 1
-	if i == 0:
+		if unit.equipe == current_player and (unit.movement == false or unit.attack == false):
+			all_done = false
+			break
+
+	if all_done:
 		next_player()
-		print("C'est au tour de l'équipe : ", actual_player)
+		print("C'est au tour de l'équipe : ", current_player)
+
+
+func quick_select():
+	var moved = false
+	for unit in all_units:
+		if unit.equipe == current_player and unit.movement == false:
+			var manager: Node = unit.get_node("MovementManager")
+			manager.is_selected = true
+			_on_unit_clicked(unit)
+			moved = true
+			break 
+
+	if not moved:
+		for unit in all_units:
+			if unit.equipe == current_player and unit.attack == false:
+				_on_unit_attack(unit, null)
+				break
+
+
+
+			
 
 func _input(event):
 	if event is InputEventKey:
 		if event.keycode == KEY_ENTER and event.pressed:
 			_on_enter_pressed()
+		elif event.keycode == KEY_SPACE and event.pressed:
+			_on_space_pressed()
 
 func _on_enter_pressed():
 	next_player()
+	
+func _on_space_pressed():
+	quick_select()
