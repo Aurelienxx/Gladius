@@ -18,75 +18,60 @@ func _ready():
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
 
-
 	all_units = get_tree().get_nodes_in_group("units")
 	all_buildings = get_tree().get_nodes_in_group("buildings")
+
+	print("Unités: ", all_units)
+	print("QG: ", all_buildings)
 
 
 func _on_unit_clicked(unit: CharacterBody2D):
 	if mode == "attack" and attack_unit != null and unit != attack_unit:
 		_on_unit_attack(attack_unit, unit)
 		return
-	if not  unit.is_in_group("buildings"):
-		var manager: Node = unit.get_node("MovementManager")
-		selected_unit = unit
-		mode = "move"
 
-<<<<<<< Updated upstream
-		var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
-		var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
-		highlight.clear()
-=======
-	# Le joueur souhaite déplacer l'unité 
+	var manager: Node = unit.get_node("MovementManager")
 	selected_unit = unit
 	mode = "move"
 
 	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
 	var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
 	highlight.clear()
-
-	if manager.is_selected:
-		if selected_unit.equipe == actual_player:
-			var start_cell = map.local_to_map(unit.global_position)
-			var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
-			for cell in reachable_cells:
-				highlight.set_cell(cell, 0, Vector2i(1,1))
-			highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
-		else: 
-			pass #ajouter des choses
->>>>>>> Stashed changes
-
+	if unit.is_in_group("units"):
 		if manager.is_selected:
 			if selected_unit.equipe == actual_player and selected_unit.movement == false:
 				var start_cell = map.local_to_map(unit.global_position)
 				var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
 				for cell in reachable_cells:
 					highlight.set_cell(cell, 0, Vector2i(0,0))
-			else:
-				pass
+				highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
+
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
+
 	if target == null:
+		# Vérifie que l’attaquant est bien un joueur actif et qu’il n’a pas déjà attaqué
+		if attacker.is_in_group("buildings"):
+			return
 		if attacker.equipe != actual_player or attacker.attack == true:
 			return
 
 		attack_unit = attacker
 		mode = "attack"
 
-		# Affiche la zone d'attaque
+		# Affiche la zone d’attaque
 		var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
 		highlight.clear()
 
 		var start_cell = map.local_to_map(attacker.global_position)
 		var attack_cells = get_attack_cells(map, start_cell, attacker.attack_range)
 		for cell in attack_cells:
-			highlight.set_cell(cell, 0, Vector2i(0,0), 0)
+			highlight.set_cell(cell, 0, Vector2i(2,2))
+		highlight.set_cells_terrain_connect(attack_cells, 0, 0, false)
 		return
-		
-<<<<<<< Updated upstream
+
 	if target.equipe != attacker.equipe:
-		print(attacker, " attaque ", target)
 		var start_cell = map.local_to_map(attacker.global_position)
 		var target_cell = map.local_to_map(target.global_position)
 
@@ -106,14 +91,6 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	verify_end_turn()
 
 
-
-=======
-		# Réinitialisation du système d'attaque
-		attack_unit = null
-		mode = ""
->>>>>>> Stashed changes
-
-	
 func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
 	var cells = []
 	var open_cells = [{ "pos": start, "cost": 0 }]
@@ -130,7 +107,6 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 			if map.get_cell_source_id(next_cell) == -1 and is_cell_occupied(next_cell):
 				continue
 
-			# Récupère le type de terrain et applique son coût
 			var terrain = get_terrain_at_cell(next_cell)
 			var terrain_multiplier = terrain_costs.get(terrain, 1)
 			var new_cost = current_cost + terrain_multiplier
@@ -139,6 +115,7 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 				open_cells.append({ "pos": next_cell, "cost": new_cost })
 	
 	return cells
+
 
 func get_attack_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
 	var cells = []
@@ -160,6 +137,7 @@ func get_terrain_at_cell(cell: Vector2i) -> String:
 	elif dirt_map.get_cell_source_id(cell) != -1:
 		return "TileMap_Dirt"
 	return "Unknown"
+
 
 func get_occupied_cells(unit: CharacterBody2D) -> Array:
 	var cells = []
@@ -213,12 +191,12 @@ func make_path(start: Vector2i, goal: Vector2i) -> Array:
 		
 	return path
 
+
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if mode == "attack":
 			return
 
-		# Déplacement uniquement si on n’est pas en mode attaque
 		if selected_unit == null:
 			return
 		var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
