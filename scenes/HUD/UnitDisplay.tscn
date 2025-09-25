@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://brebtsljws1qg"]
+[gd_scene load_steps=5 format=3 uid="uid://brebtsljws1qg"]
 
 [ext_resource type="Script" uid="uid://d2eitn4ly1nw5" path="res://scripts/HUD/unit_display.gd" id="1_m8ju6"]
 [ext_resource type="Texture2D" uid="uid://c57626xgnw16e" path="res://assets/sprites/HUD/cardVisual.png" id="2_m8ju6"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="3_864lw"]
+[ext_resource type="Texture2D" uid="uid://di2aly72m3r26" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png" id="3_m8ju6"]
 
 [node name="UnitDisplay" type="Button" node_paths=PackedStringArray("name_Label", "cost_Label", "health_Label", "maintenance_Label", "damage_Label", "attack_Range_Label", "move_Range_Label", "thumbnail_texture")]
 anchors_preset = -1
@@ -19,42 +20,60 @@ maintenance_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/Margi
 damage_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay/DamageDisplay/Damage")
 attack_Range_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/RightDisplay2/AttackRangeDisplay/AttackRAnge")
 move_Range_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay/MoveRangeDisplay/MoveRange")
-thumbnail_texture = NodePath("MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer/TextureRect2")
+thumbnail_texture = NodePath("")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.36100003
+anchor_bottom = 1.146
+offset_top = 1.0
+offset_right = 0.022979736
+offset_bottom = -0.0019989014
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_m8ju6")
+region_rect = Rect2(0, 0, 48, 49)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_m8ju6")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.354
+anchor_right = 1.442
+anchor_bottom = 0.94200003
+offset_left = 3.2220001
+offset_right = 0.0059814453
+offset_bottom = 26.946
 
 [node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer2"]
 layout_mode = 2
 texture = ExtResource("2_m8ju6")
-region_rect = Rect2(0, 0, 166, 49)
+region_rect = Rect2(48, 0, 118, 49)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_constants/separation = 0
+theme_override_constants/separation = 15
+alignment = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_right = 75
-
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer"]
-layout_mode = 2
-expand_mode = 3
-
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="GeneralInfo" type="HBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
@@ -74,6 +93,7 @@ size_flags_horizontal = 4
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("3_864lw")
 region_rect = Rect2(0, 256, 32, 32)
 
