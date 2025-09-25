@@ -263,13 +263,17 @@ func quick_select():
 				_on_unit_attack(unit, null)
 				break
 
-
 func _input(event):
+	var spawn = get_node("Units/PlayerUnits")
 	if event is InputEventKey:
 		if event.keycode == KEY_ENTER and event.pressed:
 			_on_enter_pressed()
 		elif event.keycode == KEY_SPACE and event.pressed:
 			_on_space_pressed()
+		elif event.keycode == KEY_T and event.pressed:
+			spawn.spawn_unit("tank",actual_player)
+		elif event.keycode == KEY_I and event.pressed:
+			spawn.spawn_unit("infantry",actual_player)
 
 func _on_enter_pressed():
 	next_player()

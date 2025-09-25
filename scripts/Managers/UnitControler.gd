@@ -10,24 +10,25 @@ extends Node2D
 @export var qg_positions: Array[Vector2] = [Vector2(200, 200), Vector2(800, 200)]
 
 
+
 func _ready() -> void:
 	
-	for i in range(spawn_count):
-			var angle = float(i) / spawn_count * TAU   # répartis en cercle
-			var offset = Vector2(cos(angle), sin(angle)) * spawn_radius
-
-			if i % 2 == 0:
-				var tank = unit_tank.instantiate()
-				tank.add_to_group("units")
-				tank.setup(1)  # équipe 1
-				tank.position = position + offset
-				add_child(tank)
-			else:
-				var infantry = unit_infantry.instantiate()
-				infantry.add_to_group("units")
-				infantry.setup(2)  # équipe 2
-				infantry.position = position + offset
-				add_child(infantry)
+	#for i in range(spawn_count):
+			#var angle = float(i) / spawn_count * TAU   # répartis en cercle
+			#var offset = Vector2(cos(angle), sin(angle)) * spawn_radius
+#
+			#if i % 2 == 0:
+				#var tank = unit_tank.instantiate()
+				#tank.add_to_group("units")
+				#tank.setup(1)  # équipe 1
+				#tank.position = position + offset
+				#add_child(tank)
+			#else:
+				#var infantry = unit_infantry.instantiate()
+				#infantry.add_to_group("units")
+				#infantry.setup(2)  # équipe 2
+				#infantry.position = position + offset
+				#add_child(infantry)
 				
 	for i in range(qg_positions.size()):
 		var qg = head_quarter.instantiate()
@@ -37,7 +38,7 @@ func _ready() -> void:
 		add_child(qg)
 
 
-func spawn_unit(unit_type):
+func spawn_unit(unit_type,actual_player):
 	var tilemap = get_node("../../TileMapContainer/TileMap_Dirt")
 	var used_cells = tilemap.get_used_cells()
 	var cell = used_cells[randi() % used_cells.size()]
@@ -49,15 +50,8 @@ func spawn_unit(unit_type):
 		unit = unit_infantry.instantiate()
 
 	unit.add_to_group("units")
-	unit.setup(1)
+	unit.setup(actual_player)
 
 	var local_pos = tilemap.map_to_local(cell)
 	unit.position = tilemap.to_global(local_pos)
 	add_child(unit)
-
-func _input(event):
-	if event is InputEventKey:
-		if event.keycode == KEY_T and event.pressed:
-			spawn_unit("tank")
-		elif event.keycode == KEY_I and event.pressed:
-			spawn_unit("infantry")
