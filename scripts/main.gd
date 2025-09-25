@@ -271,9 +271,15 @@ func _input(event):
 		elif event.keycode == KEY_SPACE and event.pressed:
 			_on_space_pressed()
 		elif event.keycode == KEY_T and event.pressed:
-			spawn.spawn_unit("tank",actual_player)
+			var new_unit = spawn.spawn_unit("tank",actual_player)
+			add_child(new_unit)
+			all_units = get_tree().get_nodes_in_group("units")
 		elif event.keycode == KEY_I and event.pressed:
-			spawn.spawn_unit("infantry",actual_player)
+			var new_unit = spawn.spawn_unit("infantry",actual_player)
+			add_child(new_unit)
+			all_units = get_tree().get_nodes_in_group("units")
+
+
 
 func _on_enter_pressed():
 	next_player()

@@ -54,4 +54,4 @@ func spawn_unit(unit_type,actual_player):
 
 	var local_pos = tilemap.map_to_local(cell)
 	unit.position = tilemap.to_global(local_pos)
-	add_child(unit)
+	return unit
