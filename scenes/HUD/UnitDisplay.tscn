@@ -1,0 +1,178 @@
+[gd_scene load_steps=4 format=3 uid="uid://brebtsljws1qg"]
+
+[ext_resource type="Script" uid="uid://d2eitn4ly1nw5" path="res://scripts/HUD/unit_display.gd" id="1_m8ju6"]
+[ext_resource type="Texture2D" uid="uid://c57626xgnw16e" path="res://assets/sprites/HUD/cardVisual.png" id="2_m8ju6"]
+[ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="3_864lw"]
+
+[node name="UnitDisplay" type="Button" node_paths=PackedStringArray("name_Label", "cost_Label", "health_Label", "maintenance_Label", "damage_Label", "attack_Range_Label", "move_Range_Label", "thumbnail_texture")]
+anchors_preset = -1
+anchor_right = 0.21000001
+anchor_bottom = 0.056
+offset_right = 53.799988
+offset_bottom = 76.52
+flat = true
+script = ExtResource("1_m8ju6")
+name_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo/Label")
+cost_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo/CostDisplay/Cost")
+health_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle/HealthDisplay/Health")
+maintenance_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle/MaintenanceDisplay/Maintenance")
+damage_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay/DamageDisplay/Damage")
+attack_Range_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/RightDisplay2/AttackRangeDisplay/AttackRAnge")
+move_Range_Label = NodePath("MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay/MoveRangeDisplay/MoveRange")
+thumbnail_texture = NodePath("MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer/TextureRect2")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("2_m8ju6")
+region_rect = Rect2(0, 0, 166, 49)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 75
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer"]
+layout_mode = 2
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="GeneralInfo" type="HBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "NOM UNITE"
+
+[node name="CostDisplay" type="HBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Icone" type="NinePatchRect" parent="MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo/CostDisplay"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_864lw")
+region_rect = Rect2(0, 256, 32, 32)
+
+[node name="Cost" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo/CostDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "COST"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="StatsDisplay" type="HBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="LeftDisplay" type="VBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="DamageDisplay" type="HBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay"]
+layout_mode = 2
+
+[node name="Icone" type="NinePatchRect" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay/DamageDisplay"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_864lw")
+region_rect = Rect2(64, 256, 32, 32)
+
+[node name="Damage" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay/DamageDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "NB_DMG"
+
+[node name="MoveRangeDisplay" type="HBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay"]
+layout_mode = 2
+
+[node name="Icone" type="NinePatchRect" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay/MoveRangeDisplay"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_864lw")
+region_rect = Rect2(64, 224, 32, 32)
+
+[node name="MoveRange" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay/MoveRangeDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "NB_DEP"
+
+[node name="middle" type="VBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="HealthDisplay" type="HBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Icone" type="NinePatchRect" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle/HealthDisplay"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_864lw")
+region_rect = Rect2(32, 224, 32, 32)
+
+[node name="Health" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle/HealthDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "NB_HEALTH"
+
+[node name="MaintenanceDisplay" type="HBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle"]
+layout_mode = 2
+
+[node name="Icone" type="NinePatchRect" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle/MaintenanceDisplay"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_864lw")
+region_rect = Rect2(32, 256, 32, 32)
+
+[node name="Maintenance" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle/MaintenanceDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "NB_MAINT"
+
+[node name="RightDisplay2" type="VBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="AttackRangeDisplay" type="HBoxContainer" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/RightDisplay2"]
+layout_mode = 2
+
+[node name="Icone" type="NinePatchRect" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/RightDisplay2/AttackRangeDisplay"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_864lw")
+region_rect = Rect2(0, 224, 32, 32)
+
+[node name="AttackRAnge" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/RightDisplay2/AttackRangeDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "NB_ATT"

@@ -25,6 +25,7 @@ size = Vector2(31, 27)
 
 [node name="TankUnit" type="CharacterBody2D"]
 script = ExtResource("1_2868h")
+thumbnail = ExtResource("1_3x6ji")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_y68kv")

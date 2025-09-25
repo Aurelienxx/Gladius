@@ -6,7 +6,9 @@ extends CharacterBody2D
 @export var max_hp: int = 400
 @export var damage: int = 80
 @export var move_range: int = 5
-@export var attack_range: int = 4  
+@export var attack_range: int = 4
+@export var name_Unite: String = "Tank"
+@export var thumbnail: Texture2D
 
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int

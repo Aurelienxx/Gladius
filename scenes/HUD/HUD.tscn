@@ -1,408 +1,147 @@
-[gd_scene load_steps=33 format=3 uid="uid://casx0iw2asrlb"]
+[gd_scene load_steps=15 format=3 uid="uid://casx0iw2asrlb"]
 
 [ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
-[ext_resource type="PackedScene" uid="uid://bk2008b5w4go1" path="res://scenes/HUD/Tank/DamageTank.tscn" id="1_rufx2"]
-[ext_resource type="PackedScene" uid="uid://b3e6m5oyvo7gb" path="res://scenes/HUD/Tank/HealthTank.tscn" id="2_gipir"]
-[ext_resource type="PackedScene" uid="uid://hq8x1k5kd6so" path="res://scenes/HUD/Tank/MovementTank.tscn" id="3_4undd"]
-[ext_resource type="PackedScene" uid="uid://1s83js10e5q1" path="res://scenes/HUD/Tank/RangeTank.tscn" id="4_wa322"]
-[ext_resource type="PackedScene" uid="uid://vctopn0kv32i" path="res://scenes/HUD/Infanterie/PriceInf.tscn" id="5_gsk3d"]
-[ext_resource type="Texture2D" uid="uid://dssjphch5jiwl" path="res://assets/sprites/HUD/Tank.png" id="5_wqij7"]
-[ext_resource type="PackedScene" uid="uid://cx4qn3fjnhqpb" path="res://scenes/HUD/Tank/PriceTank.tscn" id="5_ykc18"]
-[ext_resource type="PackedScene" uid="uid://7weyedg6mjud" path="res://scenes/HUD/Infanterie/DamageInf.tscn" id="7_ykc18"]
-[ext_resource type="PackedScene" uid="uid://drv50kbvft5a8" path="res://scenes/HUD/Infanterie/HealthInf.tscn" id="8_gsk3d"]
-[ext_resource type="PackedScene" uid="uid://cq3nwo6jjbnnt" path="res://scenes/HUD/Infanterie/MovementInf.tscn" id="9_147eb"]
-[ext_resource type="PackedScene" uid="uid://b2x4ijm7httya" path="res://scenes/HUD/Infanterie/RangeInf.tscn" id="10_miyln"]
-[ext_resource type="PackedScene" uid="uid://bnghhpkbqgf4t" path="res://scenes/HUD/Camion/DamageCamion.tscn" id="12_ofgjj"]
-[ext_resource type="PackedScene" uid="uid://clavny3kjbve" path="res://scenes/HUD/Artillerie/DamageArti.tscn" id="12_ss71b"]
-[ext_resource type="PackedScene" uid="uid://b8a2xly2j4tgy" path="res://scenes/HUD/Artillerie/HealthArti.tscn" id="13_g087v"]
-[ext_resource type="PackedScene" uid="uid://i03wmwe7hnxh" path="res://scenes/HUD/Camion/HealthCamion.tscn" id="13_wg7py"]
-[ext_resource type="PackedScene" uid="uid://0n2c6g03wdou" path="res://scenes/HUD/Artillerie/MovementArti.tscn" id="14_qrsn4"]
-[ext_resource type="PackedScene" uid="uid://o7tmrr3ukwv0" path="res://scenes/HUD/Camion/MovementCamion.tscn" id="14_ryngw"]
-[ext_resource type="PackedScene" uid="uid://dsyi2ky61c005" path="res://scenes/HUD/Camion/RangeCamion.tscn" id="15_b6c1m"]
-[ext_resource type="PackedScene" uid="uid://b22nj0oj8quhm" path="res://scenes/HUD/Artillerie/RangeArti.tscn" id="15_jkcte"]
-[ext_resource type="PackedScene" uid="uid://ccgnhdyf551wv" path="res://scenes/HUD/Artillerie/PriceArti.tscn" id="16_rlmth"]
-[ext_resource type="PackedScene" uid="uid://r6jdlx44euej" path="res://scenes/HUD/Camion/PriceCamion.tscn" id="16_wg7py"]
-[ext_resource type="PackedScene" uid="uid://db5skndj1nrwa" path="res://scenes/HUD/PlayerInfo/Gain.tscn" id="22_jkcte"]
-[ext_resource type="PackedScene" uid="uid://bt2ut4pukdnxj" path="res://scenes/HUD/PlayerInfo/Loss.tscn" id="23_rlmth"]
-[ext_resource type="PackedScene" uid="uid://226gkofstpj5" path="res://scenes/HUD/PlayerInfo/Profit.tscn" id="24_pmr33"]
-[ext_resource type="PackedScene" uid="uid://soyhnbcfdmn6" path="res://scenes/HUD/PlayerInfo/CurrentMoney.tscn" id="25_rlmth"]
-[ext_resource type="PackedScene" uid="uid://0qwxh71txf7f" path="res://scenes/HUD/PlayerInfo/CurrentCapacity.tscn" id="26_pmr33"]
-[ext_resource type="PackedScene" uid="uid://bw7daeog8o1ta" path="res://scenes/HUD/PlayerInfo/LifeBar.tscn" id="27_rpo1f"]
+[ext_resource type="PackedScene" uid="uid://cc1okjsltc6ac" path="res://scenes/Entities/TankUnit.tscn" id="2_6n7by"]
+[ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="29_a1o1e"]
+[ext_resource type="Script" path="res://scripts/HUD/Recruit_Menu.gd" id="31_a1o1e"]
+[ext_resource type="PackedScene" uid="uid://brebtsljws1qg" path="res://scenes/HUD/UnitDisplay.tscn" id="32_6n7by"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbjyg"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="Theme" id="Theme_of4gv"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qmbb"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lpdjm"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 96, 32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ygrn"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8micj"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(64, 98, 32, 30)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l5g1i"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cm5sn"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(64, 98, 32, 30)
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a1o1e"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 32, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_of4gv"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 0, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_271cc"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 0, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l5g1i"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 192, 64, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6n7by"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(64, 194, 64, 30)
+
+[node name="InGameUI" type="CanvasLayer"]
 script = ExtResource("1_kbjyg")
 
-[node name="Infanterie" type="CanvasLayer" parent="."]
+[node name="TankUnit" parent="." instance=ExtResource("2_6n7by")]
+visible = false
 
-[node name="CanvasGroup" type="CanvasGroup" parent="Infanterie"]
-position = Vector2(0, -1)
-scale = Vector2(0.8, 0.8)
+[node name="MenuDisplay" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
 
-[node name="ColorRect2" type="ColorRect" parent="Infanterie/CanvasGroup"]
-offset_top = 1.0
-offset_right = 336.24997
-offset_bottom = 234.99998
-color = Color(0.5729883, 0.5729883, 0.5729883, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="ColorRect" type="ColorRect" parent="Infanterie/CanvasGroup/ColorRect2"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 51.0
-offset_right = 204.0
-offset_bottom = 223.0
-color = Color(0, 0, 0, 0.21960784)
-
-[node name="Control" type="Control" parent="Infanterie/CanvasGroup/ColorRect2"]
-anchors_preset = 0
-offset_left = 110.0
-offset_top = 19.0
-offset_right = 150.0
-offset_bottom = 59.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Infanterie/CanvasGroup/ColorRect2/Control"]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 44.0
-offset_right = 168.0
-offset_bottom = 194.0
-theme_override_constants/separation = 50
-
-[node name="Damage" parent="Infanterie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("7_ykc18")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuDisplay"]
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 20
 
-[node name="Health" parent="Infanterie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("8_gsk3d")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuDisplay/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
-[node name="Movement" parent="Infanterie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("9_147eb")]
+[node name="ParameterButton" type="Button" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+size_flags_horizontal = 0
+theme = SubResource("Theme_of4gv")
+theme_type_variation = &"FlatButton"
+theme_override_styles/normal = SubResource("StyleBoxTexture_lpdjm")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8micj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cm5sn")
 
-[node name="Range" parent="Infanterie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("10_miyln")]
+[node name="NinePatchRect2" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 64, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 4
+patch_margin_right = 8
+patch_margin_bottom = 4
 
-[node name="Price" parent="Infanterie/CanvasGroup/ColorRect2/Control" instance=ExtResource("5_gsk3d")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -80.0
-offset_top = 3.999998
-offset_right = -40.0
-offset_bottom = 3.999998
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="Tank" type="Sprite2D" parent="Infanterie/CanvasGroup/ColorRect2/Control"]
-position = Vector2(-6, 119)
-scale = Vector2(5.9999995, 5.9999995)
-texture = ExtResource("5_wqij7")
-
-[node name="ButtonInf" type="Button" parent="Infanterie/CanvasGroup/ColorRect2/Control"]
-layout_mode = 0
-offset_left = -109.99999
-offset_top = -19.999998
-offset_right = 224.99997
-offset_bottom = 214.99998
-theme_override_styles/normal = SubResource("StyleBoxFlat_kbjyg")
-
-[node name="Camion" type="CanvasLayer" parent="."]
-
-[node name="CanvasGroup" type="CanvasGroup" parent="Camion"]
-position = Vector2(0, 188)
-scale = Vector2(0.8, 0.8)
-
-[node name="ColorRect2" type="ColorRect" parent="Camion/CanvasGroup"]
-offset_top = 1.0
-offset_right = 336.24997
-offset_bottom = 236.0
-color = Color(0.5729883, 0.5729883, 0.5729883, 1)
-
-[node name="ColorRect" type="ColorRect" parent="Camion/CanvasGroup/ColorRect2"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 51.0
-offset_right = 204.0
-offset_bottom = 223.0
-color = Color(0, 0, 0, 0.21960784)
-
-[node name="Control" type="Control" parent="Camion/CanvasGroup/ColorRect2"]
-anchors_preset = 0
-offset_left = 110.0
-offset_top = 19.0
-offset_right = 150.0
-offset_bottom = 59.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Camion/CanvasGroup/ColorRect2/Control"]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 44.0
-offset_right = 168.0
-offset_bottom = 194.0
-theme_override_constants/separation = 50
-
-[node name="Damage" parent="Camion/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("12_ofgjj")]
+[node name="NinePatchRect3" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 64, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 4
+patch_margin_right = 8
+patch_margin_bottom = 4
 
-[node name="Health" parent="Camion/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("13_wg7py")]
+[node name="Button" type="Button" parent="MenuDisplay/VBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_a1o1e")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_of4gv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_271cc")
 
-[node name="Movement" parent="Camion/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("14_ryngw")]
+[node name="MarginContainer" type="MarginContainer" parent="MenuDisplay/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="Range" parent="Camion/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("15_b6c1m")]
+[node name="ContructionMenu" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer" node_paths=PackedStringArray("targetContainer")]
 layout_mode = 2
+theme_override_constants/separation = 5
+script = ExtResource("31_a1o1e")
+targetContainer = NodePath("ConstructionDisplay")
 
-[node name="Price" parent="Camion/CanvasGroup/ColorRect2/Control" instance=ExtResource("16_wg7py")]
-layout_mode = 1
-offset_left = -83.75
-offset_top = 8.7499695
-offset_right = -83.75
-offset_bottom = 8.749985
-
-[node name="Tank" type="Sprite2D" parent="Camion/CanvasGroup/ColorRect2/Control"]
-position = Vector2(-6, 119)
-scale = Vector2(5.9999995, 5.9999995)
-texture = ExtResource("5_wqij7")
-
-[node name="ButtonCamion" type="Button" parent="Camion/CanvasGroup/ColorRect2/Control"]
-layout_mode = 0
-offset_left = -109.99999
-offset_top = -18.749985
-offset_right = 224.99997
-offset_bottom = 214.99998
-theme_override_styles/normal = SubResource("StyleBoxFlat_8qmbb")
-
-[node name="Artillerie" type="CanvasLayer" parent="."]
-
-[node name="CanvasGroup" type="CanvasGroup" parent="Artillerie"]
-position = Vector2(0, 378)
-scale = Vector2(0.8, 0.8)
-
-[node name="ColorRect2" type="ColorRect" parent="Artillerie/CanvasGroup"]
-offset_top = 1.0
-offset_right = 336.24997
-offset_bottom = 236.0
-color = Color(0.5729883, 0.5729883, 0.5729883, 1)
-
-[node name="ColorRect" type="ColorRect" parent="Artillerie/CanvasGroup/ColorRect2"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 51.0
-offset_right = 204.0
-offset_bottom = 223.0
-color = Color(0, 0, 0, 0.21960784)
-
-[node name="Control" type="Control" parent="Artillerie/CanvasGroup/ColorRect2"]
-anchors_preset = 0
-offset_left = 110.0
-offset_top = 19.0
-offset_right = 150.0
-offset_bottom = 59.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Artillerie/CanvasGroup/ColorRect2/Control"]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 44.0
-offset_right = 168.0
-offset_bottom = 194.0
-theme_override_constants/separation = 50
-
-[node name="Damage" parent="Artillerie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("12_ss71b")]
+[node name="ToggleButton" type="Button" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
+custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_l5g1i")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6n7by")
 
-[node name="Health" parent="Artillerie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("13_g087v")]
+[node name="ConstructionDisplay" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 200
 
-[node name="Movement" parent="Artillerie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("14_qrsn4")]
+[node name="UnitDisplay2" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
 layout_mode = 2
+unite_Display = NodePath("../../../../../../TankUnit")
 
-[node name="Range" parent="Artillerie/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("15_jkcte")]
+[node name="UnitDisplay3" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
 layout_mode = 2
+unite_Display = NodePath("../../../../../../TankUnit")
 
-[node name="Price" parent="Artillerie/CanvasGroup/ColorRect2/Control" instance=ExtResource("16_rlmth")]
-layout_mode = 1
-offset_left = -83.75
-offset_top = 5.0
-offset_right = -83.75
-offset_bottom = 4.9999847
-
-[node name="Tank" type="Sprite2D" parent="Artillerie/CanvasGroup/ColorRect2/Control"]
-position = Vector2(-6, 119)
-scale = Vector2(5.9999995, 5.9999995)
-texture = ExtResource("5_wqij7")
-
-[node name="ButtonArtillerie" type="Button" parent="Artillerie/CanvasGroup/ColorRect2/Control"]
-layout_mode = 0
-offset_left = -109.99999
-offset_top = -18.74997
-offset_right = 226.24997
-offset_bottom = 216.24997
-theme_override_styles/normal = SubResource("StyleBoxFlat_6ygrn")
-
-[node name="Tank" type="CanvasLayer" parent="."]
-
-[node name="CanvasGroup" type="CanvasGroup" parent="Tank"]
-position = Vector2(0, 568)
-scale = Vector2(0.8, 0.8)
-
-[node name="ColorRect2" type="ColorRect" parent="Tank/CanvasGroup"]
-offset_top = 1.0
-offset_right = 336.24997
-offset_bottom = 236.0
-color = Color(0.5729883, 0.5729883, 0.5729883, 1)
-
-[node name="ColorRect" type="ColorRect" parent="Tank/CanvasGroup/ColorRect2"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 51.0
-offset_right = 204.0
-offset_bottom = 223.0
-color = Color(0, 0, 0, 0.21960784)
-
-[node name="Control" type="Control" parent="Tank/CanvasGroup/ColorRect2"]
-anchors_preset = 0
-offset_left = 110.0
-offset_top = 19.0
-offset_right = 150.0
-offset_bottom = 59.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Tank/CanvasGroup/ColorRect2/Control"]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 44.0
-offset_right = 168.0
-offset_bottom = 194.0
-theme_override_constants/separation = 50
-
-[node name="Damage" parent="Tank/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("1_rufx2")]
+[node name="UnitDisplay4" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
 layout_mode = 2
+unite_Display = NodePath("../../../../../../TankUnit")
 
-[node name="Health" parent="Tank/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("2_gipir")]
+[node name="UnitDisplay5" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
 layout_mode = 2
+unite_Display = NodePath("../../../../../../TankUnit")
 
-[node name="Movement" parent="Tank/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("3_4undd")]
-layout_mode = 2
-
-[node name="Range" parent="Tank/CanvasGroup/ColorRect2/Control/VBoxContainer" instance=ExtResource("4_wa322")]
-layout_mode = 2
-
-[node name="Price" parent="Tank/CanvasGroup/ColorRect2/Control" instance=ExtResource("5_ykc18")]
-layout_mode = 1
-offset_left = -80.0
-offset_top = 4.0
-offset_right = -80.0
-offset_bottom = 4.0
-
-[node name="Tank" type="Sprite2D" parent="Tank/CanvasGroup/ColorRect2/Control"]
-position = Vector2(-6, 119)
-scale = Vector2(5.9999995, 5.9999995)
-texture = ExtResource("5_wqij7")
-
-[node name="ButtonTank" type="Button" parent="Tank/CanvasGroup/ColorRect2/Control"]
-layout_mode = 0
-offset_left = -109.99999
-offset_top = -18.75
-offset_right = 226.24997
-offset_bottom = 216.25
-theme_override_styles/normal = SubResource("StyleBoxFlat_l5g1i")
-
-[node name="PlayerInfo" type="CanvasLayer" parent="."]
-
-[node name="MoneyVariation" type="CanvasGroup" parent="PlayerInfo"]
-scale = Vector2(0.8, 0.8)
-
-[node name="ColorRect2" type="ColorRect" parent="PlayerInfo/MoneyVariation"]
-offset_top = 948.74994
-offset_right = 336.24997
-offset_bottom = 1183.75
-color = Color(0.5729883, 0.5729883, 0.5729883, 1)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerInfo/MoneyVariation/ColorRect2"]
-layout_mode = 0
-offset_left = 17.500008
-offset_top = 20.000063
-offset_right = 57.500008
-offset_bottom = 170.00006
-theme_override_constants/separation = 31
-
-[node name="Control" parent="PlayerInfo/MoneyVariation/ColorRect2/VBoxContainer" instance=ExtResource("22_jkcte")]
-layout_mode = 2
-
-[node name="Control2" parent="PlayerInfo/MoneyVariation/ColorRect2/VBoxContainer" instance=ExtResource("23_rlmth")]
-layout_mode = 2
-
-[node name="Control3" parent="PlayerInfo/MoneyVariation/ColorRect2/VBoxContainer" instance=ExtResource("24_pmr33")]
-layout_mode = 2
-
-[node name="ColorRect2" type="ColorRect" parent="PlayerInfo/MoneyVariation/ColorRect2"]
-layout_mode = 0
-offset_left = 161.25
-offset_top = -1.2499313
-offset_right = 163.43185
-offset_bottom = 116.25001
-
-[node name="ColorRect3" type="ColorRect" parent="PlayerInfo/MoneyVariation/ColorRect2"]
-layout_mode = 0
-offset_top = 116.25011
-offset_right = 336.24997
-offset_bottom = 120.00011
-
-[node name="CurrentStats" type="CanvasGroup" parent="PlayerInfo"]
-position = Vector2(161, 783)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerInfo/CurrentStats"]
-offset_left = 1.0
-offset_right = 41.0
-offset_bottom = 40.0
-theme_override_constants/separation = 35
-
-[node name="Control" parent="PlayerInfo/CurrentStats/VBoxContainer" instance=ExtResource("25_rlmth")]
-layout_mode = 2
-
-[node name="Control2" parent="PlayerInfo/CurrentStats/VBoxContainer" instance=ExtResource("26_pmr33")]
-layout_mode = 2
-
-[node name="CanvasGroup" type="CanvasGroup" parent="PlayerInfo"]
-
-[node name="Control" parent="PlayerInfo/CanvasGroup" instance=ExtResource("27_rpo1f")]
-offset_left = 28.0
-offset_top = 903.0
-offset_right = 28.0
-offset_bottom = 903.0
-
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_top = 186.0
-offset_right = 269.0
-offset_bottom = 191.0
-
-[node name="ColorRect2" type="ColorRect" parent="."]
-offset_top = 756.0
-offset_right = 269.0
-offset_bottom = 761.0
-
-[node name="ColorRect3" type="ColorRect" parent="."]
-offset_top = 566.0
-offset_right = 269.0
-offset_bottom = 571.0
-
-[node name="ColorRect4" type="ColorRect" parent="."]
-offset_top = 376.0
-offset_right = 269.0
-offset_bottom = 381.0
-
-[connection signal="pressed" from="Infanterie/CanvasGroup/ColorRect2/Control/ButtonInf" to="." method="_on_button_inf_pressed"]
-[connection signal="pressed" from="Camion/CanvasGroup/ColorRect2/Control/ButtonCamion" to="." method="_on_button_camion_pressed"]
-[connection signal="pressed" from="Artillerie/CanvasGroup/ColorRect2/Control/ButtonArtillerie" to="." method="_on_button_artillerie_pressed"]
-[connection signal="pressed" from="Tank/CanvasGroup/ColorRect2/Control/ButtonTank" to="." method="_on_button_tank_pressed"]
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ToggleButton" to="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu" method="_on_toggle_button_pressed"]

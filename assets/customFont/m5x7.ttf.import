@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://drpljacq6mxs0"
-path="res://.godot/imported/Pixel Digivolve.otf-d20239659e50d747d14f94389d6046f2.fontdata"
+uid="uid://b2xlrmc3njfw"
+path="res://.godot/imported/m5x7.ttf-98d90b6de680299452ebaa00e7b18887.fontdata"
 
 [deps]
 
-source_file="res://assets/sprites/HUD/Pixel Digivolve.otf"
-dest_files=["res://.godot/imported/Pixel Digivolve.otf-d20239659e50d747d14f94389d6046f2.fontdata"]
+source_file="res://assets/customFont/m5x7.ttf"
+dest_files=["res://.godot/imported/m5x7.ttf-98d90b6de680299452ebaa00e7b18887.fontdata"]
 
 [params]
 
