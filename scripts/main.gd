@@ -48,6 +48,8 @@ func _on_unit_clicked(unit: CharacterBody2D):
 
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
+	
+	print (attacker, " attaque ", target)
 	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
 
 	if target == null:
@@ -72,10 +74,15 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 		return
 
 	if target.equipe != attacker.equipe:
-		var start_cell = map.local_to_map(attacker.global_position)
-		var target_cell = map.local_to_map(target.global_position)
+		var building_cells = get_occupied_cells(target)
+		var attacker_cell = map.local_to_map(attacker.global_position)
+		var in_range = false
+		for cell in building_cells:
+			if attacker_cell.distance_to(cell) <= attacker.attack_range:
+				in_range = true
+				break
 
-		if start_cell.distance_to(target_cell) <= attacker.attack_range:
+		if in_range:
 			target.current_hp -= attacker.damage
 			print("%s attaque %s pour %d dégâts" % [attacker.name, target.name, attacker.damage])
 			attacker.attack = true
@@ -258,8 +265,6 @@ func quick_select():
 			if unit.equipe == actual_player and unit.attack == false:
 				_on_unit_attack(unit, null)
 				break
-
-
 
 
 func _input(event):
