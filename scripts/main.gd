@@ -233,6 +233,8 @@ func next_player():
 			if unit.equipe == 1:
 				unit.movement = false
 				unit.attack = false
+	print("C'est au tour de l'équipe : ", actual_player)
+
 		
 func verify_end_turn():
 	for unit in all_units:
@@ -243,8 +245,6 @@ func verify_end_turn():
 			return
 	# si on arrive ici, toutes les unités de actual_player ont fini
 	next_player()
-	print("C'est au tour de l'équipe : ", actual_player)
-
 
 
 func quick_select():
@@ -276,6 +276,14 @@ func _input(event):
 			all_units = get_tree().get_nodes_in_group("units")
 		elif event.keycode == KEY_I and event.pressed:
 			var new_unit = spawn.spawn_unit("infantry",actual_player)
+			add_child(new_unit)
+			all_units = get_tree().get_nodes_in_group("units")
+		elif event.keycode == KEY_C and event.pressed:
+			var new_unit = spawn.spawn_unit("truck",actual_player)
+			add_child(new_unit)
+			all_units = get_tree().get_nodes_in_group("units")
+		elif event.keycode == KEY_A and event.pressed:
+			var new_unit = spawn.spawn_unit("artillery",actual_player)
 			add_child(new_unit)
 			all_units = get_tree().get_nodes_in_group("units")
 
