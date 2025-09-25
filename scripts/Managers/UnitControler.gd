@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var unit_tank : PackedScene = preload("res://scenes/Entities/Units/TankUnit.tscn")
+@export var unit_tank : PackedScene = preload("res://scenes/Entities/Units/TruckUnit.tscn")
 @export var unit_infantry : PackedScene = preload("res://scenes/Entities/Units/Infantry.tscn")
 @export var headquarter : PackedScene = preload("res://scenes/Entities/Building/QG.tscn")
 @export var spawn_count: int = 8            
@@ -33,7 +33,7 @@ func _ready() -> void:
 	for i in range(qg_positions.size()):
 		var qg = head_quarter.instantiate()
 		qg.add_to_group("buildings")
-		qg.setup(i + 1)
+		qg.call_deferred("setup", i + 1)
 		qg.position = qg_positions[i]
 		add_child(qg)
 
