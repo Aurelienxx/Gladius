@@ -235,19 +235,16 @@ func next_player():
 				unit.attack = false
 		
 func verify_end_turn():
-	var i = 0
-	var all_done = true
 	for unit in all_units:
-		if unit.equipe == actual_player and unit.movement == false and unit.attack == false :
-			i = 1
-		if i == 0:
-			if unit.equipe == actual_player and (unit.movement == false or unit.attack == false):
-				all_done = false
-				break
+		if unit.equipe != actual_player:
+			continue
+		# si l'unité peut encore bouger ou attaquer, on ne change pas de tour
+		if unit.movement == false or unit.attack == false:
+			return
+	# si on arrive ici, toutes les unités de actual_player ont fini
+	next_player()
+	print("C'est au tour de l'équipe : ", actual_player)
 
-	if all_done:
-		next_player()
-		print("C'est au tour de l'équipe : ", actual_player)
 
 
 func quick_select():
