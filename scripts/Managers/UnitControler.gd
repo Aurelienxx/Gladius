@@ -35,3 +35,29 @@ func _ready() -> void:
 		qg.setup(i + 1)
 		qg.position = qg_positions[i]
 		add_child(qg)
+
+
+func spawn_unit(unit_type):
+	var tilemap = get_node("../../TileMapContainer/TileMap_Dirt")
+	var used_cells = tilemap.get_used_cells()
+	var cell = used_cells[randi() % used_cells.size()]
+	var unit
+
+	if unit_type == "tank": 
+		unit = unit_tank.instantiate()
+	elif unit_type == "infantry":
+		unit = unit_infantry.instantiate()
+
+	unit.add_to_group("units")
+	unit.setup(1)
+
+	var local_pos = tilemap.map_to_local(cell)
+	unit.position = tilemap.to_global(local_pos)
+	add_child(unit)
+
+func _input(event):
+	if event is InputEventKey:
+		if event.keycode == KEY_T and event.pressed:
+			spawn_unit("tank")
+		elif event.keycode == KEY_I and event.pressed:
+			spawn_unit("infantry")
