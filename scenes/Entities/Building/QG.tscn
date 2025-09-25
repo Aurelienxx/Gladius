@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cs26312fn2rqa"]
+[gd_scene load_steps=8 format=3 uid="uid://cs26312fn2rqa"]
 
 [ext_resource type="Script" uid="uid://duppr6qjtjhbr" path="res://scripts/Entities/Building/QG.gd" id="1_txrck"]
 [ext_resource type="Texture2D" uid="uid://bauq7585fje8p" path="res://assets/sprites/EntitySprite/Buildings/HQ_sketch.png" id="2_1wttj"]
-[ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/clickDetection.gd" id="3_fqhlp"]
-[ext_resource type="Script" uid="uid://dq8dfi7d3l263" path="res://scripts/Entities/Building/HeadQuarterManager.gd" id="4_etupr"]
+[ext_resource type="Texture2D" uid="uid://job8axeq6icd" path="res://assets/sprites/EntitySprite/Buildings/HQMask.png" id="3_dpjwp"]
+[ext_resource type="Script" path="res://scripts/Entities/Building/clickDetection.gd" id="3_fqhlp"]
+[ext_resource type="Script" path="res://scripts/Entities/Building/HeadQuarterManager.gd" id="4_etupr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fqhlp"]
 animations = [{
@@ -26,10 +27,16 @@ script = ExtResource("1_txrck")
 sprite_frames = SubResource("SpriteFrames_fqhlp")
 animation = &"QG"
 
+[node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
+position = Vector2(10, -36)
+energy = 16.0
+texture = ExtResource("3_dpjwp")
+
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("3_fqhlp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 position = Vector2(0.5, -2.5)
 shape = SubResource("RectangleShape2D_etupr")
 

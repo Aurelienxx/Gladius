@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cc1okjsltc6ac"]
+[gd_scene load_steps=9 format=3 uid="uid://cc1okjsltc6ac"]
 
 [ext_resource type="Script" uid="uid://cw4n0xq4emyo6" path="res://scripts/Entities/Units/TankUnit.gd" id="1_fwfjq"]
 [ext_resource type="Texture2D" uid="uid://di2aly72m3r26" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png" id="2_x8srb"]
 [ext_resource type="Texture2D" uid="uid://b6wlhesk6tsan" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank2.png" id="3_rtlsi"]
 [ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_pibhh"]
+[ext_resource type="Texture2D" uid="uid://ctd6di47n0ifg" path="res://assets/sprites/EntitySprite/Units/SpriteTank/TankMasque.png" id="4_x8srb"]
 [ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/movement_manager.gd" id="5_5tfmm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y68kv"]
@@ -29,6 +30,11 @@ script = ExtResource("1_fwfjq")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_y68kv")
 frame_progress = 0.47185364
+
+[node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
+position = Vector2(3, -5.5)
+energy = 16.0
+texture = ExtResource("4_x8srb")
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("4_pibhh")

@@ -14,17 +14,23 @@ extends CharacterBody2D
 
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int
-var equipe: int
+var equipe: int = 0
 
 func setup(_equipe: int) -> void:
 	equipe = _equipe
 	current_hp = max_hp
-	if (_equipe == 1):
-		couleur.color = Color(0, 0, 1, 0.75)
-		print("test bleu")
-	else:
-		couleur.color = Color(1, 0, 0, 0.75)
-		print("test bleu")
+	_apply_color()
+
 
 func _ready():
-	setup(1)
+	_apply_color() 
+
+
+func _apply_color() -> void:
+	if not couleur:
+		return
+
+	if equipe == 1:
+		couleur.color = Color(0, 0, 1, 0.75)
+	elif equipe == 2:
+		couleur.color = Color(1, 0, 0, 0.75)
