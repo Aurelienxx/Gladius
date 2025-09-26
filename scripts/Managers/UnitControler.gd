@@ -40,24 +40,67 @@ func _ready() -> void:
 		add_child(qg)
 
 
-func spawn_unit(unit_type,actual_player):
+func spawn_unit(unit_type: String, actual_player: int):
 	var tilemap = get_node("../../TileMapContainer/TileMap_Dirt")
 	var used_cells = tilemap.get_used_cells()
-	var cell = used_cells[randi() % used_cells.size()]
 	var unit
+	
+	var qg_pos = qg_positions[actual_player - 1]
+	var qg_cell = tilemap.local_to_map(tilemap.to_local(qg_pos))
+	
+	if tilemap.tile_set == null:
+		push_error("Le TileMap n’a pas de TileSet assigné !")
+		return null
+	
+	var tile_size = float(tilemap.tile_set.tile_size.x) 
+	var radius_in_cells = int(spawn_radius / tile_size) + 1.5
+	
+	var cells: Array[Vector2i] = []
+	for x in range(-radius_in_cells + 1, radius_in_cells):
+		for y in range(-radius_in_cells + 1, radius_in_cells):
+			var candidate = qg_cell + Vector2i(x, y)
+			if qg_cell.distance_to(candidate) <= radius_in_cells:
+				if used_cells.has(candidate):
+					cells.append(candidate)
+					
+	var occupied_positions = []
+	for current_unit in get_tree().get_nodes_in_group("units"):
+		var cell_pos = tilemap.local_to_map(tilemap.to_local(current_unit.position))
+		occupied_positions.append(cell_pos)
+		
+	occupied_positions.append(tilemap.local_to_map(tilemap.to_local(qg_pos)))
+	
+	var offsets = [
+	Vector2(32, 0), Vector2(-32, 0),
+	Vector2(0, 32), Vector2(0, -32),
+	Vector2(32, 32), Vector2(32, -32),
+	Vector2(-32, 32), Vector2(-32, -32)
+	]
 
-	if unit_type == "tank": 
-		unit = unit_tank.instantiate()
-	elif unit_type == "infantry":
-		unit = unit_infantry.instantiate()
-	elif unit_type == "truck":
-		unit = unit_truck.instantiate()
-	elif unit_type == "artillery":
-		unit = unit_artillery.instantiate()
-
+	for offset in offsets:
+		var new_pos = qg_pos + offset
+		occupied_positions.append(tilemap.local_to_map(tilemap.to_local(new_pos)))
+		
+	var free_cells = []
+	for current_cell in cells:
+		if current_cell not in occupied_positions:
+			free_cells.append(current_cell)
+			
+	if free_cells.is_empty():
+		return null
+	
+	var cell = free_cells[randi() % free_cells.size()]
+	
+	match unit_type:
+		"tank": unit = unit_tank.instantiate()
+		"infantry": unit = unit_infantry.instantiate()
+		"truck": unit = unit_truck.instantiate()
+		"artillery": unit = unit_artillery.instantiate()
+		_: return null
+	
 	unit.add_to_group("units")
 	unit.call_deferred("setup", actual_player)
-
+	
 	var local_pos = tilemap.map_to_local(cell)
 	unit.position = tilemap.to_global(local_pos)
 	return unit
