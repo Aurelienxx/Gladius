@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://casx0iw2asrlb"]
+[gd_scene load_steps=16 format=3 uid="uid://casx0iw2asrlb"]
 
 [ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
 [ext_resource type="PackedScene" uid="uid://cc1okjsltc6ac" path="res://scenes/Entities/TankUnit.tscn" id="2_6n7by"]
@@ -38,7 +38,9 @@ region_rect = Rect2(0, 192, 64, 32)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6n7by"]
 texture = ExtResource("29_a1o1e")
-region_rect = Rect2(64, 194, 64, 30)
+region_rect = Rect2(64, 192, 64, 30)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wqij7"]
 
 [node name="InGameUI" type="CanvasLayer"]
 script = ExtResource("1_kbjyg")
@@ -67,7 +69,6 @@ theme_override_constants/separation = 20
 [node name="ParameterButton" type="Button" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-size_flags_horizontal = 0
 theme = SubResource("Theme_of4gv")
 theme_type_variation = &"FlatButton"
 theme_override_styles/normal = SubResource("StyleBoxTexture_lpdjm")
@@ -86,6 +87,18 @@ patch_margin_top = 4
 patch_margin_right = 8
 patch_margin_bottom = 4
 
+[node name="GoldDisplay" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.98
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Génération d'or : "
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="NinePatchRect3" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
@@ -98,6 +111,21 @@ patch_margin_top = 4
 patch_margin_right = 8
 patch_margin_bottom = 4
 
+[node name="UnitAmountDisplay" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Nombre d'unité : "
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="Button" type="Button" parent="MenuDisplay/VBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
@@ -108,7 +136,6 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_271cc")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuDisplay/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 theme_override_constants/margin_left = 0
 
 [node name="ContructionMenu" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer" node_paths=PackedStringArray("targetContainer")]
@@ -125,13 +152,25 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_l5g1i")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6n7by")
 
 [node name="ConstructionDisplay" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
+custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
-size_flags_horizontal = 8
-theme_override_constants/separation = 0
+theme_override_constants/separation = 130
 
 [node name="UnitDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
 layout_mode = 2
-theme_override_constants/h_separation = 0
 unite_Display = NodePath("../../../../../../TankUnit")
+
+[node name="UnitDisplay2" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" instance=ExtResource("32_6n7by")]
+visible = false
+layout_mode = 2
+
+[node name="UnitDisplay3" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" instance=ExtResource("32_6n7by")]
+visible = false
+layout_mode = 2
+
+[node name="UnitDisplay4" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" instance=ExtResource("32_6n7by")]
+visible = false
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wqij7")
 
 [connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ToggleButton" to="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu" method="_on_toggle_button_pressed"]

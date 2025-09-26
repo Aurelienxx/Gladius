@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=4 uid="uid://bli8po88bo6ci"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_4rr3d"]
+[ext_resource type="Script" uid="uid://dkkr5exuxgoet" path="res://scripts/main.gd" id="1_4rr3d"]
 [ext_resource type="Script" uid="uid://77ktlgk2748d" path="res://scripts/Map/map.gd" id="2_2rm8l"]
 [ext_resource type="PackedScene" uid="uid://n3ggusxw272m" path="res://scenes/Map/utils/player_view.tscn" id="2_app3p"]
 [ext_resource type="Texture2D" uid="uid://brxd7ajeu6321" path="res://assets/sprites/TileSet/tile_set_grass.png" id="2_exngo"]
