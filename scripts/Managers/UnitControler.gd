@@ -32,12 +32,21 @@ func _ready() -> void:
 				#infantry.position = position + offset
 				#add_child(infantry)
 				
+	var tilemap = get_node("../../TileMapContainer/TileMap_Dirt")
 	for i in range(qg_positions.size()):
 		var qg = head_quarter.instantiate()
 		qg.add_to_group("buildings")
 		qg.call_deferred("setup", i + 1)
-		qg.position = qg_positions[i]
+
+		var qg_pos = qg_positions[i]
+
+		var cell = tilemap.local_to_map(tilemap.to_local(qg_pos))
+
+		var snapped_pos = tilemap.map_to_local(cell)
+		qg.position = tilemap.position + snapped_pos
+
 		add_child(qg)
+
 
 
 func spawn_unit(unit_type: String, actual_player: int):
