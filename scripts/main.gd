@@ -69,7 +69,7 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 		var start_cell = map.local_to_map(attacker.global_position)
 		var attack_cells = get_attack_cells(map, start_cell, attacker.attack_range)
 		for cell in attack_cells:
-			highlight.set_cell(cell, 0, Vector2i(0,0))
+			highlight.set_cell(cell, 1, Vector2i(0,0))
 		highlight.set_cells_terrain_connect(attack_cells, 0, 0, false)
 		return
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var unit_tank : PackedScene = preload("res://scenes/Entities/Units/TruckUnit.tscn")
+@export var unit_tank : PackedScene = preload("res://scenes/Entities/Units/TankUnit.tscn")
 @export var unit_infantry : PackedScene = preload("res://scenes/Entities/Units/Infantry.tscn")
 @export var headquarter : PackedScene = preload("res://scenes/Entities/Building/QG.tscn")
 @export var spawn_count: int = 8            
@@ -50,7 +50,7 @@ func spawn_unit(unit_type,actual_player):
 		unit = unit_infantry.instantiate()
 
 	unit.add_to_group("units")
-	unit.setup(actual_player)
+	unit.call_deferred("setup", actual_player)
 
 	var local_pos = tilemap.map_to_local(cell)
 	unit.position = tilemap.to_global(local_pos)
