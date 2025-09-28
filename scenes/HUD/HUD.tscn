@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
 [ext_resource type="PackedScene" uid="uid://cc1okjsltc6ac" path="res://scenes/Entities/TankUnit.tscn" id="2_6n7by"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="29_a1o1e"]
-[ext_resource type="Script" uid="uid://cmv76kwh7rv5k" path="res://scripts/HUD/Recruit_Menu.gd" id="31_a1o1e"]
+[ext_resource type="Script" path="res://scripts/HUD/Recruit_Menu.gd" id="31_a1o1e"]
 [ext_resource type="PackedScene" uid="uid://brebtsljws1qg" path="res://scenes/HUD/UnitDisplay.tscn" id="32_6n7by"]
 
 [sub_resource type="Theme" id="Theme_of4gv"]
@@ -157,6 +157,7 @@ layout_mode = 2
 theme_override_constants/separation = 130
 
 [node name="UnitDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 unite_Display = NodePath("../../../../../../TankUnit")
 
