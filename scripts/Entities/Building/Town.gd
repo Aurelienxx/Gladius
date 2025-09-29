@@ -1,5 +1,5 @@
-extends Building
-class_name Towns
+extends CharacterBody2D
+@onready var couleur:PointLight2D=$AnimatedSprite2D/PointLight2D
 var current_gain =0
 var Town1 = {
 	"name":"Town",
@@ -19,8 +19,17 @@ var Town3 = {
 	"gain": 20,
 	"lv":3,
 }
-func _init():
-	super("Towns", 1, 500, 30, 10, 9)
+var lv: int =1
+var hp: int =200
+var attack: int = 20
+var attack_range: int = 10
+var size_x: int = 3
+var size_y: int = 3
+var upgrade_cost: int = 60
+#variable dynamique
+var current_lv: int =1
+var zone_enabled : bool=false
+var zone_radius : int= 0
 	
 	
 	
