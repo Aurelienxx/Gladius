@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cims2y35r3y1l"
+path="res://.godot/imported/Snare drum solo, snare drum march, snare solo, military drums.mp3-efecc0fbc6616d2a2b596f3e4e066e7f.mp3str"
+
+[deps]
+
+source_file="res://assets/sons/MainMenu/Snare drum solo, snare drum march, snare solo, military drums.mp3"
+dest_files=["res://.godot/imported/Snare drum solo, snare drum march, snare solo, military drums.mp3-efecc0fbc6616d2a2b596f3e4e066e7f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
