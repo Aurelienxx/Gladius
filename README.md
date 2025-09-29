@@ -1,4 +1,4 @@
-Gladius est un jeu de stratégie tout par tour 
+Gladius est un jeu de stratégie tour par tour. 
 
 Equipe :
  - Larangé Samuel
