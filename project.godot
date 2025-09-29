@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="GLADIUS"
+<<<<<<< HEAD
 run/main_scene="uid://bli8po88bo6ci"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://assets/sprites/icon.svg"
@@ -29,3 +30,12 @@ window/size/mode=2
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+=======
+run/main_scene="uid://c1e4qtotfslu8"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://assets/sprites/icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
+>>>>>>> MainMenu_EndScreen
