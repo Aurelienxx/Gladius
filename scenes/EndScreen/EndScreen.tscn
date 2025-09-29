@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://cutg6puwr6yo7"]
+
+[ext_resource type="Script" uid="uid://ln5mm5m1fpio" path="res://scripts/EndScreen/EndScreen.gd" id="1_loe1s"]
+[ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_m0ilp"]
+
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_loe1s")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -502.5
+offset_top = -287.0
+offset_right = 502.5
+offset_bottom = 287.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.051000003
+anchor_right = 1.0
+anchor_bottom = 0.272
+offset_left = 11.25
+offset_top = -0.27400208
+offset_right = -11.25
+offset_bottom = -0.12800598
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_m0ilp")
+theme_override_font_sizes/font_size = 24
+text = "LE RESULTATS DE LA PARTIE SERA MARQU2E L0 
+MAIS IL FAUT ATTENDRE QUE LA SC7NE DE JEU SOIT TERMIN2E 
+POUR APPELER CETTE SC7NE AVEC LE PARAM7TRES CORRECT."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainMenu" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.767
+anchor_right = 1.0
+anchor_bottom = 0.91300005
+offset_left = 368.25
+offset_top = -0.25802612
+offset_right = -368.25
+offset_bottom = -0.06201172
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_m0ilp")
+theme_override_font_sizes/font_size = 38
+text = "Retour au menu principal"
+
+[connection signal="pressed" from="Panel/MainMenu" to="." method="_on_main_menu_pressed"]
