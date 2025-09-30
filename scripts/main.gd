@@ -25,6 +25,7 @@ func _ready():
 	anim_explosion.visible = false
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
+	GlobalSignal.Next_Turn_Pressed.connect(next_player)
 
 	all_units = get_tree().get_nodes_in_group("units")
 	all_buildings = get_tree().get_nodes_in_group("buildings")
@@ -136,12 +137,15 @@ func get_attack_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Arr
 					cells.append(cell)
 	return cells
 
-func get_terrain_at_cell(cell: Vector2i) -> String:
-	if GRASS_MAP.get_cell_source_id(cell) != -1:
-		return "TileMap_Grass"
+func get_terrain_cost(cell: Vector2i) -> int:
+	if GRASS_MAP.get_cell_source_id(cell) != -1: 
+		# Terrain is grass
+		return terrain_costs.get("TileMap_Grass")
 	elif MAP.get_cell_source_id(cell) != -1:
-		return "TileMap_Dirt"
-	return "Unknown"
+		# Terrain is dirt
+		return terrain_costs.get("TileMap_Dirt")
+		
+	return 1
 
 func get_occupied_cells(unit: CharacterBody2D) -> Array:
 	var cells = []
@@ -217,8 +221,7 @@ func make_path(start: Vector2i, goal: Vector2i, max_range: int) -> Array:
 			if is_cell_occupied(next) and next != goal:
 				continue
 
-			var terrain = get_terrain_at_cell(next)
-			var move_cost = terrain_costs.get(terrain, 1)
+			var move_cost = get_terrain_cost(next)
 			var new_cost = current_cost + move_cost
 
 			# respect de la limite de mouvement

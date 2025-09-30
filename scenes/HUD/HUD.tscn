@@ -172,6 +172,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_l5g1i")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6n7by")
 
 [node name="ConstructionDisplay" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
+visible = false
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
 theme_override_constants/separation = 20
@@ -196,4 +197,5 @@ custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 unite_Display = NodePath("../../../../../../TankUnit")
 
+[connection signal="button_down" from="MenuDisplay/VBoxContainer/Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ToggleButton" to="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu" method="_on_toggle_button_pressed"]
