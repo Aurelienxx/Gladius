@@ -17,7 +17,7 @@ extends CharacterBody2D
 
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int
-var equipe: int = 0
+var equipe: int
 
 func setup(_equipe: int) -> void:
 	equipe = _equipe
@@ -27,10 +27,8 @@ func setup(_equipe: int) -> void:
 
 	_apply_color()
 
-
 func _ready():
 	_apply_color() 
-
 
 func _apply_color() -> void:
 	if not couleur:

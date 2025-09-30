@@ -3,18 +3,18 @@
 [ext_resource type="Script" uid="uid://d2eitn4ly1nw5" path="res://scripts/HUD/unit_display.gd" id="1_m8ju6"]
 [ext_resource type="Texture2D" uid="uid://c57626xgnw16e" path="res://assets/sprites/HUD/cardVisual.png" id="2_m8ju6"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="3_864lw"]
-[ext_resource type="Texture2D" uid="uid://di2aly72m3r26" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png" id="3_m8ju6"]
+[ext_resource type="Texture2D" uid="uid://4axkcu8dlg1g" path="res://assets/sprites/MainMenu/LogoPlaceholder.png" id="3_m8ju6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m8ju6"]
 
 [node name="UnitDisplay" type="Button" node_paths=PackedStringArray("name_Label", "cost_Label", "health_Label", "maintenance_Label", "damage_Label", "attack_Range_Label", "move_Range_Label", "thumbnail_texture")]
 anchors_preset = -1
 anchor_left = 0.079
-anchor_right = 0.395
-anchor_bottom = 0.141
+anchor_right = 0.316
+anchor_bottom = 0.106000006
 offset_left = 0.31999207
-offset_right = 0.5999756
-offset_bottom = -0.27999878
+offset_right = 152.27997
+offset_bottom = 37.519997
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_m8ju6")

@@ -1,3 +1,4 @@
+class_name InfentryUnit
 extends CharacterBody2D
 
 # Stats de base (communes à toutes les unités de ce type)
@@ -11,6 +12,8 @@ extends CharacterBody2D
 @export var attack_range: int = 2  
 @export var movement: bool = false
 @export var attack: bool = false
+@export var name_Unite: String = "Infantry"
+@export var thumbnail: Texture2D
 
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int

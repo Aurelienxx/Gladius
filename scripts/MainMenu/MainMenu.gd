@@ -19,8 +19,7 @@ func _on_start_button_pressed() -> void:
 Fonctions liées aux boutons de choix de jeu.
 '''
 func _on_joueur_contre_joueur_pressed() -> void:
-	#get_tree().change_scene_to_file()
-	pass
+	get_tree().change_scene_to_file("res://scenes/Map/map.tscn")
 	
 func _on_joueur_contre_ia_pressed() -> void:
 	pass # Replace with function body.
