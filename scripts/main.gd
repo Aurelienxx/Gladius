@@ -7,6 +7,9 @@ var all_buildings: Array = []
 var quick_select_index = -1
 @onready var anim_explosion = $AnimatedSprite2D
 
+@onready var MAP: TileMapLayer = $TileMapContainer/TileMap_Dirt
+@onready var HIGHLIGHT: TileMapLayer = $TileMapContainer/TileMap_Highlight
+@onready var GRASS_MAP: TileMapLayer = $TileMapContainer/TileMap_Grass
 
 var attack_unit: CharacterBody2D = null 
 var mode: String = ""
@@ -28,7 +31,12 @@ func _ready():
 
 	print("Unités: ", all_units)
 	print("QG: ", all_buildings)
-
+	
+func highlight_cells(start_cell,highlighted_cells,highlight_type:int=0):
+	# highlight type is either 0 (blue) or 1 (red)
+	HIGHLIGHT.clear()
+	for cell in highlighted_cells:
+		HIGHLIGHT.set_cell(cell, highlight_type, Vector2i(0,0))
 
 func _on_unit_clicked(unit: CharacterBody2D):
 	if mode == "attack" and attack_unit != null and unit != attack_unit:
@@ -39,23 +47,16 @@ func _on_unit_clicked(unit: CharacterBody2D):
 	selected_unit = unit
 	mode = "move"
 
-	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
-	var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
-	highlight.clear()
 	if unit.is_in_group("units"):
 		if manager.is_selected:
 			if selected_unit.equipe == actual_player and selected_unit.movement == false:
-				var start_cell = map.local_to_map(unit.global_position)
-				var reachable_cells = get_reachable_cells(map, start_cell, unit.move_range)
-				for cell in reachable_cells:
-					highlight.set_cell(cell, 0, Vector2i(0,0))
-				highlight.set_cells_terrain_connect(reachable_cells, 0, 0, false)
-
+				var start_cell = MAP.local_to_map(unit.global_position)
+				var reachable_cells = get_reachable_cells(MAP, start_cell, unit.move_range)
+				highlight_cells(start_cell,reachable_cells)
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	
 	print (attacker, " attaque ", target)
-	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
 
 	if target == null:
 		# Vérifie que l’attaquant est bien un joueur actif et qu’il n’a pas déjà attaqué
@@ -67,20 +68,16 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 		attack_unit = attacker
 		mode = "attack"
 
-		# Affiche la zone d’attaque
-		var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
-		highlight.clear()
+		HIGHLIGHT.clear()
 
-		var start_cell = map.local_to_map(attacker.global_position)
-		var attack_cells = get_attack_cells(map, start_cell, attacker.attack_range)
-		for cell in attack_cells:
-			highlight.set_cell(cell, 1, Vector2i(0,0))
-		highlight.set_cells_terrain_connect(attack_cells, 0, 0, false)
+		var start_cell = MAP.local_to_map(attacker.global_position)
+		var attack_cells = get_attack_cells(MAP, start_cell, attacker.attack_range)
+		highlight_cells(start_cell,attack_cells,1)
 		return
 
 	if target.equipe != attacker.equipe:
 		var building_cells = get_occupied_cells(target)
-		var attacker_cell = map.local_to_map(attacker.global_position)
+		var attacker_cell = MAP.local_to_map(attacker.global_position)
 		var in_range = false
 		for cell in building_cells:
 			if attacker_cell.distance_to(cell) <= attacker.attack_range:
@@ -93,21 +90,18 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 			attacker.attack = true
 			attacker.movement = true
 			
-
 			anim_explosion.position = target.position
 			anim_explosion.visible = true
 			anim_explosion.z_index = 100
 			anim_explosion.play("explosion")
 			
-			
-
 			if target.current_hp <= 0:
 				all_units.erase(target)
 				target.queue_free()
 
 	attack_unit = null
 	mode = ""
-	$TileMapContainer/TileMap_Highlight.clear()
+	HIGHLIGHT.clear()
 	verify_end_turn()
 
 
@@ -132,9 +126,6 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 
 	return reachable
 
-
-
-
 func get_attack_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
 	var cells = []
 	for x in range(-max_range, max_range + 1):
@@ -145,22 +136,16 @@ func get_attack_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Arr
 					cells.append(cell)
 	return cells
 
-
 func get_terrain_at_cell(cell: Vector2i) -> String:
-	var dirt_map = $TileMapContainer/TileMap_Dirt
-	var grass_map = $TileMapContainer/TileMap_Grass
-
-	if grass_map.get_cell_source_id(cell) != -1:
+	if GRASS_MAP.get_cell_source_id(cell) != -1:
 		return "TileMap_Grass"
-	elif dirt_map.get_cell_source_id(cell) != -1:
+	elif MAP.get_cell_source_id(cell) != -1:
 		return "TileMap_Dirt"
 	return "Unknown"
 
-
 func get_occupied_cells(unit: CharacterBody2D) -> Array:
 	var cells = []
-	var map = $TileMapContainer/TileMap_Dirt
-	var center_cell = map.local_to_map(unit.global_position)
+	var center_cell = MAP.local_to_map(unit.global_position)
 
 	var size_x = 1
 	var size_y = 1
@@ -176,7 +161,6 @@ func get_occupied_cells(unit: CharacterBody2D) -> Array:
 
 	return cells
 
-
 func is_cell_occupied(cell: Vector2i) -> bool:
 	for unit in all_units:
 		var occupied = get_occupied_cells(unit)
@@ -188,10 +172,7 @@ func is_cell_occupied(cell: Vector2i) -> bool:
 			return true
 	return false
 
-
 func make_path(start: Vector2i, goal: Vector2i, max_range: int) -> Array:
-	var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
-
 	# cas trivial
 	if start == goal:
 		return [start]
@@ -230,7 +211,7 @@ func make_path(start: Vector2i, goal: Vector2i, max_range: int) -> Array:
 		for offset in neighbors:
 			var next = current_pos + offset
 			# case invalide (pas de tile)
-			if map.get_cell_source_id(next) == -1:
+			if MAP.get_cell_source_id(next) == -1:
 				continue
 			# case occupée (on autorise le goal uniquement si on veut attaquer dessus, sinon la plupart des usages l'excluront)
 			if is_cell_occupied(next) and next != goal:
@@ -252,9 +233,6 @@ func make_path(start: Vector2i, goal: Vector2i, max_range: int) -> Array:
 	# aucun chemin
 	return []
 
-
-
-
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if mode == "attack":
@@ -262,36 +240,30 @@ func _unhandled_input(event):
 
 		if selected_unit == null:
 			return
-		var map: TileMapLayer = $TileMapContainer/TileMap_Dirt
-		var highlight: TileMapLayer = $TileMapContainer/TileMap_Highlight
 		var mouse_pos = get_global_mouse_position()
-		var clicked_cell = map.local_to_map(mouse_pos)
-		if highlight.get_cell_source_id(clicked_cell) != -1:
+		var clicked_cell = MAP.local_to_map(mouse_pos)
+		if HIGHLIGHT.get_cell_source_id(clicked_cell) != -1:
 			if not is_cell_occupied(clicked_cell):
-				var path = make_path(map.local_to_map(selected_unit.global_position), clicked_cell, selected_unit.move_range)
+				var path = make_path(MAP.local_to_map(selected_unit.global_position), clicked_cell, selected_unit.move_range)
 				var manager: Node = selected_unit.get_node("MovementManager")
-				manager.set_path(path, map)
-				highlight.clear()
+				manager.set_path(path, MAP)
+				HIGHLIGHT.clear()
 				selected_unit.movement = true
 				verify_end_turn()
 
-
 func next_player():
+	for unit in all_units:
+		if unit.equipe == actual_player:
+			unit.movement = false
+			unit.attack = false
+			
 	if actual_player == 1:
 		actual_player = 2
-		for unit in all_units:
-			if unit.equipe == 2:
-				unit.movement = false
-				unit.attack = false
 	else :
 		actual_player = 1
-		for unit in all_units:
-			if unit.equipe == 1:
-				unit.movement = false
-				unit.attack = false
+		
 	print("C'est au tour de l'équipe : ", actual_player)
 
-		
 func verify_end_turn():
 	for unit in all_units:
 		if unit.equipe != actual_player:
@@ -299,7 +271,6 @@ func verify_end_turn():
 		if unit.movement == false or unit.attack == false:
 			return
 	next_player()
-
 
 func quick_select():
 	var moved = false
@@ -341,36 +312,26 @@ func quick_select():
 
 func _input(event):
 	var spawn = get_node("Units/PlayerUnits")
-	if event is InputEventKey:
-		if event.keycode == KEY_ENTER and event.pressed:
-			_on_enter_pressed()
-		elif event.keycode == KEY_SPACE and event.pressed:
-			_on_space_pressed()
-		elif event.keycode == KEY_T and event.pressed:
-			var new_unit = spawn.spawn_unit("tank",actual_player)
-			add_child(new_unit)
-			all_units = get_tree().get_nodes_in_group("units")
-		elif event.keycode == KEY_I and event.pressed:
-			var new_unit = spawn.spawn_unit("infantry",actual_player)
-			add_child(new_unit)
-			all_units = get_tree().get_nodes_in_group("units")
-		elif event.keycode == KEY_C and event.pressed:
-			var new_unit = spawn.spawn_unit("truck",actual_player)
-			add_child(new_unit)
-			all_units = get_tree().get_nodes_in_group("units")
-		elif event.keycode == KEY_A and event.pressed:
-			var new_unit = spawn.spawn_unit("artillery",actual_player)
-			add_child(new_unit)
-			all_units = get_tree().get_nodes_in_group("units")
-
-
-
-func _on_enter_pressed():
-	next_player()
+	var type_unit:String
 	
-func _on_space_pressed():
-	quick_select()
-
+	if Input.is_action_pressed("enter"):
+		next_player()
+	if Input.is_action_pressed("space"):
+		quick_select()
+	
+	if Input.is_action_pressed("T"):
+		type_unit="tank"
+	if Input.is_action_pressed("I"):
+		type_unit="infantry"
+	if Input.is_action_pressed("C"):
+		type_unit="truck"
+	if Input.is_action_pressed("A"):
+		type_unit="artillery"
+	
+	if type_unit:		
+		var new_unit = spawn.spawn_unit(type_unit,actual_player)
+		add_child(new_unit)
+		all_units = get_tree().get_nodes_in_group("units")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	anim_explosion.visible = false
