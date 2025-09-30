@@ -1,5 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
-assets/sprites/TileSet/HighlightSpriteSheet.png.import
 project.godot
+assets/sprites/HUD/Icons.png.import
+assets/sprites/HUD/cardVisual.png.import
+assets/customFont/m5x7.ttf.import

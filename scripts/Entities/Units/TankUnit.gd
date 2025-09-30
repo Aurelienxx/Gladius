@@ -11,6 +11,8 @@ extends CharacterBody2D
 @export var attack_range: int = 4  
 @export var movement: bool = false
 @export var attack: bool = false
+@export var name_Unite: String = "Tank"
+@export var thumbnail: Texture2D
 
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int

@@ -1,0 +1,177 @@
+[gd_scene load_steps=16 format=3 uid="uid://casx0iw2asrlb"]
+
+[ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
+[ext_resource type="PackedScene" uid="uid://cc1okjsltc6ac" path="res://scenes/Entities/TankUnit.tscn" id="2_6n7by"]
+[ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="29_a1o1e"]
+[ext_resource type="Script" path="res://scripts/HUD/Recruit_Menu.gd" id="31_a1o1e"]
+[ext_resource type="PackedScene" uid="uid://brebtsljws1qg" path="res://scenes/HUD/UnitDisplay.tscn" id="32_6n7by"]
+
+[sub_resource type="Theme" id="Theme_of4gv"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lpdjm"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 96, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8micj"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(64, 98, 32, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cm5sn"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(64, 98, 32, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a1o1e"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 32, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_of4gv"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 0, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_271cc"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 0, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l5g1i"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 192, 64, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6n7by"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(64, 192, 64, 30)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wqij7"]
+
+[node name="InGameUI" type="CanvasLayer"]
+script = ExtResource("1_kbjyg")
+
+[node name="TankUnit" parent="." instance=ExtResource("2_6n7by")]
+visible = false
+
+[node name="MenuDisplay" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuDisplay"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuDisplay/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ParameterButton" type="Button" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme = SubResource("Theme_of4gv")
+theme_type_variation = &"FlatButton"
+theme_override_styles/normal = SubResource("StyleBoxTexture_lpdjm")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8micj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cm5sn")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 64, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 4
+patch_margin_right = 8
+patch_margin_bottom = 4
+
+[node name="GoldDisplay" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.98
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Génération d'or : "
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 64, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 4
+patch_margin_right = 8
+patch_margin_bottom = 4
+
+[node name="UnitAmountDisplay" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Nombre d'unité : "
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="MenuDisplay/VBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_a1o1e")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_of4gv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_271cc")
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuDisplay/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+
+[node name="ContructionMenu" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer" node_paths=PackedStringArray("targetContainer")]
+layout_mode = 2
+theme_override_constants/separation = 70
+script = ExtResource("31_a1o1e")
+targetContainer = NodePath("ConstructionDisplay")
+
+[node name="ToggleButton" type="Button" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_l5g1i")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6n7by")
+
+[node name="ConstructionDisplay" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+theme_override_constants/separation = 130
+
+[node name="UnitDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+unite_Display = NodePath("../../../../../../TankUnit")
+
+[node name="UnitDisplay2" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" instance=ExtResource("32_6n7by")]
+visible = false
+layout_mode = 2
+
+[node name="UnitDisplay3" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" instance=ExtResource("32_6n7by")]
+visible = false
+layout_mode = 2
+
+[node name="UnitDisplay4" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" instance=ExtResource("32_6n7by")]
+visible = false
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wqij7")
+
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ToggleButton" to="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu" method="_on_toggle_button_pressed"]
