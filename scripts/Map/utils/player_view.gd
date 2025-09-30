@@ -13,15 +13,17 @@ var last_mouse_pos := Vector2.ZERO
 func _physics_process(delta: float) -> void:
 	velocity = Vector2.ZERO
 
+	var zoom_factor = cam.zoom.x  
+
 	# Input clavier
-	if Input.is_action_pressed("ui_left"):
-		velocity.x -= movement_speed
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += movement_speed
-	if Input.is_action_pressed("ui_down"):
-		velocity.y += movement_speed
-	if Input.is_action_pressed("ui_up"):
-		velocity.y -= movement_speed
+	if Input.is_action_pressed("left"):
+		velocity.x -= movement_speed * zoom_factor
+	if Input.is_action_pressed("right"):
+		velocity.x += movement_speed * zoom_factor
+	if Input.is_action_pressed("down"):
+		velocity.y += movement_speed * zoom_factor
+	if Input.is_action_pressed("up"):
+		velocity.y -= movement_speed * zoom_factor
 
 	# Input bord de l'écran
 	if not dragging:
@@ -39,27 +41,26 @@ func _physics_process(delta: float) -> void:
 		elif mouse_pos.y > viewport_size.y - edge_margin:
 			dir.y += 1 - ((viewport_size.y - mouse_pos.y) / edge_margin)
 
-		velocity += dir * movement_speed
+		velocity += dir * movement_speed * zoom_factor
 
 	else:
 		var mouse_pos = get_viewport().get_mouse_position()
 		var delta_pos = mouse_pos - last_mouse_pos
-		velocity -= delta_pos * 10   # ajustable selon la sensibilité
+		velocity -= delta_pos * 10 * zoom_factor  
 		last_mouse_pos = mouse_pos
 
 	move_and_collide(velocity * delta)
+
 
 func _input(event):
 	if event is InputEventMouseButton:
 		# Zoom avec la molette
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
 			cam.zoom += Vector2(zoom_step, zoom_step)
-			cam.zoom.x = clamp(cam.zoom.x, min_zoom.x, max_zoom.x)
-			cam.zoom.y = clamp(cam.zoom.y, min_zoom.y, max_zoom.y)
+			cam.zoom = cam.zoom.clamp(min_zoom, max_zoom)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
 			cam.zoom -= Vector2(zoom_step, zoom_step)
-			cam.zoom.x = clamp(cam.zoom.x, min_zoom.x, max_zoom.x)
-			cam.zoom.y = clamp(cam.zoom.y, min_zoom.y, max_zoom.y)
+			cam.zoom = cam.zoom.clamp(min_zoom, max_zoom)
 		
 		# Drag avec clic gauche
 		elif event.button_index == MOUSE_BUTTON_LEFT:

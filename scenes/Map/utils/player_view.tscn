@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://iq7338i0akdh" path="res://scripts/Map/utils/player_view.gd" id="1_7tx1p"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_app3p"]
 
 [node name="Player_view" type="CharacterBody2D"]
