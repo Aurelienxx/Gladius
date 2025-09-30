@@ -340,5 +340,3 @@ position = Vector2(360, 644.00006)
 rotation = 1.5703666
 scale = Vector2(0.9999997, 0.9999997)
 shape = SubResource("RectangleShape2D_2yrau")
-
-[node name="CanvasLayer" parent="." instance=ExtResource("8_57bgo")]
