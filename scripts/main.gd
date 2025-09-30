@@ -4,6 +4,8 @@ var selected_unit: CharacterBody2D
 var all_units: Array = []
 var all_buildings: Array = []
 
+var quick_select_index = -1
+
 var attack_unit: CharacterBody2D = null 
 var mode: String = ""
 
@@ -290,18 +292,40 @@ func verify_end_turn():
 
 func quick_select():
 	var moved = false
-	for unit in all_units:
+	var currently_selected_unit = (quick_select_index + 1) % all_units.size()
+	var unit_index = currently_selected_unit
+
+	while true:
+		var unit = all_units[unit_index]
 		if unit.equipe == actual_player and unit.movement == false:
 			var manager: Node = unit.get_node("MovementManager")
 			manager.is_selected = true
 			_on_unit_clicked(unit)
 			moved = true
+			quick_select_index = unit_index 
+			var pos = unit.position
+			var cam = get_node("./Player_view")
+			cam.global_position = pos
+			break
+		
+		unit_index = (unit_index + 1) % all_units.size()
+		if unit_index == currently_selected_unit:
 			break 
 
 	if not moved:
-		for unit in all_units:
+		unit_index = currently_selected_unit
+		while true:
+			var unit = all_units[unit_index]
 			if unit.equipe == actual_player and unit.attack == false:
 				_on_unit_attack(unit, null)
+				var pos = unit.position
+				var cam = get_node("./Player_view")
+				cam.global_position = pos
+				quick_select_index = unit_index
+				break
+
+			unit_index = (unit_index + 1) % all_units.size()
+			if unit_index == currently_selected_unit:
 				break
 
 func _input(event):
