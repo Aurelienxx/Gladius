@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b2epgc8lwp40v" path="res://scripts/Entities/Building/Town.gd" id="1_luyv0"]
 [ext_resource type="Texture2D" uid="uid://bauq7585fje8p" path="res://assets/sprites/EntitySprite/Buildings/HQ_sketch.png" id="2_tfqh3"]
-[ext_resource type="Script" uid="uid://dsg0al4nkhqkm" path="res://scripts/Entities/Building/town_manager.gd" id="2_x0au0"]
+[ext_resource type="Script" uid="uid://cl31n5dcmv557" path="res://scripts/Entities/Building/villageTownManager.gd" id="3_tfqh3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n84a3"]
 animations = [{
@@ -34,4 +34,4 @@ position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_2ffi7")
 
 [node name="townManager" type="Node" parent="."]
-script = ExtResource("2_x0au0")
+script = ExtResource("3_tfqh3")

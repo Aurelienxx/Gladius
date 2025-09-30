@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 # Stats de base (communes à toutes les unités de ce type)
 @onready var couleur : PointLight2D = $AnimatedSprite2D/PointLight2D
+@onready var health_bar: ProgressBar = $HealthBar
 @export var cost: int = 15
 @export var maintenance: int = 2
 @export var max_hp: int = 85
@@ -18,6 +19,9 @@ var equipe: int
 func setup(_equipe: int) -> void:
 	equipe = _equipe
 	current_hp = max_hp
+	health_bar.max_value = max_hp
+	health_bar.value = current_hp
+	
 	_apply_color()  
 
 func _ready():
