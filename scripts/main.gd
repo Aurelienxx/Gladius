@@ -5,6 +5,8 @@ var all_units: Array = []
 var all_buildings: Array = []
 
 var quick_select_index = -1
+@onready var anim_explosion = $AnimatedSprite2D
+
 
 var attack_unit: CharacterBody2D = null 
 var mode: String = ""
@@ -17,6 +19,7 @@ var terrain_costs = {
 var actual_player = 1
 
 func _ready():
+	anim_explosion.visible = false
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
 
@@ -89,6 +92,14 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 			print("%s attaque %s pour %d dégâts" % [attacker.name, target.name, attacker.damage])
 			attacker.attack = true
 			attacker.movement = true
+			
+
+			anim_explosion.position = target.position
+			anim_explosion.visible = true
+			anim_explosion.z_index = 100
+			anim_explosion.play("explosion")
+			
+			
 
 			if target.current_hp <= 0:
 				all_units.erase(target)
@@ -359,3 +370,7 @@ func _on_enter_pressed():
 	
 func _on_space_pressed():
 	quick_select()
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	anim_explosion.visible = false
