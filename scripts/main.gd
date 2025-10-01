@@ -14,6 +14,14 @@ var quick_select_index = -1
 var attack_unit: CharacterBody2D = null 
 var mode: String = ""
 
+
+
+var last_came_from: Dictionary = {}
+var last_costs: Dictionary = {}
+var last_start: Vector2i
+
+
+
 var terrain_costs = {
 	"TileMap_Dirt": 2,   # boue : coût double (50% de vitesse)
 	"TileMap_Grass": 1,  # herbe : coût normal
@@ -116,24 +124,67 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 
 func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
 	var reachable: Array = []
+	last_came_from.clear()
+	last_costs.clear()
+	last_start = start
 
-	for x in range(-max_range, max_range + 1):
-		for y in range(-max_range, max_range + 1):
-			var cell = start + Vector2i(x, y)
+	# dictionnaire des cases occupées pour test rapide
+	var occ := {}
+	for unit in all_units:
+		for c in get_occupied_cells(unit):
+			occ[c] = true
+	for b in all_buildings:
+		for c in get_occupied_cells(b):
+			occ[c] = true
 
-			# tile ok ? et libre ?
-			if map.get_cell_source_id(cell) == -1:
+	# file de priorité simulée (Dijkstra)
+	var frontier: Array = []
+	frontier.append({"pos": start, "cost": 0})
+	last_came_from[start] = null
+	last_costs[start] = 0
+
+	var neighbors = [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]
+
+	while frontier.size() > 0:
+		# extraire le plus petit coût
+		var min_idx = 0
+		var min_cost = frontier[0]["cost"]
+		for i in range(1, frontier.size()):
+			if frontier[i]["cost"] < min_cost:
+				min_cost = frontier[i]["cost"]
+				min_idx = i
+		var current = frontier.pop_at(min_idx)
+		var current_pos: Vector2i = current["pos"]
+		var current_cost: int = current["cost"]
+
+		# ajouter la case atteinte
+		if current_pos != start:
+			reachable.append(current_pos)
+
+		# explorer voisins
+		for offset in neighbors:
+			var next = current_pos + offset
+
+			if map.get_cell_source_id(next) == -1:
 				continue
-			if is_cell_occupied(cell):
+			if next != start and occ.has(next):
 				continue
 
-			# make_path prend maintenant max_range et tient compte des coûts de terrain
-			var path = make_path(start, cell, max_range)
-			if path.size() > 0:
-				# make_path a déjà garanti que le coût total <= max_range
-				reachable.append(cell)
+			var move_cost = get_terrain_cost(next)
+			if move_cost == null:
+				move_cost = 1
+			var new_cost = current_cost + move_cost
+
+			if new_cost > max_range:
+				continue
+
+			if not last_costs.has(next) or new_cost < last_costs[next]:
+				last_costs[next] = new_cost
+				last_came_from[next] = current_pos
+				frontier.append({"pos": next, "cost": new_cost})
 
 	return reachable
+
 
 func get_attack_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
 	var cells = []
@@ -185,64 +236,22 @@ func is_cell_occupied(cell: Vector2i) -> bool:
 	return false
 
 func make_path(start: Vector2i, goal: Vector2i, max_range: int) -> Array:
-	# cas trivial
-	if start == goal:
-		return [start]
+	# Vérifie si on peut réutiliser le calcul précédent
+	if last_came_from.is_empty() or start != last_start:
+		# recalcul si jamais l’unité a changé ou pas encore de cache
+		get_reachable_cells(MAP, start, max_range)
 
-	# frontier : liste de { "pos": Vector2i, "cost": int } ; on prend le plus petit coût à chaque itération
-	var frontier = [{ "pos": start, "cost": 0 }]
-	var came_from = {}
-	var cost_so_far = {}
-	came_from[start] = null
-	cost_so_far[start] = 0
+	if not last_came_from.has(goal):
+		return []  # inaccessible
 
-	var neighbors = [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]
+	# reconstruire chemin à partir de came_from
+	var path: Array = []
+	var node = goal
+	while node != null:
+		path.insert(0, node)
+		node = last_came_from[node]
+	return path
 
-	while frontier.size() > 0:
-		# extraire l'élément de plus petit coût (simple recherche linéaire, suffisant pour petites zones)
-		var min_idx = 0
-		var min_cost = frontier[0]["cost"]
-		for i in range(1, frontier.size()):
-			if frontier[i]["cost"] < min_cost:
-				min_cost = frontier[i]["cost"]
-				min_idx = i
-		var current = frontier.pop_at(min_idx)
-		var current_pos: Vector2i = current["pos"]
-		var current_cost: int = current["cost"]
-
-		# but atteint -> reconstruire chemin
-		if current_pos == goal:
-			var path: Array = []
-			var node = goal
-			while node != null:
-				path.insert(0, node)
-				node = came_from[node]
-			return path
-
-		# explorer voisins
-		for offset in neighbors:
-			var next = current_pos + offset
-			# case invalide (pas de tile)
-			if MAP.get_cell_source_id(next) == -1:
-				continue
-			# case occupée (on autorise le goal uniquement si on veut attaquer dessus, sinon la plupart des usages l'excluront)
-			if is_cell_occupied(next) and next != goal:
-				continue
-
-			var move_cost = get_terrain_cost(next)
-			var new_cost = current_cost + move_cost
-
-			# respect de la limite de mouvement
-			if new_cost > max_range:
-				continue
-
-			if not cost_so_far.has(next) or new_cost < cost_so_far[next]:
-				cost_so_far[next] = new_cost
-				came_from[next] = current_pos
-				frontier.append({ "pos": next, "cost": new_cost })
-
-	# aucun chemin
-	return []
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
