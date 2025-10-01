@@ -97,9 +97,15 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 			anim_explosion.play("explosion")
 			
 			if target.current_hp <= 0:
-				all_units.erase(target)
-				target.queue_free()
-
+				if target.is_in_group("buildings") and target.get_script().resource_path.find("QG.gd") == -1:
+					# Respawn en neutre (tous les bâtiments sauf QG)
+					target.equipe = 0
+					target.current_hp = target.hp
+					target._apply_color(0)
+				else:
+					# Cas QG ou unité normale -> détruit
+					all_units.erase(target)
+					target.queue_free()
 	attack_unit = null
 	mode = ""
 	HIGHLIGHT.clear()
@@ -252,7 +258,19 @@ func _unhandled_input(event):
 				manager.set_path(path, MAP)
 				HIGHLIGHT.clear()
 				selected_unit.movement = true
-				verify_end_turn()
+				check_building_capture(selected_unit) # <-- capture auto
+
+
+func check_building_capture(unit: CharacterBody2D):
+	var unit_cell = MAP.local_to_map(unit.global_position)
+
+	for building in all_buildings:
+		var building_cell = MAP.local_to_map(building.global_position)
+
+		# Si le bâtiment est neutre et adjacent (y compris diagonale)
+		if building.equipe == 0 and unit_cell.distance_to(building_cell) <= 1:
+			building.capture(unit.equipe)
+
 
 func next_player():
 	for unit in all_units:
