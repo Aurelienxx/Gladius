@@ -21,6 +21,10 @@ var Vlg3 = {
 	"lv":3,
 }
 
+
+const TEAM_NEUTRAL = 0
+const TEAM_ONE = 1
+const TEAM_TWO = 2
 var lv: int =1
 var hp: int =200
 var attack: int = 20
@@ -32,7 +36,7 @@ var upgrade_cost: int = 60
 var current_lv: int =1
 var zone_enabled : bool=false
 var zone_radius : int= 0
-	
+var team: int =0
 	
 func upgrade():
 	lv=lv+1
@@ -52,4 +56,31 @@ func level_bonus():
 			attack_range += 5
 	
 	
+func capture(nb: int):
+	if nb == team:
+		return # déjà capturé par cette équipe
+
+	match team:
+		TEAM_NEUTRAL:
+			team = nb
+			_apply_color(nb)
+
+		TEAM_ONE, TEAM_TWO:
+			if nb != team:
+				hp -= 50 # par exemple, attaque pour capturer
+				if hp <= 0:
+					team = nb
+					hp = 200 # reset la vie
+					_apply_color(nb)
+			
+func _apply_color(new_team: int):
+	if team ==0:
+		couleur.color=Color(1,1,1,1) 
+	if team == 1:
+		couleur.color = Color(0, 0, 1, 1.0)
+	elif team == 2:
+		couleur.color = Color(1, 0.0, 0.0, 1.0)
+
+
+
 	
