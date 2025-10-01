@@ -1,9 +1,10 @@
 extends Node
 
 @onready var character: CharacterBody2D = get_parent()
-@export var area2D : Area2D 
 
+@export var area2D : Area2D 
 @export var move_speed: float = 200.0
+@export var anim:AnimatedSprite2D
 
 var is_selected: bool = false
 var path: Array = []
@@ -46,8 +47,16 @@ func _physics_process(delta: float) -> void:
 		if direction.length() > 2:
 			character.velocity = direction.normalized() * move_speed
 			character.move_and_slide()
+			
+			if character.velocity.x < 0:
+				anim.flip_h = true
+			elif character.velocity.x > 0:
+				anim.flip_h = false
+			
 		else:
 			character.global_position = target_position
 			character.velocity = Vector2.ZERO
 			is_moving = false
 			move_to_next_cell()
+	else:
+		anim.play("idle")

@@ -17,7 +17,7 @@ animations = [{
 "texture": ExtResource("3_rtlsi")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 5.0
 }]
 
@@ -35,9 +35,10 @@ script = ExtResource("1_fwfjq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_y68kv")
-frame_progress = 0.47185364
+animation = &"idle"
 
 [node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
+auto_translate_mode = 1
 position = Vector2(3, -5.5)
 energy = 16.0
 texture = ExtResource("4_x8srb")
@@ -59,6 +60,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_x8srb")
 theme_override_styles/fill = SubResource("StyleBoxFlat_rtlsi")
 show_percentage = false
 
-[node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
+[node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D", "anim")]
 script = ExtResource("5_5tfmm")
 area2D = NodePath("../Area2D")
+anim = NodePath("../AnimatedSprite2D")

@@ -57,6 +57,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_vff3r")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5iw1w")
 show_percentage = false
 
-[node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
+[node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D", "anim")]
 script = ExtResource("5_36nl8")
 area2D = NodePath("../Area2D")
+anim = NodePath("../AnimatedSprite2D")
