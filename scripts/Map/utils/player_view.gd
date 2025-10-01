@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var cam: Camera2D = $Camera2D
-var edge_margin := 150
+var edge_margin := 50
 var zoom_step := 0.5
 var movement_speed = 500
 var min_zoom := Vector2(0.5, 0.5)
@@ -42,6 +42,7 @@ func _physics_process(delta: float) -> void:
 			dir.y += 1 - ((viewport_size.y - mouse_pos.y) / edge_margin)
 
 		velocity += dir * movement_speed * zoom_factor
+		velocity *= 0.5
 
 	else:
 		var mouse_pos = get_viewport().get_mouse_position()
