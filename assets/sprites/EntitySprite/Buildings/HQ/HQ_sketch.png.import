@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://job8axeq6icd"
-path="res://.godot/imported/HQMask.png-5791909069b16969ff8ad02e989adb9c.ctex"
+uid="uid://d3xfr4pg38wmj"
+path="res://.godot/imported/HQ_sketch.png-b9527c70a9a39936c52837593d099f3b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/EntitySprite/Buildings/HQMask.png"
-dest_files=["res://.godot/imported/HQMask.png-5791909069b16969ff8ad02e989adb9c.ctex"]
+source_file="res://assets/sprites/EntitySprite/Buildings/HQ/HQ_sketch.png"
+dest_files=["res://.godot/imported/HQ_sketch.png-b9527c70a9a39936c52837593d099f3b.ctex"]
 
 [params]
 
