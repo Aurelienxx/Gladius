@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://cs26312fn2rqa"]
 
 [ext_resource type="Script" uid="uid://duppr6qjtjhbr" path="res://scripts/Entities/Building/QG.gd" id="1_txrck"]
-[ext_resource type="Texture2D" uid="uid://bauq7585fje8p" path="res://assets/sprites/EntitySprite/Buildings/HQ_sketch.png" id="2_1wttj"]
-[ext_resource type="Texture2D" uid="uid://job8axeq6icd" path="res://assets/sprites/EntitySprite/Buildings/HQMask.png" id="3_dpjwp"]
+[ext_resource type="Texture2D" uid="uid://d3xfr4pg38wmj" path="res://assets/sprites/EntitySprite/Buildings/HQ/HQ_sketch.png" id="2_etupr"]
+[ext_resource type="Texture2D" uid="uid://du6pinr8i241y" path="res://assets/sprites/EntitySprite/Buildings/HQ/HQMask.png" id="3_dpjwp"]
 [ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/clickDetection.gd" id="3_fqhlp"]
 [ext_resource type="Script" uid="uid://dq8dfi7d3l263" path="res://scripts/Entities/Building/HeadQuarterManager.gd" id="4_etupr"]
 
@@ -10,10 +10,10 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_1wttj")
+"texture": ExtResource("2_etupr")
 }],
 "loop": true,
-"name": &"QG",
+"name": &"HeadQuarter",
 "speed": 5.0
 }]
 
@@ -25,7 +25,7 @@ script = ExtResource("1_txrck")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fqhlp")
-animation = &"QG"
+animation = &"HeadQuarter"
 
 [node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
 position = Vector2(10, -36)

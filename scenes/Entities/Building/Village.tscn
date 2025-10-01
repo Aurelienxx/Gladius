@@ -1,25 +1,24 @@
 [gd_scene load_steps=8 format=3 uid="uid://c5c5f8kx2dv0a"]
 
 [ext_resource type="Script" uid="uid://b4mns7eseov1w" path="res://scripts/Entities/Building/Village.gd" id="1_3474o"]
-[ext_resource type="Texture2D" uid="uid://bauq7585fje8p" path="res://assets/sprites/EntitySprite/Buildings/HQ_sketch.png" id="2_bafm0"]
+[ext_resource type="Texture2D" uid="uid://uxhgxoby51u6" path="res://assets/sprites/EntitySprite/Buildings/Village/Village.png" id="2_05egb"]
 [ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/clickDetection.gd" id="2_cckd5"]
 [ext_resource type="Script" uid="uid://cl31n5dcmv557" path="res://scripts/Entities/Building/villageTownManager.gd" id="3_htqd3"]
+[ext_resource type="Texture2D" uid="uid://du6pinr8i241y" path="res://assets/sprites/EntitySprite/Buildings/HQ/HQMask.png" id="3_qyp71"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_05egb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_bafm0")
+"texture": ExtResource("2_05egb")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bafm0"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qyp71"]
-size = Vector2(82.25, 86.5)
+size = Vector2(94, 93)
 
 [node name="village_body" type="CharacterBody2D"]
 script = ExtResource("1_3474o")
@@ -28,14 +27,17 @@ script = ExtResource("1_3474o")
 sprite_frames = SubResource("SpriteFrames_05egb")
 
 [node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
+position = Vector2(29.000004, -22.999998)
+scale = Vector2(-0.6337916, 0.60689294)
 energy = 16.0
-texture = SubResource("PlaceholderTexture2D_bafm0")
+texture = ExtResource("3_qyp71")
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_cckd5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1.125, -2.75)
+visible = false
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_qyp71")
 
 [node name="VillageTownManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]

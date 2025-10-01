@@ -52,7 +52,7 @@ func _ready() -> void:
 	for i in range(village_positions.size()):
 		var vlg = village.instantiate()
 		vlg.add_to_group("buildings")
-		vlg.call_deferred("setup", i + 1)
+		vlg.call_deferred("setup", 0)
 
 		var qg_pos = village_positions[i]
 
