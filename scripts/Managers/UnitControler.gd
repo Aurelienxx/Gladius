@@ -5,11 +5,13 @@ extends Node2D
 @export var unit_tank : PackedScene = preload("res://scenes/Entities/Units/TankUnit.tscn")
 @export var unit_infantry : PackedScene = preload("res://scenes/Entities/Units/Infantry.tscn")
 @export var headquarter : PackedScene = preload("res://scenes/Entities/Building/QG.tscn")
+@export var village : PackedScene = preload("res://scenes/Entities/Building/Village.tscn")
 @export var spawn_count: int = 8            
 @export var spawn_radius: float = 100.0     # distance autour du point
 
 @export var head_quarter : PackedScene = preload("res://scenes/Entities/Building/QG.tscn")
 @export var qg_positions: Array[Vector2] = [Vector2(200, 200), Vector2(800, 200)]
+@export var village_positions :  Array[Vector2] = [Vector2(400, 400), Vector2(60, 60)]
 
 
 
@@ -46,6 +48,20 @@ func _ready() -> void:
 		qg.position = tilemap.position + snapped_pos
 
 		add_child(qg)
+		
+	for i in range(village_positions.size()):
+		var vlg = village.instantiate()
+		vlg.add_to_group("buildings")
+		vlg.call_deferred("setup", i + 1)
+
+		var qg_pos = village_positions[i]
+
+		var cell = tilemap.local_to_map(tilemap.to_local(qg_pos))
+
+		var snapped_pos = tilemap.map_to_local(cell)
+		vlg.position = tilemap.position + snapped_pos
+
+		add_child(vlg)
 
 
 

@@ -29,6 +29,9 @@ func setup(_equipe: int) -> void:
 
 func _ready():
 	_apply_color() 
+	
+func update_health_bar() -> void:
+	health_bar.value = current_hp
 
 func _apply_color() -> void:
 	if not couleur:

@@ -1,7 +1,7 @@
 extends Node
 
 @onready var hq_body: Node2D = get_parent() # le QG
-@export var area2D : Area2D 
+@export var area2D : Area2D
 
 var is_selected: bool = false
 
