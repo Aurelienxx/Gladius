@@ -110,7 +110,7 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 				if target.is_in_group("buildings") and target.get_script().resource_path.find("QG.gd") == -1:
 					# Respawn en neutre (tous les bâtiments sauf QG)
 					target.equipe = 0
-					target.current_hp = target.hp
+					target.current_hp = target.max_hp
 					target._apply_color(0)
 				else:
 					# Cas QG ou unité normale -> détruit
