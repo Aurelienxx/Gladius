@@ -26,3 +26,4 @@ func _on_shape_attack_clicked():
 func _show_villagetown_ui():
 	# Code pour afficher l'UI des villages et villes : production, ressources, etc.
 	pass
+	

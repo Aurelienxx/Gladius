@@ -33,5 +33,6 @@ sprite_frames = SubResource("SpriteFrames_n84a3")
 position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_2ffi7")
 
-[node name="townManager" type="Node" parent="."]
+[node name="townManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
 script = ExtResource("3_tfqh3")
+area2D = NodePath("../Area2D")

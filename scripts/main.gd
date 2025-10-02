@@ -270,16 +270,31 @@ func _unhandled_input(event):
 				HIGHLIGHT.clear()
 				selected_unit.movement = true
 				check_building_capture(selected_unit) # <-- capture auto
+				verify_end_turn()
+
+			
+			
+func is_adjacent_cells(a: Vector2i, b: Vector2i, range: int) -> bool:
+	var dx = abs(a.x - b.x)
+	var dy = abs(a.y - b.y)
+	var result = dx <= range and dy <= range and not (dx == 0 and dy == 0)
+	print("Test capture carré : unité:", a, " village:", b, " range:", range, " dx:", dx, " dy:", dy, " => ", result)
+	return result # cases adjacentes uniquement
 
 
 func check_building_capture(unit: CharacterBody2D):
 	var unit_cell = MAP.local_to_map(unit.global_position)
-
+	# Définir spawn_radius et tile_size ici si pas déjà global
+	var spawn_radius = 48 # à adapter selon ton jeu
+	var tile_size = 24    # à adapter selon ton jeu
+	var radius_in_cells = int(spawn_radius / tile_size) + 1.5
 	for building in all_buildings:
 		var building_cell = MAP.local_to_map(building.global_position)
 
-		# Si le bâtiment est neutre et adjacent (y compris diagonale)
-		if building.equipe == 0 and unit_cell.distance_to(building_cell) <= 1:
+		print("Tentative capture : unité:", unit_cell, " village:", building_cell, " équipe:", building.equipe, " rayon capture:", radius_in_cells)
+		# Capture si le bâtiment est neutre et dans le rayon
+		if building.equipe == 0 and is_adjacent_cells(unit_cell, building_cell, radius_in_cells):
+			print("Capture réussie !")
 			building.capture(unit.equipe)
 
 

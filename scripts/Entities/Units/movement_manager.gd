@@ -1,5 +1,7 @@
 extends Node
 
+
+
 @onready var character: CharacterBody2D = get_parent()
 
 @export var area2D : Area2D 
@@ -68,3 +70,16 @@ func _physics_process(delta: float) -> void:
 		if MaskOverlay:
 			MaskOverlay.play()
 		
+
+func _capture_nearby_neutral_village():
+	# Recherche les villages dans le voisinage immédiat
+	var unit_pos = character.global_position
+	var radius = 1 # à ajuster selon la taille des cases
+	var villages = get_tree().get_nodes_in_group("Village")
+	for village in villages:
+		if village.has_method("capture"):
+			var v_pos = village.global_position
+			if unit_pos.distance_to(v_pos) <= radius:
+				if village.equipe == 0:
+					print("Capture par équipe ", character.equipe)
+					village.capture(character.equipe)

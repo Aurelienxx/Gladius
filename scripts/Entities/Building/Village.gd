@@ -1,4 +1,6 @@
 extends CharacterBody2D
+func _ready():
+	add_to_group("Village")
 
 @onready var couleur:PointLight2D=$AnimatedSprite2D/PointLight2D
 var Vlg1 = {
@@ -73,9 +75,16 @@ func capture(nb: int):
 		return # déjà capturé par cette équipe
 
 	match equipe:
-		EQUIPE_NEUTRAL:
+		0: # neutre
 			equipe = nb
 			_apply_color(nb)
+		1, 2:
+			if nb != equipe:
+				max_hp -= 50
+				if max_hp <= 0:
+					equipe = nb
+					max_hp = 200 # reset la vie
+					_apply_color(nb)
 
 		EQUIPE_ONE, EQUIPE_TWO:
 			if nb != equipe:
