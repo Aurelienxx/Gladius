@@ -1,17 +1,22 @@
-[gd_scene load_steps=22 format=3 uid="uid://casx0iw2asrlb"]
+[gd_scene load_steps=21 format=3 uid="uid://casx0iw2asrlb"]
 
 [ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
 [ext_resource type="PackedScene" uid="uid://cc1okjsltc6ac" path="res://scenes/Entities/Units/TankUnit.tscn" id="2_6n7by"]
-[ext_resource type="Texture2D" uid="uid://di2aly72m3r26" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png" id="3_rufx2"]
 [ext_resource type="PackedScene" uid="uid://cnywfqbg0wjpb" path="res://scenes/Entities/Units/ArtilleryUnit.tscn" id="4_wa322"]
-[ext_resource type="Texture2D" uid="uid://c6rdyxchrqn34" path="res://assets/sprites/EntitySprite/Units/SpriteArtillery/artillery.png" id="5_147eb"]
 [ext_resource type="PackedScene" uid="uid://dogkmflijdlsd" path="res://scenes/Entities/Units/Infantry.tscn" id="5_ykc18"]
 [ext_resource type="PackedScene" uid="uid://c4cxrrugw53mu" path="res://scenes/Entities/Units/TruckUnit.tscn" id="6_gsk3d"]
-[ext_resource type="Texture2D" uid="uid://dsohn3oisr61f" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Infantry_sprite_1.png" id="7_miyln"]
-[ext_resource type="Texture2D" uid="uid://of4f3lyxof7h" path="res://assets/sprites/EntitySprite/Units/Spritetruck/Truck.png" id="9_6c21a"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="29_a1o1e"]
 [ext_resource type="Script" uid="uid://cmv76kwh7rv5k" path="res://scripts/HUD/Recruit_Menu.gd" id="31_a1o1e"]
 [ext_resource type="PackedScene" uid="uid://brebtsljws1qg" path="res://scenes/HUD/UnitDisplay.tscn" id="32_6n7by"]
+
+[sub_resource type="Resource" id="Resource_4undd"]
+metadata/__load_path__ = "res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"
+
+[sub_resource type="Resource" id="Resource_wa322"]
+metadata/__load_path__ = "res://assets/sprites/EntitySprite/Units/SpriteArtillery/artillery.png"
+
+[sub_resource type="Resource" id="Resource_ykc18"]
+metadata/__load_path__ = "res://assets/sprites/EntitySprite/Units/Spritetruck/Truck.png"
 
 [sub_resource type="Theme" id="Theme_of4gv"]
 
@@ -52,19 +57,18 @@ script = ExtResource("1_kbjyg")
 
 [node name="TankUnit" parent="." instance=ExtResource("2_6n7by")]
 visible = false
-thumbnail = ExtResource("3_rufx2")
+thumbnail = SubResource("Resource_4undd")
 
 [node name="ArtilleryUnit" parent="." instance=ExtResource("4_wa322")]
 visible = false
-thumbnail = ExtResource("5_147eb")
+thumbnail = SubResource("Resource_wa322")
 
 [node name="InfantryUnit" parent="." instance=ExtResource("5_ykc18")]
 visible = false
-thumbnail = ExtResource("7_miyln")
 
 [node name="TruckUnit" parent="." instance=ExtResource("6_gsk3d")]
 visible = false
-thumbnail = ExtResource("9_6c21a")
+thumbnail = SubResource("Resource_ykc18")
 
 [node name="MenuDisplay" type="MarginContainer" parent="."]
 anchors_preset = -1
