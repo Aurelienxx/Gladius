@@ -47,6 +47,7 @@ bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
 [node name="TruckUnit" type="CharacterBody2D"]
 script = ExtResource("1_wsuu6")
+thumbnail = ExtResource("2_vhdrv")
 
 [node name="UnitSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_y68kv")

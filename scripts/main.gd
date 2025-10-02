@@ -46,6 +46,7 @@ func highlight_cells(start_cell,highlighted_cells,highlight_type:int=0):
 	HIGHLIGHT.clear()
 	for cell in highlighted_cells:
 		HIGHLIGHT.set_cell(cell, highlight_type, Vector2i(0,0))
+	HIGHLIGHT.set_cell(start_cell, 2, Vector2i(0,0))
 
 func _on_unit_clicked(unit: CharacterBody2D):
 	if mode == "attack" and attack_unit != null and unit != attack_unit:
@@ -62,6 +63,7 @@ func _on_unit_clicked(unit: CharacterBody2D):
 				var start_cell = MAP.local_to_map(unit.global_position)
 				var reachable_cells = get_reachable_cells(MAP, start_cell, unit.move_range)
 				highlight_cells(start_cell,reachable_cells)
+				
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	

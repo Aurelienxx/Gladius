@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://bli8po88bo6ci"]
+[gd_scene load_steps=27 format=4 uid="uid://bli8po88bo6ci"]
 
 [ext_resource type="Script" uid="uid://dkkr5exuxgoet" path="res://scripts/main.gd" id="1_4rr3d"]
 [ext_resource type="Script" uid="uid://77ktlgk2748d" path="res://scripts/Map/map.gd" id="2_2rm8l"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bat0jf3mondfw" path="res://assets/sprites/EntitySprite/Explosion/explosion4.png" id="12_b8hlp"]
 [ext_resource type="Texture2D" uid="uid://bajvap428o1hg" path="res://assets/sprites/EntitySprite/Explosion/explosion5.png" id="13_wdqq6"]
 [ext_resource type="Texture2D" uid="uid://b713e1g1ogpa1" path="res://assets/sprites/EntitySprite/Explosion/explosion6.png" id="14_mnaup"]
+[ext_resource type="Texture2D" uid="uid://dvjkhlgcuf8to" path="res://assets/sprites/TileSet/Unit_Highlight.png" id="15_53cjn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ehssc"]
 animations = [{
@@ -317,10 +318,16 @@ texture_region_size = Vector2i(32, 32)
 0:0/animation_frame_4/duration = 0.1
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b8hlp"]
+texture = ExtResource("15_53cjn")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_m76i7"]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_57bgo")
 sources/1 = SubResource("TileSetAtlasSource_m76i7")
+sources/2 = SubResource("TileSetAtlasSource_b8hlp")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2yrau"]
 size = Vector2(74, 1676.0068)
