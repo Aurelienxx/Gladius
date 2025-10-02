@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6rdyxchrqn34"
-path="res://.godot/imported/artillery.png-bcdbdff3eb6b70f89607995fece7b9f8.ctex"
+uid="uid://xb7wyr3omawg"
+path="res://.godot/imported/infantry_overlay_1.png-bdbe38dc497ab2b325bc578caf88ec6a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/EntitySprite/Units/SpriteArtillery/artillery.png"
-dest_files=["res://.godot/imported/artillery.png-bcdbdff3eb6b70f89607995fece7b9f8.ctex"]
+source_file="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Mask/Idle/infantry_overlay_1.png"
+dest_files=["res://.godot/imported/infantry_overlay_1.png-bdbe38dc497ab2b325bc578caf88ec6a.ctex"]
 
 [params]
 

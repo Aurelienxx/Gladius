@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://l3d7yt2huxjv"
-path="res://.godot/imported/TruckMask.png-16ae2ce4b9061ab54368750832b55adf.ctex"
+uid="uid://brhq2bjca3lfr"
+path="res://.godot/imported/Truck_Mask_1.png-c3af2739b5a3e4386c62bb97770a6528.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/EntitySprite/Units/Spritetruck/TruckMask.png"
-dest_files=["res://.godot/imported/TruckMask.png-16ae2ce4b9061ab54368750832b55adf.ctex"]
+source_file="res://assets/sprites/EntitySprite/Units/Spritetruck/Mask/Idle/Truck_Mask_1.png"
+dest_files=["res://.godot/imported/Truck_Mask_1.png-c3af2739b5a3e4386c62bb97770a6528.ctex"]
 
 [params]
 

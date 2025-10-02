@@ -2,9 +2,9 @@ class_name ArtilleryUnit
 extends CharacterBody2D
 
 # Stats de base (communes à toutes les unités de ce type)
-@onready var couleur : PointLight2D = $AnimatedSprite2D/PointLight2D
+@onready var MaskOverlay : AnimatedSprite2D = $MaskSprite
+@onready var anim:AnimatedSprite2D = $UnitSprite
 @onready var health_bar: ProgressBar = $HealthBar
-@onready var anim:AnimatedSprite2D = $AnimatedSprite2D
 
 @export var cost: int = 90
 @export var maintenance: int = 3
@@ -28,18 +28,22 @@ func setup(_equipe: int) -> void:
 	health_bar.value = current_hp
 	
 	if equipe == 2:
-		anim.flip_h = true	
+		anim.flip_h = true
+		MaskOverlay.flip_h = true
+		
 	
 	_apply_color()  
 
 func _ready():
 	_apply_color() 
+	
+func update_health_bar() -> void:
+	health_bar.value = current_hp
 
 func _apply_color() -> void:
-	if not couleur:
-		return
-
+	var color:Color = Color("white")
 	if equipe == 1:
-		couleur.color = Color(0, 0, 1, 1.0)
-	elif equipe == 2:
-		couleur.color = Color(1, 0.0, 0.0, 1.0)
+		color = Color("Blue")
+	else:
+		color = Color("red")
+	MaskOverlay.modulate = color

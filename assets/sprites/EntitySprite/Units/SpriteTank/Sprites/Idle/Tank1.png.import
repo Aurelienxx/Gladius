@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kjfxd7mohanq"
-path="res://.godot/imported/ArtilleryMask.png-7d8e5e23d3e20e2cfc8aebe164b599b7.ctex"
+uid="uid://mhfvhihbutx3"
+path="res://.godot/imported/Tank1.png-ec0e3bc66880c868b4069b62f204cf14.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/EntitySprite/Units/SpriteArtillery/ArtilleryMask.png"
-dest_files=["res://.godot/imported/ArtilleryMask.png-7d8e5e23d3e20e2cfc8aebe164b599b7.ctex"]
+source_file="res://assets/sprites/EntitySprite/Units/SpriteTank/Sprites/Idle/Tank1.png"
+dest_files=["res://.godot/imported/Tank1.png-ec0e3bc66880c868b4069b62f204cf14.ctex"]
 
 [params]
 

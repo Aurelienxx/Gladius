@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di2aly72m3r26"
-path="res://.godot/imported/Tank1.png-009060ad1178f731b6a81c31345e4f2e.ctex"
+uid="uid://dt6qw6o2r3fpg"
+path="res://.godot/imported/artillery_1.png-c61f6cce573b3d53bd1bbd07a15a6f61.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"
-dest_files=["res://.godot/imported/Tank1.png-009060ad1178f731b6a81c31345e4f2e.ctex"]
+source_file="res://assets/sprites/EntitySprite/Units/SpriteArtillery/Sprites/Idle/artillery_1.png"
+dest_files=["res://.godot/imported/artillery_1.png-c61f6cce573b3d53bd1bbd07a15a6f61.ctex"]
 
 [params]
 

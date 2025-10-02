@@ -4,6 +4,8 @@ extends Node
 
 @export var area2D : Area2D 
 @export var move_speed: float = 200.0
+
+@export var MaskOverlay:AnimatedSprite2D
 @export var anim:AnimatedSprite2D
 
 var is_selected: bool = false
@@ -50,8 +52,10 @@ func _physics_process(delta: float) -> void:
 			
 			if character.velocity.x < 0:
 				anim.flip_h = true
+				MaskOverlay.flip_h = true
 			elif character.velocity.x > 0:
 				anim.flip_h = false
+				MaskOverlay.flip_h = false
 			
 		else:
 			character.global_position = target_position
@@ -59,4 +63,8 @@ func _physics_process(delta: float) -> void:
 			is_moving = false
 			move_to_next_cell()
 	else:
-		anim.play("idle")
+		if anim:
+			anim.play()
+		if MaskOverlay:
+			MaskOverlay.play()
+		

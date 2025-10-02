@@ -1,23 +1,38 @@
-[gd_scene load_steps=11 format=3 uid="uid://dogkmflijdlsd"]
+[gd_scene load_steps=13 format=3 uid="uid://dogkmflijdlsd"]
 
 [ext_resource type="Script" uid="uid://c6k1n0k2eqnby" path="res://scripts/Entities/Units/InfantryUnit.gd" id="1_ul1d2"]
-[ext_resource type="Texture2D" uid="uid://dsohn3oisr61f" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Infantry_sprite_1.png" id="2_ul1d2"]
-[ext_resource type="Texture2D" uid="uid://b82l7dmeuo44h" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Infantry_sprite_2.png" id="3_6on2y"]
+[ext_resource type="Texture2D" uid="uid://dsohn3oisr61f" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Sprites/Idle/Infantry_sprite_1.png" id="2_hcrcq"]
+[ext_resource type="Texture2D" uid="uid://b82l7dmeuo44h" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Sprites/Idle/Infantry_sprite_2.png" id="3_hyaov"]
+[ext_resource type="Texture2D" uid="uid://xb7wyr3omawg" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Mask/infantry_overlay_1.png" id="4_6on2y"]
 [ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_hcrcq"]
-[ext_resource type="Texture2D" uid="uid://bmr7dhl5r5gh2" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Infantry_overlay_1.png" id="4_hyaov"]
+[ext_resource type="Texture2D" uid="uid://cypi67og5m3ms" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Mask/infantry_overlay_2.png" id="5_hcrcq"]
 [ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/movement_manager.gd" id="5_hyaov"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y68kv"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_ul1d2")
+"duration": 2.0,
+"texture": ExtResource("2_hcrcq")
 }, {
-"duration": 1.0,
-"texture": ExtResource("3_6on2y")
+"duration": 2.0,
+"texture": ExtResource("3_hyaov")
 }],
 "loop": true,
-"name": &"Infantery",
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6on2y"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("4_6on2y")
+}, {
+"duration": 2.0,
+"texture": ExtResource("5_hcrcq")
+}],
+"loop": true,
+"name": &"default",
 "speed": 5.0
 }]
 
@@ -32,18 +47,16 @@ bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
 [node name="InfantryUnit" type="CharacterBody2D"]
 script = ExtResource("1_ul1d2")
+thumbnail = ExtResource("2_hcrcq")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="UnitSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_y68kv")
-animation = &"Infantery"
-frame_progress = 0.91370785
 
-[node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
-position = Vector2(0, 1)
-scale = Vector2(0.99999994, 1.0804803)
-energy = 16.0
-texture = ExtResource("4_hyaov")
+[node name="MaskSprite" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(1, -1)
+sprite_frames = SubResource("SpriteFrames_6on2y")
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("4_hcrcq")
@@ -62,8 +75,10 @@ theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_ul1d2")
 theme_override_styles/fill = SubResource("StyleBoxFlat_6on2y")
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
-[node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D", "anim")]
+[node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D", "MaskOverlay", "anim")]
 script = ExtResource("5_hyaov")
 area2D = NodePath("../Area2D")
-anim = NodePath("../AnimatedSprite2D")
+MaskOverlay = NodePath("../MaskSprite")
+anim = NodePath("../UnitSprite")

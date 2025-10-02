@@ -2,9 +2,10 @@ class_name InfentryUnit
 extends CharacterBody2D
 
 # Stats de base (communes à toutes les unités de ce type)
-@onready var couleur : PointLight2D = $AnimatedSprite2D/PointLight2D
+
 @onready var health_bar: ProgressBar = $HealthBar
-@onready var anim:AnimatedSprite2D = $AnimatedSprite2D
+@onready var anim:AnimatedSprite2D = $UnitSprite
+@onready var MaskOverlay : AnimatedSprite2D = $MaskSprite
 
 @export var cost: int = 15
 @export var maintenance: int = 2
@@ -29,6 +30,8 @@ func setup(_equipe: int) -> void:
 	
 	if equipe == 2:
 		anim.flip_h = true
+		MaskOverlay.flip_h = true
+		
 	
 	_apply_color()  
 
@@ -39,10 +42,9 @@ func update_health_bar() -> void:
 	health_bar.value = current_hp
 
 func _apply_color() -> void:
-	if not couleur:
-		return
-
+	var color:Color = Color("white")
 	if equipe == 1:
-		couleur.color = Color(0, 0, 1, 1.0)
-	elif equipe == 2:
-		couleur.color = Color(1, 0.0, 0.0, 1.0)
+		color = Color("Blue")
+	else:
+		color = Color("red")
+	MaskOverlay.modulate = color

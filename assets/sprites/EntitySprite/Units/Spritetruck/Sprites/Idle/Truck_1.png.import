@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnh2d2fowjw10"
-path="res://.godot/imported/Infantry_overlay_2.png-f0a42d9f433da78a51ab7737de4e5bba.ctex"
+uid="uid://cmb0ndwemusua"
+path="res://.godot/imported/Truck_1.png-f43115b18a8ea30ef519ba9fe2cfcb0c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Infantry_overlay_2.png"
-dest_files=["res://.godot/imported/Infantry_overlay_2.png-f0a42d9f433da78a51ab7737de4e5bba.ctex"]
+source_file="res://assets/sprites/EntitySprite/Units/Spritetruck/Sprites/Idle/Truck_1.png"
+dest_files=["res://.godot/imported/Truck_1.png-f43115b18a8ea30ef519ba9fe2cfcb0c.ctex"]
 
 [params]
 

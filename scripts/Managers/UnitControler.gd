@@ -6,6 +6,7 @@ extends Node2D
 @export var unit_infantry : PackedScene = preload("res://scenes/Entities/Units/Infantry.tscn")
 @export var headquarter : PackedScene = preload("res://scenes/Entities/Building/QG.tscn")
 @export var village : PackedScene = preload("res://scenes/Entities/Building/Village.tscn")
+
 @export var spawn_count: int = 8            
 @export var spawn_radius: float = 100.0     # distance autour du point
 
@@ -123,8 +124,9 @@ func spawn_unit(unit_type: String, actual_player: int):
 		"artillery": unit = unit_artillery.instantiate()
 		_: return null
 	
-	unit.add_to_group("units")
 	unit.call_deferred("setup", actual_player)
+	unit.add_to_group("units")
+	
 	
 	var local_pos = tilemap.map_to_local(cell)
 	unit.position = tilemap.to_global(local_pos)
