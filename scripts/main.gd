@@ -10,6 +10,7 @@ var quick_select_index = -1
 @onready var MAP: TileMapLayer = $TileMapContainer/TileMap_Dirt
 @onready var HIGHLIGHT: TileMapLayer = $TileMapContainer/TileMap_Highlight
 @onready var GRASS_MAP: TileMapLayer = $TileMapContainer/TileMap_Grass
+@onready var OBSTACLE: TileMapLayer = $TileMapContainer/TileMap_Obstacle
 
 var attack_unit: CharacterBody2D = null 
 var mode: String = ""
@@ -23,6 +24,7 @@ var last_start: Vector2i
 
 
 var terrain_costs = {
+	"TileMap_Obstacle": -1, # obstacle : infranchissable
 	"TileMap_Dirt": 2,   # boue : coût double (50% de vitesse)
 	"TileMap_Grass": 1,  # herbe : coût normal
 }
@@ -173,8 +175,8 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 				continue
 
 			var move_cost = get_terrain_cost(next)
-			if move_cost == null:
-				move_cost = 1
+			if move_cost == -1:
+				continue
 			var new_cost = current_cost + move_cost
 
 			if new_cost > max_range:
@@ -199,7 +201,10 @@ func get_attack_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Arr
 	return cells
 
 func get_terrain_cost(cell: Vector2i) -> int:
-	if GRASS_MAP.get_cell_source_id(cell) != -1: 
+	if OBSTACLE.get_cell_source_id(cell) != -1:
+		# Terrain is obstacle
+		return terrain_costs.get("TileMap_Obstacle")
+	elif GRASS_MAP.get_cell_source_id(cell) != -1: 
 		# Terrain is grass
 		return terrain_costs.get("TileMap_Grass")
 	elif MAP.get_cell_source_id(cell) != -1:
