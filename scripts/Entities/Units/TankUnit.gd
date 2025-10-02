@@ -17,6 +17,9 @@ extends CharacterBody2D
 @export var name_Unite: String = "Tank"
 @export var thumbnail: Texture2D
 
+var hit_flash_timer: Timer
+var base_modulate: Color
+
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int
 var equipe: int
@@ -37,8 +40,24 @@ func setup(_equipe: int) -> void:
 func _ready():
 	_apply_color() 
 	
+	hit_flash_timer = Timer.new()
+	hit_flash_timer.wait_time = 0.2
+	hit_flash_timer.one_shot = true
+	add_child(hit_flash_timer)
+	hit_flash_timer.timeout.connect(_on_hit_flash_end)
+
+	base_modulate = anim.modulate
+
+	
 func update_health_bar() -> void:
 	health_bar.value = current_hp
+	anim.modulate = Color(2,2,2,1)
+	hit_flash_timer.start()
+
+	
+
+func _on_hit_flash_end() -> void:
+	anim.modulate = base_modulate
 
 func _apply_color() -> void:
 	var color:Color = Color("white")
