@@ -116,10 +116,15 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 					target.equipe = 0
 					target.current_hp = target.max_hp
 					target._apply_color(0)
-				else:
-					# Cas QG ou unité normale -> détruit
+				elif target.is_in_group("units"):
 					all_units.erase(target)
 					target.queue_free()
+				else:
+					# Cas QG ou unité normale -> détruit
+					print ("Ceci est bien un QG")
+					all_units.erase(target)
+					target.queue_free()
+					get_tree().change_scene_to_file("res://scenes/EndScreen/EndScreen.tscn")
 	attack_unit = null
 	mode = ""
 	HIGHLIGHT.clear()
@@ -365,27 +370,16 @@ func quick_select():
 				break
 
 func _input(event):
-	var spawn = get_node("Units/PlayerUnits")
-	var type_unit:String
-	
 	if Input.is_action_pressed("enter"):
 		next_player()
 	if Input.is_action_pressed("space"):
 		quick_select()
-	
-	if Input.is_action_pressed("T"):
-		type_unit="tank"
-	if Input.is_action_pressed("I"):
-		type_unit="infantry"
-	if Input.is_action_pressed("C"):
-		type_unit="truck"
-	if Input.is_action_pressed("A"):
-		type_unit="artillery"
-	
-	if type_unit:		
-		var new_unit = spawn.spawn_unit(type_unit,actual_player)
-		add_child(new_unit)
-		all_units = get_tree().get_nodes_in_group("units")
+
+func spawnUnit(unit: String):
+	var spawn = get_node("Units/PlayerUnits")
+	var new_unit = spawn.spawn_unit(unit,actual_player)
+	add_child(new_unit)
+	all_units = get_tree().get_nodes_in_group("units")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	anim_explosion.visible = false

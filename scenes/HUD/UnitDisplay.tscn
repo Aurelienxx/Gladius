@@ -20,7 +20,7 @@ grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_m8ju6")
 flat = true
 script = ExtResource("1_m8ju6")
-name_Label = NodePath("HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo/Label")
+name_Label = NodePath("HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo/Name")
 cost_Label = NodePath("HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo/CostDisplay/Cost")
 health_Label = NodePath("HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle/HealthDisplay/Health")
 maintenance_Label = NodePath("HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle/MaintenanceDisplay/Maintenance")
@@ -89,7 +89,7 @@ size_flags_vertical = 4
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo"]
+[node name="Name" type="Label" parent="HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "NOM UNITE"

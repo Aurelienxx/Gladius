@@ -176,30 +176,37 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_l5g1i")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6n7by")
 
 [node name="ConstructionDisplay" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
-visible = false
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="UnitDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
-custom_minimum_size = Vector2(0, 150)
+[node name="InfantryDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
+custom_minimum_size = Vector2(600, 150)
 layout_mode = 2
+size_flags_horizontal = 0
 unite_Display = NodePath("../../../../../../InfantryUnit")
 
-[node name="UnitDisplay2" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
-custom_minimum_size = Vector2(0, 150)
+[node name="TruckDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
+custom_minimum_size = Vector2(600, 150)
 layout_mode = 2
+size_flags_horizontal = 0
 unite_Display = NodePath("../../../../../../TruckUnit")
 
-[node name="UnitDisplay3" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
-custom_minimum_size = Vector2(0, 150)
+[node name="ArtilleryDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
+custom_minimum_size = Vector2(600, 150)
 layout_mode = 2
+size_flags_horizontal = 0
 unite_Display = NodePath("../../../../../../ArtilleryUnit")
 
-[node name="UnitDisplay4" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
-custom_minimum_size = Vector2(0, 150)
+[node name="TankDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
+custom_minimum_size = Vector2(600, 150)
 layout_mode = 2
+size_flags_horizontal = 0
 unite_Display = NodePath("../../../../../../TankUnit")
 
 [connection signal="button_down" from="MenuDisplay/VBoxContainer/Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ToggleButton" to="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu" method="_on_toggle_button_pressed"]
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/InfantryDisplay" to="." method="_on_infantry_display_pressed"]
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TruckDisplay" to="." method="_on_truck_display_pressed"]
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/ArtilleryDisplay" to="." method="_on_artillery_display_pressed"]
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TankDisplay" to="." method="_on_tank_display_pressed"]

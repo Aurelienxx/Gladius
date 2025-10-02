@@ -20,6 +20,3 @@ func _ready():
 		attack_Range_Label.text = str(unite_Display.attack_range)
 		move_Range_Label.text = str(unite_Display.move_range)
 		thumbnail_texture.texture = unite_Display.thumbnail
-
-func _on_pressed() -> void:
-	pass # Replace with function body.

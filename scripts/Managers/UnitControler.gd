@@ -116,12 +116,11 @@ func spawn_unit(unit_type: String, actual_player: int):
 		return null
 	
 	var cell = free_cells[randi() % free_cells.size()]
-	
 	match unit_type:
-		"tank": unit = unit_tank.instantiate()
-		"infantry": unit = unit_infantry.instantiate()
-		"truck": unit = unit_truck.instantiate()
-		"artillery": unit = unit_artillery.instantiate()
+		"Tank": unit = unit_tank.instantiate()
+		"Infantry": unit = unit_infantry.instantiate()
+		"Truck": unit = unit_truck.instantiate()
+		"Artillery": unit = unit_artillery.instantiate()
 		_: return null
 	
 	unit.call_deferred("setup", actual_player)
