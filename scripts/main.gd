@@ -10,6 +10,7 @@ var quick_select_index = -1
 @onready var MAP: TileMapLayer = $TileMapContainer/TileMap_Dirt
 @onready var HIGHLIGHT: TileMapLayer = $TileMapContainer/TileMap_Highlight
 @onready var GRASS_MAP: TileMapLayer = $TileMapContainer/TileMap_Grass
+@onready var GAZ: TileMapLayer = $TileMapContainer/TileMap_Gaz
 @onready var OBSTACLE: TileMapLayer = $TileMapContainer/TileMap_Obstacle
 
 var attack_unit: CharacterBody2D = null 
@@ -27,6 +28,7 @@ var terrain_costs = {
 	"TileMap_Obstacle": -1, # obstacle : infranchissable
 	"TileMap_Dirt": 2,   # boue : coût double (50% de vitesse)
 	"TileMap_Grass": 1,  # herbe : coût normal
+	"TileMap_Gaz" : 2
 }
 
 var actual_player = 1
@@ -204,6 +206,8 @@ func get_terrain_cost(cell: Vector2i) -> int:
 	if OBSTACLE.get_cell_source_id(cell) != -1:
 		# Terrain is obstacle
 		return terrain_costs.get("TileMap_Obstacle")
+	elif GAZ.get_cell_source_id(cell) != -1 :
+		return terrain_costs.get("TileMap_Gaz")
 	elif GRASS_MAP.get_cell_source_id(cell) != -1: 
 		# Terrain is grass
 		return terrain_costs.get("TileMap_Grass")
@@ -310,6 +314,13 @@ func next_player():
 		if unit.equipe == actual_player:
 			unit.movement = false
 			unit.attack = false
+			
+			if GAZ.get_cell_source_id(MAP.local_to_map(unit.global_position)) != -1 :
+				unit.current_hp -= 25
+				unit.update_health_bar()
+				if unit.current_hp <= 0:
+					all_units.erase(unit)
+					unit.queue_free()
 			
 	if actual_player == 1:
 		actual_player = 2
