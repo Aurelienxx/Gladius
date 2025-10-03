@@ -348,42 +348,43 @@ func verify_end_turn():
 	next_player()
 
 func quick_select():
-	var moved = false
-	var currently_selected_unit = (quick_select_index + 1) % all_units.size()
-	var unit_index = currently_selected_unit
+	if all_units.size() != 0: 
+		var moved = false
+		var currently_selected_unit = (quick_select_index + 1) % all_units.size()
+		var unit_index = currently_selected_unit
 
-	while true:
-		var unit = all_units[unit_index]
-		if unit.equipe == actual_player and unit.movement == false:
-			var manager: Node = unit.get_node("MovementManager")
-			manager.is_selected = true
-			_on_unit_clicked(unit)
-			moved = true
-			quick_select_index = unit_index 
-			var pos = unit.position
-			var cam = get_node("./Player_view")
-			cam.global_position = pos
-			break
-		
-		unit_index = (unit_index + 1) % all_units.size()
-		if unit_index == currently_selected_unit:
-			break 
-
-	if not moved:
-		unit_index = currently_selected_unit
 		while true:
 			var unit = all_units[unit_index]
-			if unit.equipe == actual_player and unit.attack == false:
-				_on_unit_attack(unit, null)
+			if unit.equipe == actual_player and unit.movement == false:
+				var manager: Node = unit.get_node("MovementManager")
+				manager.is_selected = true
+				_on_unit_clicked(unit)
+				moved = true
+				quick_select_index = unit_index 
 				var pos = unit.position
 				var cam = get_node("./Player_view")
 				cam.global_position = pos
-				quick_select_index = unit_index
 				break
-
+			
 			unit_index = (unit_index + 1) % all_units.size()
 			if unit_index == currently_selected_unit:
-				break
+				break 
+
+		if not moved:
+			unit_index = currently_selected_unit
+			while true:
+				var unit = all_units[unit_index]
+				if unit.equipe == actual_player and unit.attack == false:
+					_on_unit_attack(unit, null)
+					var pos = unit.position
+					var cam = get_node("./Player_view")
+					cam.global_position = pos
+					quick_select_index = unit_index
+					break
+
+				unit_index = (unit_index + 1) % all_units.size()
+				if unit_index == currently_selected_unit:
+					break
 				
 func unit_economy() :
 	EconomyManager.money_loss1 = 0
