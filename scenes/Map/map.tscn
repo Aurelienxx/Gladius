@@ -348,6 +348,7 @@ script = ExtResource("1_4rr3d")
 [node name="InGameUI" parent="." instance=ExtResource("2_aasa8")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_ehssc")
 animation = &"explosion"
 
