@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bli16w6k7bhcv"]
+[gd_scene load_steps=7 format=3 uid="uid://bli16w6k7bhcv"]
 
 [ext_resource type="Script" uid="uid://b2epgc8lwp40v" path="res://scripts/Entities/Building/Town.gd" id="1_luyv0"]
 [ext_resource type="Texture2D" uid="uid://c14pygd101hox" path="res://assets/sprites/EntitySprite/Buildings/City/city.png" id="2_tfqh3"]
+[ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/clickDetection.gd" id="3_n84a3"]
 [ext_resource type="Script" uid="uid://cl31n5dcmv557" path="res://scripts/Entities/Building/villageTownManager.gd" id="3_tfqh3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n84a3"]
@@ -28,6 +29,7 @@ sprite_frames = SubResource("SpriteFrames_n84a3")
 [node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
 
 [node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("3_n84a3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 1.5)

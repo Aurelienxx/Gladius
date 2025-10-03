@@ -110,8 +110,8 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 			anim_explosion.z_index = 100
 			anim_explosion.play("explosion")
 			
-			if target.is_in_group("units"):
-				target.update_health_bar()
+
+			target.update_health_bar()
 			if target.current_hp <= 0:
 				if target.is_in_group("buildings") and target.get_script().resource_path.find("QG.gd") == -1:
 					# Respawn en neutre (tous les bâtiments sauf QG)
@@ -127,8 +127,8 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 					all_units.erase(target)
 					target.queue_free()
 					get_tree().change_scene_to_file("res://scenes/EndScreen/EndScreen.tscn")
-					if target.equipe == 1:
-						result = 
+					#if target.equipe == 1:
+						#result = 
 						
 	attack_unit = null
 	mode = ""

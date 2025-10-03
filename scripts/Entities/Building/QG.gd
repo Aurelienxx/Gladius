@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 @onready var couleur : PointLight2D = $AnimatedSprite2D/PointLight2D
+@onready var anim:AnimatedSprite2D = $AnimatedSprite2D
+@onready var health_bar: ProgressBar = $HealthBar
 var max_hp: int = 1000
 var lv: int = 1
 var damage: int = 15
@@ -19,14 +21,38 @@ var equipe: int
 var is_selected := false
 var attack := true
 
+
+var hit_flash_timer: Timer
+var base_modulate: Color
+
 func setup(_equipe: int) -> void:
 	equipe = _equipe
 	current_hp = max_hp
+	health_bar.max_value = max_hp
+	health_bar.value = current_hp
 	_apply_color()
 
 
 func _ready():
 	_apply_color() 
+	hit_flash_timer = Timer.new()
+	hit_flash_timer.wait_time = 0.2
+	hit_flash_timer.one_shot = true
+	add_child(hit_flash_timer)
+	hit_flash_timer.timeout.connect(_on_hit_flash_end)
+
+	base_modulate = anim.modulate
+
+	
+func update_health_bar() -> void:
+	health_bar.value = current_hp
+	anim.modulate = Color(2,2,2,1)
+	hit_flash_timer.start()
+
+	
+
+func _on_hit_flash_end() -> void:
+	anim.modulate = base_modulate
 
 
 func _apply_color() -> void:
