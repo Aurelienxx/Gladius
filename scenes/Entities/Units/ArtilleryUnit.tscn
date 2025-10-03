@@ -46,16 +46,8 @@ bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
 bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
 [node name="ArtilleryUnit" type="CharacterBody2D"]
+visible = false
 script = ExtResource("1_wso3m")
-cost = null
-maintenance = null
-max_hp = null
-damage = null
-move_range = null
-attack_range = null
-movement = null
-attack = null
-name_Unite = null
 thumbnail = ExtResource("2_x6c4b")
 
 [node name="UnitSprite" type="AnimatedSprite2D" parent="."]

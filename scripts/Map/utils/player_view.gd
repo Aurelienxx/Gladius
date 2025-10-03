@@ -10,11 +10,18 @@ var dragging := false
 var last_mouse_pos := Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
+	"""
+	Gère le déplacement de la caméra à chaque frame physique.
+	Le mouvement peut se faire via :
+	- les touches directionnelles,
+	- la souris au bord de l’écran,
+	- le drag à la souris (clic gauche maintenu).
+	"""
 	velocity = Vector2.ZERO
 
 	var zoom_factor = cam.zoom.x  
 
-	# Input clavier
+	# Déplacement clavier
 	if Input.is_action_pressed("left"):
 		velocity.x -= movement_speed * zoom_factor
 	if Input.is_action_pressed("right"):
@@ -24,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("up"):
 		velocity.y -= movement_speed * zoom_factor
 
-	# Input bord de l'écran
+	# Déplacement au bord de l’écran (si pas en drag souris)
 	if not dragging:
 		var viewport_size = get_viewport_rect().size
 		var mouse_pos = get_viewport().get_mouse_position()
@@ -42,7 +49,8 @@ func _physics_process(delta: float) -> void:
 
 		velocity += dir * movement_speed * zoom_factor
 		velocity *= 0.5
-
+		
+	# Déplacement par drag souris (clic gauche)
 	else:
 		var mouse_pos = get_viewport().get_mouse_position()
 		var delta_pos = mouse_pos - last_mouse_pos
@@ -53,6 +61,12 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event):
+	"""
+	Gère les entrées souris pour le zoom et le drag de la caméra.
+	- Molette ↑ : zoom avant
+	- Molette ↓ : zoom arrière
+	- Clic gauche maintenu : activer drag caméra
+	"""
 	if event is InputEventMouseButton:
 		# Zoom avec la molette
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
@@ -62,7 +76,7 @@ func _input(event):
 			cam.zoom -= Vector2(zoom_step, zoom_step)
 			cam.zoom = cam.zoom.clamp(min_zoom, max_zoom)
 		
-		# Drag avec clic gauche
+		# Drag caméra avec clic gauche
 		elif event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				dragging = true

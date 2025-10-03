@@ -10,6 +10,19 @@ extends Panel
 @onready var priceCost: Label = $Cost
 
 func showCard(buildingName: String, pv: int, degats: int, attack_range: int, gold_generation: int, cost: int, bon: String, SpritePath: String):
+	"""
+	Affiche les infos du bâtiment dans la carte d’aperçu.
+
+	:param buildingName: (String) Nom du bâtiment.
+	:param pv: (int) Points de vie max.
+	:param degats: (int) Dégâts infligés.
+	:param attack_range: (int) Portée d’attaque.
+	:param gold_generation: (int) Production d’or par tour.
+	:param cost: (int) Coût de construction.
+	:param bon: (String) Bonus conféré.
+	:param SpritePath: (String) Chemin du sprite à charger.
+	:return: None
+	"""
 	nom.text = "Nom : " + buildingName
 	hp.text = "Points de vie : " + str(pv)
 	dmg.text = "Dégâts : " + str(degats)
@@ -32,6 +45,10 @@ var HQ3 = {
 }
 
 func _on_button_pressed() -> void:
+	"""
+	Affiche les infos du bâtiment HQ3
+	lorsqu’on appuie sur le bouton lié à la carte.
+	"""
 	showCard(
 		HQ3.get("name"), 
 		HQ3.get("points_de_vie"), 

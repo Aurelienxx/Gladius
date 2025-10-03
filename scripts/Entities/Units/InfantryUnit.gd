@@ -4,8 +4,8 @@ extends CharacterBody2D
 # Stats de base (communes à toutes les unités de ce type)
 
 @onready var health_bar: ProgressBar = $HealthBar
-@onready var anim:AnimatedSprite2D = $UnitSprite
-@onready var MaskOverlay : AnimatedSprite2D = $MaskSprite
+@onready var MaskOverlay : AnimatedSprite2D = $MaskSprite # Mask de couleur de l'équipe
+@onready var anim:AnimatedSprite2D = $UnitSprite # Sprite de l'unité
 
 @export var cost: int = 15
 @export var maintenance: int = 2
@@ -26,6 +26,10 @@ var current_hp: int
 var equipe: int
 
 func setup(_equipe: int) -> void:
+	"""
+	Configure l’équipe, les PV de départ et la barre de vie.
+	Inverse le sprite si nécessaire et applique la couleur d’équipe.
+	"""
 	equipe = _equipe
 	current_hp = max_hp
 	health_bar.max_value = max_hp
@@ -39,6 +43,9 @@ func setup(_equipe: int) -> void:
 	_apply_color()  
 
 func _ready():
+	"""
+	Initialisation au chargement : couleur, timer de flash et couleur de base.
+	"""
 	_apply_color() 
 	
 	hit_flash_timer = Timer.new()
@@ -51,6 +58,9 @@ func _ready():
 
 	
 func update_health_bar() -> void:
+	"""
+	Met à jour la barre de vie et lance l’effet de flash sur le sprite.
+	"""
 	health_bar.value = current_hp
 	anim.modulate = Color(2,2,2,1)
 	hit_flash_timer.start()
@@ -58,10 +68,16 @@ func update_health_bar() -> void:
 	
 
 func _on_hit_flash_end() -> void:
+	"""
+	Restaure la couleur d’origine après le flash.
+	"""
 	anim.modulate = base_modulate
 
 
 func _apply_color() -> void:
+	"""
+	Applique une couleur selon l’équipe : bleu (1) ou rouge (2).
+	"""
 	var color:Color = Color("white")
 	if equipe == 1:
 		color = Color("Blue")

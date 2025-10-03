@@ -11,6 +11,10 @@ extends Button
 @export var thumbnail_texture:TextureRect
 
 func _ready():
+	"""
+	Initialise l’affichage du bouton avec les infos de l’unité :
+	nom, coût, points de vie, entretien, dégâts, portées et sprite de l'unité.
+	"""
 	if unite_Display:
 		name_Label.text = unite_Display.name_Unite
 		cost_Label.text = str(unite_Display.cost)
