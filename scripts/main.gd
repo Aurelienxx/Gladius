@@ -126,14 +126,21 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 					print ("Ceci est bien un QG")
 					all_units.erase(target)
 					target.queue_free()
-					get_tree().change_scene_to_file("res://scenes/EndScreen/EndScreen.tscn")
-					#if target.equipe == 1:
-						#result = 
+					if target.equipe == 1:
+						GameOver(2)
+					else:
+						GameOver(1) 
 						
 	attack_unit = null
 	mode = ""
 	HIGHLIGHT.clear()
 	verify_end_turn()
+
+func GameOver(team: int):
+	var game_over = EndScreen.instantiate()
+	add_child(game_over)
+	game_over.change_result(team)
+	get_tree().paused = true
 
 func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
 	var reachable: Array = []

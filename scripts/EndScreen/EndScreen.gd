@@ -1,8 +1,9 @@
-extends Control
+extends CanvasLayer
 
 @onready var result = $Panel/VBoxContainer/Result
 
 func _on_main_menu_pressed() -> void:
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")
 	
 func change_result(team: int):
