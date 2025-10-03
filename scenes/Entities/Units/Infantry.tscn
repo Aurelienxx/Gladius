@@ -52,11 +52,13 @@ thumbnail = ExtResource("2_hcrcq")
 [node name="UnitSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_y68kv")
+frame_progress = 0.20359853
 
 [node name="MaskSprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
-position = Vector2(1, -1)
+position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_6on2y")
+frame_progress = 0.23078063
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("4_hcrcq")
@@ -68,9 +70,9 @@ shape = SubResource("RectangleShape2D_wsick")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = -12.0
-offset_top = -16.0
+offset_top = -17.0
 offset_right = 12.0
-offset_bottom = -15.0
+offset_bottom = -16.0
 theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_ul1d2")
 theme_override_styles/fill = SubResource("StyleBoxFlat_6on2y")
