@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://ln5mm5m1fpio" path="res://scripts/EndScreen/EndScreen.gd" id="1_loe1s"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_m0ilp"]
 
-
 [node name="EndScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -27,25 +26,6 @@ offset_bottom = 287.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.051000003
-anchor_right = 1.0
-anchor_bottom = 0.272
-offset_left = 11.25
-offset_top = -0.27400208
-offset_right = -11.25
-offset_bottom = -0.12800598
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("1_m0ilp")
-theme_override_font_sizes/font_size = 24
-text = "LE RESULTATS DE LA PARTIE SERA MARQU2E L0 
-MAIS IL FAUT ATTENDRE QUE LA SC7NE DE JEU SOIT TERMIN2E 
-POUR APPELER CETTE SC7NE AVEC LE PARAM7TRES CORRECT."
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="MainMenu" type="Button" parent="Panel"]
 layout_mode = 1
 anchors_preset = -1
@@ -61,5 +41,35 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_m0ilp")
 theme_override_font_sizes/font_size = 38
 text = "Retour au menu principal"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.30200002
+anchor_top = 0.051000003
+anchor_right = 0.69900006
+anchor_bottom = 0.24400002
+offset_left = -0.010009766
+offset_top = -0.27400208
+offset_right = 0.0049438477
+offset_bottom = -0.056015015
+grow_horizontal = 2
+theme_override_constants/separation = 35
+alignment = 1
+
+[node name="GameOver" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_m0ilp")
+theme_override_font_sizes/font_size = 24
+text = "Fin de la partie :"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Result" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 58
+text = "Résultat de la partie"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Panel/MainMenu" to="." method="_on_main_menu_pressed"]

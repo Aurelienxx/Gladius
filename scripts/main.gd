@@ -1,5 +1,7 @@
 extends Node2D
 
+const EndScreen = preload("res://scenes/EndScreen/EndScreen.tscn")
+
 var selected_unit: CharacterBody2D
 var all_units: Array = []
 var all_buildings: Array = []
@@ -125,11 +127,13 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 					all_units.erase(target)
 					target.queue_free()
 					get_tree().change_scene_to_file("res://scenes/EndScreen/EndScreen.tscn")
+					if target.equipe == 1:
+						result = 
+						
 	attack_unit = null
 	mode = ""
 	HIGHLIGHT.clear()
 	verify_end_turn()
-
 
 func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
 	var reachable: Array = []
