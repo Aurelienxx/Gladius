@@ -1,9 +1,15 @@
 extends Node
 
-#var current_money = 100
-#var money_gain = 0
-#var money_loss = 0
-#var economic_result = 0
+var current_money1 = 100
+var money_gain1 = 0
+var money_loss1 = 0
+var money_result1 = 0
+
+var current_money2 = 100
+var money_gain2 = 0
+var money_loss2 = 0
+var money_result2 = 0
+
 #
 #func _ready():
 	#money_gain = change_money_gain(money_gain, 25)

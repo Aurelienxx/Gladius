@@ -316,6 +316,9 @@ func next_player():
 			unit.movement = false
 			unit.attack = false
 			
+	print("joueur 1 perd ",EconomyManager.money_loss1, " par tour")
+	print("joueur 2 perd ",EconomyManager.money_loss2, " par tour")
+	unit_economy()
 	if actual_player == 1:
 		actual_player = 2
 	else :
@@ -368,7 +371,20 @@ func quick_select():
 			unit_index = (unit_index + 1) % all_units.size()
 			if unit_index == currently_selected_unit:
 				break
-
+				
+func unit_economy() :
+	EconomyManager.money_loss1 = 0
+	EconomyManager.money_loss2 = 0
+	
+	for unit in all_units:
+		if unit.equipe == 1:
+			EconomyManager.money_loss1 = EconomyManager.change_money_loss(EconomyManager.money_loss1,unit.maintenance)
+		elif unit.equipe == 2:
+			EconomyManager.money_loss2 = EconomyManager.change_money_loss(EconomyManager.money_loss2,unit.maintenance)
+	
+		
+	
+	
 func _input(event):
 	if Input.is_action_pressed("enter"):
 		next_player()
