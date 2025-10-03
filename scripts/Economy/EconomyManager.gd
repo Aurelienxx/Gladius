@@ -10,39 +10,33 @@ var money_gain2 = 5
 var money_loss2 = 0
 var money_result2 = 0
 
-#
-#func _ready():
-	#money_gain = change_money_gain(money_gain, 25)
-	#money_loss = change_money_loss(money_loss, 15)
-	#
-	#print("Vous possédez actuellement ", current_money , " argent")
-	#print("Au début du tour, vous remporterez ", money_gain , " et perdrez ", money_loss)
-	#
-	#economic_result = change_money_result(money_gain,money_loss)
-	#print("Vous aurez donc un résultat de ",economic_result," argent")
-	#print()
-#
-	#current_money = economy_turn(current_money, economic_result)
-	#print("Le tour a commencé, vous possédez maintenant ", current_money, " argent")
-	#
-	#print()
-	#current_money = buy_something(current_money,50)
-	#print("Nouvelle unité achetée! Vous possédez maintenant ", current_money, " argent")
-	
-	
-func economy_turn(current_money,economic_result) :
+func economy_turn(current_money: int, economic_result: int) -> int:
 	current_money += economic_result
-	max(current_money,0)
+	current_money = max(current_money, 0)
+	
+	GlobalSignal.current_Money_Amount.emit(current_money)
+	GlobalSignal.current_Money_Gain_Or_Loss.emit(economic_result)
+
 	return current_money
-	
-func change_money_gain(money_gain,new_gain) :
+
+func change_money_gain(money_gain: int, new_gain: int) -> int:
 	money_gain += new_gain
+	
+	GlobalSignal.current_Money_Gain_Or_Loss.emit(new_gain)
+
 	return money_gain
-	
-func change_money_loss(money_loss,new_loss) :
+
+func change_money_loss(money_loss: int, new_loss: int) -> int:
 	money_loss += new_loss
-	return money_loss
 	
-func buy_something(current_money,price) :
-	current_money-= price
+	GlobalSignal.current_Money_Gain_Or_Loss.emit(-new_loss)
+
+	return money_loss
+
+func buy_something(current_money: int, price: int) -> int:
+	current_money -= price
+	
+	GlobalSignal.current_Money_Amount.emit(current_money)
+	GlobalSignal.current_Money_Gain_Or_Loss.emit(-price)
+
 	return current_money

@@ -52,8 +52,10 @@ region_rect = Rect2(0, 192, 64, 32)
 texture = ExtResource("29_a1o1e")
 region_rect = Rect2(64, 192, 64, 30)
 
-[node name="InGameUI" type="CanvasLayer"]
+[node name="InGameUI" type="CanvasLayer" node_paths=PackedStringArray("displayGold", "displayGainOrLoss")]
 script = ExtResource("1_kbjyg")
+displayGold = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer/GoldDisplay")
+displayGainOrLoss = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer/GainOrLoss")
 
 [node name="TankUnit" parent="." instance=ExtResource("2_6n7by")]
 visible = false
@@ -82,8 +84,8 @@ thumbnail = SubResource("Resource_ykc18")
 [node name="MenuDisplay" type="MarginContainer" parent="."]
 anchors_preset = -1
 anchor_bottom = 0.5
-offset_right = 924.0
-offset_bottom = 658.0
+offset_right = 2046.6666
+offset_bottom = 683.3334
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -91,6 +93,7 @@ theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuDisplay"]
+custom_minimum_size = Vector2(2000, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 20
@@ -100,7 +103,7 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="ParameterButton" type="Button" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 focus_mode = 1
 focus_behavior_recursive = 1
@@ -111,7 +114,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_8micj")
 theme_override_styles/hover = SubResource("StyleBoxTexture_cm5sn")
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(400, 50)
+custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -122,20 +125,50 @@ patch_margin_top = 4
 patch_margin_right = 8
 patch_margin_bottom = 4
 
-[node name="GoldDisplay" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2"]
+[node name="VBoxContainer" type="HBoxContainer" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2"]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.98
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -194.0
+offset_top = -23.833336
+offset_right = 194.0
+offset_bottom = 23.833336
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Explaination" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 36
-text = "Génération d'or : "
+theme_override_font_sizes/font_size = 52
+text = "Réserve d'or : "
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="GoldDisplay" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 52
+text = "100"
+
+[node name="+" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 52
+text = "+"
+
+[node name="GainOrLoss" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.59, 0.049166616, 1)
+theme_override_font_sizes/font_size = 52
+text = "5"
+
 [node name="NinePatchRect3" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(400, 50)
+custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -155,7 +188,7 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 52
 text = "Nombre d'unité : "
 horizontal_alignment = 1
 vertical_alignment = 1
