@@ -19,24 +19,24 @@ func economy_turn(current_money: int, economic_result: int) -> int:
 
 	return current_money
 
+
 func change_money_gain(money_gain: int, new_gain: int) -> int:
 	money_gain += new_gain
 	
-	GlobalSignal.current_Money_Gain_Or_Loss.emit(new_gain)
+	GlobalSignal.current_Money_Gain_Or_Loss.emit(money_gain)
 
 	return money_gain
 
-func change_money_loss(money_loss: int, new_loss: int) -> int:
+func change_money_loss(current_money:int, money_loss: int, new_loss: int) -> int:
 	money_loss += new_loss
 	
-	GlobalSignal.current_Money_Gain_Or_Loss.emit(-new_loss)
-
+	GlobalSignal.current_Money_Gain_Or_Loss.emit(current_money - money_loss)
+	
 	return money_loss
 
 func buy_something(current_money: int, price: int) -> int:
 	current_money -= price
 	
 	GlobalSignal.current_Money_Amount.emit(current_money)
-	GlobalSignal.current_Money_Gain_Or_Loss.emit(-price)
 
 	return current_money

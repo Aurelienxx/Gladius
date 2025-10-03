@@ -38,7 +38,8 @@ func _ready():
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
 	GlobalSignal.Next_Turn_Pressed.connect(next_player)
-
+	GlobalSignal.spawn_Unit.connect(spawnUnit)
+	
 	all_units = get_tree().get_nodes_in_group("units")
 	all_buildings = get_tree().get_nodes_in_group("buildings")
 
@@ -336,13 +337,11 @@ func next_player():
 		EconomyManager.money_result2 = EconomyManager.money_gain2 - EconomyManager.money_loss2
 		EconomyManager.current_money2 = EconomyManager.economy_turn(EconomyManager.current_money2,EconomyManager.money_result2)
 		
-		
 	else :
 		actual_player = 1
 		
 		EconomyManager.money_result1 = EconomyManager.money_gain1 - EconomyManager.money_loss1
 		EconomyManager.current_money1 = EconomyManager.economy_turn(EconomyManager.current_money1,EconomyManager.money_result1)
-		
 		
 	print("C'est au tour de l'équipe : ", actual_player)
 
@@ -393,17 +392,15 @@ func quick_select():
 				if unit_index == currently_selected_unit:
 					break
 				
-func unit_economy() :
+func unit_economy():
 	EconomyManager.money_loss1 = 0
 	EconomyManager.money_loss2 = 0
-	
+
 	for unit in all_units:
 		if unit.equipe == 1:
-			EconomyManager.money_loss1 = EconomyManager.change_money_loss(EconomyManager.money_loss1,unit.maintenance)
+			EconomyManager.money_loss1 += unit.maintenance
 		elif unit.equipe == 2:
-			EconomyManager.money_loss2 = EconomyManager.change_money_loss(EconomyManager.money_loss2,unit.maintenance)
-	
-		
+			EconomyManager.money_loss2 += unit.maintenance
 	
 	
 func _input(event):
@@ -412,11 +409,28 @@ func _input(event):
 	if Input.is_action_pressed("space"):
 		quick_select()
 
-func spawnUnit(unit: String):
+func spawnUnit(unit) -> void:
 	var spawn = get_node("Units/PlayerUnits")
-	var new_unit = spawn.spawn_unit(unit,actual_player)
-	add_child(new_unit)
-	all_units = get_tree().get_nodes_in_group("units")
+
+	if actual_player == 1:
+		if EconomyManager.current_money1 >= unit.cost:
+			
+			var new_unit = spawn.spawn_unit(unit.name_Unite,actual_player) 
+			add_child(new_unit) 
+			all_units = get_tree().get_nodes_in_group("units")
+			
+			EconomyManager.current_money1 = EconomyManager.buy_something(EconomyManager.current_money1, unit.cost)
+			EconomyManager.money_loss1 = EconomyManager.change_money_loss(EconomyManager.money_gain1, EconomyManager.money_loss1, unit.maintenance)
+
+	else:
+		if EconomyManager.current_money2 >= unit.cost:
+			var new_unit = spawn.spawn_unit(unit.name_Unite,actual_player) 
+			add_child(new_unit) 
+			all_units = get_tree().get_nodes_in_group("units")
+			
+			EconomyManager.current_money2 = EconomyManager.buy_something(EconomyManager.current_money2, unit.cost)
+			EconomyManager.money_loss2 = EconomyManager.change_money_loss(EconomyManager.money_gain2, EconomyManager.money_loss2, unit.maintenance)
+		
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	anim_explosion.visible = false

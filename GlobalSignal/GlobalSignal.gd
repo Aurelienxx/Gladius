@@ -9,3 +9,5 @@ signal Unit_Bought(unit)
 
 signal current_Money_Amount(amount:int)
 signal current_Money_Gain_Or_Loss(amount:int)
+
+signal spawn_Unit(unit)

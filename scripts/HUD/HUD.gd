@@ -41,31 +41,31 @@ func _on_infantry_display_pressed() -> void:
 	"""
 	Construit une unité d’infanterie via le menu de construction.
 	"""
-	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/InfantryDisplay.name_Label.text
-	var appel = get_node("..")
-	appel.spawnUnit(unit)
+	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/InfantryDisplay.unite_Display
+	GlobalSignal.spawn_Unit.emit(unit)
 	
 
 func _on_truck_display_pressed() -> void:
 	"""
 	Construit une unité de camion via le menu de construction.
 	"""
-	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TruckDisplay.name_Label.text
-	var appel = get_node("..")
-	appel.spawnUnit(unit)
+	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TruckDisplay.unite_Display
+	GlobalSignal.spawn_Unit.emit(unit)
 	
 func _on_artillery_display_pressed() -> void:
 	"""
 	Construit une unité d’artillerie via le menu de construction.
 	"""
-	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/ArtilleryDisplay.name_Label.text
-	var appel = get_node("..")
-	appel.spawnUnit(unit)
+	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/ArtilleryDisplay.unite_Display
+	GlobalSignal.spawn_Unit.emit(unit)
 	
 func _on_tank_display_pressed() -> void:
 	"""
 	Construit une unité de tank via le menu de construction.
 	"""
-	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TankDisplay.name_Label.text
-	var appel = get_node("..")
-	appel.spawnUnit(unit)
+	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TankDisplay.unite_Display
+	GlobalSignal.spawn_Unit.emit(unit)
+	
+	
+
+	
