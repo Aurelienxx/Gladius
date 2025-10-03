@@ -316,14 +316,23 @@ func next_player():
 			unit.movement = false
 			unit.attack = false
 			
-	print("joueur 1 perd ",EconomyManager.money_loss1, " par tour")
-	print("joueur 2 perd ",EconomyManager.money_loss2, " par tour")
 	unit_economy()
+
 	if actual_player == 1:
 		actual_player = 2
+		print()
+		EconomyManager.money_result2 = EconomyManager.money_gain2 - EconomyManager.money_loss2
+		EconomyManager.current_money2 = EconomyManager.economy_turn(EconomyManager.current_money2,EconomyManager.money_result2)
+		print("joueur 1 perd ",EconomyManager.money_loss2, " et gagne ", EconomyManager.money_gain2," par tour.")
+		print("Il a donc un résultat de ",EconomyManager.money_result2," pour ce tour. Il lui reste ", EconomyManager.current_money2)
 	else :
 		actual_player = 1
-		
+		print()
+		EconomyManager.money_result1 = EconomyManager.money_gain1 - EconomyManager.money_loss1
+		EconomyManager.current_money1 = EconomyManager.economy_turn(EconomyManager.current_money1,EconomyManager.money_result1)
+		print("joueur 2 perd ",EconomyManager.money_loss1, " et gagne ", EconomyManager.money_gain1," par tour.")
+		print("Il a donc un résultat de ",EconomyManager.money_result1," pour ce tour. Il lui reste ", EconomyManager.current_money1)
+				
 	print("C'est au tour de l'équipe : ", actual_player)
 
 func verify_end_turn():

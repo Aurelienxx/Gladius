@@ -1,12 +1,12 @@
 extends Node
 
 var current_money1 = 100
-var money_gain1 = 0
+var money_gain1 = 5
 var money_loss1 = 0
 var money_result1 = 0
 
 var current_money2 = 100
-var money_gain2 = 0
+var money_gain2 = 5
 var money_loss2 = 0
 var money_result2 = 0
 
@@ -34,11 +34,6 @@ func economy_turn(current_money,economic_result) :
 	current_money += economic_result
 	max(current_money,0)
 	return current_money
-	
-func change_money_result(money_gain,money_loss) :
-	var economic_result
-	economic_result = money_gain - money_loss
-	return economic_result
 	
 func change_money_gain(money_gain,new_gain) :
 	money_gain += new_gain
