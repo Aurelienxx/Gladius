@@ -431,6 +431,7 @@ func next_player():
 					unit.queue_free()
 			
 	unit_economy()
+	buildingt_economy()
 
 	# Si le joueur actuel est 1 (bleu) alors on passe au joueur 2 (rouge) puis mets à jour l'argent du joueur 2
 	if actual_player == 1:
@@ -512,6 +513,19 @@ func unit_economy():
 		elif unit.equipe == 2:
 			EconomyManager.money_loss2 += unit.maintenance
 	
+func buildingt_economy():
+	"""
+    Met à jour les gains des bâtiments capturés pour chaque joueur.
+    """
+	EconomyManager.money_gain1 = 0
+	EconomyManager.money_gain2 = 0
+	
+
+	for buiding in all_buildings:
+		if buiding.equipe == 1:
+			EconomyManager.money_gain1 += buiding.current_gain
+		elif buiding.equipe == 2:
+			EconomyManager.money_gain2 += buiding.current_gain
 	
 func _input(event):
 	"""
