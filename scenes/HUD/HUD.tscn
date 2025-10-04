@@ -62,6 +62,7 @@ visible = false
 thumbnail = SubResource("Resource_4undd")
 
 [node name="ArtilleryUnit" parent="." instance=ExtResource("4_wa322")]
+visible = false
 thumbnail = SubResource("Resource_wa322")
 
 [node name="InfantryUnit" parent="." instance=ExtResource("5_ykc18")]
@@ -212,6 +213,10 @@ focus_mode = 1
 focus_behavior_recursive = 1
 theme_override_styles/normal = SubResource("StyleBoxTexture_l5g1i")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6n7by")
+
+[node name="ClickCatcher" type="Control" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
+visible = false
+layout_mode = 2
 
 [node name="ConstructionDisplay" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
 visible = false
