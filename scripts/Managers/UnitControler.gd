@@ -12,9 +12,9 @@ extends Node2D
 @export var spawn_radius: float = 100.0     # distance autour du point
 
 @export var head_quarter : PackedScene = preload("res://scenes/Entities/Building/QG.tscn")
-@export var qg_positions: Array[Vector2] = [Vector2(200, 200), Vector2(800, 200)]
-@export var village_positions :  Array[Vector2] = [Vector2(400, 400), Vector2(60, 60)]
-@export var ville_position : Vector2 = Vector2(100, 500)
+@export var qg_positions: Array[Vector2] = [Vector2(-200, -250), Vector2(950, 500)]
+@export var village_positions :  Array[Vector2] = [Vector2(-150, 50), Vector2(150, -250),Vector2(900, 200), Vector2(600, 500)]
+@export var ville_position : Vector2 = Vector2(400, 200)
 
 
 
