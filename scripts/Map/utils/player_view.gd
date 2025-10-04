@@ -83,16 +83,3 @@ func _input(event):
 				last_mouse_pos = get_viewport().get_mouse_position()
 			else:
 				dragging = false
-
-func setCameraLimits(tMap: TileMapLayer):
-	var usedRect: Rect2 = tMap.get_used_rect()
-	var cellSize: Vector2i = tMap.tile_set.tile_size
-	var limiteMapGauche = usedRect.position.x * cellSize.x
-	var limiteMapDroite = (usedRect.position.x + usedRect.size.x) * cellSize.x
-	var limiteMapHaut = usedRect.position.y * cellSize.y
-	var limiteMapBas = (usedRect.position.y + usedRect.size.y) * cellSize.y
-	
-	cam.limit_left = limiteMapGauche
-	cam.limit_right = limiteMapDroite
-	cam.limit_top = limiteMapHaut
-	cam.limit_bottom = limiteMapBas

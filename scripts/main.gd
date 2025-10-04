@@ -47,7 +47,6 @@ func _ready():
 
 	print("Unités: ", all_units)
 	print("QG: ", all_buildings)
-	playerView.setCameraLimits(MAP)
 	
 func highlight_cells(start_cell,highlighted_cells,highlight_type:int=0):
 	# highlight type is either 0 (blue) or 1 (red)
@@ -138,7 +137,6 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	attack_unit = null
 	mode = ""
 	HIGHLIGHT.clear()
-	verify_end_turn()
 
 func GameOver(team: int):
 	var game_over = EndScreen.instantiate()
@@ -304,7 +302,7 @@ func _unhandled_input(event):
 				HIGHLIGHT.clear()
 				selected_unit.movement = true
 				check_building_capture(selected_unit) # <-- capture auto
-				verify_end_turn()
+
 
 			
 			
@@ -360,14 +358,6 @@ func next_player():
 		EconomyManager.current_money1 = EconomyManager.economy_turn(EconomyManager.current_money1,EconomyManager.money_result1)
 		
 	print("C'est au tour de l'équipe : ", actual_player)
-
-func verify_end_turn():
-	for unit in all_units:
-		if unit.equipe != actual_player:
-			continue
-		if unit.movement == false or unit.attack == false:
-			return
-	next_player()
 
 func quick_select():
 	if all_units.size() != 0: 

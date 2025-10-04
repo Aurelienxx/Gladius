@@ -43,7 +43,7 @@ func setup(_equipe: int) -> void:
 	equipe = _equipe
 	current_hp = max_hp
 	_apply_color(equipe)
-	
+
 func _ready() -> void:
 	"""
 	Prépare les composants du QG au lancement de la scène :
@@ -95,11 +95,11 @@ func level_bonus():
 		1:
 			current_gain=+15
 		2:
-			current_gain+=18
+			current_gain=18
 			attack += 5
 			attack_range += 3
 		3:
-			current_gain+=20
+			current_gain=20
 			attack += 10
 			attack_range += 5
 
@@ -137,7 +137,9 @@ func capture(nb: int):
 					equipe = nb
 					max_hp = 200 # reset la vie
 					_apply_color(nb)
-			
+	
+	level_bonus()
+	
 func _apply_color(new_equipe: int):
 	"""
 	Change la couleur lumineuse selon l’équipe :

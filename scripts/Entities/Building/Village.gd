@@ -43,6 +43,7 @@ func setup(_equipe: int) -> void:
 	equipe = _equipe
 	current_hp = max_hp
 	_apply_color(equipe)
+	
 
 func _ready() -> void:
 	"""
@@ -99,13 +100,13 @@ func level_bonus():
 	"""
 	match lv:
 		1:
-			current_gain+=10
+			current_gain=10
 		2:
-			current_gain+= 13
+			current_gain= 13
 			attack += 5
 			attack_range += 3
 		3:
-			current_gain+= 15
+			current_gain= 15
 			attack += 10
 			attack_range += 5
 
@@ -143,7 +144,9 @@ func capture(nb: int):
 					equipe = nb
 					max_hp = 200 # reset la vie
 					_apply_color(nb)
-			
+		
+	level_bonus()
+		
 func _apply_color(new_equipe: int):
 	"""
 	Change la couleur lumineuse selon l’équipe :
