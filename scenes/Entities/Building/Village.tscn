@@ -1,16 +1,75 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5c5f8kx2dv0a"]
+[gd_scene load_steps=23 format=3 uid="uid://c5c5f8kx2dv0a"]
 
 [ext_resource type="Script" uid="uid://b4mns7eseov1w" path="res://scripts/Entities/Building/Village.gd" id="1_3474o"]
-[ext_resource type="Texture2D" uid="uid://uxhgxoby51u6" path="res://assets/sprites/EntitySprite/Buildings/Village/Village.png" id="2_05egb"]
 [ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/clickDetection.gd" id="2_cckd5"]
+[ext_resource type="Texture2D" uid="uid://b36ih8jmtf72h" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_1.png" id="2_j06gx"]
 [ext_resource type="Script" uid="uid://cl31n5dcmv557" path="res://scripts/Entities/Building/villageTownManager.gd" id="3_htqd3"]
-[ext_resource type="Texture2D" uid="uid://du6pinr8i241y" path="res://assets/sprites/EntitySprite/Buildings/HQ/HQMask.png" id="3_qyp71"]
+[ext_resource type="Texture2D" uid="uid://d3h7gyyg8754x" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_2.png" id="3_oab2s"]
+[ext_resource type="Texture2D" uid="uid://b1121ffncggbp" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_3.png" id="4_f0ppp"]
+[ext_resource type="Texture2D" uid="uid://bfow1x12tn57y" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_4.png" id="5_n1hs6"]
+[ext_resource type="Texture2D" uid="uid://dtn3rlxq21c25" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_5.png" id="6_tg7og"]
+[ext_resource type="Texture2D" uid="uid://by2287lp30sim" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_6.png" id="7_ycesr"]
+[ext_resource type="Texture2D" uid="uid://cvvwedu10ik7i" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_7.png" id="8_vk37c"]
+[ext_resource type="Texture2D" uid="uid://cxfwbl2ioiuv" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageSprite/Village_1.png" id="9_jmunk"]
+[ext_resource type="Texture2D" uid="uid://bfpsurmi46gew" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageSprite/Village_2.png" id="10_q4b6p"]
+[ext_resource type="Texture2D" uid="uid://ts22yo0njy2i" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageSprite/Village_3.png" id="11_j61qn"]
+[ext_resource type="Texture2D" uid="uid://uj63uicppn4x" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageSprite/Village_4.png" id="12_15vc1"]
+[ext_resource type="Texture2D" uid="uid://c6acm85j6cn0t" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageSprite/Village_5.png" id="13_hdcl0"]
+[ext_resource type="Texture2D" uid="uid://dmnsavrmsx062" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageSprite/Village_6.png" id="14_cwrib"]
+[ext_resource type="Texture2D" uid="uid://b8t2mtw2bjrr1" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageSprite/Village_7.png" id="15_r464k"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4u8ht"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j06gx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_oab2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f0ppp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_n1hs6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tg7og")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ycesr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_vk37c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_05egb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_05egb")
+"texture": ExtResource("9_jmunk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_q4b6p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_j61qn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_15vc1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_hdcl0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_cwrib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_r464k")
 }],
 "loop": true,
 "name": &"default",
@@ -29,14 +88,12 @@ bg_color = Color(0.16862746, 0.7058824, 0, 1)
 [node name="village_body" type="CharacterBody2D"]
 script = ExtResource("1_3474o")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_05egb")
+[node name="FlagSprite" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_4u8ht")
 
-[node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
-position = Vector2(29.000004, -22.999998)
-scale = Vector2(-0.6337916, 0.60689294)
-energy = 16.0
-texture = ExtResource("3_qyp71")
+[node name="BuildingSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_05egb")
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_cckd5")

@@ -1,16 +1,75 @@
-[gd_scene load_steps=10 format=3 uid="uid://bli16w6k7bhcv"]
+[gd_scene load_steps=23 format=3 uid="uid://bli16w6k7bhcv"]
 
 [ext_resource type="Script" uid="uid://b2epgc8lwp40v" path="res://scripts/Entities/Building/Town.gd" id="1_luyv0"]
-[ext_resource type="Texture2D" uid="uid://c14pygd101hox" path="res://assets/sprites/EntitySprite/Buildings/City/city.png" id="2_tfqh3"]
-[ext_resource type="Texture2D" uid="uid://du6pinr8i241y" path="res://assets/sprites/EntitySprite/Buildings/HQ/HQMask.png" id="3_2ffi7"]
+[ext_resource type="Texture2D" uid="uid://ddlxvf6jks0h1" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_1.png" id="2_qvucj"]
+[ext_resource type="Texture2D" uid="uid://dfwxt5kjtb24d" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_1.png" id="2_qwbet"]
+[ext_resource type="Texture2D" uid="uid://ccdwqq5gm7361" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_2.png" id="3_86ecn"]
+[ext_resource type="Texture2D" uid="uid://bls7ydeak2f71" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_2.png" id="3_d6vyx"]
 [ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/clickDetection.gd" id="3_n84a3"]
 [ext_resource type="Script" uid="uid://cl31n5dcmv557" path="res://scripts/Entities/Building/villageTownManager.gd" id="3_tfqh3"]
+[ext_resource type="Texture2D" uid="uid://cunn0j4lrrol0" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_3.png" id="4_26uyw"]
+[ext_resource type="Texture2D" uid="uid://bmxm6hlmidl3u" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_3.png" id="4_ehlsc"]
+[ext_resource type="Texture2D" uid="uid://cuqmu765vyw36" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_4.png" id="5_g0i04"]
+[ext_resource type="Texture2D" uid="uid://81hdahdlyeoi" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_4.png" id="5_wmen7"]
+[ext_resource type="Texture2D" uid="uid://ur5oygfta5qx" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_5.png" id="6_f1rff"]
+[ext_resource type="Texture2D" uid="uid://d0teend0cufyt" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_5.png" id="6_q2ul8"]
+[ext_resource type="Texture2D" uid="uid://ciqqplyeax2kd" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_6.png" id="7_asp7d"]
+[ext_resource type="Texture2D" uid="uid://b0lsxxc3o1q8o" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_6.png" id="7_r8bm4"]
+[ext_resource type="Texture2D" uid="uid://bff6fymlsitbb" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_7.png" id="8_5pb7e"]
+[ext_resource type="Texture2D" uid="uid://bk6a2agc2ilxr" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_7.png" id="8_yye7j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s1vbc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qvucj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_d6vyx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ehlsc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_wmen7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f1rff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_asp7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5pb7e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n84a3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_tfqh3")
+"texture": ExtResource("2_qwbet")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_86ecn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_26uyw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_g0i04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_q2ul8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_r8bm4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_yye7j")
 }],
 "loop": true,
 "name": &"default",
@@ -29,14 +88,12 @@ bg_color = Color(0.16862746, 0.7058824, 0, 1)
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_luyv0")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 2)
-sprite_frames = SubResource("SpriteFrames_n84a3")
+[node name="FlagSprite" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_s1vbc")
 
-[node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D"]
-position = Vector2(31, 12)
-energy = 16.0
-texture = ExtResource("3_2ffi7")
+[node name="BuildingSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_n84a3")
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("3_n84a3")

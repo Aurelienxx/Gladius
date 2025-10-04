@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@onready var couleur: PointLight2D=$AnimatedSprite2D/PointLight2D
-@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var flag: AnimatedSprite2D=$FlagSprite
+@onready var anim: AnimatedSprite2D = $BuildingSprite
 @onready var health_bar: ProgressBar = $HealthBar
 
 # Statistiques et attributs de base de la ville
@@ -42,7 +42,9 @@ func setup(_equipe: int) -> void:
 	"""
 	equipe = _equipe
 	current_hp = max_hp
-	_apply_color(equipe)
+	_apply_color()
+	flag.play()
+	anim.play()
 
 func _ready() -> void:
 	"""
@@ -53,7 +55,7 @@ func _ready() -> void:
 	current_hp = max_hp
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
-	_apply_color(equipe)
+	_apply_color()
 
 	hit_flash_timer = Timer.new()
 	hit_flash_timer.wait_time = 0.2
@@ -121,14 +123,14 @@ func capture(nb: int):
 	match equipe:
 		0: # neutre
 			equipe = nb
-			_apply_color(nb)
+			_apply_color()
 		1, 2:
 			if nb != equipe:
 				max_hp -= 50
 				if max_hp <= 0:
 					equipe = nb
 					max_hp = 200 # reset la vie
-					_apply_color(nb)
+					_apply_color()
 
 		EQUIPE_ONE, EQUIPE_TWO:
 			if nb != equipe:
@@ -136,20 +138,22 @@ func capture(nb: int):
 				if max_hp <= 0:
 					equipe = nb
 					max_hp = 200 # reset la vie
-					_apply_color(nb)
+					_apply_color()
 	
+	flag.play()
+	anim.play()
 	level_bonus()
 	
-func _apply_color(new_equipe: int):
+func _apply_color():
 	"""
 	Change la couleur lumineuse selon l’équipe :
 	- Blanc = neutre
 	- Bleu = équipe 1
 	- Rouge = équipe 2
 	"""
-	if equipe ==0:
-		couleur.color=Color(1,1,1,1) 
+	var color:Color = Color("white")
 	if equipe == 1:
-		couleur.color = Color(0, 0, 1, 1.0)
+		color = Color("Blue")
 	elif equipe == 2:
-		couleur.color = Color(1, 0.0, 0.0, 1.0)
+		color = Color("red")
+	flag.modulate = color
