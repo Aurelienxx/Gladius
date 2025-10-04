@@ -84,7 +84,7 @@ func _on_unit_clicked(unit: CharacterBody2D):
 				var start_cell = MAP.local_to_map(unit.global_position)
 				var reachable_cells = get_reachable_cells(MAP, start_cell, unit.move_range)
 				highlight_cells(start_cell,reachable_cells)# Met en surbrillance les cases où l’unité peut se déplacer
-				
+	#if unit.is_in_group("buildings"):
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	"""
