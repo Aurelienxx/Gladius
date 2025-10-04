@@ -93,16 +93,21 @@ func level_bonus():
 	"""
 	match lv:
 		1:
-			current_gain=EconomyManager.change_money_gain(current_gain,15)
+			current_gain=+15
 		2:
-			current_gain=EconomyManager.change_money_gain(current_gain,18)
+			current_gain+=18
 			attack += 5
 			attack_range += 3
 		3:
-			current_gain=EconomyManager.change_money_gain(current_gain,20)
+			current_gain+=20
 			attack += 10
 			attack_range += 5
 
+	if equipe==1:
+		EconomyManager.money_gain1 = EconomyManager.change_money_gain(EconomyManager.money_gain1, EconomyManager.money_loss1, current_gain)
+	elif equipe==2 : 
+		EconomyManager.money_gain2 = EconomyManager.change_money_gain(EconomyManager.money_gain2, EconomyManager.money_loss2, current_gain)
+		
 
 func capture(nb: int):
 	"""

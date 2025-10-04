@@ -40,6 +40,7 @@ func setup(_equipe: int) -> void:
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
 	_apply_color()
+	apply_level_bonus()
 
 
 func _ready():
@@ -101,11 +102,17 @@ func apply_level_bonus() -> void:
 	"""
 	match lv:
 		1:
-			current_gain = EconomyManager.change_money_gain(current_gain, HQ1.gain)
+			current_gain =  HQ1.gain
 			damage = HQ1.damage
 		2:
-			current_gain = EconomyManager.change_money_gain(current_gain, HQ2.gain)
+			current_gain =  HQ2.gain
 			damage += 5
 			attack_range += 3
 		3:
-			current_gain = EconomyManager.change_money_gain(current_gain, HQ3.gain)
+			current_gain =  HQ3.gain
+	
+	if equipe==1:
+		EconomyManager.money_gain1 = EconomyManager.change_money_gain(EconomyManager.money_gain1, EconomyManager.money_loss1, current_gain)
+	elif equipe==2 : 
+		EconomyManager.money_gain2 = EconomyManager.change_money_gain(EconomyManager.money_gain2, EconomyManager.money_loss2, current_gain)
+		

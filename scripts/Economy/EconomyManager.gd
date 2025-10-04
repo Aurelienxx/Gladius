@@ -1,12 +1,12 @@
 extends Node
 
 var current_money1 = 100
-var money_gain1 = 5
+var money_gain1 = 0
 var money_loss1 = 0
 var money_result1 = 0
 
 var current_money2 = 100
-var money_gain2 = 5
+var money_gain2 = 0
 var money_loss2 = 0
 var money_result2 = 0
 
@@ -20,10 +20,10 @@ func economy_turn(current_money: int, economic_result: int) -> int:
 	return current_money
 
 
-func change_money_gain(money_gain: int, new_gain: int) -> int:
+func change_money_gain(current_money:int, money_gain: int, new_gain: int) -> int:
 	money_gain += new_gain
 	
-	GlobalSignal.current_Money_Gain_Or_Loss.emit(money_gain)
+	GlobalSignal.current_Money_Gain_Or_Loss.emit(current_money + money_gain)
 
 	return money_gain
 

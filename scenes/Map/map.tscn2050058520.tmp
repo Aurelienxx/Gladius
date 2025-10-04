@@ -358,6 +358,7 @@ size = Vector2(74, 1676.0068)
 script = ExtResource("1_4rr3d")
 
 [node name="InGameUI" parent="." instance=ExtResource("2_aasa8")]
+visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
