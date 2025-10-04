@@ -1,8 +1,7 @@
 extends Area2D
 
-# Signaux émis lors des clics de souris
-signal clicked            # Clic gauche
-signal attack_clicked     # Clic droit
+signal clicked        # Signal émis lors d’un clic gauche, connecté à _on_unit_clicked() dans main.gd
+signal attack_clicked # Signal émis lors d’un clic droit, connecté à _on_unit_attack() dans main.gd
 
 
 func _input_event(viewport, event, shape_idx):

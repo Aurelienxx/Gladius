@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 @onready var couleur : PointLight2D = $AnimatedSprite2D/PointLight2D
 @onready var anim:AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_bar: ProgressBar = $HealthBar
