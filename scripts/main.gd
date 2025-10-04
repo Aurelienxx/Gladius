@@ -62,7 +62,9 @@ func _on_unit_clicked(unit: CharacterBody2D):
 
 	var manager: Node = unit.get_node("MovementManager")
 	selected_unit = unit
-	mode = "move"
+	
+	if unit.movement == false :
+		mode = "move"
 
 	if unit.is_in_group("units"):
 		if manager.is_selected:
