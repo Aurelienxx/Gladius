@@ -84,15 +84,21 @@ func _on_unit_clicked(unit: CharacterBody2D):
 				var start_cell = MAP.local_to_map(unit.global_position)
 				var reachable_cells = get_reachable_cells(MAP, start_cell, unit.move_range)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 				highlight_cells(start_cell,reachable_cells)# Met en surbrillance les cases où l’unité peut se déplacer
 				
 =======
+=======
+>>>>>>> Stashed changes
 				highlight_cells(start_cell,reachable_cells)
 	elif unit.is_in_group("buildings") and unit.get_script().resource_path.find("QG.gd") != -1:
 		print("-----------------------------------------------")
 		print(unit)
 		print("-----------------------------------------------")
 		GlobalSignal.HQClicked.emit(unit)
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):

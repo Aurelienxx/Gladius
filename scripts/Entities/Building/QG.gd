@@ -4,8 +4,12 @@ extends CharacterBody2D
 @onready var anim:AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_bar: ProgressBar = $HealthBar
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 # Statistiques et attributs de base du QG
+=======
+@onready var upgradeHUD: Control = $UpgradeHUD
+>>>>>>> Stashed changes
 =======
 @onready var upgradeHUD: Control = $UpgradeHUD
 >>>>>>> Stashed changes
@@ -18,10 +22,16 @@ var size_x: int = 3
 var size_y: int = 3
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 # Différents niveaux du QG
 var HQ1 = {"name":"QG","damage":15,"gain":15,"lv":1}
 var HQ2 = {"name":"QG","damage":15,"cost":125,"gain":25,"lv":2}
 var HQ3 = {"name":"QG","damage":15,"cost":150,"gain":30,"lv":3,"bonus":"Gaz Moutarde"}
+=======
+var HQ1Data = {"name":"QG Niveau 1", "damage":15, "goldGen" : 15, "prix": 0, "lvl":1, "Sprite" : "res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"}
+var HQ2Data = {"name":"QG Niveau 2", "damage":20, "goldGen" : 30, "prix": 150, "lvl":2, "Sprite" : "res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"}
+var HQ3Data = {"name":"QG Niveau 3", "damage":30, "goldGen" : 50, "prix": 275, "lvl":3, "bonus":"Gaz Moutarde", "Sprite" : "res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"}
+>>>>>>> Stashed changes
 =======
 var HQ1Data = {"name":"QG Niveau 1", "damage":15, "goldGen" : 15, "prix": 0, "lvl":1, "Sprite" : "res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"}
 var HQ2Data = {"name":"QG Niveau 2", "damage":20, "goldGen" : 30, "prix": 150, "lvl":2, "Sprite" : "res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"}
@@ -67,7 +77,8 @@ func _ready():
 	hit_flash_timer.timeout.connect(_on_hit_flash_end)
 
 	base_modulate = anim.modulate
-
+	upgradeHUD.visible = false
+	GlobalSignal.HQClicked.connect(onHQClicked)
 	
 func update_health_bar() -> void:
 	"""
@@ -116,6 +127,7 @@ func apply_level_bonus() -> void:
 	match lv:
 		1:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 			current_gain =  HQ1.gain
 			damage = HQ1.damage
 		2:
@@ -130,6 +142,16 @@ func apply_level_bonus() -> void:
 	elif equipe==2 : 
 		EconomyManager.money_gain2 = EconomyManager.change_money_gain(EconomyManager.money_gain2, EconomyManager.money_loss2, current_gain)
 		
+=======
+			current_gain = EconomyManager.change_money_gain(current_gain, HQ1Data.goldGen)
+			damage = HQ1Data.damage
+		2:
+			current_gain = EconomyManager.change_money_gain(current_gain, HQ2Data.goldGen)
+			damage += 5
+			attack_range += 3
+		3:
+			current_gain = EconomyManager.change_money_gain(current_gain, HQ3Data.goldGen)
+>>>>>>> Stashed changes
 =======
 			current_gain = EconomyManager.change_money_gain(current_gain, HQ1Data.goldGen)
 			damage = HQ1Data.damage
