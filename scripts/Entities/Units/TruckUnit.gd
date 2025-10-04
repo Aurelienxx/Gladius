@@ -14,7 +14,7 @@ extends CharacterBody2D
 @export var attack_range: int = 3  
 @export var movement: bool = false
 @export var attack: bool = false
-@export var name_Unite: String = "Truck"
+@export var name_Unite: String = "Camion"
 @export var thumbnail: Texture2D
 
 var hit_flash_timer: Timer
