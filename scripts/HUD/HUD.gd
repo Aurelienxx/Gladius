@@ -65,7 +65,3 @@ func _on_tank_display_pressed() -> void:
 	"""
 	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TankDisplay.unite_Display
 	GlobalSignal.spawn_Unit.emit(unit)
-	
-	
-
-	
