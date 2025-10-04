@@ -128,9 +128,9 @@ func spawn_unit(unit_type: String, actual_player: int):
 	# Instanciation de l’unité selon le type
 	match unit_type:
 		"Tank": unit = unit_tank.instantiate()
-		"Infanterie": unit = unit_infantry.instantiate()
-		"Camion": unit = unit_truck.instantiate()
-		"Artillerie": unit = unit_artillery.instantiate()
+		"Infantry": unit = unit_infantry.instantiate()
+		"Truck": unit = unit_truck.instantiate()
+		"Artillery": unit = unit_artillery.instantiate()
 		_: return null
 	
 	unit.call_deferred("setup", actual_player)
