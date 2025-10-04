@@ -109,3 +109,13 @@ func _capture_nearby_neutral_village():
 				if village.equipe == 0:
 					print("Capture par équipe ", character.equipe)
 					village.capture(character.equipe)
+					
+					
+	var villes = get_tree().get_nodes_in_group("Villes") # Récupération des Villages
+	for ville in villes:
+		if ville.has_method("capture"):
+			var v_pos = ville.global_position
+			if unit_pos.distance_to(v_pos) <= radius:
+				if ville.equipe == 0:
+					print("Capture par équipe ", character.equipe)
+					ville.capture(character.equipe)
