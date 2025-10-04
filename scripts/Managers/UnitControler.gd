@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var upgradeHUDScene : PackedScene = preload("res://scenes/UpgradeHUD/UpgradeHUD.tscn")
 @export var unit_truck : PackedScene = preload("res://scenes/Entities/Units/TruckUnit.tscn")
 @export var unit_artillery : PackedScene = preload("res://scenes/Entities/Units/ArtilleryUnit.tscn")
 @export var unit_tank : PackedScene = preload("res://scenes/Entities/Units/TankUnit.tscn")
@@ -17,7 +18,7 @@ extends Node2D
 @export var village_positions :  Array[Vector2] = [Vector2(-150, 50), Vector2(150, -250),Vector2(900, 200), Vector2(600, 500)]
 @export var ville_position : Vector2 = Vector2(400, 200)
 
-
+var currentHud: Control = null
 
 func _ready() -> void:
 	"""
@@ -139,3 +140,16 @@ func spawn_unit(unit_type: String, actual_player: int):
 	var local_pos = MAP.map_to_local(cell)
 	unit.position = MAP.to_global(local_pos)
 	return unit
+
+func showUpgradeHud(unit: CharacterBody2D):
+	if currentHud:
+		currentHud.queue_free()
+	currentHud = upgradeHUDScene.instantiate()
+	get_tree().root.add_child(currentHud)
+	var screen_pos = unit.get_viewport().get_camera_2d().unproject_position(unit.global_position)
+	currentHud.position = screen_pos + Vector2(0, -100)
+	# (optionnel) Si ton HUD est un Control dans un CanvasLayer
+	currentHud.anchor_left = 0.5
+	currentHud.anchor_top = 0.5
+	currentHud.pivot_offset = currentHud.size / 2
+	

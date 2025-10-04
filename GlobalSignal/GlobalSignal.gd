@@ -11,3 +11,6 @@ signal current_Money_Amount(amount:int)
 signal current_Money_Gain_Or_Loss(amount:int)
 
 signal spawn_Unit(unit)
+
+signal HQClicked(unit)
+signal showCards(HQ1: Dictionary, HQ2: Dictionary, HQ3: Dictionary)
