@@ -7,8 +7,8 @@ var all_units: Array = []
 var all_buildings: Array = []
 
 var quick_select_index = -1
+@onready var playerView = $Player_view
 @onready var anim_explosion = $AnimatedSprite2D
-
 @onready var MAP: TileMapLayer = $TileMapContainer/TileMap_Dirt
 @onready var HIGHLIGHT: TileMapLayer = $TileMapContainer/TileMap_Highlight
 @onready var GRASS_MAP: TileMapLayer = $TileMapContainer/TileMap_Grass
@@ -45,7 +45,7 @@ func _ready():
 
 	print("Unités: ", all_units)
 	print("QG: ", all_buildings)
-	setCameraLimits()
+	playerView.setCameraLimits(MAP)
 	
 func highlight_cells(start_cell,highlighted_cells,highlight_type:int=0):
 	# highlight type is either 0 (blue) or 1 (red)
@@ -434,18 +434,3 @@ func spawnUnit(unit) -> void:
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	anim_explosion.visible = false
-
-func setCameraLimits():
-	var tilemap = MAP
-	var camera = $Player_view/Camera2D
-	var usedRect: Rect2 = tilemap.get_used_rect()
-	var cellSize: Vector2i = tilemap.tile_set.tile_size
-	var limiteMapGauche = usedRect.position.x * cellSize.x
-	var limiteMapDroite = (usedRect.position.x + usedRect.size.x) * cellSize.x
-	var limiteMapHaut = usedRect.position.y * cellSize.y
-	var limiteMapBas = (usedRect.position.y + usedRect.size.y) * cellSize.y
-	
-	camera.limit_left = limiteMapGauche
-	camera.limit_right = limiteMapDroite
-	camera.limit_top = limiteMapHaut
-	camera.limit_bottom = limiteMapBas

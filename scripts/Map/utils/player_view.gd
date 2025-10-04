@@ -4,7 +4,7 @@ extends CharacterBody2D
 var edge_margin := 50
 var zoom_step := 0.5
 var movement_speed = 500
-var min_zoom := Vector2(0.5, 0.5)
+var min_zoom := Vector2(1, 1)
 var max_zoom := Vector2(3, 3)
 var dragging := false
 var last_mouse_pos := Vector2.ZERO
@@ -83,3 +83,16 @@ func _input(event):
 				last_mouse_pos = get_viewport().get_mouse_position()
 			else:
 				dragging = false
+
+func setCameraLimits(tMap: TileMapLayer):
+	var usedRect: Rect2 = tMap.get_used_rect()
+	var cellSize: Vector2i = tMap.tile_set.tile_size
+	var limiteMapGauche = usedRect.position.x * cellSize.x
+	var limiteMapDroite = (usedRect.position.x + usedRect.size.x) * cellSize.x
+	var limiteMapHaut = usedRect.position.y * cellSize.y
+	var limiteMapBas = (usedRect.position.y + usedRect.size.y) * cellSize.y
+	
+	cam.limit_left = limiteMapGauche
+	cam.limit_right = limiteMapDroite
+	cam.limit_top = limiteMapHaut
+	cam.limit_bottom = limiteMapBas
