@@ -1,55 +1,72 @@
 extends CharacterBody2D
-func _ready():
-	add_to_group("Village")
 
-@onready var couleur:PointLight2D=$AnimatedSprite2D/PointLight2D
-var Vlg1 = {
-	"name":"Village",
-	"gain": 10,
-	"lv":1,
-}
-var Vlg2 = {
-	"name":"Village",
-	"cost": 65,
-	"gain": 13,
-	"lv":2,
-}
-var Vlg3 = {
-	"name":"Village",
-	"attack": 15,
-	"cost": 80,
-	"gain": 15,
-	"lv":3,
-}
+@onready var couleur: PointLight2D=$AnimatedSprite2D/PointLight2D
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var health_bar: ProgressBar = $HealthBar
 
+var Vlg1 = {"name": "Village", "gain": 10, "lv": 1}
+var Vlg2 = {"name": "Village", "cost": 65, "gain": 13, "lv": 2}
+var Vlg3 = {"name": "Village", "attack": 15, "cost": 80, "gain": 15, "lv": 3}
 
 const EQUIPE_NEUTRAL = 0
 const EQUIPE_ONE = 1
 const EQUIPE_TWO = 2
 
-
-var lv: int =1
-var max_hp: int =200
+var lv: int = 1
+var max_hp: int = 200
 var attack: int = 20
 var attack_range: int = 10
 var size_x: int = 3
 var size_y: int = 3
 var upgrade_cost: int = 60
 
-
-#variable dynamique
-var current_gain = 0
-var current_lv: int =1
-var zone_enabled : bool=false
-var zone_radius : int= 0
-var equipe: int =0	
+var current_gain: int = 0
 var current_hp: int
+var current_lv: int = 1
+var zone_enabled: bool = false
+var zone_radius: int = 0
+var equipe: int = 0
 
-	
+var hit_flash_timer: Timer
+var base_modulate: Color
+
+func _ready() -> void:
+	add_to_group("Village")
+	current_hp = max_hp
+	health_bar.max_value = max_hp
+	health_bar.value = current_hp
+	_apply_color(equipe)
+
+	# Préparation du timer de clignotement
+	hit_flash_timer = Timer.new()
+	hit_flash_timer.wait_time = 0.2
+	hit_flash_timer.one_shot = true
+	add_child(hit_flash_timer)
+	hit_flash_timer.timeout.connect(_on_hit_flash_end)
+
+	base_modulate = anim.modulate
+
+
 func setup(_equipe: int) -> void:
 	equipe = _equipe
 	current_hp = max_hp
-	_apply_color(0)
+	_apply_color(equipe)
+
+
+func update_health_bar() -> void:
+	"""
+	Met à jour la barre de vie et déclenche le flash visuel.
+	"""
+	health_bar.value = current_hp
+	anim.modulate = Color(2, 2, 2, 1)
+	hit_flash_timer.start()
+
+
+func _on_hit_flash_end() -> void:
+	"""
+	Remet la couleur normale après le clignotement.
+	"""
+	anim.modulate = base_modulate
 	
 	
 func upgrade():

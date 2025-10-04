@@ -289,6 +289,11 @@ func _unhandled_input(event):
 
 		if selected_unit == null:
 			return
+			
+		if not selected_unit.is_in_group("units"):
+			HIGHLIGHT.clear()
+			return
+			
 		var mouse_pos = get_global_mouse_position()
 		var clicked_cell = MAP.local_to_map(mouse_pos)
 		if HIGHLIGHT.get_cell_source_id(clicked_cell) != -1:

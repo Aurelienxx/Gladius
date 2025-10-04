@@ -1,41 +1,66 @@
 extends CharacterBody2D
-@onready var couleur:PointLight2D=$AnimatedSprite2D/PointLight2D
-var current_gain =0
-var Town1 = {
-	"name":"Town",
-	"gain": 15,
-	"lv":1,
-}
-var Town2 = {
-	"name":"Town",
-	"cost": 85,
-	"gain": 18,
-	"lv":2,
-}
-var Town3 = {
-	"name":"Town",
-	"attack": 15,
-	"cost": 100,
-	"gain": 20,
-	"lv":3,
-}
-var lv: int =1
-var max_hp: int =200
+
+@onready var couleur: PointLight2D=$AnimatedSprite2D/PointLight2D
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var health_bar: ProgressBar = $HealthBar
+
+var lv: int = 1
+var max_hp: int = 200
 var attack: int = 20
 var attack_range: int = 10
 var size_x: int = 3
 var size_y: int = 3
 var upgrade_cost: int = 60
-#variable dynamique
-var current_lv: int =1
-var zone_enabled : bool=false
-var zone_radius : int= 0
+
+var current_gain: int = 0
+var current_hp: int
+var current_lv: int = 1
+var zone_enabled: bool = false
+var zone_radius: int = 0
 var equipe: int
-	
+
 const EQUIPE_NEUTRAL = 0
 const EQUIPE_ONE = 1
 const EQUIPE_TWO = 2
-	
+
+var Town1 = {"name": "Town", "gain": 15, "lv": 1}
+var Town2 = {"name": "Town", "cost": 85, "gain": 18, "lv": 2}
+var Town3 = {"name": "Town", "attack": 15, "cost": 100, "gain": 20, "lv": 3}
+
+var hit_flash_timer: Timer
+var base_modulate: Color
+
+func _ready() -> void:
+	"""
+	Initialise la couleur, la barre de vie et le timer du flash de dégâts.
+	"""
+	current_hp = max_hp
+	health_bar.max_value = max_hp
+	health_bar.value = current_hp
+	_apply_color(equipe)
+
+	hit_flash_timer = Timer.new()
+	hit_flash_timer.wait_time = 0.2
+	hit_flash_timer.one_shot = true
+	add_child(hit_flash_timer)
+	hit_flash_timer.timeout.connect(_on_hit_flash_end)
+
+	base_modulate = anim.modulate
+
+func update_health_bar() -> void:
+	"""
+	Met à jour la barre de vie et déclenche l’effet de flash.
+	"""
+	health_bar.value = current_hp
+	anim.modulate = Color(2, 2, 2, 1)
+	hit_flash_timer.start()
+
+
+func _on_hit_flash_end() -> void:
+	"""
+	Remet la couleur normale après le clignotement.
+	"""
+	anim.modulate = base_modulate
 	
 func upgrade():
 	lv=lv+1

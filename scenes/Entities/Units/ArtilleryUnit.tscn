@@ -46,7 +46,6 @@ bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
 bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
 [node name="ArtilleryUnit" type="CharacterBody2D"]
-visible = false
 script = ExtResource("1_wso3m")
 thumbnail = ExtResource("2_x6c4b")
 
@@ -63,7 +62,6 @@ animation = &"idle"
 script = ExtResource("4_srvsw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_wsick")
 

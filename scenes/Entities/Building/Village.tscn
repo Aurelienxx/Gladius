@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5c5f8kx2dv0a"]
+[gd_scene load_steps=10 format=3 uid="uid://c5c5f8kx2dv0a"]
 
 [ext_resource type="Script" uid="uid://b4mns7eseov1w" path="res://scripts/Entities/Building/Village.gd" id="1_3474o"]
 [ext_resource type="Texture2D" uid="uid://uxhgxoby51u6" path="res://assets/sprites/EntitySprite/Buildings/Village/Village.png" id="2_05egb"]
@@ -19,6 +19,12 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qyp71"]
 size = Vector2(94, 93)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05egb"]
+bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyp71"]
+bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
 [node name="village_body" type="CharacterBody2D"]
 script = ExtResource("1_3474o")
@@ -43,3 +49,13 @@ shape = SubResource("RectangleShape2D_qyp71")
 [node name="VillageTownManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
 script = ExtResource("3_htqd3")
 area2D = NodePath("../Area2D")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -31.0
+offset_top = 33.0
+offset_right = 30.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_05egb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qyp71")
+show_percentage = false
