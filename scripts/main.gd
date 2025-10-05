@@ -58,6 +58,14 @@ func highlight_cells(start_cell, highlighted_cells, highlight_type: int = 0):
 		HIGHLIGHT.set_cell(cell, highlight_type, Vector2i(0,0))
 	HIGHLIGHT.set_cell(start_cell, 2, Vector2i(0,0))
 
+
+func gaz_cell(gaz_cells):
+	"""
+	Affiche les cases accessibles ou attaquables sur la carte.
+	"""
+	GAZ.clear() # Supprime la surbillance pour éviter la superposition 
+	GAZ.set_cell(gaz_cells,0, Vector2i(0,0))
+
 func _on_unit_clicked(unit: CharacterBody2D):
 	"""
 	Gère la sélection d'une unité pour le déplacement ou l'attaque.
@@ -66,7 +74,7 @@ func _on_unit_clicked(unit: CharacterBody2D):
 	if mode == "attack" and attack_unit != null and unit != attack_unit:
 		_on_unit_attack(attack_unit, unit)
 		return
-
+	
 	var manager: Node = unit.get_node("MovementManager")
 	selected_unit = unit
 	
@@ -417,10 +425,15 @@ func next_player():
 	Réinitialise les actions des unités et met à jour les ressources de chaque joueur.
 	"""
 	HIGHLIGHT.clear()
+	
+	for build in all_buildings:
+		if build.get_script().resource_path.find("QG.gd") != -1 and build.equipe == actual_player and build.lv==3:
+			attack_gaz(build)
 	for unit in all_units:
 		if unit.equipe == actual_player:
 			unit.movement = false
 			unit.attack = false
+			
 			
 			# Si une unité du joueur est dans une case gaz alors elle prends des dégats
 			if GAZ.get_cell_source_id(MAP.local_to_map(unit.global_position)) != -1 :
@@ -578,3 +591,22 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	Cache l’animation d’explosion une fois terminée.
 	"""
 	anim_explosion.visible = false
+
+func attack_gaz(QG:CharacterBody2D)->void:
+	"fonction qui attaque automatiquement une unité qui s'approche d'un QG"
+	
+	var pos_qg=MAP.local_to_map(QG.global_position)
+	var liste=[]
+	for unit in all_units:
+		if unit.equipe != QG.equipe:
+			var pos_unit=MAP.local_to_map(unit.global_position)
+			if is_adjacent_cells(pos_qg,pos_unit,QG.attack_range):
+				liste.append(pos_unit)
+	if liste != []:
+		var taille_liste= len(liste)
+		var i :int=randi_range(0,taille_liste-1)
+		gaz_cell(liste[i])
+		
+		
+			 
+		

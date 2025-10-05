@@ -10,7 +10,7 @@ var current_player: int
 var max_hp: int = 1000
 var lv: int = 1
 var damage: int = 15
-var attack_range: int = 30
+var attack_range: int = 10
 var hp: int = 1000
 var size_x: int = 3
 var size_y: int = 3
@@ -160,3 +160,5 @@ func showUpgradeHUD(equipe: int):
 	current_player = equipe
 	upgradeHUD.displayCards(HQ1Data, HQ2Data, HQ3Data)
 	upgradeHUD.visible = true
+	
+	
