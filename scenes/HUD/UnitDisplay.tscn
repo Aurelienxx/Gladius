@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d2eitn4ly1nw5" path="res://scripts/HUD/unit_display.gd" id="1_m8ju6"]
 [ext_resource type="Texture2D" uid="uid://c57626xgnw16e" path="res://assets/sprites/HUD/cardVisual.png" id="2_m8ju6"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="3_864lw"]
-[ext_resource type="Texture2D" uid="uid://4axkcu8dlg1g" path="res://assets/sprites/MainMenu/LogoPlaceholder.png" id="3_m8ju6"]
+[ext_resource type="Texture2D" uid="uid://cnfhd0qc16l7u" path="res://assets/sprites/Interface/Other/logoGladius.png" id="3_m8ju6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m8ju6"]
 
