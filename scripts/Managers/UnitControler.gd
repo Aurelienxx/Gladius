@@ -1,4 +1,5 @@
 extends Node2D
+
 @export var unit_truck : PackedScene = preload("res://scenes/Entities/Units/TruckUnit.tscn")
 @export var unit_artillery : PackedScene = preload("res://scenes/Entities/Units/ArtilleryUnit.tscn")
 @export var unit_tank : PackedScene = preload("res://scenes/Entities/Units/TankUnit.tscn")
@@ -14,7 +15,7 @@ extends Node2D
 
 @export var qg_positions: Array[Vector2] = [Vector2(-200, -250), Vector2(950, 500)]
 @export var village_positions :  Array[Vector2] = [Vector2(-150, 50), Vector2(150, -250),Vector2(900, 200), Vector2(600, 500)]
-@export var ville_position : Vector2 = Vector2(400, 200)
+@export var ville_position : Vector2 = Vector2(350, 150)
 
 func _ready() -> void:
 	"""

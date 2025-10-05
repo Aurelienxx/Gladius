@@ -1,6 +1,7 @@
 extends Node2D
 
 const EndScreen = preload("res://scenes/EndScreen/EndScreen.tscn")
+const TurnPanel = preload("res://scenes/HUD/turn_panel.tscn")
 
 var selected_unit: CharacterBody2D # CharacterBody2D de l'unité séléctionnée
 var all_units: Array = []
@@ -24,6 +25,7 @@ var last_costs: Dictionary = {} # Dictionnaire des coûts de déplacement cumul�
 var last_start: Vector2i # Position de départ utilisée pour le dernier calcul de chemin
 
 var actual_player = 1 
+var turn_changing := false
 
 var terrain_costs = {
 	"TileMap_Obstacle": -1, # obstacle : infranchissable
@@ -424,6 +426,10 @@ func next_player():
 	Passe le tour au joueur suivant.
 	Réinitialise les actions des unités et met à jour les ressources de chaque joueur.
 	"""
+	if turn_changing:
+		return 
+
+	turn_changing = true
 	HIGHLIGHT.clear()
 	
 	for build in all_buildings:
@@ -458,7 +464,11 @@ func next_player():
 		
 		EconomyManager.money_result1 = EconomyManager.money_gain1 - EconomyManager.money_loss1
 		EconomyManager.current_money1 = EconomyManager.economy_turn(EconomyManager.current_money1,EconomyManager.money_result1)
-		
+	
+	var turn_panel = TurnPanel.instantiate()
+	add_child(turn_panel)
+	await turn_panel.show_turn_async(actual_player)
+	turn_changing = false
 
 func quick_select():
 	"""
