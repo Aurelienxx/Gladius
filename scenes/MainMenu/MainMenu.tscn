@@ -1,13 +1,13 @@
 [gd_scene load_steps=26 format=3 uid="uid://c1e4qtotfslu8"]
 
 [ext_resource type="Script" uid="uid://018u7ywc34y1" path="res://scripts/MainMenu/MainMenu.gd" id="1_gwiro"]
-[ext_resource type="Texture2D" uid="uid://c6crtc706nwu3" path="res://assets/sprites/Interface/Other/screenshot.png" id="2_7j8ul"]
+[ext_resource type="Texture2D" uid="uid://csd0h7ne6kquk" path="res://assets/sprites/Interface/Other/screenshot.png" id="2_7j8ul"]
 [ext_resource type="PackedScene" uid="uid://l5psbttjcf8j" path="res://scenes/Settings/settings.tscn" id="3_y5ja3"]
-[ext_resource type="Texture2D" uid="uid://d1pxuf47nm8f6" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="5_0qq82"]
+[ext_resource type="Texture2D" uid="uid://b3n5m7xq3mcqk" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="5_0qq82"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="5_7j8ul"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="8_mqas3"]
-[ext_resource type="Texture2D" uid="uid://baajk4w7yhych" path="res://assets/sprites/Interface/StartingMenuIcons/StartingMenuIcons.png" id="8_y5ja3"]
-[ext_resource type="Texture2D" uid="uid://c7o12sth5cd14" path="res://assets/sprites/Interface/OptionMenue/OptionMenuIcons.png" id="9_mqas3"]
+[ext_resource type="Texture2D" uid="uid://d06vp7e483b6a" path="res://assets/sprites/Interface/StartingMenuIcons/StartingMenuIcons.png" id="8_y5ja3"]
+[ext_resource type="Texture2D" uid="uid://cgj0h7xieyjyf" path="res://assets/sprites/Interface/OptionMenue/OptionMenuIcons.png" id="9_mqas3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oj5b0"]
 texture = ExtResource("8_y5ja3")
