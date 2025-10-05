@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://casx0iw2asrlb"]
+[gd_scene load_steps=20 format=3 uid="uid://casx0iw2asrlb"]
 
 [ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
 [ext_resource type="PackedScene" uid="uid://cc1okjsltc6ac" path="res://scenes/Entities/Units/TankUnit.tscn" id="2_6n7by"]
@@ -25,10 +25,6 @@ metadata/__load_path__ = "res://assets/sprites/EntitySprite/Units/Spritetruck/Tr
 texture = ExtResource("29_a1o1e")
 region_rect = Rect2(0, 96, 32, 32)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8micj"]
-texture = ExtResource("29_a1o1e")
-region_rect = Rect2(64, 98, 32, 30)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cm5sn"]
 texture = ExtResource("29_a1o1e")
 region_rect = Rect2(64, 98, 32, 30)
@@ -36,10 +32,6 @@ region_rect = Rect2(64, 98, 32, 30)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a1o1e"]
 texture = ExtResource("29_a1o1e")
 region_rect = Rect2(0, 32, 128, 32)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_of4gv"]
-texture = ExtResource("29_a1o1e")
-region_rect = Rect2(0, 0, 128, 32)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_271cc"]
 texture = ExtResource("29_a1o1e")
@@ -103,7 +95,7 @@ focus_behavior_recursive = 1
 theme = SubResource("Theme_of4gv")
 theme_type_variation = &"FlatButton"
 theme_override_styles/normal = SubResource("StyleBoxTexture_lpdjm")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8micj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_cm5sn")
 theme_override_styles/hover = SubResource("StyleBoxTexture_cm5sn")
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
@@ -194,7 +186,7 @@ size_flags_horizontal = 0
 focus_mode = 1
 focus_behavior_recursive = 1
 theme_override_styles/normal = SubResource("StyleBoxTexture_a1o1e")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_of4gv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_271cc")
 theme_override_styles/hover = SubResource("StyleBoxTexture_271cc")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuDisplay/VBoxContainer"]
@@ -214,6 +206,7 @@ size_flags_horizontal = 0
 focus_mode = 1
 focus_behavior_recursive = 1
 theme_override_styles/normal = SubResource("StyleBoxTexture_l5g1i")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6n7by")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6n7by")
 
 [node name="ClickCatcher" type="Control" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]

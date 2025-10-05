@@ -22,3 +22,10 @@ func change_result(team: int):
 		result.text = "L'équipe rouge a gagné !"
 		result.modulate = Color.RED
 		
+
+
+func _on_exit_button_pressed() -> void:
+	"""
+	Quitte le jeu proprement.
+	"""
+	get_tree().quit()

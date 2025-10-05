@@ -1,8 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://c1e4qtotfslu8"]
+[gd_scene load_steps=26 format=3 uid="uid://c1e4qtotfslu8"]
 
 [ext_resource type="Script" uid="uid://018u7ywc34y1" path="res://scripts/MainMenu/MainMenu.gd" id="1_gwiro"]
 [ext_resource type="Texture2D" uid="uid://c6crtc706nwu3" path="res://assets/sprites/Interface/Other/screenshot.png" id="2_7j8ul"]
-[ext_resource type="Texture2D" path="res://assets/sprites/Interface/Logo/logoGladius.png" id="3_7j8ul"]
 [ext_resource type="PackedScene" uid="uid://l5psbttjcf8j" path="res://scenes/Settings/settings.tscn" id="3_y5ja3"]
 [ext_resource type="Texture2D" uid="uid://d1pxuf47nm8f6" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="5_0qq82"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="5_7j8ul"]
@@ -249,7 +248,6 @@ size_flags_horizontal = 4
 [node name="Logo" type="NinePatchRect" parent="MainMenue/VBoxContainer"]
 custom_minimum_size = Vector2(309, 390)
 layout_mode = 2
-texture = ExtResource("3_7j8ul")
 
 [node name="Buttons" type="VBoxContainer" parent="MainMenue"]
 layout_mode = 2
@@ -268,7 +266,7 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_7j8ul")
 theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxTexture_y5ja3")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_mqas3")
 theme_override_styles/hover = SubResource("StyleBoxTexture_mqas3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 
@@ -283,7 +281,7 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_7j8ul")
 theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxTexture_oy0qi")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bfo1e")
 theme_override_styles/hover = SubResource("StyleBoxTexture_bfo1e")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 
@@ -298,7 +296,7 @@ theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_7j8ul")
 theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxTexture_yv4eq")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bung8")
 theme_override_styles/hover = SubResource("StyleBoxTexture_bung8")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 
