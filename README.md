@@ -18,6 +18,16 @@ Si vous possédez le moteur de jeu Godot Engine, vous pouvez également ouvrir l
 
 
 
+
+## Contrôles
+- Clic gauche : Sélection dans menu, Sélectionner une unité pour déplacement, Ouvrir la page d'amélioration du QG
+- Clic droit : Sélectionner une unité pour attaque
+- Espace : Sélection rapide d'une unité inutisée ce tour
+- Entrée : Mettre fin au tour actuel
+
+
+
+
 ## Structure du projet
 Le jeu a été développé avec le moteur Godot Engine, qui possède une structure de fichiers bien spécifique.  
 Depuis la racine, vous retrouverez : 
