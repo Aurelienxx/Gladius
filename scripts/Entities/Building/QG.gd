@@ -109,13 +109,13 @@ func upgrade(lvl: int) -> void:
 		match current_player:
 			1:
 				if EconomyManager.current_money1 >= HQ2Data["prix"]:
-					EconomyManager.buy_something(EconomyManager.current_money1, HQ2Data["prix"])
+					EconomyManager.current_money1 = EconomyManager.buy_something(EconomyManager.current_money1, HQ2Data["prix"])
 					lv += 1
 					apply_level_bonus()
 					upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
 			2:
 				if EconomyManager.current_money2 >= HQ2Data["prix"]:
-					EconomyManager.buy_something(EconomyManager.current_money2, HQ2Data["prix"])
+					EconomyManager.current_money2 = EconomyManager.buy_something(EconomyManager.current_money2, HQ2Data["prix"])
 					lv += 1
 					apply_level_bonus()
 					upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
