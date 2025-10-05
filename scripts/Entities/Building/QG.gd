@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
 @onready var upgradeHUD : CanvasLayer = $UpgradeHUD
-@onready var couleur : PointLight2D = $AnimatedSprite2D/PointLight2D
-@onready var anim:AnimatedSprite2D = $AnimatedSprite2D
+
+@onready var flag: AnimatedSprite2D=$FlagSprite
+@onready var anim: AnimatedSprite2D = $BuildingSprite
+
 @onready var health_bar: ProgressBar = $HealthBar
 
 var current_player: int
@@ -66,6 +68,8 @@ func _ready():
 	upgradeHUD.visible = false
 	upgradeHUD.achatLvl2.connect(upgradeLvl2Signal)
 	upgradeHUD.achatLvl3.connect(upgradeLvl3Signal)
+	anim.play("Level1")
+	flag.play()
 	
 func upgradeLvl2Signal(lvl: int):
 	upgrade(lvl)
@@ -93,13 +97,14 @@ func _apply_color() -> void:
 	Applique une couleur de lumière différente selon l’équipe.
 	Équipe 1 : Bleu / Équipe 2 : Rouge
 	"""
-	if not couleur:
-		return
-
+	var color:Color = Color("white")
 	if equipe == 1:
-		couleur.color = Color(0, 0, 1, 0.75)
+		color = Color("Blue")
 	elif equipe == 2:
-		couleur.color = Color(1, 0, 0, 0.75)
+		color = Color("red")
+	flag.modulate = color
+	
+
 
 func upgrade(lvl: int) -> void:
 	"""
@@ -144,13 +149,17 @@ func apply_level_bonus() -> void:
 		1:
 			current_gain =  HQ1Data["gain"]
 			damage = HQ1Data["damage"]
+			anim.play("Level1")
 		2:
 			current_gain =  HQ2Data["gain"]
 			damage += 5
 			attack_range += 3
+			anim.play("Level2")
 		3:
 			current_gain =  HQ3Data["gain"]
+			anim.play("Level3")
 	
+	flag.frame = 0
 	if equipe==1:
 		EconomyManager.money_gain1 = EconomyManager.change_money_gain(EconomyManager.money_gain1, EconomyManager.money_loss1, current_gain)
 	elif equipe==2 : 

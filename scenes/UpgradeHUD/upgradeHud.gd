@@ -23,15 +23,13 @@ func updateCard(card: Panel, HQData: Dictionary):
 		card.get_node("MarginContainer/HBoxContainer/VBoxContainer/DMG").text = "Dégâts : " + str(HQData["damage"])
 		card.get_node("MarginContainer/HBoxContainer/VBoxContainer2/Bonus").text = "Bonus : " + str(HQData["bonus"])
 		card.get_node("Cost").text = "Coût : " + str(HQData["prix"])
-		card.get_node("BuildingSprite").texture = load(HQData["Sprite"])
 	else:
 		if card.has_node("Name"):
 			card.get_node("Name").text = "Nom : %s" % HQData["name"]
 		card.get_node("MarginContainer/HBoxContainer/CenterContainer2/GoldGeneration").text = "Génération d'or : " + str(HQData["gain"])
 		card.get_node("MarginContainer/HBoxContainer/CenterContainer/DMG").text = "Dégâts : " + str(HQData["damage"])
 		card.get_node("Cost").text = "Coût : " + str(HQData["prix"])
-		card.get_node("BuildingSprite").texture = load(HQData["Sprite"])
-
+	card.get_node("BuildingSprite").play()
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		visible = false

@@ -1,15 +1,122 @@
-[gd_scene load_steps=7 format=3 uid="uid://bibxvdufm4ljc"]
+[gd_scene load_steps=30 format=3 uid="uid://bibxvdufm4ljc"]
 
 [ext_resource type="Script" uid="uid://bey4gbm8sds1l" path="res://scenes/UpgradeHUD/upgradeHud.gd" id="1_6tx4s"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_c7y0l"]
-[ext_resource type="Texture2D" uid="uid://d3xfr4pg38wmj" path="res://assets/sprites/EntitySprite/Buildings/HQ/HQ_sketch.png" id="3_6tx4s"]
+[ext_resource type="Texture2D" uid="uid://dyl3qh7hyo2uh" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_1/HQ_Level_1_1.png" id="3_ltyt3"]
+[ext_resource type="Texture2D" uid="uid://tdc56pequ0o2" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_1/HQ_Level_1_2.png" id="4_lks8a"]
+[ext_resource type="Texture2D" uid="uid://r8gjwpfs3cyj" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_1/HQ_Level_1_3.png" id="5_svhkt"]
+[ext_resource type="Texture2D" uid="uid://c85qhtakn31x7" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_1/HQ_Level_1_4.png" id="6_2xike"]
+[ext_resource type="Texture2D" uid="uid://ds6brip8oqwks" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_1/HQ_Level_1_5.png" id="7_yeumw"]
+[ext_resource type="Texture2D" uid="uid://cnuts04i2ngvu" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_1/HQ_Level_1_6.png" id="8_jtq71"]
+[ext_resource type="Texture2D" uid="uid://n7swxhiantri" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_1/HQ_Level_1_7.png" id="9_x82x3"]
+[ext_resource type="Texture2D" uid="uid://dg8j1ogxpmb3x" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_2/HQ_Level_2_1.png" id="10_7pk1v"]
+[ext_resource type="Texture2D" uid="uid://bw0f6po2y6xkq" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_2/HQ_Level_2_2.png" id="11_ms4sf"]
+[ext_resource type="Texture2D" uid="uid://kwpre8vgob6x" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_2/HQ_Level_2_3.png" id="12_axlc4"]
+[ext_resource type="Texture2D" uid="uid://ctn07ktsfy5cj" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_2/HQ_Level_2_4.png" id="13_oydji"]
+[ext_resource type="Texture2D" uid="uid://y0u7xmq1qn7r" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_2/HQ_Level_2_5.png" id="14_odmun"]
+[ext_resource type="Texture2D" uid="uid://c36keblnglw1c" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_2/HQ_Level_2_6.png" id="15_dlx63"]
+[ext_resource type="Texture2D" uid="uid://drejbq787v3ul" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_2/HQ_Level_2_7.png" id="16_uhrmk"]
+[ext_resource type="Texture2D" uid="uid://b65xpxb7ia8gf" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_1.png" id="17_xtc47"]
+[ext_resource type="Texture2D" uid="uid://foqwqs5dua55" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_2.png" id="18_yygva"]
+[ext_resource type="Texture2D" uid="uid://d1mdubcvlgsr2" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_3.png" id="19_dmilc"]
+[ext_resource type="Texture2D" uid="uid://cqcfgwea3ymcb" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_4.png" id="20_jpb62"]
+[ext_resource type="Texture2D" uid="uid://cvlhub0vu5cmr" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_5.png" id="21_cbque"]
+[ext_resource type="Texture2D" uid="uid://def0nolg3jowi" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_6.png" id="22_qbj5w"]
+[ext_resource type="Texture2D" uid="uid://cvt14r21724ni" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_7.png" id="23_uf4n3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4bce"]
 bg_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_wkeb5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ltyt3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lks8a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_svhkt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2xike")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_yeumw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jtq71")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_x82x3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rr62k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_7pk1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ms4sf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_axlc4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_oydji")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_odmun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_dlx63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_uhrmk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7y0l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cbwqk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_xtc47")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_yygva")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_dmilc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_jpb62")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_cbque")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_qbj5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_uf4n3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6tx4s"]
 
@@ -95,20 +202,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BuildingSprite" type="TextureRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv1"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.13901755
-anchor_top = 0.32763094
-anchor_right = 0.8609825
-anchor_bottom = 0.82698256
-offset_left = -0.12000275
-offset_top = 0.11999512
-offset_right = 0.11999512
-offset_bottom = -0.11999512
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_6tx4s")
+[node name="BuildingSprite" type="AnimatedSprite2D" parent="UpgradeHUD/HBoxContainer/LevelCardLv1"]
+position = Vector2(143, 230)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_wkeb5")
 metadata/_edit_use_anchors_ = true
 
 [node name="Cost" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv1"]
@@ -220,20 +317,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BuildingSprite" type="TextureRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.13901755
-anchor_top = 0.32763094
-anchor_right = 0.8609825
-anchor_bottom = 0.82698256
-offset_left = -0.12000275
-offset_top = 0.11999512
-offset_right = 0.11999512
-offset_bottom = -0.11999512
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_6tx4s")
+[node name="BuildingSprite" type="AnimatedSprite2D" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
+position = Vector2(143, 230)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_rr62k")
 metadata/_edit_use_anchors_ = true
 
 [node name="Cost" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
@@ -355,20 +442,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BuildingSprite" type="TextureRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.13901755
-anchor_top = 0.32763094
-anchor_right = 0.8609825
-anchor_bottom = 0.82698256
-offset_left = -0.12000275
-offset_top = 0.11999512
-offset_right = 0.11999512
-offset_bottom = -0.11999512
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_6tx4s")
+[node name="BuildingSprite" type="AnimatedSprite2D" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
+position = Vector2(143, 230)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_cbwqk")
 metadata/_edit_use_anchors_ = true
 
 [node name="Cost" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
