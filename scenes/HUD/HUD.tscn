@@ -1,0 +1,255 @@
+[gd_scene load_steps=20 format=3 uid="uid://casx0iw2asrlb"]
+
+[ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
+[ext_resource type="PackedScene" uid="uid://cc1okjsltc6ac" path="res://scenes/Entities/Units/TankUnit.tscn" id="2_6n7by"]
+[ext_resource type="PackedScene" uid="uid://cnywfqbg0wjpb" path="res://scenes/Entities/Units/ArtilleryUnit.tscn" id="4_wa322"]
+[ext_resource type="PackedScene" uid="uid://dogkmflijdlsd" path="res://scenes/Entities/Units/Infantry.tscn" id="5_ykc18"]
+[ext_resource type="PackedScene" uid="uid://c4cxrrugw53mu" path="res://scenes/Entities/Units/TruckUnit.tscn" id="6_gsk3d"]
+[ext_resource type="PackedScene" uid="uid://l5psbttjcf8j" path="res://scenes/Settings/settings.tscn" id="9_wa322"]
+[ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="29_a1o1e"]
+[ext_resource type="Script" uid="uid://cmv76kwh7rv5k" path="res://scripts/HUD/Recruit_Menu.gd" id="31_a1o1e"]
+[ext_resource type="PackedScene" uid="uid://brebtsljws1qg" path="res://scenes/HUD/UnitDisplay.tscn" id="32_6n7by"]
+
+[sub_resource type="Resource" id="Resource_4undd"]
+metadata/__load_path__ = "res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"
+
+[sub_resource type="Resource" id="Resource_wa322"]
+metadata/__load_path__ = "res://assets/sprites/EntitySprite/Units/SpriteArtillery/artillery.png"
+
+[sub_resource type="Resource" id="Resource_ykc18"]
+metadata/__load_path__ = "res://assets/sprites/EntitySprite/Units/Spritetruck/Truck.png"
+
+[sub_resource type="Theme" id="Theme_of4gv"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lpdjm"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 96, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cm5sn"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(64, 98, 32, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a1o1e"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 32, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_271cc"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 0, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l5g1i"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 192, 64, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6n7by"]
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(64, 192, 64, 30)
+
+[node name="InGameUI" type="CanvasLayer" node_paths=PackedStringArray("displayGold", "displayGainOrLoss", "OptionsMenue")]
+script = ExtResource("1_kbjyg")
+displayGold = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer/GoldDisplay")
+displayGainOrLoss = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer/GainOrLoss")
+OptionsMenue = NodePath("Settings")
+
+[node name="TankUnit" parent="." instance=ExtResource("2_6n7by")]
+visible = false
+thumbnail = SubResource("Resource_4undd")
+
+[node name="ArtilleryUnit" parent="." instance=ExtResource("4_wa322")]
+visible = false
+thumbnail = SubResource("Resource_wa322")
+
+[node name="InfantryUnit" parent="." instance=ExtResource("5_ykc18")]
+visible = false
+
+[node name="TruckUnit" parent="." instance=ExtResource("6_gsk3d")]
+visible = false
+thumbnail = SubResource("Resource_ykc18")
+
+[node name="MenuDisplay" type="MarginContainer" parent="."]
+anchors_preset = -1
+anchor_bottom = 0.5
+offset_right = 2046.6666
+offset_bottom = 683.3334
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuDisplay"]
+custom_minimum_size = Vector2(2000, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuDisplay/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ParameterButton" type="Button" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
+theme = SubResource("Theme_of4gv")
+theme_type_variation = &"FlatButton"
+theme_override_styles/normal = SubResource("StyleBoxTexture_lpdjm")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_cm5sn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cm5sn")
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 64, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 4
+patch_margin_right = 8
+patch_margin_bottom = 4
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -194.0
+offset_top = -23.833336
+offset_right = 194.0
+offset_bottom = 23.833336
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Explaination" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 52
+text = "Réserve d'or : "
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="GoldDisplay" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 52
+text = "100"
+
+[node name="+" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 52
+text = "+"
+
+[node name="GainOrLoss" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.59, 0.049166616, 1)
+theme_override_font_sizes/font_size = 52
+text = "5"
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 64, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 4
+patch_margin_right = 8
+patch_margin_bottom = 4
+
+[node name="UnitAmountDisplay" type="Label" parent="MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 52
+text = "Nombre d'unité : "
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="MenuDisplay/VBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 1
+focus_behavior_recursive = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_a1o1e")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_271cc")
+theme_override_styles/hover = SubResource("StyleBoxTexture_271cc")
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuDisplay/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+
+[node name="ContructionMenu" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer" node_paths=PackedStringArray("targetContainer")]
+layout_mode = 2
+theme_override_constants/separation = 70
+script = ExtResource("31_a1o1e")
+targetContainer = NodePath("ConstructionDisplay")
+
+[node name="ToggleButton" type="Button" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 1
+focus_behavior_recursive = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_l5g1i")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6n7by")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6n7by")
+
+[node name="ClickCatcher" type="Control" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
+visible = false
+layout_mode = 2
+
+[node name="ConstructionDisplay" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
+visible = false
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="InfantryDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 2
+size_flags_horizontal = 0
+unite_Display = NodePath("../../../../../../InfantryUnit")
+
+[node name="TruckDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 2
+size_flags_horizontal = 0
+unite_Display = NodePath("../../../../../../TruckUnit")
+
+[node name="ArtilleryDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 2
+size_flags_horizontal = 0
+unite_Display = NodePath("../../../../../../ArtilleryUnit")
+
+[node name="TankDisplay" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay" node_paths=PackedStringArray("unite_Display") instance=ExtResource("32_6n7by")]
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 2
+size_flags_horizontal = 0
+unite_Display = NodePath("../../../../../../TankUnit")
+
+[node name="Settings" parent="." instance=ExtResource("9_wa322")]
+visible = false
+
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/HBoxContainer/ParameterButton" to="." method="_on_parameter_button_pressed"]
+[connection signal="button_down" from="MenuDisplay/VBoxContainer/Button" to="." method="_on_button_button_down"]
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ToggleButton" to="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu" method="_on_toggle_button_pressed"]
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/InfantryDisplay" to="." method="_on_infantry_display_pressed"]
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TruckDisplay" to="." method="_on_truck_display_pressed"]
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/ArtilleryDisplay" to="." method="_on_artillery_display_pressed"]
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TankDisplay" to="." method="_on_tank_display_pressed"]

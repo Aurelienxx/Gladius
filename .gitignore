@@ -1,3 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+project.godot
+assets/sprites/HUD/Icons.png.import
+assets/sprites/HUD/cardVisual.png.import
+assets/customFont/m5x7.ttf.import
+*.import
