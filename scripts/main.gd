@@ -149,7 +149,7 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 					# Réapparaît en neutre
 					target.equipe = 0
 					target.current_hp = target.max_hp
-					target._apply_color(0)
+					target._apply_color()
 					
 				# Si c’est une unité
 				elif target.is_in_group("units"):
