@@ -1,7 +1,7 @@
 extends Control
-@onready var buttons: VBoxContainer = $Buttons
-@onready var settings: Panel = $Settings
-@onready var gamechoice: Panel = $GameChoice
+@export var buttons: VBoxContainer 
+@export var settings: VBoxContainer 
+@export var gamechoice: VBoxContainer
 
 func _ready():
 	"""
@@ -57,8 +57,15 @@ func _on_parameters_button_pressed() -> void:
 	et masque les boutons principaux.
 	"""
 	settings.visible = true
-	buttons.visible = false
 
+func _on_settings_visibility_changed() -> void:
+	if not buttons.visible:
+		print("hello")
+		buttons.visible = true
+	else:
+		print("bye")
+		buttons.visible = false
+		
 func _on_back_parameters_pressed() -> void:
 	"""
 	Retour au menu principal depuis le menu des paramètres.

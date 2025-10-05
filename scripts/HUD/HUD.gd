@@ -3,6 +3,8 @@ extends CanvasLayer
 @export var displayGold :Label
 @export var displayGainOrLoss :Label
 
+@export var OptionsMenue :Control
+
 func _ready() -> void:
 	"""
 	Connecte les signaux globaux de gestion d’argent aux fonctions locales d’affichage.
@@ -66,6 +68,13 @@ func _on_tank_display_pressed() -> void:
 	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TankDisplay.unite_Display
 	GlobalSignal.spawn_Unit.emit(unit)
 	
-	
 
+func _on_parameter_button_pressed() -> void:
+	if not OptionsMenue.visible:
+		OptionsMenue.visible = true
+	else : 
+		OptionsMenue.visible = false
 	
+func _input(event):
+	if Input.is_action_just_pressed("Escape"):
+		_on_parameter_button_pressed()

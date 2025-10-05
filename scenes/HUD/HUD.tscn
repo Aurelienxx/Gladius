@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://casx0iw2asrlb"]
+[gd_scene load_steps=22 format=3 uid="uid://casx0iw2asrlb"]
 
 [ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
 [ext_resource type="PackedScene" uid="uid://cc1okjsltc6ac" path="res://scenes/Entities/Units/TankUnit.tscn" id="2_6n7by"]
 [ext_resource type="PackedScene" uid="uid://cnywfqbg0wjpb" path="res://scenes/Entities/Units/ArtilleryUnit.tscn" id="4_wa322"]
 [ext_resource type="PackedScene" uid="uid://dogkmflijdlsd" path="res://scenes/Entities/Units/Infantry.tscn" id="5_ykc18"]
 [ext_resource type="PackedScene" uid="uid://c4cxrrugw53mu" path="res://scenes/Entities/Units/TruckUnit.tscn" id="6_gsk3d"]
+[ext_resource type="PackedScene" uid="uid://l5psbttjcf8j" path="res://scenes/Settings/settings.tscn" id="9_wa322"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="29_a1o1e"]
 [ext_resource type="Script" uid="uid://cmv76kwh7rv5k" path="res://scripts/HUD/Recruit_Menu.gd" id="31_a1o1e"]
 [ext_resource type="PackedScene" uid="uid://brebtsljws1qg" path="res://scenes/HUD/UnitDisplay.tscn" id="32_6n7by"]
@@ -52,10 +53,11 @@ region_rect = Rect2(0, 192, 64, 32)
 texture = ExtResource("29_a1o1e")
 region_rect = Rect2(64, 192, 64, 30)
 
-[node name="InGameUI" type="CanvasLayer" node_paths=PackedStringArray("displayGold", "displayGainOrLoss")]
+[node name="InGameUI" type="CanvasLayer" node_paths=PackedStringArray("displayGold", "displayGainOrLoss", "OptionsMenue")]
 script = ExtResource("1_kbjyg")
 displayGold = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer/GoldDisplay")
 displayGainOrLoss = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer/GainOrLoss")
+OptionsMenue = NodePath("Settings")
 
 [node name="TankUnit" parent="." instance=ExtResource("2_6n7by")]
 visible = false
@@ -190,7 +192,7 @@ custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 focus_mode = 1
-focus_behavior_recursive = 2
+focus_behavior_recursive = 1
 theme_override_styles/normal = SubResource("StyleBoxTexture_a1o1e")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_of4gv")
 theme_override_styles/hover = SubResource("StyleBoxTexture_271cc")
@@ -248,6 +250,10 @@ layout_mode = 2
 size_flags_horizontal = 0
 unite_Display = NodePath("../../../../../../TankUnit")
 
+[node name="Settings" parent="." instance=ExtResource("9_wa322")]
+visible = false
+
+[connection signal="pressed" from="MenuDisplay/VBoxContainer/HBoxContainer/ParameterButton" to="." method="_on_parameter_button_pressed"]
 [connection signal="button_down" from="MenuDisplay/VBoxContainer/Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ToggleButton" to="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu" method="_on_toggle_button_pressed"]
 [connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/InfantryDisplay" to="." method="_on_infantry_display_pressed"]

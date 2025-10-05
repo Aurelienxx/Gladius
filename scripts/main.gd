@@ -416,6 +416,7 @@ func next_player():
 	Passe le tour au joueur suivant.
 	Réinitialise les actions des unités et met à jour les ressources de chaque joueur.
 	"""
+	HIGHLIGHT.clear()
 	for unit in all_units:
 		if unit.equipe == actual_player:
 			unit.movement = false
@@ -533,7 +534,7 @@ func _input(event):
 
 	:param event: (InputEvent) L’événement d’entrée clavier détecté.
 	"""
-	if Input.is_action_pressed("enter"):
+	if Input.is_action_just_pressed("enter"):
 		next_player()
 	if Input.is_action_pressed("space"):
 		quick_select()
