@@ -9,40 +9,26 @@ bg_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="CanvasLayer" type="CanvasLayer"]
-scale = Vector2(2, 2)
-transform = Transform2D(2, 0, 0, 2, 0, 0)
+[node name="UpgradeHUD" type="CanvasLayer"]
 script = ExtResource("1_6tx4s")
 
-[node name="UpgradeHUD" type="Control" parent="."]
-layout_mode = 3
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -490.0
-offset_top = 10.0
-offset_right = -450.0
-offset_bottom = 50.0
-grow_horizontal = 0
-
-[node name="Panel" type="Panel" parent="UpgradeHUD"]
-layout_mode = 0
+[node name="Panel" type="Panel" parent="."]
 offset_right = 477.0
 offset_bottom = 200.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UpgradeHUD"]
-layout_mode = 0
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 offset_right = 955.0
 offset_bottom = 401.0
 scale = Vector2(0.5, 0.5)
 theme_override_constants/separation = 50
 
-[node name="LevelCardLv1" type="Panel" parent="UpgradeHUD/HBoxContainer"]
+[node name="LevelCardLv1" type="Panel" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_u4bce")
 metadata/_edit_use_anchors_ = true
 
-[node name="Separator1" type="ColorRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv1"]
+[node name="Separator1" type="ColorRect" parent="HBoxContainer/LevelCardLv1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.14500001
@@ -52,7 +38,7 @@ offset_top = -0.14500427
 offset_bottom = -0.12000275
 color = Color(0, 0, 0, 1)
 
-[node name="Separator2" type="ColorRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv1"]
+[node name="Separator2" type="ColorRect" parent="HBoxContainer/LevelCardLv1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.30100003
@@ -62,7 +48,7 @@ offset_top = 0.07498932
 offset_bottom = 0.099990845
 color = Color(0, 0, 0, 1)
 
-[node name="Separator3" type="ColorRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv1"]
+[node name="Separator3" type="ColorRect" parent="HBoxContainer/LevelCardLv1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.84000003
@@ -72,7 +58,7 @@ offset_top = 0.15997314
 offset_bottom = 0.18493652
 color = Color(0, 0, 0, 1)
 
-[node name="Name" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv1"]
+[node name="Name" type="Label" parent="HBoxContainer/LevelCardLv1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -90,7 +76,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BuildingSprite" type="TextureRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv1"]
+[node name="BuildingSprite" type="TextureRect" parent="HBoxContainer/LevelCardLv1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.13901755
@@ -106,7 +92,7 @@ grow_vertical = 2
 texture = ExtResource("3_6tx4s")
 metadata/_edit_use_anchors_ = true
 
-[node name="Cost" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv1"]
+[node name="Cost" type="Label" parent="HBoxContainer/LevelCardLv1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -126,7 +112,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv1"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/LevelCardLv1"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -139,35 +125,35 @@ offset_right = 0.13497925
 offset_bottom = 0.09599304
 theme_override_constants/margin_top = 7
 
-[node name="HBoxContainer" type="VBoxContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv1/MarginContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer/LevelCardLv1/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="CenterContainer2" type="CenterContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv1/MarginContainer/HBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="HBoxContainer/LevelCardLv1/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="GoldGeneration" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv1/MarginContainer/HBoxContainer/CenterContainer2"]
+[node name="GoldGeneration" type="Label" parent="HBoxContainer/LevelCardLv1/MarginContainer/HBoxContainer/CenterContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
 text = "Génération d'or : 000"
 
-[node name="CenterContainer" type="CenterContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv1/MarginContainer/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/LevelCardLv1/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="DMG" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv1/MarginContainer/HBoxContainer/CenterContainer"]
+[node name="DMG" type="Label" parent="HBoxContainer/LevelCardLv1/MarginContainer/HBoxContainer/CenterContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
 text = "Dégâts : 000"
 
-[node name="LevelCardLv2" type="Panel" parent="UpgradeHUD/HBoxContainer"]
+[node name="LevelCardLv2" type="Panel" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_u4bce")
 metadata/_edit_use_anchors_ = true
 
-[node name="Separator1" type="ColorRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
+[node name="Separator1" type="ColorRect" parent="HBoxContainer/LevelCardLv2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.14500001
@@ -177,7 +163,7 @@ offset_top = -0.14500427
 offset_bottom = -0.12000275
 color = Color(0, 0, 0, 1)
 
-[node name="Separator2" type="ColorRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
+[node name="Separator2" type="ColorRect" parent="HBoxContainer/LevelCardLv2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.30100003
@@ -187,7 +173,7 @@ offset_top = 0.07498932
 offset_bottom = 0.099990845
 color = Color(0, 0, 0, 1)
 
-[node name="Separator3" type="ColorRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
+[node name="Separator3" type="ColorRect" parent="HBoxContainer/LevelCardLv2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.84000003
@@ -197,7 +183,7 @@ offset_top = 0.15997314
 offset_bottom = 0.18493652
 color = Color(0, 0, 0, 1)
 
-[node name="Name" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
+[node name="Name" type="Label" parent="HBoxContainer/LevelCardLv2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -215,7 +201,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BuildingSprite" type="TextureRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
+[node name="BuildingSprite" type="TextureRect" parent="HBoxContainer/LevelCardLv2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.13901755
@@ -231,7 +217,7 @@ grow_vertical = 2
 texture = ExtResource("3_6tx4s")
 metadata/_edit_use_anchors_ = true
 
-[node name="Cost" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
+[node name="Cost" type="Label" parent="HBoxContainer/LevelCardLv2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -251,7 +237,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/LevelCardLv2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -264,29 +250,29 @@ offset_right = 0.13497925
 offset_bottom = 0.09599304
 theme_override_constants/margin_top = 7
 
-[node name="HBoxContainer" type="VBoxContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv2/MarginContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="HBoxContainer/LevelCardLv2/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="CenterContainer2" type="CenterContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv2/MarginContainer/HBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="HBoxContainer/LevelCardLv2/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="GoldGeneration" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv2/MarginContainer/HBoxContainer/CenterContainer2"]
+[node name="GoldGeneration" type="Label" parent="HBoxContainer/LevelCardLv2/MarginContainer/HBoxContainer/CenterContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
 text = "Génération d'or : 000"
 
-[node name="CenterContainer" type="CenterContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv2/MarginContainer/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/LevelCardLv2/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="DMG" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv2/MarginContainer/HBoxContainer/CenterContainer"]
+[node name="DMG" type="Label" parent="HBoxContainer/LevelCardLv2/MarginContainer/HBoxContainer/CenterContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
 text = "Dégâts : 000"
 
-[node name="ButtonLv2" type="Button" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
+[node name="Button" type="Button" parent="HBoxContainer/LevelCardLv2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0070001
@@ -295,13 +281,13 @@ offset_left = -1.0
 offset_right = 0.0049743652
 offset_bottom = -59.0
 
-[node name="LevelCardLv3" type="Panel" parent="UpgradeHUD/HBoxContainer"]
+[node name="LevelCardLv3" type="Panel" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_u4bce")
 metadata/_edit_use_anchors_ = true
 
-[node name="Separator1" type="ColorRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
+[node name="Separator1" type="ColorRect" parent="HBoxContainer/LevelCardLv3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.14500001
@@ -311,7 +297,7 @@ offset_top = -0.14500427
 offset_bottom = -0.12000275
 color = Color(0, 0, 0, 1)
 
-[node name="Separator2" type="ColorRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
+[node name="Separator2" type="ColorRect" parent="HBoxContainer/LevelCardLv3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.30100003
@@ -321,7 +307,7 @@ offset_top = 0.07498932
 offset_bottom = 0.099990845
 color = Color(0, 0, 0, 1)
 
-[node name="Separator3" type="ColorRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
+[node name="Separator3" type="ColorRect" parent="HBoxContainer/LevelCardLv3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.84000003
@@ -331,7 +317,7 @@ offset_top = 0.15997314
 offset_bottom = 0.18493652
 color = Color(0, 0, 0, 1)
 
-[node name="Name" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
+[node name="Name" type="Label" parent="HBoxContainer/LevelCardLv3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -349,7 +335,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BuildingSprite" type="TextureRect" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
+[node name="BuildingSprite" type="TextureRect" parent="HBoxContainer/LevelCardLv3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.13901755
@@ -365,7 +351,7 @@ grow_vertical = 2
 texture = ExtResource("3_6tx4s")
 metadata/_edit_use_anchors_ = true
 
-[node name="Cost" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
+[node name="Cost" type="Label" parent="HBoxContainer/LevelCardLv3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -386,7 +372,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/LevelCardLv3"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.007
@@ -400,31 +386,31 @@ offset_bottom = 0.09599304
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv3/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/LevelCardLv3/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 25
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv3/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/LevelCardLv3/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="DMG" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv3/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="DMG" type="Label" parent="HBoxContainer/LevelCardLv3/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
 text = "Dégâts : 000"
 
-[node name="GoldGeneration" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv3/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="GoldGeneration" type="Label" parent="HBoxContainer/LevelCardLv3/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
 text = "Génération d'or : 000"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UpgradeHUD/HBoxContainer/LevelCardLv3/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/LevelCardLv3/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Bonus" type="Label" parent="UpgradeHUD/HBoxContainer/LevelCardLv3/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="Bonus" type="Label" parent="HBoxContainer/LevelCardLv3/MarginContainer/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(120, 17)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -432,7 +418,7 @@ theme_override_font_sizes/font_size = 18
 text = "Bonus : "
 autowrap_mode = 1
 
-[node name="ButtonLv3" type="Button" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
+[node name="Button" type="Button" parent="HBoxContainer/LevelCardLv3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -441,5 +427,5 @@ offset_bottom = -63.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="pressed" from="UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2" to="." method="_on_button_lv_2_pressed"]
-[connection signal="pressed" from="UpgradeHUD/HBoxContainer/LevelCardLv3/ButtonLv3" to="." method="_on_button_lv_3_pressed"]
+[connection signal="pressed" from="HBoxContainer/LevelCardLv2/Button" to="HBoxContainer/LevelCardLv3" method="_on_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/LevelCardLv3/Button" to="HBoxContainer/LevelCardLv3" method="_on_button_pressed"]

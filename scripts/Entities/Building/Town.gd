@@ -46,6 +46,9 @@ func setup(_equipe: int) -> void:
 	flag.play()
 	anim.play()
 
+func getType():
+	return "Town"
+
 func _ready() -> void:
 	"""
 	Prépare les composants du QG au lancement de la scène :

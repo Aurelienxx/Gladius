@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
+@onready var upgradeHUD : CanvasLayer = $UpgradeHUD
 @onready var couleur : PointLight2D = $AnimatedSprite2D/PointLight2D
 @onready var anim:AnimatedSprite2D = $AnimatedSprite2D
 @onready var health_bar: ProgressBar = $HealthBar
-@onready var upgradeHUD: Control = $UpgradeHUD
 
+var current_player: int
 # Statistiques et attributs de base du QG
 var max_hp: int = 1000
 var lv: int = 1
@@ -15,9 +16,9 @@ var size_x: int = 3
 var size_y: int = 3
 
 # Différents niveaux du QG
-var HQ1Data = {"name":"QG Niveau 1", "damage":15, "goldGen" : 15, "prix": 0, "lvl":1, "Sprite" : "res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"}
-var HQ2Data = {"name":"QG Niveau 2", "damage":20, "goldGen" : 30, "prix": 150, "lvl":2, "Sprite" : "res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"}
-var HQ3Data = {"name":"QG Niveau 3", "damage":30, "goldGen" : 50, "prix": 275, "lvl":3, "bonus":"Gaz Moutarde", "Sprite" : "res://assets/sprites/EntitySprite/Units/SpriteTank/Tank1.png"}
+var HQ1Data = {"name":"QG Niveau 1", "damage":15, "gain" : 15, "prix": 0, "lvl":1, "Sprite" : "res://assets/sprites/EntitySprite/Buildings/HQ/HQ_sketch.png"}
+var HQ2Data = {"name":"QG Niveau 2", "damage":20, "gain" : 30, "prix": 150, "lvl":2, "Sprite" : "res://assets/sprites/EntitySprite/Buildings/HQ/HQ_sketch.png"}
+var HQ3Data = {"name":"QG Niveau 3", "damage":30, "gain" : 50, "prix": 275, "lvl":3, "bonus":"Gaz Moutarde", "Sprite" : "res://assets/sprites/EntitySprite/Buildings/HQ/HQ_sketch.png"}
 
 # Variables d’état
 var current_gain: int = 0
@@ -43,7 +44,11 @@ func setup(_equipe: int) -> void:
 	_apply_color()
 	apply_level_bonus()
 
+func getTeam():
+	return equipe
 
+func getType():
+	return "QG"
 func _ready():
 	"""
 	Prépare les composants du QG au lancement de la scène :
@@ -58,8 +63,16 @@ func _ready():
 	hit_flash_timer.timeout.connect(_on_hit_flash_end)
 
 	base_modulate = anim.modulate
-
+	upgradeHUD.visible = false
+	upgradeHUD.achatLvl2.connect(upgradeLvl2Signal)
+	upgradeHUD.achatLvl3.connect(upgradeLvl3Signal)
 	
+func upgradeLvl2Signal(lvl: int):
+	upgrade(lvl)
+
+func upgradeLvl3Signal(lvl: int):
+	upgrade(lvl)
+
 func update_health_bar() -> void:
 	"""
 	Met à jour la barre de vie et déclenche l’animation de clignotement du QG.
@@ -88,12 +101,38 @@ func _apply_color() -> void:
 	elif equipe == 2:
 		couleur.color = Color(1, 0, 0, 0.75)
 
-func upgrade() -> void:
+func upgrade(lvl: int) -> void:
 	"""
 	Augmente le niveau du QG et applique les bonus correspondants.
 	"""
-	lv += 1
-	apply_level_bonus()
+	if lvl == 2:
+		match current_player:
+			1:
+				if EconomyManager.current_money1 >= HQ2Data["prix"]:
+					EconomyManager.buy_something(EconomyManager.current_money1, HQ2Data["prix"])
+					lv += 1
+					apply_level_bonus()
+					upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
+			2:
+				if EconomyManager.current_money2 >= HQ2Data["prix"]:
+					EconomyManager.buy_something(EconomyManager.current_money2, HQ2Data["prix"])
+					lv += 1
+					apply_level_bonus()
+					upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
+	else:
+		match current_player:
+			1:
+				if EconomyManager.current_money1 >= HQ3Data["prix"]:
+					EconomyManager.buy_something(EconomyManager.current_money1, HQ3Data["prix"])
+					lv += 1
+					apply_level_bonus()
+					upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv3/ButtonLv3").queue_free()
+			2:
+				if EconomyManager.current_money2 >= HQ3Data["prix"]:
+					EconomyManager.buy_something(EconomyManager.current_money2, HQ3Data["prix"])
+					lv += 1
+					apply_level_bonus()
+					upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv3/ButtonLv3").queue_free()
 
 func apply_level_bonus() -> void:
 	"""
@@ -103,17 +142,21 @@ func apply_level_bonus() -> void:
 	"""
 	match lv:
 		1:
-			current_gain =  HQ1Data.gain
-			damage = HQ1Data.damage
+			current_gain =  HQ1Data["gain"]
+			damage = HQ1Data["damage"]
 		2:
-			current_gain =  HQ2Data.gain
+			current_gain =  HQ2Data["gain"]
 			damage += 5
 			attack_range += 3
 		3:
-			current_gain =  HQ3Data.gain
+			current_gain =  HQ3Data["gain"]
 	
 	if equipe==1:
 		EconomyManager.money_gain1 = EconomyManager.change_money_gain(EconomyManager.money_gain1, EconomyManager.money_loss1, current_gain)
 	elif equipe==2 : 
 		EconomyManager.money_gain2 = EconomyManager.change_money_gain(EconomyManager.money_gain2, EconomyManager.money_loss2, current_gain)
-		
+
+func showUpgradeHUD(equipe: int):
+	current_player = equipe
+	upgradeHUD.displayCards(HQ1Data, HQ2Data, HQ3Data)
+	upgradeHUD.visible = true
