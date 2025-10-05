@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=3 uid="uid://bibxvdufm4ljc"]
 
-[ext_resource type="Script" uid="uid://bey4gbm8sds1l" path="res://scenes/UpgradeHUD/upgradeHud.gd" id="1_6tx4s"]
+[ext_resource type="Script" uid="uid://bey4gbm8sds1l" path="res://scripts/UpgradeHUD/upgradeHud.gd" id="1_6tx4s"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_c7y0l"]
 [ext_resource type="Texture2D" uid="uid://dyl3qh7hyo2uh" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_1/HQ_Level_1_1.png" id="3_ltyt3"]
 [ext_resource type="Texture2D" uid="uid://tdc56pequ0o2" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_1/HQ_Level_1_2.png" id="4_lks8a"]
