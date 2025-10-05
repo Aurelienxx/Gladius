@@ -12,7 +12,7 @@ var current_player: int
 var max_hp: int = 1000
 var lv: int = 1
 var damage: int = 15
-var attack_range: int = 10
+var attack_range: int = 5
 var hp: int = 1000
 var size_x: int = 3
 var size_y: int = 3
