@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cs26312fn2rqa"]
+[gd_scene load_steps=11 format=3 uid="uid://cs26312fn2rqa"]
 
 [ext_resource type="Script" uid="uid://duppr6qjtjhbr" path="res://scripts/Entities/Building/QG.gd" id="1_txrck"]
 [ext_resource type="Texture2D" uid="uid://d3xfr4pg38wmj" path="res://assets/sprites/EntitySprite/Buildings/HQ/HQ_sketch.png" id="2_etupr"]
 [ext_resource type="Texture2D" uid="uid://du6pinr8i241y" path="res://assets/sprites/EntitySprite/Buildings/HQ/HQMask.png" id="3_dpjwp"]
 [ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/clickDetection.gd" id="3_fqhlp"]
 [ext_resource type="Script" uid="uid://dq8dfi7d3l263" path="res://scripts/Entities/Building/HeadQuarterManager.gd" id="4_etupr"]
+[ext_resource type="PackedScene" uid="uid://bibxvdufm4ljc" path="res://scenes/UpgradeHUD/UpgradeHUD.tscn" id="6_1fmsb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fqhlp"]
 animations = [{
@@ -58,3 +59,5 @@ theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_dpjwp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1fmsb")
 show_percentage = false
+
+[node name="UpgradeHUD" parent="." instance=ExtResource("6_1fmsb")]

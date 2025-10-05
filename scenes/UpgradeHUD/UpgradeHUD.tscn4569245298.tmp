@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bibxvdufm4ljc"]
+[gd_scene load_steps=5 format=3 uid="uid://bibxvdufm4ljc"]
 
 [ext_resource type="Script" uid="uid://bey4gbm8sds1l" path="res://scenes/UpgradeHUD/upgradeHud.gd" id="1_6tx4s"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_c7y0l"]
@@ -9,25 +9,14 @@ bg_color = Color(0.69965345, 0.69965345, 0.69965345, 1)
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7y0l"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6tx4s"]
-
 [node name="CanvasLayer" type="CanvasLayer"]
-scale = Vector2(2, 2)
-transform = Transform2D(2, 0, 0, 2, 0, 0)
 script = ExtResource("1_6tx4s")
 
 [node name="UpgradeHUD" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -490.0
-offset_top = 10.0
-offset_right = -450.0
-offset_bottom = 50.0
-grow_horizontal = 0
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Panel" type="Panel" parent="UpgradeHUD"]
 layout_mode = 0
@@ -291,7 +280,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 18
 text = "Dégâts : 000"
 
-[node name="ButtonLv2" type="Button" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
+[node name="Button" type="Button" parent="UpgradeHUD/HBoxContainer/LevelCardLv2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0070001
@@ -299,7 +288,6 @@ anchor_bottom = 1.0
 offset_left = -1.0
 offset_right = 0.0049743652
 offset_bottom = -59.0
-theme_override_styles/focus = SubResource("StyleBoxEmpty_c7y0l")
 
 [node name="LevelCardLv3" type="Panel" parent="UpgradeHUD/HBoxContainer"]
 layout_mode = 2
@@ -438,7 +426,7 @@ theme_override_font_sizes/font_size = 18
 text = "Bonus : "
 autowrap_mode = 1
 
-[node name="ButtonLv3" type="Button" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
+[node name="Button" type="Button" parent="UpgradeHUD/HBoxContainer/LevelCardLv3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -446,7 +434,6 @@ anchor_bottom = 1.0
 offset_bottom = -63.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_6tx4s")
 
-[connection signal="pressed" from="UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2" to="." method="_on_button_lv_2_pressed"]
-[connection signal="pressed" from="UpgradeHUD/HBoxContainer/LevelCardLv3/ButtonLv3" to="." method="_on_button_lv_3_pressed"]
+[connection signal="pressed" from="UpgradeHUD/HBoxContainer/LevelCardLv2/Button" to="UpgradeHUD/HBoxContainer/LevelCardLv3" method="_on_button_pressed"]
+[connection signal="pressed" from="UpgradeHUD/HBoxContainer/LevelCardLv3/Button" to="UpgradeHUD/HBoxContainer/LevelCardLv3" method="_on_button_pressed"]
