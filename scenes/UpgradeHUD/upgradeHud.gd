@@ -33,7 +33,7 @@ func updateCard(card: Panel, HQData: Dictionary):
 		card.get_node("BuildingSprite").texture = load(HQData["Sprite"])
 
 func _unhandled_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		visible = false
 
 
