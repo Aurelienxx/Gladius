@@ -3,13 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="1_1q6jj"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_bpxx6"]
 [ext_resource type="Script" uid="uid://sk6bahj7cobp" path="res://scripts/OptionMenu/settings.gd" id="1_x8icr"]
-[ext_resource type="Texture2D" uid="uid://c7o12sth5cd14" path="res://assets/sprites/Interface/OptionMenue/OptionMenuIcons.png" id="2_n4ll7"]
+[ext_resource type="Texture2D" uid="uid://s4rqve086ibo" path="res://assets/sprites/Interface/OptionMenue/OptionMenuIcons.png" id="2_n4ll7"]
 [ext_resource type="Texture2D" uid="uid://dxhqodbio7qh6" path="res://assets/sprites/Interface/OptionMenue/MuteMusic.png" id="2_rpd78"]
 [ext_resource type="Texture2D" uid="uid://bbrvtprg3sioa" path="res://assets/sprites/Interface/OptionMenue/FullVolumeMusic.png" id="4_8e11p"]
 [ext_resource type="Texture2D" uid="uid://b7hji2hjpssfu" path="res://assets/sprites/Interface/OptionMenue/GrabberUnSelected.png" id="5_c21t1"]
-[ext_resource type="Texture2D" uid="uid://nenowyjgaop5" path="res://assets/sprites/Interface/OptionMenue/Checked.png" id="5_n4ll7"]
+[ext_resource type="Texture2D" uid="uid://c2yse4fvv4skk" path="res://assets/sprites/Interface/OptionMenue/Checked.png" id="5_n4ll7"]
 [ext_resource type="Texture2D" uid="uid://djnkplc6tixeq" path="res://assets/sprites/Interface/OptionMenue/GrabberSelected.png" id="6_72f4l"]
-[ext_resource type="Texture2D" uid="uid://nar7wo00ool2" path="res://assets/sprites/Interface/OptionMenue/UnChecked.png" id="6_rpd78"]
+[ext_resource type="Texture2D" uid="uid://bx6ewya7ybcvj" path="res://assets/sprites/Interface/OptionMenue/UnChecked.png" id="6_rpd78"]
 [ext_resource type="Texture2D" uid="uid://d1pxuf47nm8f6" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="8_8e11p"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x8icr"]
@@ -220,7 +220,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 64
-text = "Pleine Ecran"
+text = "Plein Ecran"
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer/FullScreen/IconContainer"]
 layout_mode = 2
