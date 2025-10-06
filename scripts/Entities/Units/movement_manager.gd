@@ -11,7 +11,36 @@ var path: Array = []
 var target_position: Vector2
 var is_moving: bool = false
 var map_ref: TileMapLayer
+var health_bar: ProgressBar
 
+var hit_flash_timer: Timer
+var base_modulate: Color
+
+func init(_character: CharacterBody2D, _health_bar: ProgressBar, _anim: AnimatedSprite2D, _mask: AnimatedSprite2D) -> void:
+	"""
+	Initialise les références entre le manager et les éléments de l’unité.
+
+	:param _character: (CharacterBody2D) Référence au corps de l’unité.
+	:param _health_bar: (ProgressBar) Barre de vie de l’unité.
+	:param _anim: (AnimatedSprite2D) Sprite principal de l’unité.
+	:param _mask: (AnimatedSprite2D) Sprite du masque coloré (couleur d’équipe).
+	:return: None
+	"""
+	character = _character
+	health_bar = _health_bar
+	anim = _anim
+	MaskOverlay = _mask
+	
+	# Création et configuration du timer pour le flash de dégâts
+	hit_flash_timer = Timer.new()
+	hit_flash_timer.wait_time = 0.2
+	hit_flash_timer.one_shot = true
+	character.add_child(hit_flash_timer)
+	hit_flash_timer.timeout.connect(_on_hit_flash_end)
+	
+	base_modulate = anim.modulate
+	
+	
 func _ready() -> void:
 	"""
 	Connexion des signaux globaux et des clics de l’Area2D à leurs fonctions de gestion.
@@ -61,6 +90,17 @@ func move_to_next_cell():
 	var next_cell: Vector2i = path.pop_front()
 	target_position = map_ref.map_to_local(next_cell)
 	is_moving = true
+	
+func _apply_color(equipe : int) -> void:
+	"""
+	Applique une couleur selon l’équipe : bleu (1) ou rouge (2).
+	"""
+	var color:Color = Color("white")
+	if equipe == 1:
+		color = Color("Blue")
+	else:
+		color = Color("red")
+	MaskOverlay.modulate = color
 
 func _physics_process(delta: float) -> void:
 	"""
@@ -93,6 +133,24 @@ func _physics_process(delta: float) -> void:
 		if MaskOverlay:
 			MaskOverlay.play()
 		
+func update_health_bar(current_hp: int, max_hp: int) -> void:
+	"""
+	Met à jour la barre de vie et lance l’effet de flash sur le sprite.
+	
+	:param current_hp: (int) Points de vie actuels.
+	:param max_hp: (int) Points de vie maximum.
+	"""
+	health_bar.max_value = max_hp
+	health_bar.value = current_hp
+	anim.modulate = Color(2, 2, 2, 1)
+	hit_flash_timer.start()
+
+
+func _on_hit_flash_end() -> void:
+	"""
+	Restaure la couleur d’origine du sprite après le flash de dégâts.
+	"""
+	anim.modulate = base_modulate
 
 func _capture_nearby_neutral_village():
 	"""
