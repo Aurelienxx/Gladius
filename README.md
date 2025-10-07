@@ -47,4 +47,3 @@ Depuis la racine, vous retrouverez :
  - Fontaine Aurélien
 
 
- [Aller à la page À propos](userNotice.md)
