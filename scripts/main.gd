@@ -129,7 +129,6 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 				break
 
 		if in_range:
-			target.current_hp -= attacker.damage
 			# Change les variables d’attaque et de mouvement pour rendre l’unité inactive pendant le reste du tour
 			attacker.attack = true
 			attacker.movement = true
@@ -139,8 +138,8 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 			anim_explosion.visible = true
 			anim_explosion.z_index = 100
 			anim_explosion.play("explosion")
-			
-			target.update_health_bar() # Appelle la fonction de mise à jour de la barre de vie de la cible
+
+			target.take_damage(attacker.damage) # Appelle la fonction de mise à jour de la barre de vie de la cible
 			
 			if target.current_hp <= 0:
 				
@@ -443,8 +442,7 @@ func next_player():
 			
 			# Si une unité du joueur est dans une case gaz alors elle prends des dégats
 			if GAZ.get_cell_source_id(MAP.local_to_map(unit.global_position)) != -1 :
-				unit.current_hp -= 25
-				unit.update_health_bar() # Appelle la fonction de mise à jour de la barre de vie de la cible
+				unit.take_damage(25) # Appelle la fonction de mise à jour de la barre de vie de la cible
 				if unit.current_hp <= 0:
 					# Supprime l'entité du terrain et de la liste des unités
 					all_units.erase(unit)

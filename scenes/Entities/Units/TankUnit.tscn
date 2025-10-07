@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://tp5r8n54qkop" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Sprites/Idle/Tank2.png" id="3_pibhh"]
 [ext_resource type="Texture2D" uid="uid://dwad58l33tqxi" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Mask/Idle/Tank_overlay_1.png" id="4_5tfmm"]
 [ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_pibhh"]
-[ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/movement_manager.gd" id="5_5tfmm"]
+[ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/unitManager.gd" id="5_5tfmm"]
 [ext_resource type="Texture2D" uid="uid://nnp4bqtxi0c2" path="res://assets/sprites/EntitySprite/Units/SpriteTank/Mask/Idle/Tank_overlay_2.png" id="5_lv13f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y68kv"]

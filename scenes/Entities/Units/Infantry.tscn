@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://xb7wyr3omawg" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Mask/Idle/infantry_overlay_1.png" id="4_6on2y"]
 [ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_hcrcq"]
 [ext_resource type="Texture2D" uid="uid://cypi67og5m3ms" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Mask/Idle/infantry_overlay_2.png" id="5_hcrcq"]
-[ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/movement_manager.gd" id="5_hyaov"]
+[ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/unitManager.gd" id="5_hyaov"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y68kv"]
 animations = [{
