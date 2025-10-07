@@ -44,9 +44,9 @@ func _ready():
 	Movement.init(self, health_bar, anim, MaskOverlay)
 
 
-func take_damage(damage : int) -> void :
+func take_damage(dmg : int) -> void :
 	"""
 	Fonction de prise de dégats d'une unité et de mise à jour de la barre de vie
 	"""
-	current_hp -= damage
+	current_hp -= dmg
 	Movement.update_health_bar(current_hp, max_hp)
