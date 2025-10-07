@@ -1,0 +1,9 @@
+site_name: Gladius Dominus
+theme:
+  name: readthedocs
+  palette:
+    scheme: slate  # mode sombre
+nav:
+  - Accueil: index.md
+  - À propos: about.md
+  - Contact: contact.md
