@@ -1,3 +1,17 @@
+site_name: Documentation utilisateur
+
 theme:
-  name: readthedocs
-title: Documentation utilisateur
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Passer en mode sombre
+    - scheme: slate
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Passer en mode clair
