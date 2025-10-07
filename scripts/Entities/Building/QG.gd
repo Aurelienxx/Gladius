@@ -9,11 +9,12 @@ extends CharacterBody2D
 
 var current_player: int
 # Statistiques et attributs de base du QG
-var max_hp: int = 1000
+var max_hp: int 
+var damage: int
+var attack_range: int
+var hp: int
+
 var lv: int = 1
-var damage: int = 15
-var attack_range: int = 5
-var hp: int = 1000
 var size_x: int = 3
 var size_y: int = 3
 
@@ -111,34 +112,19 @@ func upgrade(lvl: int) -> void:
 	Augmente le niveau du QG et applique les bonus correspondants.
 	"""
 	if lvl == 2:
-		match current_player:
-			1:
-				if EconomyManager.current_money1 >= HQ2Data["prix"]:
-					EconomyManager.current_money1 = EconomyManager.buy_something(EconomyManager.current_money1, HQ2Data["prix"])
-					lv += 1
-					apply_level_bonus()
-					upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
-			2:
-				if EconomyManager.current_money2 >= HQ2Data["prix"]:
-					EconomyManager.current_money2 = EconomyManager.buy_something(EconomyManager.current_money2, HQ2Data["prix"])
-					lv += 1
-					apply_level_bonus()
-					upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
+		if EconomyManager.money_check(current_player, HQ2Data["prix"]):
+			EconomyManager.buy_something(current_player, HQ2Data["prix"])
+			lv += 1
+			apply_level_bonus()
+			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
+					
 	else:
-		match current_player:
-			1:
-				if EconomyManager.current_money1 >= HQ3Data["prix"]:
-					EconomyManager.buy_something(EconomyManager.current_money1, HQ3Data["prix"])
-					lv += 1
-					apply_level_bonus()
-					upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv3/ButtonLv3").queue_free()
-			2:
-				if EconomyManager.current_money2 >= HQ3Data["prix"]:
-					EconomyManager.buy_something(EconomyManager.current_money2, HQ3Data["prix"])
-					lv += 1
-					apply_level_bonus()
-					upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv3/ButtonLv3").queue_free()
-
+		if EconomyManager.money_check(current_player, HQ3Data["prix"]):
+			EconomyManager.buy_something(current_player, HQ3Data["prix"])
+			lv += 1
+			apply_level_bonus()
+			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
+			
 func apply_level_bonus() -> void:
 	"""
 	Applique les bonus selon le niveau actuel du QG :
@@ -159,12 +145,6 @@ func apply_level_bonus() -> void:
 			current_gain =  HQ3Data["gain"]
 			anim.play("Level3")
 	
-	flag.frame = 0
-	if equipe==1:
-		EconomyManager.money_gain1 = EconomyManager.change_money_gain(EconomyManager.money_gain1, EconomyManager.money_loss1, current_gain)
-	elif equipe==2 : 
-		EconomyManager.money_gain2 = EconomyManager.change_money_gain(EconomyManager.money_gain2, EconomyManager.money_loss2, current_gain)
-
 func showUpgradeHUD(equipe: int):
 	current_player = equipe
 	upgradeHUD.displayCards(HQ1Data, HQ2Data, HQ3Data)

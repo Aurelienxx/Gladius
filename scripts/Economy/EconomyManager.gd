@@ -1,60 +1,82 @@
 extends Node
 
-var current_money1 = 100
-var money_gain1 = 0
-var money_loss1 = 0
-var money_result1 = 0
+var EconomyTab = []
 
-var current_money2 = 100
-var money_gain2 = 0
-var money_loss2 = 0
-var money_result2 = 0
+var ValueStorage = {
+	"current_money":  100, 
+	"money_gain":     0, 
+	"money_loss" :    0, 
+	"money_result":   0
+}
 
-func economy_turn(current_money: int, economic_result: int) -> int:
+const TEAM_COUNT = 2
+
+func _ready() -> void:
+	for i in range(TEAM_COUNT):
+		EconomyTab.append(ValueStorage.duplicate(true))
+	
+func _get_team_tab(team:int):
+	var index = team - 1
+	print(index)
+	return EconomyTab.get(index) # on covertie la team en index
+
+func _update_profit(valueStorage) -> void:
+	valueStorage["money_result"] = valueStorage["money_gain"] - valueStorage["money_loss"]
+	GlobalSignal.current_Money_Gain_Or_Loss.emit(valueStorage["money_result"])
+	
+func economy_turn(team:int) -> void:
 	"""
 	Met à jour l’économie à chaque tour :
 	- Ajoute le résultat économique (gains - pertes)
 	- Empêche le solde de tomber sous 0
 	- Émet des signaux globaux pour mettre à jour l’interface
 	"""
-	current_money += economic_result
-	current_money = max(current_money, 0)
 	
-	GlobalSignal.current_Money_Amount.emit(current_money)
-	GlobalSignal.current_Money_Gain_Or_Loss.emit(economic_result)
+	var TeamEconomy = _get_team_tab(team)
+	TeamEconomy["current_money"] += TeamEconomy["money_result"]  
+	TeamEconomy["current_money"] = max(TeamEconomy["current_money"], 0)
+	
+	GlobalSignal.current_Money_Amount.emit(TeamEconomy["current_money"])
+	GlobalSignal.current_Money_Gain_Or_Loss.emit(TeamEconomy["money_result"])
 
-	return current_money
-
-
-func change_money_gain(current_money:int, money_gain: int, new_gain: int) -> int:
+func change_money_gain(team:int, addGain:int) -> void:
 	"""
 	Augmente le gain économique d’une équipe.
 	Émet un signal global indiquant le nouveau total combiné (argent + gain).
 	"""
-	money_gain += new_gain
-	
-	GlobalSignal.current_Money_Gain_Or_Loss.emit(current_money + money_gain)
+	var TeamEconomy = _get_team_tab(team)
+	TeamEconomy["money_gain"] += addGain
+	_update_profit(TeamEconomy)
 
-	return money_gain
-
-func change_money_loss(current_money:int, money_loss: int, new_loss: int) -> int:
+func change_money_loss(team:int, addLoss:int) -> void:
 	"""
 	Augmente la perte économique d’une équipe.
 	Émet un signal global indiquant le total ajusté (argent - pertes).
 	"""
-	money_loss += new_loss
-	
-	GlobalSignal.current_Money_Gain_Or_Loss.emit(current_money - money_loss)
-	
-	return money_loss
+	var TeamEconomy = _get_team_tab(team)
+	TeamEconomy["money_loss"] += addLoss
+	_update_profit(TeamEconomy)
 
-func buy_something(current_money: int, price: int) -> int:
+func buy_something(team:int, price:int):
 	"""
 	Effectue un achat en retirant le prix de l’argent actuel.
 	Émet un signal global pour mettre à jour l’affichage du montant.
 	"""
-	current_money -= price
-	
-	GlobalSignal.current_Money_Amount.emit(current_money)
+	var TeamEconomy = _get_team_tab(team)
+	TeamEconomy["current_money"] -= price
 
-	return current_money
+func money_check(team, money_amount) -> bool:
+	"""
+	Renvoie si le joeuur a assez d'argent
+	"""
+	var TeamEconomy = _get_team_tab(team)
+	if TeamEconomy["current_money"] >= money_amount:
+		return true
+	else : 
+		return false
+
+func reset_values() -> void:
+	for team in EconomyTab:
+		team["money_loss"] = 0
+		team["money_gain"] = 0
+		_update_profit(team)

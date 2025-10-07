@@ -447,21 +447,18 @@ func next_player():
 					# Supprime l'entité du terrain et de la liste des unités
 					all_units.erase(unit)
 					unit.queue_free()
-			
+	
+	EconomyManager.reset_values()
 	unit_economy()
 	buildingt_economy()
 
 	# Si le joueur actuel est 1 (bleu) alors on passe au joueur 2 (rouge) puis mets à jour l'argent du joueur 2
 	if actual_player == 1:
 		actual_player = 2
-		EconomyManager.money_result2 = EconomyManager.money_gain2 - EconomyManager.money_loss2
-		EconomyManager.current_money2 = EconomyManager.economy_turn(EconomyManager.current_money2,EconomyManager.money_result2)
-		
 	else :
 		actual_player = 1
-		
-		EconomyManager.money_result1 = EconomyManager.money_gain1 - EconomyManager.money_loss1
-		EconomyManager.current_money1 = EconomyManager.economy_turn(EconomyManager.current_money1,EconomyManager.money_result1)
+	
+	EconomyManager.economy_turn(actual_player)
 	
 	var turn_panel = TurnPanel.instantiate()
 	add_child(turn_panel)
@@ -526,28 +523,17 @@ func unit_economy():
 	"""
 	Met à jour les coûts d’entretien des unités pour chaque joueur.
 	"""
-	EconomyManager.money_loss1 = 0
-	EconomyManager.money_loss2 = 0
-
 	for unit in all_units:
-		if unit.equipe == 1:
-			EconomyManager.money_loss1 += unit.maintenance
-		elif unit.equipe == 2:
-			EconomyManager.money_loss2 += unit.maintenance
+		if unit.equipe != 0:
+			EconomyManager.change_money_loss(unit.equipe, unit.maintenance)
 	
 func buildingt_economy():
 	"""
     Met à jour les gains des bâtiments capturés pour chaque joueur.
     """
-	EconomyManager.money_gain1 = 0
-	EconomyManager.money_gain2 = 0
-	
-
 	for buiding in all_buildings:
-		if buiding.equipe == 1:
-			EconomyManager.money_gain1 += buiding.current_gain
-		elif buiding.equipe == 2:
-			EconomyManager.money_gain2 += buiding.current_gain
+		if buiding.equipe != 0:
+			EconomyManager.change_money_gain(buiding.equipe, buiding.current_gain)
 	
 func _input(event):
 	"""
@@ -568,31 +554,13 @@ func spawnUnit(unit) -> void:
 	"""
 	var spawn = get_node("Units/PlayerUnits")
 
-	# Si le joueur est le 1 (bleu)
-	if actual_player == 1:
-		# Vérifie que l'économie du joueur permet d'acheter une unité
-		if EconomyManager.current_money1 >= unit.cost:
-			
-			var new_unit = spawn.spawn_unit(unit.name_Unite,actual_player) # Instancie une nouvelle unité dans léquipe
-			add_child(new_unit) # Ajoute l'unité au terrain 
-			all_units = get_tree().get_nodes_in_group("units") # Ajoute l'unité à la liste des unités
-			
-			# Mets à jour l'économie du joueur
-			EconomyManager.current_money1 = EconomyManager.buy_something(EconomyManager.current_money1, unit.cost)
-			EconomyManager.money_loss1 = EconomyManager.change_money_loss(EconomyManager.money_gain1, EconomyManager.money_loss1, unit.maintenance)
-
-	else:
-		# Vérifie que l'économie du joueur permet d'acheter une unité
-		if EconomyManager.current_money2 >= unit.cost:
-			
-			var new_unit = spawn.spawn_unit(unit.name_Unite,actual_player) # Instancie une nouvelle unité dans léquipe
-			add_child(new_unit) # Ajoute l'unité au terrain 
-			all_units = get_tree().get_nodes_in_group("units") # Ajoute l'unité à la liste des unités
-			
-			# Mets à jour l'économie du joueur
-			EconomyManager.current_money2 = EconomyManager.buy_something(EconomyManager.current_money2, unit.cost)
-			EconomyManager.money_loss2 = EconomyManager.change_money_loss(EconomyManager.money_gain2, EconomyManager.money_loss2, unit.maintenance)
-		
+	if EconomyManager.money_check(actual_player, unit.cost):
+		var new_unit = spawn.spawn_unit(unit.name_Unite,actual_player) # Instancie une nouvelle unité dans léquipe
+		add_child(new_unit) # Ajoute l'unité au terrain 
+		all_units = get_tree().get_nodes_in_group("units") # Ajoute l'unité à la liste des unités
+		# Mets à jour l'économie du joueur
+		EconomyManager.buy_something(actual_player,unit.cost)
+		EconomyManager.change_money_loss(actual_player,unit.maintenance)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	"""

@@ -114,12 +114,8 @@ func level_bonus():
 			current_gain= 15
 			attack += 10
 			attack_range += 5
-
-	if equipe==1:
-		EconomyManager.money_gain1 = EconomyManager.change_money_gain(EconomyManager.money_gain1, EconomyManager.money_loss1, current_gain)
-	elif equipe==2 : 
-		EconomyManager.money_gain2 = EconomyManager.change_money_gain(EconomyManager.money_gain2, EconomyManager.money_loss2, current_gain)
-		
+	
+	EconomyManager.change_money_gain(equipe, current_gain)
 	
 func capture(nb: int):
 	"""
@@ -133,14 +129,14 @@ func capture(nb: int):
 	match equipe:
 		0: # neutre
 			equipe = nb
-			_apply_color()
+
 		1, 2:
 			if nb != equipe:
 				max_hp -= 50
 				if max_hp <= 0:
 					equipe = nb
 					max_hp = 200 # reset la vie
-					_apply_color()
+					
 
 		EQUIPE_ONE, EQUIPE_TWO:
 			if nb != equipe:
@@ -148,8 +144,8 @@ func capture(nb: int):
 				if max_hp <= 0:
 					equipe = nb
 					max_hp = 200 # reset la vie
-					_apply_color()
-		
+	
+	_apply_color()
 	level_bonus()
 		
 func _apply_color():
