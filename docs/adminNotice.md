@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="img/logoGladius.png">
+  <img height=300 src="img/logoGladius.png">
 </p>
 
 
