@@ -7,6 +7,19 @@
 
 <h1 align ="center" >Gladius Dominus </h1>
 
+# Table des Matières
+1. [Présentation du jeu ](#presentation-du-jeu)
+2. [Présentation de la zone de jeu](#presentation-de-la-zone-de-jeu)
+    1. [Map](#map)
+    2. [Herbe](#herbe)
+    3. [Boue](#boue)
+    4. [Obstacle](#obstacle)
+3. [Présentation des unités](#presentation-des-unités)
+    1. [Infantrie](#infantrie)
+    2. [Camion](#camion)
+    3. [Artillerie](#artillerie)
+    4. [Tank](#tank)
+
 
 ## Présentation du jeu 
 
@@ -21,22 +34,22 @@ Une partie prend fin lorsque l'un des deux QG est détruit.
 ### MAP 
 
 
-La zone de jeu de Gladius est une carte représentant un champ de bataille. 
+Le terrain de jeu de Gladius Dominus repsésente un champ de bataille.
 <p align="center">
   <img src="img/map.png">
 </p>
-Sur cette map se trouve différent terrain apportant des malus 
+Sur cette carte se trouve différent terrain apportant des malus 
 
 ### Herbe
 
-L'herbe est le terrain de base il n'apporte pas de malus sur cette zone vos unité sont en pleine possession de leur capacité.
+L'herbe est le type de terraine le plus commun il n'apporte pas de malus et permet aux unités de se déplacer librement.
 <p align="center">
   <img src="img/terrain/grass.png">
 </p>
 
 ###  Boue 
 
-La boue ralentie les unité passant dessus les empêchant d'être en pleine mesure de leur capacité.
+La boue ralentie les unité passant dessus les empêchant de se déplacer librement ce qui réduit leur capacité de déplacement de moitié.
 <p align="center">
   <img src="img/terrain/dirt.png">
 </p>
@@ -56,7 +69,8 @@ Les obstacles empêche le passage des unité les obligeants a les contourné.
 ## Présentation des unités 
 
 ### Infanterie 
-L'infanterie est une unité a faible coût idéale pour le début de partie avec une assez bonne mobilité et de faible dégât.
+L'infanterie bien qu'étant une unité plutôt faible, elle présente un coût idéal en debut de partie avec une bonne mobilité mais de faibles dégâts. 
+
 <p align="center">
   <img src="img/unite/infantry.png">
 </p>
@@ -73,7 +87,8 @@ L'infanterie est une unité a faible coût idéale pour le début de partie avec
 - Portée d'attaque : 2 cases
 
 ### Camion
-Le Camion est unité ayant un cout moyen elle se distingue de l'infanterie par sa mobilité et sont coût plus élevé.
+Le Camion bien qu'ayant un coût plus élevé que l'infanterie et les mêmes dégâts cette unité se distingue par sa grande mobilité.
+
 <p align="center">
   <img src="img/unite/truck.png">
 </p>
