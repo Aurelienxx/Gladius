@@ -17,7 +17,7 @@ Le langage utilisé est le GdScript, spécifique à Godot et très similaire au 
 
 ## Installation
 Depuis le [Dépôt GitHub](https://github.com/Aurelienxx/Gladius), commencez par télécharger le projet.  
-Pour ce faire, sélectionnez le bouton vert ```Code```, facilement visible, puis choisissez ```Download ZIP```. Décompressez le dossier téléchargé, et vous possédez maintenant le projet.  
+Pour ce faire, sélectionnez le bouton vert ```Code```, puis choisissez ```Download ZIP```. Décompressez le dossier téléchargé, et vous possédez maintenant le projet.  
   
 Pour l'ouvrir, il vous faut le moteur de jeu gratuit Godot Engine. Deux options s'offrent à vous pour le télécharger.
 
@@ -34,11 +34,12 @@ En cas de modification nécessaire, seul le code source ou les assets seront uti
 
 ## Exploitation
 Une fois vos modifications apportées, si la console n'indique aucune erreur dans le code, vous pouvez lancer le jeu pour vérifier vos modifications. Rendez-vous sur la scène ```MainMenu``` (./scenes/MainMenu/MainMenu.tscn) et cliquez sur l'icône "Exécuter la scène actuelle" pour ouvrir le jeu.
+Vous avez aussi la possibilité de lancer directement le jeu depuis n'importe où, en cliquant sur "Lancer le projet"
 
 ## Annexes
-[Documentation de Godot Engine](https://docs.godotengine.org/en/stable/)
-[Documentation langage GdScript](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html)
-[Notice utilisateur du jeu](https://aurelienxx.github.io/Gladius/userNotice.html)
+[Documentation de Godot Engine](https://docs.godotengine.org/en/stable/)  
+[Documentation langage GdScript](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html)  
+[Notice utilisateur du jeu](https://aurelienxx.github.io/Gladius/userNotice.html)  
 
 
 
