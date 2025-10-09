@@ -10,7 +10,7 @@
 
 # Table des Matières
 1. [Introduction ](#introduction)
-2. [Description du système](#description-du-systeme)
+2. [Description du système](#description-du-système)
 3. [Installation](#installation)
     1. [Version navigateur](#version-navigateur)
     2. [Version Steam](#version-steam)
@@ -57,7 +57,7 @@ Un inconvénient de cette version est que si Godot est mis à jour, vous devrez 
 </p>
 
 ### Version Steam
-Si vous possédez l'application de redistribution Steam, vous pouvez y télécharger Godot directement, recherchez simplement le nom du logiciel et choisissez "Ajouter à la bibliothèquee", puis rendez-vous dans celle-ci et faites "Télécharger". Aucune autre action de configuration n'est nécessaire, vous devez simplement indiquer à Godot le chemin d'accès vers le projet que vous souhaitez utiliser.
+Si vous possédez l'application de redistribution Steam, vous pouvez y télécharger Godot directement, recherchez simplement le nom du logiciel et choisissez `Ajouter à la bibliothèque`, puis rendez-vous dans celle-ci et faites `Télécharger`. Aucune autre action de configuration n'est nécessaire, vous devez simplement indiquer à Godot le chemin d'accès vers le projet que vous souhaitez utiliser.
 Les mises à jour vers de nouvelles versions se feront automatiquement.
 
 <p align="center">

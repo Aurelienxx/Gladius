@@ -7,18 +7,20 @@
 
 <h1 align ="center" >Gladius Dominus </h1>
 
-# **Table des Matières**
-1. [Présentation du jeu ](#presentation-du-jeu)
-2. [Présentation de la zone de jeu](#presentation-de-la-zone-de-jeu)
-    1. [Map](#map)
-    2. [Herbe](#herbe)
-    3. [Boue](#boue)
-    4. [Obstacle](#obstacle)
-3. [Présentation des unités](#presentation-des-unités)
-    1. [Infantrie](#infantrie)
-    2. [Camion](#camion)
-    3. [Artillerie](#artillerie)
-    4. [Tank](#tank)
+<div style="page-break-after: always;"></div>
+
+# Table des Matières
+1. [Présentation du jeu](#présentation-du-jeu)
+2. [Présentation de la zone de jeu](#présentation-de-la-zone-de-jeu)
+   1. [Map](#map)
+   2. [Herbe](#herbe)
+   3. [Boue](#boue)
+   4. [Obstacle](#obstacle)
+3. [Présentation des unités](#présentation-des-unités)
+   1. [Infanterie](#infanterie)
+   2. [Camion](#camion)
+   3. [Artillerie](#artillerie)
+   4. [Tank](#tank)
 
 
 ## **Présentation du jeu** 
@@ -129,12 +131,14 @@ L'infanterie bien qu'étant une unité plutôt faible, elle présente un coût i
 
 **Statistique :**
 
-- Coût : 15
-- Coût de maintenance : 2
-- Vie : 85
-- Dégâts : 30
-- Capacité de déplacement : 4 cases
-- Portée d'attaque : 2 cases
+| Statistique                | Valeur    |
+| ---                        | ---       |
+| `Coût`                     | 15        |
+| `Coût de maintenance`      | 2         |
+| `Vie`                      | 85        |
+| `Dégâts`                   | 30        |
+| `Capacité de déplacement`  | 4 cases   |
+| `Portée d'attaque`         | 2 cases   |
 
 ### **Camion**
 Le Camion bien qu'ayant un coût plus élevé que l'infanterie et les mêmes dégâts cette unité se distingue par sa grande mobilité.
@@ -147,12 +151,14 @@ Le Camion bien qu'ayant un coût plus élevé que l'infanterie et les mêmes dé
 
 **Statistique :**
 
-- Coût : 60
-- Coût de maintenance : 3
-- Vie : 150
-- Dégâts : 30
-- Capacité de déplacement : 10 cases
-- Portée d'attaque : 3 cases
+| Statistique                | Valeur    |
+| ---                        | ---       |
+| `Coût`                     | 60        |
+| `Coût de maintenance`      | 3         |
+| `Vie`                      | 150       |
+| `Dégâts`                   | 30        |
+| `Capacité de déplacement`  | 10 cases  |
+| `Portée d'attaque`         | 3 cases   |
 
 ### **Artillerie**
 L'artillerie est une unité coutant assez cher il a une tres faible mobilité mais compense cela par sa puissance ainsi que sa porté. 
@@ -160,17 +166,18 @@ L'artillerie est une unité coutant assez cher il a une tres faible mobilité ma
   <img src="img/unite/artillery.png">
 </p>
 
-
-
 **Statistique :**
 
-- Coût : 90
-- Coût de maintenance : 3
-- Vie : 300
-- Dégâts : 75
-- Capacité de déplacement : 2 cases
-- Portée d'attaque : 7 cases
-### **Tank**
+| Statistique                | Valeur    |
+| ---                        | ---       |
+| `Coût`                     | 90        |
+| `Coût de maintenance`      | 3         |
+| `Vie`                      | 300       |
+| `Dégâts`                   | 75        |
+| `Capacité de déplacement`  | 2 cases   |
+| `Portée d'attaque`         | 7 cases   |
+
+### Tank
 Le tank est l'unité la plus chère elle se distingue par sa résistance cumulé a sa vitesse et ses dégats. 
 
 <p align="center">
@@ -180,12 +187,15 @@ Le tank est l'unité la plus chère elle se distingue par sa résistance cumulé
 
 **Statistique :**
 
-- Coût : 150
-- Coût de maintenance : 5
-- Vie : 400
-- Dégâts : 80
-- Capacité de déplacement : 5 cases
-- Portée d'attaque : 4 cases
+
+| Statistique                | Valeur    |
+| ---                        | ---       |
+| `Coût`                     | 150       |
+| `Coût de maintenance`      | 5         |
+| `Vie`                      | 400       |
+| `Dégâts`                   | 80        |
+| `Capacité de déplacement`  | 5 cases   |
+| `Portée d'attaque`         | 4 cases   |
 
 ## **Présentation des Bâtiments** 
 
@@ -199,8 +209,11 @@ Les villages sont des bâtiments capturables présent sur la map il permette de 
 
 **Statistique :**
 
-- Vie : 200
-- Gain : 10
+| Statistique                | Valeur    |
+| ---                        | ---       |
+| `Vie`                      | 200       |
+| `Gain`                     | 10        |
+
 
 
 ### **Ville**
@@ -211,8 +224,11 @@ La Ville est un bâtiment capturable présent sur la map il permet de renforcer 
 </p>
 
 **Statistique :**
-- Vie : 200
-- Gain : 15
+| Statistique                | Valeur    |
+| ---                        | ---       |
+| `Vie`                      | 200       |
+| `Gain`                     | 15        |
+
 
 ### **QG**
 Le QG est votre objectif à défendre. Il genere des revenu et peut être améliorer afin de vous aider dans votre combat. 
@@ -225,8 +241,11 @@ Le QG est votre objectif à défendre. Il genere des revenu et peut être améli
 
 **Statistique :**
 
-- Vie : 1 000
-- Gain : 15
+| Statistique                | Valeur    |
+| ---                        | ---       |
+| `Vie`                      | 1000       |
+| `Gain`                     | 15        |
+
 
 
 - Le niveau 2 : 
@@ -236,9 +255,13 @@ Le QG est votre objectif à défendre. Il genere des revenu et peut être améli
 
 **Statistique :**
 
-- Vie : 1 000
-- Gain : 30
-- Coût d'amélioration : 150
+
+| Statistique                | Valeur    |
+| ---                        | ---       |
+| `Vie`                      | 200       |
+| `Gain`                     | 15        |
+| `Coût d'amélioration`      | 150       |
+
 
 - Le niveau 3 : 
 <p align="center">
@@ -247,11 +270,13 @@ Le QG est votre objectif à défendre. Il genere des revenu et peut être améli
 
 **Statistique :**
 
-- Vie : 1 000
-- Gain : 30
-- Dégats : 15 
-- Distance d'attaque : 5
-- Coût d'amélioration : 275
+| Statistique                | Valeur    |
+| ---                        | ---       |
+| `Vie`                      | 1000      |
+| `Gain`                     | 30        |
+| `Coût d'amélioration`      | 275       |
+| `Dégâts`                   | 15        |
+| `Distance d'attaque`       | 5         |
 
 
 ### **Capture des villes et village**
