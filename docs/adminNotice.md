@@ -5,15 +5,34 @@
   <img height=300 src="img/logoGladius.png">
 </p>
 
+
+<h1 align ="center" >Gladius Dominus </h1>
+
+# Table des Matières
+1. [Introduction ](#introduction)
+2. [Description du système](#description-du-systeme)
+3. [Installation](#installation)
+    1. [Version navigateur](#version-navigateur)
+    2. [Version Steam](#version-steam)
+4. [Configuration](#configuration)
+5. [Exploitation](#exploitation)
+5. [Annexes](#annexes)
+
+
+
+
 ## Introduction
-Ce projet est un jeu vidéo d'attaque défense qui fonctionne avec le moteur de jeu Godot Engine. Voici comment accéder au code source de ce jeu et y apporter des modifications.
+Ce projet est un jeu vidéo d'attaque défense qui fonctionne avec le moteur de jeu Godot Engine
+<img src="img/admin/godot.png" height=20px>.
+ Voici comment accéder au code source de ce jeu et y apporter des modifications.
 
 ## Description du système
 Le projet utilise l'architecture typique d'un projet fait avec Godot Engine. On y retrouve :
 - Les assets, qui contiennent les différents sprites, tilesets, et autres.
 - Les scripts, où se trouve le code source
 - Les scènes, qui sont un type de fichier spécifique à Godot. Elles représentent les "briques" du projet et sont reliées à des scripts de code.  
-Le langage utilisé est le GdScript, spécifique à Godot et très similaire au Python.
+Le langage utilisé est le GdScript<img src="img/admin/gdscript.png" height=25px>
+, spécifique à Godot et très similaire au Python.
 
 <p align="center">
   <img src="img/admin/structure.png">
@@ -46,15 +65,18 @@ Les mises à jour vers de nouvelles versions se feront automatiquement.
 </p>
 
 ## Configuration
-En cas de modification nécessaire, seul le code source ou les assets seront utiles. Pour une bonne lisibilité, rendez-vous dans le dossier ```scènes``` et trouvez l'aspect du jeu à modifier en parcourant l'arborescence jusqu'à trouver un ```nom_fichier.tscn```. De là, sur le volet à gauche se trouvent les Nodes de la scènes, eux_même liés à des scripts de code. Sélectionnez l'icône de feuille de papier pour ouvrir le script correspondant, et vous pouvez y modifier le code.
+En cas de modification nécessaire, seul le code source ou les assets seront utiles. Pour une bonne lisibilité, rendez-vous dans le dossier ```scènes``` et trouvez l'aspect du jeu à modifier en parcourant l'arborescence jusqu'à trouver un ```nom_fichier.tscn```. De là, sur le volet à gauche se trouvent les Nodes de la scènes, eux_même liés à des scripts de code. Sélectionnez l'icône de feuille de papier <img src="img/admin/script.png" height=20px>.
+ pour ouvrir le script correspondant, et vous pouvez y modifier le code.
 
 <p align="center">
   <img src="img/admin/arborescence.png">
 </p>
 
 ## Exploitation
-Une fois vos modifications apportées, si la console n'indique aucune erreur dans le code, vous pouvez lancer le jeu pour vérifier vos modifications. Rendez-vous sur la scène ```MainMenu``` (./scenes/MainMenu/MainMenu.tscn) et cliquez sur l'icône "Exécuter la scène actuelle" pour ouvrir le jeu.
-Vous avez aussi la possibilité de lancer directement le jeu depuis n'importe où, en cliquant sur "Lancer le projet"
+Une fois vos modifications apportées, si la console n'indique aucune erreur dans le code, vous pouvez lancer le jeu pour vérifier vos modifications. Rendez-vous sur la scène ```MainMenu``` (./scenes/MainMenu/MainMenu.tscn) et cliquez sur l'icône "Exécuter la scène actuelle" 
+<img src="img/admin/scene_actuelle.png" height=20px>.
+ pour ouvrir le jeu.
+Vous avez aussi la possibilité de lancer directement le jeu depuis n'importe où, en cliquant sur "Lancer le projet"<img src="img/admin/executer.png" height=20px>
 
 ## Annexes
 [Documentation de Godot Engine](https://docs.godotengine.org/en/stable/)  
