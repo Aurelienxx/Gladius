@@ -35,6 +35,11 @@ En cas de modification nécessaire, seul le code source ou les assets seront uti
 ## Exploitation
 Une fois vos modifications apportées, si la console n'indique aucune erreur dans le code, vous pouvez lancer le jeu pour vérifier vos modifications. Rendez-vous sur la scène ```MainMenu``` (./scenes/MainMenu/MainMenu.tscn) et cliquez sur l'icône "Exécuter la scène actuelle" pour ouvrir le jeu.
 
+## Annexes
+[Documentation de Godot Engine](https://docs.godotengine.org/en/stable/)
+[Documentation langage GdScript](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html)
+[Notice utilisateur du jeu](https://aurelienxx.github.io/Gladius/userNotice.html)
+
 
 
 
