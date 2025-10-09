@@ -1,4 +1,4 @@
-# Notice utilisateur
+# Bienvenue sur la Notice Utilisateur
 
 <p align="center">
   <img height=300 src="img/logoGladius.png">

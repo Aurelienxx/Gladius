@@ -7,5 +7,5 @@ Bienvenue sur le site de Gladius Dominus
 </p>
 
 
-- [Notice utilisateur](userNotice.md)
+- [Notice Utilisateur](userNotice.md)
 - [Notice Administateur](adminNotice.md)
