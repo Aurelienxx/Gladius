@@ -85,7 +85,7 @@ bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71qq1"]
 bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Town" type="CharacterBody2D"]
 script = ExtResource("1_luyv0")
 
 [node name="FlagSprite" type="AnimatedSprite2D" parent="."]

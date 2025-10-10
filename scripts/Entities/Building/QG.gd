@@ -7,12 +7,13 @@ extends CharacterBody2D
 
 @onready var health_bar: ProgressBar = $HealthBar
 
+const buildingName = "HQ"
+
 var current_player: int
 # Statistiques et attributs de base du QG
 var max_hp: int 
 var damage: int
 var attack_range: int
-var hp: int
 
 var lv: int = 1
 var size_x: int = 3
@@ -50,8 +51,6 @@ func setup(_equipe: int) -> void:
 func getTeam():
 	return equipe
 
-func getType():
-	return "QG"
 func _ready():
 	"""
 	Prépare les composants du QG au lancement de la scène :
@@ -78,12 +77,12 @@ func upgradeLvl2Signal(lvl: int):
 func upgradeLvl3Signal(lvl: int):
 	upgrade(lvl)
 
-func update_health_bar() -> void:
+func take_damage(dmg:int) -> void:
 	"""
 	Met à jour la barre de vie et déclenche l’animation de clignotement du QG.
 	"""
-	health_bar.value = current_hp
-	anim.modulate = Color(2,2,2,1)
+	health_bar.value = current_hp - dmg
+	anim.modulate = Color(2, 2, 2, 1)
 	hit_flash_timer.start()
 
 func _on_hit_flash_end() -> void:
@@ -112,15 +111,15 @@ func upgrade(lvl: int) -> void:
 	Augmente le niveau du QG et applique les bonus correspondants.
 	"""
 	if lvl == 2:
-		if EconomyManager.money_check(current_player, HQ2Data["prix"]):
-			EconomyManager.buy_something(current_player, HQ2Data["prix"])
+		if EconomyManager.money_check(HQ2Data["prix"]):
+			EconomyManager.buy_something(HQ2Data["prix"])
 			lv += 1
 			apply_level_bonus()
 			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
 					
 	else:
-		if EconomyManager.money_check(current_player, HQ3Data["prix"]):
-			EconomyManager.buy_something(current_player, HQ3Data["prix"])
+		if EconomyManager.money_check(HQ3Data["prix"]):
+			EconomyManager.buy_something(HQ3Data["prix"])
 			lv += 1
 			apply_level_bonus()
 			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
@@ -144,7 +143,7 @@ func apply_level_bonus() -> void:
 		3:
 			current_gain =  HQ3Data["gain"]
 			anim.play("Level3")
-	
+
 func showUpgradeHUD(equipe: int):
 	current_player = equipe
 	upgradeHUD.displayCards(HQ1Data, HQ2Data, HQ3Data)

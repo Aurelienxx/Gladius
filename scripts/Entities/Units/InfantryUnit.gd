@@ -24,11 +24,15 @@ extends CharacterBody2D
 var current_hp: int
 var equipe: int
 
-func setup(_equipe: int) -> void:
+var map:TileMapLayer
+
+func setup(_equipe: int, _map:TileMapLayer) -> void:
 	equipe = _equipe
 	current_hp = max_hp
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
+	map = _map
+	#print(map,_map)
 
 	if equipe == 2:
 		anim.flip_h = true
@@ -36,12 +40,8 @@ func setup(_equipe: int) -> void:
 
 	# On confie la couleur et les animations au MovementManager
 	Movement._apply_color(equipe)
-
-func _ready():
-	"""
-	Initialisation au chargement : couleur, timer de flash et couleur de base.
-	"""
-	Movement.init(self, health_bar, anim, MaskOverlay)
+	Movement.init(self, health_bar, anim, MaskOverlay, map)
+	
 
 
 func take_damage(dmg : int) -> void :

@@ -36,7 +36,7 @@ func _on_button_button_down() -> void:
 	"""
 	Émet un signal global lorsque le bouton "Next Turn" est pressé.
 	"""
-	GlobalSignal.Next_Turn_Pressed.emit()
+	GlobalSignal.pass_turn.emit()
 
 
 func _on_infantry_display_pressed() -> void:

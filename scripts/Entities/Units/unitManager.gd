@@ -16,7 +16,7 @@ var health_bar: ProgressBar
 var hit_flash_timer: Timer
 var base_modulate: Color
 
-func init(_character: CharacterBody2D, _health_bar: ProgressBar, _anim: AnimatedSprite2D, _mask: AnimatedSprite2D) -> void:
+func init(_character: CharacterBody2D, _health_bar: ProgressBar, _anim: AnimatedSprite2D, _mask: AnimatedSprite2D, _map:TileMapLayer) -> void:
 	"""
 	Initialise les références entre le manager et les éléments de l’unité.
 
@@ -30,6 +30,7 @@ func init(_character: CharacterBody2D, _health_bar: ProgressBar, _anim: Animated
 	health_bar = _health_bar
 	anim = _anim
 	MaskOverlay = _mask
+	map_ref = _map
 	
 	# Création et configuration du timer pour le flash de dégâts
 	hit_flash_timer = Timer.new()
@@ -72,7 +73,7 @@ func _on_shape_attack_clicked():
 	"""
 	GlobalSignal.Unit_Attack_Clicked.emit(character, null)
 
-func set_path(new_path: Array, map: TileMapLayer):
+func set_path(new_path: Array):
 	"""
 	Assigne un nouveau chemin de déplacement et lance le mouvement.
 	
@@ -80,7 +81,6 @@ func set_path(new_path: Array, map: TileMapLayer):
 	:param map: (TileMapLayer) Référence à la carte pour convertir les cellules en positions.
 	"""
 	path = new_path
-	map_ref = map
 	move_to_next_cell()
 
 func move_to_next_cell():

@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var anim: AnimatedSprite2D = $BuildingSprite
 @onready var health_bar: ProgressBar = $HealthBar
 
+const buildingName = "Village"
+
 # Statistiques et attributs de base du village
 var lv: int = 1
 var max_hp: int = 200
@@ -46,10 +48,6 @@ func setup(_equipe: int) -> void:
 	flag.play()
 	anim.play()
 	
-
-func getType():
-	return "Village"
-
 func _ready() -> void:
 	"""
 	Prépare les composants du QG au lancement de la scène :
@@ -71,17 +69,17 @@ func _ready() -> void:
 
 	base_modulate = anim.modulate
 
+func _update_health_bar() -> void: 
+	health_bar.value = current_hp 
 
-
-
-func update_health_bar() -> void:
+func take_damage(dmg:int) -> void:
 	"""
-	Met à jour la barre de vie et déclenche le flash visuel.
+	Met à jour la barre de vie et déclenche l’animation de clignotement du QG.
 	"""
-	health_bar.value = current_hp
+	current_hp -= dmg
+	health_bar.value = current_hp 
 	anim.modulate = Color(2, 2, 2, 1)
 	hit_flash_timer.start()
-
 
 func _on_hit_flash_end() -> void:
 	"""
@@ -115,39 +113,23 @@ func level_bonus():
 			attack += 10
 			attack_range += 5
 	
-	EconomyManager.change_money_gain(equipe, current_gain)
+	EconomyManager.change_money_gain(current_gain)
 	
-func capture(nb: int):
+func capture():
 	"""
 	Permet la capture de la ville par une autre équipe :
 	- Si neutre, change simplement d’équipe
 	- Si occupée, elle perd de la vie avant d’être capturée
 	"""
-	if nb == equipe:
-		return # déjà capturé par cette équipe
+	equipe = GameState.current_player
+	current_hp = max_hp 
 
-	match equipe:
-		0: # neutre
-			equipe = nb
-
-		1, 2:
-			if nb != equipe:
-				max_hp -= 50
-				if max_hp <= 0:
-					equipe = nb
-					max_hp = 200 # reset la vie
-					
-
-		EQUIPE_ONE, EQUIPE_TWO:
-			if nb != equipe:
-				max_hp -= 50 # par exemple, attaque pour capturer
-				if max_hp <= 0:
-					equipe = nb
-					max_hp = 200 # reset la vie
-	
+	_update_health_bar()
 	_apply_color()
+	flag.play()
+	anim.play()
 	level_bonus()
-		
+	
 func _apply_color():
 	"""
 	Change la couleur lumineuse selon l’équipe :
