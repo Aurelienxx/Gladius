@@ -47,8 +47,7 @@ func setup(_equipe: int) -> void:
 	equipe = _equipe
 	current_hp = max_hp
 	_apply_color()
-	flag.play()
-	anim.play()
+	_play_animations()
 
 func _ready() -> void:
 	"""
@@ -127,9 +126,15 @@ func capture():
 	
 	_update_health_bar()
 	_apply_color()
+	level_bonus()
+	_play_animations()
+
+func _play_animations() -> void:
 	flag.play()
 	anim.play()
-	level_bonus()
+	var set_frame:int = randi_range(0, flag.sprite_frames.get_frame_count(flag.animation) - 1)
+	flag.frame = set_frame
+	anim.frame = set_frame
 	
 func _apply_color():
 	"""
