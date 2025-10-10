@@ -42,14 +42,13 @@ func setup(_equipe: int) -> void:
 	:param _equipe: (int) Numéro de l’équipe (1 ou 2).
 	:return: None
 	"""
+	GlobalSignal.unit_finished_moving.connect(check_nearby_units_for_capture)
+	
 	equipe = _equipe
 	current_hp = max_hp
 	_apply_color()
 	flag.play()
 	anim.play()
-
-func getType():
-	return "Town"
 
 func _ready() -> void:
 	"""
@@ -145,3 +144,12 @@ func _apply_color():
 	elif equipe == 2:
 		color = Color("red")
 	flag.modulate = color
+
+func check_nearby_units_for_capture() -> void:
+	if equipe != 0:
+		return
+	var capture_radius := 150.0 # pixels autour 
+	for unit in GameState.all_units:
+		if global_position.distance_to(unit.global_position) <= capture_radius:
+			capture()
+			break

@@ -86,6 +86,7 @@ func set_path(new_path: Array):
 func move_to_next_cell():
 	if path.is_empty():
 		is_moving = false
+		GlobalSignal.unit_finished_moving.emit()
 		return
 	var next_cell: Vector2i = path.pop_front()
 	target_position = map_ref.map_to_local(next_cell)

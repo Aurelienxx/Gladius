@@ -260,27 +260,6 @@ func is_adjacent_cells(a: Vector2i, b: Vector2i, range: int) -> bool:
 	var result = dx <= range and dy <= range and not (dx == 0 and dy == 0) 
 	return result # cases adjacentes uniquement
 
-
-func check_building_capture(unit: CharacterBody2D):
-	"""
-	Vérifie si une unité peut capturer un bâtiment situé à proximité immédiate.
-
-	:param unit: (CharacterBody2D) L’unité tentant de capturer un bâtiment.
-	:return: None
-	"""
-	var unit_cell = MAP.local_to_map(unit.global_position)
-	var radius = 64
-	var tile_size = 32    # à adapter selon ton jeu
-	var radius_in_cells = int(radius / tile_size) + 1.5
-	for building in all_buildings:
-		var building_cell = MAP.local_to_map(building.global_position)
-
-		# Capture si le bâtiment est neutre et dans le rayon
-		if building.equipe == 0 and is_adjacent_cells(unit_cell, building_cell, radius_in_cells):
-			print("Capture réussie !")
-			building.capture(unit.equipe)
-
-
 func attack_gaz(QG:CharacterBody2D)->void:
 	"fonction qui attaque automatiquement une unité qui s'approche d'un QG"
 	

@@ -42,6 +42,8 @@ func setup(_equipe: int) -> void:
 	:param _equipe: (int) Numéro de l’équipe (1 ou 2).
 	:return: None
 	"""
+	GlobalSignal.unit_finished_moving.connect(check_nearby_units_for_capture)
+	
 	equipe = _equipe
 	current_hp = max_hp
 	_apply_color()
@@ -86,7 +88,6 @@ func _on_hit_flash_end() -> void:
 	Remet la couleur normale après le clignotement.
 	"""
 	anim.modulate = base_modulate
-	
 	
 func upgrade():
 	"""
@@ -144,4 +145,11 @@ func _apply_color():
 		color = Color("red")
 	flag.modulate = color
 
-	
+func check_nearby_units_for_capture() -> void:
+	if equipe != 0:
+		return
+	var capture_radius := 150.0 # pixels autour 
+	for unit in GameState.all_units:
+		if global_position.distance_to(unit.global_position) <= capture_radius:
+			capture()
+			break

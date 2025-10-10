@@ -48,9 +48,6 @@ func setup(_equipe: int) -> void:
 	_apply_color()
 	apply_level_bonus()
 
-func getTeam():
-	return equipe
-
 func _ready():
 	"""
 	Prépare les composants du QG au lancement de la scène :

@@ -118,7 +118,6 @@ func move_manager() -> void:
 			var manager: Node = selected_unit.get_node("MovementManager")
 			manager.set_path(path) # Déplace l'unité selon le chemin 
 			selected_unit.movement = true # Change la variable de mouvement pour que l'unité ne puisse plus se déplacée durant le tour
-			tileMapManager.check_building_capture(selected_unit) # Capture automatique
 			tileMapManager.highlight_reset()# Supprime la surbrillance pour éviter la superposition
 
 func quick_select():
