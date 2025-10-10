@@ -123,7 +123,7 @@ func capture():
 	"""
 	equipe = GameState.current_player
 	current_hp = max_hp 
-
+	
 	_update_health_bar()
 	_apply_color()
 	flag.play()

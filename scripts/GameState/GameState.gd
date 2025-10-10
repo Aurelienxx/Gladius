@@ -4,7 +4,7 @@ var all_units: Array = []
 var all_buildings: Array = []
 
 var MAX_PLAYER = 2
-var current_player:int = 1
+var current_player:int = 0 # initialisation a 0 -> c'est le tour a personne de jouer 
 
 func next_player() -> void:
 	current_player = (current_player % MAX_PLAYER) + 1

@@ -104,8 +104,6 @@ func _apply_color() -> void:
 		color = Color("red")
 	flag.modulate = color
 	
-
-
 func upgrade(lvl: int) -> void:
 	"""
 	Augmente le niveau du QG et applique les bonus correspondants.
@@ -143,7 +141,10 @@ func apply_level_bonus() -> void:
 		3:
 			current_gain =  HQ3Data["gain"]
 			anim.play("Level3")
-
+	
+	if equipe == GameState.current_player:
+		EconomyManager.change_money_gain(current_gain)
+	
 func showUpgradeHUD(equipe: int):
 	current_player = equipe
 	upgradeHUD.displayCards(HQ1Data, HQ2Data, HQ3Data)

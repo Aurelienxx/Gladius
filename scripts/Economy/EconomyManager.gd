@@ -10,7 +10,7 @@ var ValueStorage = {
 }
 
 const TEAM_COUNT = 2
-var current_player = 1
+var current_player = 0 # no team 
 
 func _ready() -> void:
 	GlobalSignal.new_player_turn.connect(new_player)
@@ -43,6 +43,8 @@ func economy_turn() -> void:
 	
 	GlobalSignal.current_Money_Amount.emit(TeamEconomy["current_money"])
 	GlobalSignal.current_Money_Gain_Or_Loss.emit(TeamEconomy["money_result"])
+
+
 
 func change_money_gain(addGain:int) -> void:
 	"""

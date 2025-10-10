@@ -18,9 +18,9 @@ func _ready():
 	GlobalSignal.hq_Destroyed.connect(gameOver)
 	GlobalSignal.pass_turn.connect(next_turn)
 	
+	GlobalSignal.new_turn.connect(next_turn_display)
 	GlobalSignal.new_turn.connect(gaz_attack)
 	GlobalSignal.new_turn.connect(gaz_process)
-	GlobalSignal.new_turn.connect(next_turn_display)
 	GlobalSignal.new_turn.connect(economy_manager)
 	
 	GlobalSignal.new_player_turn.connect(save_new_player)
@@ -53,7 +53,7 @@ func unit_economy():
 func building_economy():
 	"""
     Met à jour les gains des bâtiments capturés pour chaque joueur.
-    """
+	"""
 	for buiding in all_buildings:
 		if buiding.equipe == current_player:
 			EconomyManager.change_money_gain(buiding.current_gain)

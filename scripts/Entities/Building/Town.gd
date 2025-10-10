@@ -114,6 +114,8 @@ func level_bonus():
 			attack += 10
 			attack_range += 5
 	
+	EconomyManager.change_money_gain(current_gain)
+	
 func capture():
 	"""
 	Permet la capture de la ville par une autre équipe :
@@ -124,7 +126,6 @@ func capture():
 	equipe = GameState.current_player
 	current_hp = max_hp # reset la vie
 	
-	EconomyManager.change_money_gain(current_gain)
 	_update_health_bar()
 	_apply_color()
 	flag.play()

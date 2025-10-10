@@ -23,6 +23,8 @@ func _ready():
 	GlobalSignal.spawn_Unit.connect(spawnUnit)
 		
 	GlobalSignal.new_player_turn.connect(save_new_player)
+	
+	GlobalSignal.pass_turn.emit()
 
 func save_new_player(player:int):
 	current_player = player 
@@ -171,25 +173,6 @@ func quick_select():
 				if unit_index == currently_selected_unit:
 					break
 
-func _input(event):
-	"""
-	Gère les raccourcis clavier pour changer de tour ou sélectionner rapidement une unité.
-
-	:param event: (InputEvent) L’événement d’entrée clavier détecté.
-	"""
-	
-	if Input.is_action_just_pressed("enter"):
-		GlobalSignal.pass_turn.emit()
-	if Input.is_action_pressed("space"):
-		quick_select()
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		pass
-		#print("player truc : ",GameState.current_player)
-		#print("Economy State : ",EconomyManager.EconomyTab)
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if mode == "move": 
-			move_manager()
-
 func spawnUnit(unit) -> void:
 	"""
 	Fait apparaître une nouvelle unité pour le joueur actuel, si son économie le permet.
@@ -205,3 +188,22 @@ func spawnUnit(unit) -> void:
 		# Mets à jour l'économie du joueur
 		EconomyManager.buy_something(unit.cost)
 		EconomyManager.change_money_loss(unit.maintenance)
+
+func _input(event):
+	"""
+	Gère les raccourcis clavier pour changer de tour ou sélectionner rapidement une unité.
+
+	:param event: (InputEvent) L’événement d’entrée clavier détecté.
+	"""
+	
+	if Input.is_action_just_pressed("enter"):
+		GlobalSignal.pass_turn.emit()
+	if Input.is_action_pressed("space"):
+		quick_select()
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		#pass
+		#print("player truc : ",GameState.current_player)
+		print("Economy State : ",EconomyManager.EconomyTab)
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if mode == "move": 
+			move_manager()
