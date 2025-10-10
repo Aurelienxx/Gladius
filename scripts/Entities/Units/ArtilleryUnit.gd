@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var health_bar: ProgressBar = $HealthBar 
 
 @onready var Movement: Node = $MovementManager
+@onready var IA: Node = $IA
 
 @export var cost: int = 90
 @export var maintenance: int = 3
@@ -25,7 +26,8 @@ var equipe: int
 
 var map:TileMapLayer
 
-func setup(_equipe: int, _map:TileMapLayer) -> void:
+func setup(_equipe: int, _map: TileMapLayer) -> void:
+
 	equipe = _equipe
 	current_hp = max_hp
 	health_bar.max_value = max_hp
@@ -40,6 +42,8 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	# On confie la couleur et les animations au MovementManager
 	Movement._apply_color(equipe)
 	Movement.init(self, health_bar, anim, MaskOverlay, map)
+	IA.init(self, Movement)  # On passe la référence à l'unité et au manager
+
 
 func take_damage(dmg : int) -> void :
 	"""
