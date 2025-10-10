@@ -97,4 +97,4 @@ func gameOver():
 	var game_over = EndScreen.instantiate()
 	add_child(game_over)
 	game_over.change_result()
-	#get_tree().paused = true
+	get_tree().paused = true
