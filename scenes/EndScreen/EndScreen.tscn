@@ -25,6 +25,7 @@ region_rect = Rect2(0, 162, 128, 30)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8mu2j"]
 
 [node name="EndScreen" type="CanvasLayer"]
+process_mode = 3
 layer = 5
 script = ExtResource("1_loe1s")
 
