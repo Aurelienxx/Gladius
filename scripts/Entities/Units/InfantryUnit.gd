@@ -6,7 +6,6 @@ extends CharacterBody2D
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var MaskOverlay : AnimatedSprite2D = $MaskSprite # Mask de couleur de l'équipe
 @onready var anim:AnimatedSprite2D = $UnitSprite # Sprite de l'unité
-
 @onready var Movement: Node = $MovementManager
 
 @export var cost: int = 15
@@ -40,8 +39,7 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 
 	# On confie la couleur et les animations au MovementManager
 	Movement._apply_color(equipe)
-	Movement.init(self, health_bar, anim, MaskOverlay, map)
-	
+	Movement.init(self, health_bar, anim, MaskOverlay, map)	
 
 
 func take_damage(dmg : int) -> void :
