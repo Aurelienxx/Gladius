@@ -1,6 +1,7 @@
-[gd_scene load_steps=28 format=4 uid="uid://bli8po88bo6ci"]
+[gd_scene load_steps=29 format=4 uid="uid://bli8po88bo6ci"]
 
 [ext_resource type="Script" uid="uid://dkkr5exuxgoet" path="res://scripts/main.gd" id="1_4rr3d"]
+[ext_resource type="Script" uid="uid://dubdfdedyab7y" path="res://scripts/Map/ai_truck.gd" id="2_53cjn"]
 [ext_resource type="PackedScene" uid="uid://casx0iw2asrlb" path="res://scenes/HUD/HUD.tscn" id="2_aasa8"]
 [ext_resource type="PackedScene" uid="uid://n3ggusxw272m" path="res://scenes/Map/utils/player_view.tscn" id="2_app3p"]
 [ext_resource type="Texture2D" uid="uid://brxd7ajeu6321" path="res://assets/sprites/TileSet/tile_set_grass.png" id="2_exngo"]
@@ -327,6 +328,12 @@ size = Vector2(74, 1676.0068)
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_4rr3d")
+
+[node name="AiManager" type="Node" parent="."]
+
+[node name="AiTruck" type="Node" parent="AiManager" node_paths=PackedStringArray("tileMapManager")]
+script = ExtResource("2_53cjn")
+tileMapManager = NodePath("../../TileMapContainer")
 
 [node name="TurnManager" type="Node2D" parent="."]
 script = ExtResource("2_mnaup")
