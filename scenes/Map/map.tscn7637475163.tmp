@@ -331,10 +331,9 @@ script = ExtResource("1_4rr3d")
 
 [node name="AiManager" type="Node" parent="."]
 
-[node name="AiTank" type="Node" parent="AiManager" node_paths=PackedStringArray("tileMapManager", "main")]
+[node name="AiTank" type="Node" parent="AiManager" node_paths=PackedStringArray("tileMapManager")]
 script = ExtResource("2_53cjn")
 tileMapManager = NodePath("../../TileMapContainer")
-main = NodePath("../..")
 
 [node name="TurnManager" type="Node" parent="."]
 script = ExtResource("2_mnaup")

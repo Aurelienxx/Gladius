@@ -26,6 +26,8 @@ var equipe: int
 
 var map:TileMapLayer
 
+var is_AI:bool = false
+
 func setup(_equipe: int, _map:TileMapLayer) -> void:
 	equipe = _equipe
 	current_hp = max_hp
@@ -42,7 +44,8 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	Movement._apply_color(equipe)
 	Movement.init(self, health_bar, anim, MaskOverlay, map)
 	
-
+func death() -> void:
+	GameState.unregister_unit(self)
 
 func take_damage(dmg : int) -> void :
 	"""

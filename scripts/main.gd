@@ -33,26 +33,28 @@ func _on_unit_clicked(unit: CharacterBody2D):
 	"""
 	Gère la sélection d'une unité pour le déplacement ou l'attaque.
 	"""
-	if mode == "attack" and attack_unit != null and unit != attack_unit:
-		_on_unit_attack(attack_unit, unit)
-		return
-	
-	var manager: Node = unit.get_node("MovementManager")
-	selected_unit = unit
-	
-	# Si l’unité appartient bien au groupe "units", on vérifie qu’elle peut se déplacer
-	if unit.is_in_group("units"):
-		# Vérifie que l'unité ne s'est pas déjà déplacée
-		if unit.movement == false :
-			mode = "move"
+	if unit in GameState.all_units:
+		if not unit.is_AI : 
+			if mode == "attack" and attack_unit != null and unit != attack_unit:
+				_on_unit_attack(attack_unit, unit)
+				return
 			
-		if manager.is_selected:
-			# L’unité doit appartenir au joueur actif et ne pas avoir déjà bougé
-			if selected_unit.equipe == current_player and selected_unit.movement == false:
-				tileMapManager.display_movement(unit)
-				
-	if unit.is_in_group("buildings") and unit.buildingName== "QG" and current_player == unit.getTeam():
-		unit.showUpgradeHUD(unit.getTeam())
+			var manager: Node = unit.get_node("MovementManager")
+			selected_unit = unit
+			
+			# Si l’unité appartient bien au groupe "units", on vérifie qu’elle peut se déplacer
+			if unit.is_in_group("units"):
+				# Vérifie que l'unité ne s'est pas déjà déplacée
+				if unit.movement == false :
+					mode = "move"
+					
+				if manager.is_selected:
+					# L’unité doit appartenir au joueur actif et ne pas avoir déjà bougé
+					if selected_unit.equipe == current_player and selected_unit.movement == false:
+						tileMapManager.display_movement(unit)
+	else : 
+		if unit.buildingName== "QG" and current_player == unit.equipe:
+			unit.showUpgradeHUD(unit.getTeam())
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	"""
@@ -93,7 +95,7 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 				# Si c’est une unité
 				if target.is_in_group("units"):
 					# Supprime l'entité du terrain et de la liste des unités
-					GameState.unregister_unit(target)
+					target.death()
 				else:
 					# Supprime le Head Quarter et appelle la fonction de fin du jeu
 					GameState.capture_building(target)
@@ -200,9 +202,9 @@ func _input(event):
 	if Input.is_action_pressed("space"):
 		quick_select()
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		#pass
+		pass
 		#print("player truc : ",GameState.current_player)
-		print("Economy State : ",EconomyManager.EconomyTab)
+		#print("Economy State : ",EconomyManager.EconomyTab)
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if mode == "move": 
 			move_manager()

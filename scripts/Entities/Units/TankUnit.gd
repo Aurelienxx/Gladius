@@ -25,6 +25,8 @@ var equipe: int
 
 var map:TileMapLayer
 
+var is_AI:bool = false
+
 func setup(_equipe: int, _map:TileMapLayer) -> void:
 	equipe = _equipe
 	current_hp = max_hp
@@ -36,11 +38,18 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	if equipe == 2:
 		anim.flip_h = true
 		MaskOverlay.flip_h = true
+		is_AI = true
+		AiSignal.register_ai_tank.emit(self)
 
 	# On confie la couleur et les animations au MovementManager
 	Movement._apply_color(equipe)
 	Movement.init(self, health_bar, anim, MaskOverlay, map)
 
+func death() -> void:
+	GameState.unregister_unit(self)
+	if is_AI:
+		AiSignal.unregister_ai_tank.emit(self)
+	
 func take_damage(dmg : int) -> void :
 	"""
 	Fonction de prise de dégats d'une unité et de mise à jour de la barre de vie

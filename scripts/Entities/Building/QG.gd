@@ -7,7 +7,7 @@ extends CharacterBody2D
 
 @onready var health_bar: ProgressBar = $HealthBar
 
-const buildingName = "HQ"
+const buildingName = "QG"
 
 var current_player: int
 # Statistiques et attributs de base du QG
