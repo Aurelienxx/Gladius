@@ -3,13 +3,17 @@ Si c'est le tour de l'équipe de l'IA, l'IA va attendre un certain signal pour j
 
 Elle va regarder l'entièreté des unités grâce à gamestate.all_units
 
+Elle va lister les différentes unités d'artilleries en jeu pour définir un ordre.
+Évidemment, s'il n'y en a qu'une, alors ce sera son tour de jouer
+
 S'il n'y a aucune unité, elle va regarder les bâtiments 
 et se diriger et attaquer le bâtiment neutre/ennemi le plus proche.
 
 S'il n'y a aucune unité ou bâtiment neutre/ennemi, elle va se diriger vers le QG adverse.
 
 S'il y a des unités et des bâtiments, elle va focus les unités.
-Et dans les unités, elle va focus dans l'ordre : l'artillerie, les camions, l'infanterie et les tanks. L'importance des cibles est liée avec l'importance de la portée de leurs actions. 
+Et dans les unités, elle va focus dans l'ordre : l'artillerie, les camions, l'infanterie et les tanks.
+L'importance des cibles est liée avec l'importance de la portée de leurs actions. 
 L'artillerie peut attaquer de loin, les camions peuvent se déplacer sur de longues distances.
 Ensuite, elle s'en prend à l'infanterie car elle ne possède pas beaucoup de points de vie,
 et au final, il reste les tanks.

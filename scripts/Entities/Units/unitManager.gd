@@ -165,7 +165,6 @@ func _capture_nearby_neutral_village():
 			var v_pos = village.global_position
 			if unit_pos.distance_to(v_pos) <= radius:
 				if village.equipe == 0:
-					print("Capture par équipe ", character.equipe)
 					village.capture(character.equipe)
 					
 					
@@ -175,5 +174,4 @@ func _capture_nearby_neutral_village():
 			var v_pos = ville.global_position
 			if unit_pos.distance_to(v_pos) <= radius:
 				if ville.equipe == 0:
-					print("Capture par équipe ", character.equipe)
 					ville.capture(character.equipe)

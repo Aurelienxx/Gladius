@@ -277,7 +277,6 @@ func check_building_capture(unit: CharacterBody2D):
 
 		# Capture si le bâtiment est neutre et dans le rayon
 		if building.equipe == 0 and is_adjacent_cells(unit_cell, building_cell, radius_in_cells):
-			print("Capture réussie !")
 			building.capture(unit.equipe)
 
 

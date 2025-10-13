@@ -93,6 +93,7 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 				# Si c’est une unité
 				if target.is_in_group("units"):
 					# Supprime l'entité du terrain et de la liste des unités
+					GlobalSignal.unitDied.emit(target, false)
 					GameState.unregister_unit(target)
 				else:
 					# Supprime le Head Quarter et appelle la fonction de fin du jeu
@@ -188,6 +189,7 @@ func spawnUnit(unit) -> void:
 		# Mets à jour l'économie du joueur
 		EconomyManager.buy_something(unit.cost)
 		EconomyManager.change_money_loss(unit.maintenance)
+		GlobalSignal.unitBought.emit(unit, true)
 
 func _input(event):
 	"""
@@ -200,10 +202,6 @@ func _input(event):
 		GlobalSignal.pass_turn.emit()
 	if Input.is_action_pressed("space"):
 		quick_select()
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		#pass
-		#print("player truc : ",GameState.current_player)
-		print("Economy State : ",EconomyManager.EconomyTab)
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if mode == "move": 
 			move_manager()

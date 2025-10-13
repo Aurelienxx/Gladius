@@ -31,7 +31,6 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
 	map = _map
-	#print(map,_map)
 
 	if equipe == 2:
 		anim.flip_h = true
