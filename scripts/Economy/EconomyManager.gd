@@ -3,7 +3,7 @@ extends Node
 var EconomyTab = []
 
 var ValueStorage = {
-	"current_money":  100, 
+	"current_money":  1000, 
 	"money_gain":     0, 
 	"money_loss" :    0, 
 	"money_result":   0
@@ -22,7 +22,6 @@ func new_player(new_player:int):
 
 func _get_team_tab():
 	var index = current_player - 1
-	print(index)
 	return EconomyTab.get(index) # on covertie la team en index
 
 func _update_profit(valueStorage) -> void:

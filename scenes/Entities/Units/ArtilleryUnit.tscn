@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnywfqbg0wjpb"]
+[gd_scene load_steps=13 format=3 uid="uid://cnywfqbg0wjpb"]
 
 [ext_resource type="Script" uid="uid://o5smydf2bdkc" path="res://scripts/Entities/Units/ArtilleryUnit.gd" id="1_wso3m"]
 [ext_resource type="Texture2D" uid="uid://dt6qw6o2r3fpg" path="res://assets/sprites/EntitySprite/Units/SpriteArtillery/Sprites/Idle/artillery_1.png" id="2_x6c4b"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_srvsw"]
 [ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/unitManager.gd" id="5_36nl8"]
 [ext_resource type="Texture2D" uid="uid://dkd7vcn6ho6y1" path="res://assets/sprites/EntitySprite/Units/SpriteArtillery/Mask/Idle/artillery_Mask_2.png" id="5_lsb2e"]
-[ext_resource type="Script" uid="uid://7ar6gav46p2u" path="res://scripts/IA/IA_FONTAINE/ArtilleryIA.gd" id="8_srvsw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y68kv"]
 animations = [{
@@ -81,6 +80,3 @@ script = ExtResource("5_36nl8")
 area2D = NodePath("../Area2D")
 MaskOverlay = NodePath("../MaskSprite")
 anim = NodePath("../UnitSprite")
-
-[node name="IA" type="Node" parent="."]
-script = ExtResource("8_srvsw")
