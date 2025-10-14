@@ -1,6 +1,8 @@
 extends Node
 
 @onready var character: CharacterBody2D = get_parent()
+@onready var effectsPlayer = $"../Effects"
+
 @export var area2D : Area2D 
 @export var move_speed: float = 200.0
 @export var MaskOverlay:AnimatedSprite2D
@@ -55,6 +57,8 @@ func _on_shape_clicked():
 	"""
 	is_selected = !is_selected
 	GlobalSignal.Unit_Clicked.emit(character)
+	if is_selected:
+		effectsPlayer.play("pulse")
 
 func _on_shape_attack_clicked():
 	"""

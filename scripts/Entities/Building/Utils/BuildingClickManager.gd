@@ -27,7 +27,6 @@ func _on_shape_clicked():
 	Sélectionne ce batiment lorsqu’il est cliqué avec le clic gauche
 	et envoie un signal global pour notifier la sélection.
 	"""
-	print(building_body.current_hp)
 	is_selected = true
 	GlobalSignal.Building_CLicked.emit(building_body)
 	# _show_hq_ui()  # Affichage de l'UI du batiment 
