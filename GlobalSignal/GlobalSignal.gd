@@ -1,6 +1,7 @@
 extends Node
 
 signal Unit_Clicked(unit)
+signal Building_CLicked(building)
 signal Unit_Attack_Clicked(unit, target)
 signal HeadQuarter_Clicked(headquarter)
 

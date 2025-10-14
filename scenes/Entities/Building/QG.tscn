@@ -1,11 +1,9 @@
 [gd_scene load_steps=38 format=3 uid="uid://cs26312fn2rqa"]
 
-[ext_resource type="Script" uid="uid://duppr6qjtjhbr" path="res://scripts/Entities/Building/QG.gd" id="1_txrck"]
+[ext_resource type="Script" uid="uid://duppr6qjtjhbr" path="res://scripts/Entities/Building/QG/QG.gd" id="1_rt1y1"]
 [ext_resource type="Texture2D" uid="uid://bm4oabokf740l" path="res://assets/sprites/EntitySprite/Buildings/HQ/Flag/HQ_Flag_1.png" id="2_rt1y1"]
-[ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/clickDetection.gd" id="3_fqhlp"]
 [ext_resource type="Texture2D" uid="uid://brrp62x260lhb" path="res://assets/sprites/EntitySprite/Buildings/HQ/Flag/HQ_Flag_2.png" id="3_hf102"]
 [ext_resource type="Texture2D" uid="uid://dstiq2hv4p4g6" path="res://assets/sprites/EntitySprite/Buildings/HQ/Flag/HQ_Flag_3.png" id="4_1wd2e"]
-[ext_resource type="Script" uid="uid://dq8dfi7d3l263" path="res://scripts/Entities/Building/HeadQuarterManager.gd" id="4_etupr"]
 [ext_resource type="Texture2D" uid="uid://8cj7y5n8fb0u" path="res://assets/sprites/EntitySprite/Buildings/HQ/Flag/HQ_Flag_4.png" id="5_2eff6"]
 [ext_resource type="PackedScene" uid="uid://bibxvdufm4ljc" path="res://scenes/UpgradeHUD/UpgradeHUD.tscn" id="6_1fmsb"]
 [ext_resource type="Texture2D" uid="uid://b0cxppqqlb1ii" path="res://assets/sprites/EntitySprite/Buildings/HQ/Flag/HQ_Flag_5.png" id="6_7bisf"]
@@ -32,6 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://cvlhub0vu5cmr" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_5.png" id="27_7ab2h"]
 [ext_resource type="Texture2D" uid="uid://def0nolg3jowi" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_6.png" id="28_lf0ft"]
 [ext_resource type="Texture2D" uid="uid://cvt14r21724ni" path="res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_7.png" id="29_0fd2r"]
+[ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/Utils/clickDetection.gd" id="30_hf102"]
+[ext_resource type="Script" uid="uid://dq8dfi7d3l263" path="res://scripts/Entities/Building/Utils/BuildingClickManager.gd" id="31_1wd2e"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fg4ny"]
 animations = [{
@@ -153,7 +153,7 @@ bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
 bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
 [node name="HeadQuarters" type="CharacterBody2D"]
-script = ExtResource("1_txrck")
+script = ExtResource("1_rt1y1")
 
 [node name="FlagSprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
@@ -164,14 +164,14 @@ sprite_frames = SubResource("SpriteFrames_560fk")
 animation = &"Level3"
 
 [node name="Area2D" type="Area2D" parent="."]
-script = ExtResource("3_fqhlp")
+script = ExtResource("30_hf102")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.5, -2.5)
 shape = SubResource("RectangleShape2D_etupr")
 
-[node name="HeadQuarterManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
-script = ExtResource("4_etupr")
+[node name="ClickManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
+script = ExtResource("31_1wd2e")
 area2D = NodePath("../Area2D")
 
 [node name="HealthBar" type="ProgressBar" parent="."]

@@ -11,7 +11,7 @@ script = ExtResource("1_7tx1p")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
-position_smoothing_speed = 8.0
+position_smoothing_speed = 12.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visibility_layer = 2

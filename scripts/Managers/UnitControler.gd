@@ -3,7 +3,7 @@ extends Node2D
 @export var unit_truck : PackedScene = preload("res://scenes/Entities/Units/TruckUnit.tscn")
 @export var unit_artillery : PackedScene = preload("res://scenes/Entities/Units/ArtilleryUnit.tscn")
 @export var unit_tank : PackedScene = preload("res://scenes/Entities/Units/TankUnit.tscn")
-@export var unit_infantry : PackedScene = preload("res://scenes/Entities/Units/Infantry.tscn")
+@export var unit_infantry : PackedScene = preload("res://scenes/Entities/Units/InfantryUnit.tscn")
 @export var head_quarter : PackedScene = preload("res://scenes/Entities/Building/QG.tscn")
 @export var village : PackedScene = preload("res://scenes/Entities/Building/Village.tscn")
 @export var ville : PackedScene = preload("res://scenes/Entities/Building/Town.tscn")

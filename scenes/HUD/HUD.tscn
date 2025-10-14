@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
 [ext_resource type="PackedScene" uid="uid://cc1okjsltc6ac" path="res://scenes/Entities/Units/TankUnit.tscn" id="2_6n7by"]
 [ext_resource type="PackedScene" uid="uid://cnywfqbg0wjpb" path="res://scenes/Entities/Units/ArtilleryUnit.tscn" id="4_wa322"]
-[ext_resource type="PackedScene" uid="uid://dogkmflijdlsd" path="res://scenes/Entities/Units/Infantry.tscn" id="5_ykc18"]
+[ext_resource type="PackedScene" uid="uid://dogkmflijdlsd" path="res://scenes/Entities/Units/InfantryUnit.tscn" id="5_ykc18"]
 [ext_resource type="PackedScene" uid="uid://c4cxrrugw53mu" path="res://scenes/Entities/Units/TruckUnit.tscn" id="6_gsk3d"]
 [ext_resource type="PackedScene" uid="uid://l5psbttjcf8j" path="res://scenes/Settings/settings.tscn" id="9_wa322"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="29_a1o1e"]
