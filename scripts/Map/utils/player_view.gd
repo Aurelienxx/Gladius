@@ -1,11 +1,15 @@
 extends CharacterBody2D
 
 @onready var cam: Camera2D = $Camera2D
-var edge_margin := 50
+
+const edge_margin := 50
+const movement_speed = 650
+const slide_speed = 10
+
 var zoom_step := 0.5
-var movement_speed = 650
 var min_zoom := Vector2(1, 1)
 var max_zoom := Vector2(3, 3)
+
 var dragging := false
 var last_mouse_pos := Vector2.ZERO
 
@@ -55,7 +59,21 @@ func _physics_process(delta: float) -> void:
 		velocity -= delta_pos * 10 
 		last_mouse_pos = mouse_pos
 	
-	move_and_collide(velocity * delta)
+	# Mouvement avec glissement sur les obstacles
+	if velocity != Vector2.ZERO:
+		var collision = move_and_collide(velocity * delta)
+		if collision:
+			var normal = collision.get_normal()
+			
+			# Si on est face à un mur vertical (collision gauche/droite)
+			if abs(normal.x) > abs(normal.y):
+				# Glissement doux vers le bas
+				var slide_dir = Vector2(0, 1) * slide_speed 
+				move_and_collide(slide_dir * delta)
+			else:
+				# Sinon, comportement normal de glissement
+				var slide = velocity.slide(normal)
+				move_and_collide(slide * delta)
 
 func _input(event):
 	"""
@@ -74,8 +92,8 @@ func _input(event):
 		cam.zoom = cam.zoom.clamp(min_zoom, max_zoom)
 	
 	# dragging
-	elif Input.is_action_just_pressed("dragging"):
+	elif Input.is_action_just_pressed("leftClick"):
 		dragging = true
 		last_mouse_pos = get_viewport().get_mouse_position()
-	elif Input.is_action_just_released("dragging"):
+	elif Input.is_action_just_released("leftClick"):
 		dragging = false

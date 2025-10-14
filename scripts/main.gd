@@ -136,6 +136,7 @@ func move_manager() -> void:
 	selected_unit = null
 	mode = "" 
 	tileMapManager.highlight_reset()# Supprime la surbrillance pour éviter la superposition
+
 func quick_select():
 	"""
 	Sélectionne automatiquement la prochaine unité du joueur pouvant se déplacer ou attaquer.
@@ -213,12 +214,12 @@ func _input(event):
 	
 	if Input.is_action_just_pressed("enter"):
 		GlobalSignal.pass_turn.emit()
-	if Input.is_action_pressed("space"):
+	elif Input.is_action_pressed("space"):
 		quick_select()
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		pass
 		#print("player truc : ",GameState.current_player)
 		#print("Economy State : ",EconomyManager.EconomyTab)
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if mode == "move": 
 			move_manager()
