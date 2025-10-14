@@ -18,12 +18,14 @@ func _ready():
 	Initialise les connexions de signaux, récupère toutes les unités et bâtiments,
 	et prépare la scène principale de jeu.
 	"""
+	# quand quelque chose est cliqué
 	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
 	GlobalSignal.Building_CLicked.connect(_on_building_click)
 	
 	GlobalSignal.Unit_Clicked.connect(_on_something_clicked)
 	GlobalSignal.Building_CLicked.connect(_on_something_clicked)
 	
+	#
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
 	GlobalSignal.spawn_Unit.connect(spawnUnit)
 		
@@ -42,19 +44,21 @@ func _on_unit_clicked(unit: CharacterBody2D) -> void:
 	"""
 	Gère la sélection d'une unité pour le déplacement ou l'attaque.
 	"""
-	selected_unit = unit
-	
 	var manager: Node = unit.get_node("MovementManager")
 	
-	# Vérifie que l'unité ne s'est pas déjà déplacée
-	if unit.movement == false :
-		mode = "move"
-		
 	if manager.is_selected:
+		selected_unit = unit
+	
+		# Vérifie que l'unité ne s'est pas déjà déplacée
+		if unit.movement == false :
+			mode = "move"
+			
 		# L’unité doit appartenir au joueur actif et ne pas avoir déjà bougé
 		if selected_unit.equipe == current_player and selected_unit.movement == false:
 			tileMapManager.display_movement(unit)
-
+	else:
+		tileMapManager.highlight_reset()
+		
 func _on_building_click(building: CharacterBody2D) -> void:
 	if building.buildingName== "QG" and current_player == building.equipe:
 		building.showUpgradeHUD(building.equipe)
@@ -117,15 +121,21 @@ func move_manager() -> void:
 	"""
 	var mouse_pos = get_global_mouse_position()
 	var cell_position = tileMapManager.get_position_on_map(mouse_pos) # Récupère la position de la case cliquée
+	var manager: Node = selected_unit.get_node("MovementManager")
+	
 	if tileMapManager.is_highlighted_cell(cell_position):
 		# Si la case n'est pas occupé alors l'unité s'y déplace
 		if not tileMapManager.is_cell_occupied(cell_position):
 			var path = tileMapManager.make_path(selected_unit, cell_position, selected_unit.move_range) # Recherche du chemin de déplacement
-			var manager: Node = selected_unit.get_node("MovementManager")
 			manager.set_path(path) # Déplace l'unité selon le chemin 
 			selected_unit.movement = true # Change la variable de mouvement pour que l'unité ne puisse plus se déplacée durant le tour
-			tileMapManager.highlight_reset()# Supprime la surbrillance pour éviter la superposition
-
+			
+	else:
+		manager.is_selected = false
+		
+	selected_unit = null
+	mode = "" 
+	tileMapManager.highlight_reset()# Supprime la surbrillance pour éviter la superposition
 func quick_select():
 	"""
 	Sélectionne automatiquement la prochaine unité du joueur pouvant se déplacer ou attaquer.

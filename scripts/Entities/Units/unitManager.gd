@@ -46,25 +46,14 @@ func _ready() -> void:
 	"""
 	Connexion des signaux globaux et des clics de l’Area2D à leurs fonctions de gestion.
 	"""
-	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
 	area2D.clicked.connect(_on_shape_clicked)
 	area2D.attack_clicked.connect(_on_shape_attack_clicked)
-
-func _on_unit_clicked(unit):
-	"""
-	Désélectionne l'unité si une autre est sélectionnée.
-	
-	:param unit: (CharacterBody2D) L’unité qui a été cliquée.
-	:return: None
-	"""
-	if unit != character:
-		is_selected = false
 
 func _on_shape_clicked():
 	"""
 	Sélectionne cette unité et envoie un signal global pour notifier la sélection.
 	"""
-	is_selected = true
+	is_selected = !is_selected
 	GlobalSignal.Unit_Clicked.emit(character)
 
 func _on_shape_attack_clicked():
