@@ -8,6 +8,10 @@
 
 <h1 align ="center" >Gladius Dominus </h1>
 
+<div style="page-break-before: always;"></div>
+
+<div align ="center" >
+
 # Table des Matières
 1. [Introduction ](#introduction)
 2. [Description du système](#description-du-système)
@@ -18,8 +22,8 @@
 5. [Exploitation](#exploitation)
 5. [Annexes](#annexes)
 
-
-
+</div>
+<div style="page-break-before: always;"></div>
 
 ## Introduction
 Ce projet est un jeu vidéo d'attaque défense qui fonctionne avec le moteur de jeu Godot Engine
