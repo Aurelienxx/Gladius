@@ -10,8 +10,6 @@
 
 <div style="page-break-before: always;"></div>
 
-<div align ="center" >
-
 # Table des Matières
 1. [Introduction ](#introduction)
 2. [Description du système](#description-du-système)
@@ -22,7 +20,6 @@
 5. [Exploitation](#exploitation)
 5. [Annexes](#annexes)
 
-</div>
 <div style="page-break-before: always;"></div>
 
 ## Introduction
