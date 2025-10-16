@@ -24,14 +24,15 @@ func _ready() -> void:
 	# Création des Head Quarters
 	for i in range(qg_positions.size()):
 		create_building(head_quarter, qg_positions[i], i + 1)
-
+	
+	"""
 	# Création des villages
 	for pos in village_positions:
 		create_building(village, pos, 0)
 
 	# Création de la ville
 	create_building(ville, ville_position, 0)
-
+	"""
 
 func create_building(building_scene: PackedScene, position: Vector2, equipe: int = 0) -> Node2D:
 	"""
