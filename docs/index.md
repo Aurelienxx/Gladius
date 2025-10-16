@@ -12,7 +12,7 @@ Bienvenue sur le site de Gladius Dominus
 
 ---
 
-### L'équipe
+### L'équipe de développement
 
 <div class="equipe-container">
   <div class="membre">

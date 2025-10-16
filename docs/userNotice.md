@@ -129,7 +129,7 @@ L'infanterie bien qu'étant une unité plutôt faible, elle présente un coût i
 
 
 
-**Statistique :**
+
 
 | Statistique                | Valeur    |
 | ---                        | ---       |
@@ -149,7 +149,7 @@ Le Camion bien qu'ayant un coût plus élevé que l'infanterie et les mêmes dé
 
 
 
-**Statistique :**
+
 
 | Statistique                | Valeur    |
 | ---                        | ---       |
@@ -166,7 +166,7 @@ L'artillerie est une unité coutant assez cher il a une tres faible mobilité ma
   <img src="img/unite/artillery.png">
 </p>
 
-**Statistique :**
+
 
 | Statistique                | Valeur    |
 | ---                        | ---       |
@@ -185,7 +185,7 @@ Le tank est l'unité la plus chère elle se distingue par sa résistance cumulé
 </p>
 
 
-**Statistique :**
+
 
 
 | Statistique                | Valeur    |
@@ -207,7 +207,7 @@ Les villages sont des bâtiments capturables présent sur la map il permette de 
   <img src="img/batiment/village.png">
 </p>
 
-**Statistique :**
+
 
 | Statistique                | Valeur    |
 | ---                        | ---       |
@@ -223,7 +223,8 @@ La Ville est un bâtiment capturable présent sur la map il permet de renforcer 
   <img src="img/batiment/ville.png">
 </p>
 
-**Statistique :**
+
+
 | Statistique                | Valeur    |
 | ---                        | ---       |
 | `Vie`                      | 200       |
@@ -239,7 +240,7 @@ Le QG est votre objectif à défendre. Il genere des revenu et peut être améli
   <img src="img/batiment/qg_lvl1.png">
 </p>
 
-**Statistique :**
+
 
 | Statistique                | Valeur    |
 | ---                        | ---       |
@@ -253,7 +254,7 @@ Le QG est votre objectif à défendre. Il genere des revenu et peut être améli
   <img src="img/batiment/qg_lvl2.png">
 </p>
 
-**Statistique :**
+
 
 
 | Statistique                | Valeur    |
@@ -268,7 +269,7 @@ Le QG est votre objectif à défendre. Il genere des revenu et peut être améli
   <img src="img/batiment/qg_lvl3.png">
 </p>
 
-**Statistique :**
+
 
 | Statistique                | Valeur    |
 | ---                        | ---       |
