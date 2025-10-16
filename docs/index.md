@@ -25,7 +25,7 @@ Bienvenue sur le site de Gladius Dominus
   </div>
   <div class="membre">
     <img src="img/equipe/Cotar.png" class="image-ronde">
-    <p><strong>Clément Cotar</strong><br>💻 Développeur</p>
+    <p><strong>Clément Cotar</strong><br>💻 Développeur</p><br>🎬​ Monteur vidéo</p>
   </div>
 
   <div class="membre">
