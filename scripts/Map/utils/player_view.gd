@@ -24,14 +24,16 @@ func _physics_process(delta: float) -> void:
 	velocity = Vector2.ZERO
 
 	# Déplacement clavier
+	# Certain son légérement élevé pour faire en sorte que si on appuis sur les opposé
+	# on se déplace quand une direction 
 	if Input.is_action_pressed("left"):
-		velocity.x -= movement_speed 
+		velocity.x -= movement_speed * 1.1
 	if Input.is_action_pressed("right"):
 		velocity.x += movement_speed 
 	if Input.is_action_pressed("down"):
 		velocity.y += movement_speed 
 	if Input.is_action_pressed("up"):
-		velocity.y -= movement_speed 
+		velocity.y -= movement_speed * 1.1
 	
 
 	# Déplacement au bord de l’écran (si pas en drag souris)
