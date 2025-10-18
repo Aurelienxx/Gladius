@@ -16,9 +16,10 @@
 3. [Installation](#installation)
     1. [Version navigateur](#version-navigateur)
     2. [Version Steam](#version-steam)
-4. [Configuration](#configuration)
-5. [Exploitation](#exploitation)
-5. [Annexes](#annexes)
+4. [Lancement du projet](#lancement-du-projet)
+5. [Configuration](#configuration)
+6. [Exploitation](#exploitation)
+7. [Annexes](#annexes)
 
 <div style="page-break-before: always;"></div>
 
@@ -50,7 +51,7 @@ Pour l'ouvrir, il vous faut le moteur de jeu gratuit Godot Engine. Deux options 
 </p>
 
 ### Version navigateur
-Rendez-vous sur [le site de Godot](https://godotengine.org/fr/) et sélectionnez "Télécharger la dernière version". Aucune autre action de configuration n'est nécessaire, vous devez simplement indiquer à Godot le chemin d'accès vers le projet que vous souhaitez utiliser.  
+Rendez-vous sur [le site de Godot](https://godotengine.org/fr/) et sélectionnez "Télécharger la dernière version".
 Un inconvénient de cette version est que si Godot est mis à jour, vous devrez manuellement télécharger la nouvelle version, recommençant cette étape.
 
 <p align="center">
@@ -65,6 +66,15 @@ Les mises à jour vers de nouvelles versions se feront automatiquement.
   <img src="img/admin/steam.png">
 </p>
 
+## Lancement du projet 
+
+ Pour importer le projet aucune action de configuration n'est nécessaire, vous devez simplement indiquer à Godot le chemin d'accès vers le projet que vous souhaitez utiliser en cliquant sur le bouton `Importer` en haut à gauche.
+ Et ensuite double cliquer sur le projet ou en cliquant sur `Exécution`.
+
+ <p align="center">
+  <img src="img/admin/projet.png">
+</p>  
+
 ## Configuration
 En cas de modification nécessaire, seul le code source ou les assets seront utiles. Pour une bonne lisibilité, rendez-vous dans le dossier ```scènes``` et trouvez l'aspect du jeu à modifier en parcourant l'arborescence jusqu'à trouver un ```nom_fichier.tscn```. De là, sur le volet à gauche se trouvent les Nodes de la scènes, eux_même liés à des scripts de code. Sélectionnez l'icône de feuille de papier <img src="img/admin/script.png" height=20px>.
  pour ouvrir le script correspondant, et vous pouvez y modifier le code.
@@ -72,6 +82,8 @@ En cas de modification nécessaire, seul le code source ou les assets seront uti
 <p align="center">
   <img src="img/admin/arborescence.png">
 </p>
+
+
 
 ## Exploitation
 Une fois vos modifications apportées, si la console n'indique aucune erreur dans le code, vous pouvez lancer le jeu pour vérifier vos modifications. Rendez-vous sur la scène ```MainMenu``` (./scenes/MainMenu/MainMenu.tscn) et cliquez sur l'icône "Exécuter la scène actuelle" 
