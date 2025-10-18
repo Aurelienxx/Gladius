@@ -140,6 +140,7 @@ func apply_level_bonus() -> void:
 			current_gain =  HQ3Data["gain"]
 			anim.play("Level3")
 	
+	flag.play()
 	if equipe == GameState.current_player:
 		EconomyManager.change_money_gain(current_gain)
 	
