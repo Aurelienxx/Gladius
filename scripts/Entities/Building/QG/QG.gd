@@ -112,14 +112,15 @@ func upgrade(lvl: int) -> void:
 			lv += 1
 			apply_level_bonus()
 			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
-					
 	else:
 		if EconomyManager.money_check(HQ3Data["prix"]):
 			EconomyManager.buy_something(HQ3Data["prix"])
 			lv += 1
 			apply_level_bonus()
-			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
-			
+			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv3/ButtonLv3").queue_free()
+	flag.stop()
+	flag.play()
+
 func apply_level_bonus() -> void:
 	"""
 	Applique les bonus selon le niveau actuel du QG :
