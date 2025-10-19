@@ -8,29 +8,74 @@ var ASSIGNED_TEAM:int = 2
 
 @export var tileMapManager:Node2D
 @export var main:Node2D
+@export var debug_visualition: Node2D
+
+# Mémoire des dernières positions (évite les boucles)
+var last_positions: Dictionary = {}
 
 #### Setup 
 
 func _ready():
 	AiSignal.register_ai_tank.connect(register_unit)
 	AiSignal.unregister_ai_tank.connect(unregister_unit) 
-	
-	GlobalSignal.new_player_turn.connect(new_player_turn)
-	
-func new_player_turn(player:int) -> void:
-	if player == ASSIGNED_TEAM:
+	GlobalSignal.new_turn.connect(new_player_turn)
+
+func new_player_turn() -> void:
+	if GameState.current_player == ASSIGNED_TEAM:
 		do_your_thing()
 
 # Registration
 
-func register_unit(unit) -> void :
+func register_unit(unit) -> void:
 	if unit not in controled_units:
 		controled_units.append(unit)
 
-func unregister_unit(unit)-> void :
+func unregister_unit(unit) -> void:
 	controled_units.erase(unit)
 
-#### Core 'Gameplay'
+#### CORE GAMEPLAY 
+
+# Carte du danger : plus la valeur est haute, plus la zone est risquée
+func compute_danger_map() -> Dictionary:
+	var danger_map = {}
+	for enemy in all_units:
+		if enemy.equipe != ASSIGNED_TEAM:
+			
+			var enemy_cell = tileMapManager.get_position_on_map(enemy.global_position)
+			var range_cells = tileMapManager.get_reachable_cells(enemy_cell, enemy.attack_range)
+			
+			var danger_score = 1
+			match enemy.name_Unite:
+				"Tank":
+					danger_score = 4
+				"Infanterie":
+					danger_score = 1
+				"Artillerie":
+					danger_score = 0
+				"Camion":
+					danger_score = 2
+			
+			for cell in range_cells:
+				danger_map[cell] = danger_map.get(cell, 0) + danger_score
+				
+	return danger_map
+
+
+# Renvoie true si l’unité est dans une zone dangereuse
+func is_in_danger(unit: Node2D, danger_map: Dictionary) -> bool:
+	var cell = tileMapManager.get_position_on_map(unit.global_position)
+	return danger_map.get(cell, 0) > 1
+
+
+# Mémorise les dernières positions pour éviter les boucles
+func remember_position(unit: Node2D):
+	var cell = tileMapManager.get_position_on_map(unit.global_position)
+	if not last_positions.has(unit):
+		last_positions[unit] = []
+	last_positions[unit].append(cell)
+	if last_positions[unit].size() > 3:
+		last_positions[unit].pop_front()
+
 
 func get_best_target(unit) -> Node2D:
 	var best_target: Node2D = null
@@ -72,7 +117,15 @@ func get_best_target(unit) -> Node2D:
 					score += 10.0
 
 		if dist <= unit.attack_range:
-			score += 150.0
+			score += 5.0
+
+		# Bonus si entouré d'alliés
+		var allies_near = get_allies_in_range(unit, 4)
+		score += allies_near.size() * 1.5
+
+		# Si le tank est blessé, il devient plus prudent
+		if float(unit.current_hp) / float(unit.max_hp) < 0.4:
+			score -= 20.0
 
 		if score > best_score:
 			best_score = score
@@ -81,41 +134,75 @@ func get_best_target(unit) -> Node2D:
 	return best_target
 
 
+func get_allies_in_range(unit, range:int) -> Array:
+	var allies = []
+	var unit_cell = tileMapManager.get_position_on_map(unit.global_position)
+	for ally in controled_units:
+		if ally == unit:
+			continue
+		var ally_cell = tileMapManager.get_position_on_map(ally.global_position)
+		if unit_cell.distance_to(ally_cell) <= range:
+			allies.append(ally)
+	return allies
+
 func do_your_thing() -> void:
+	debug_visualition.reset()
+	var danger_map = compute_danger_map()
+
 	for unit in controled_units:
-		if not is_instance_valid(unit):
-			continue
-
-		if unit.movement and unit.attack:
-			continue
-
+		remember_position(unit)
 		var target = get_best_target(unit)
 		if target == null:
 			continue
 
 		var start_cell = tileMapManager.get_position_on_map(unit.global_position)
 		var target_cell = tileMapManager.get_position_on_map(target.global_position)
-		var reachable = tileMapManager.get_reachable_cells(tileMapManager.MAP, start_cell, unit.move_range)
+		var reachable = tileMapManager.get_reachable_cells(start_cell, unit.move_range)
+
+		reachable.append(start_cell)
+
+		var target_attack_zone = tileMapManager.get_attack_cells(target_cell, target.attack_range)
 
 		var best_cell = start_cell
-		var best_dist = start_cell.distance_to(target_cell)
+		var best_score = -INF
 
 		for cell in reachable:
-			var dist = cell.distance_to(target_cell)
-			if dist < best_dist and not tileMapManager.is_cell_occupied(cell):
-				best_dist = dist
+			if tileMapManager.is_cell_occupied(cell):
+				continue
+
+			var dist_to_target = cell.distance_to(target_cell)
+			var danger = danger_map.get(cell, 0)
+			var in_enemy_attack_zone = cell in target_attack_zone
+			var can_attack_target = dist_to_target <= unit.attack_range
+			var score = 0.0
+
+			if in_enemy_attack_zone:
+				score -= 30.0
+
+			if can_attack_target and not in_enemy_attack_zone:
+				score += 50.0
+
+			score -= dist_to_target * 1.5
+			score -= danger * 3.0
+
+			if cell == start_cell:
+				score += 10.0
+
+			if score > best_score:
+				best_score = score
 				best_cell = cell
 
+			debug_visualition.score_map[cell] = score
+
+		# Déplacement
 		var path = tileMapManager.make_path(unit, best_cell, unit.move_range)
+		var manager: Node = unit.get_node("MovementManager")
+		manager.set_path(path)
+		unit.movement = true
 
-		if path.size() > 1:
-			var manager: Node = unit.get_node("MovementManager")
-			manager.set_path(path)
-			unit.movement = true
-
+		# Attaque si la cible est à portée
 		var new_cell = tileMapManager.get_position_on_map(unit.global_position)
 		var in_range = false
-
 		for cell in tileMapManager.get_occupied_cells(target):
 			if new_cell.distance_to(cell) <= unit.attack_range:
 				in_range = true
@@ -124,3 +211,5 @@ func do_your_thing() -> void:
 		if in_range and not unit.attack:
 			unit.attack = true
 			main._on_unit_attack(unit, target)
+
+		debug_visualition.queue_redraw()

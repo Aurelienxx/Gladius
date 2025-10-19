@@ -26,12 +26,12 @@ func new_terrain_object_values(new_all_buildings, new_all_units):
 
 func display_movement(unit:CharacterBody2D):
 	var start_cell = get_position_on_map(unit.global_position)
-	var reachable_cells = get_reachable_cells(MAP, start_cell, unit.move_range)
+	var reachable_cells = get_reachable_cells(start_cell, unit.move_range)
 	highlight_cells(start_cell,reachable_cells)# Met en surbrillance les cases où l’unité peut se déplacer
 
 func display_attack(unit:CharacterBody2D):
 	var start_cell = get_position_on_map(unit.global_position) # Récupère la cellule de l'attaquant
-	var attack_cells = get_attack_cells(MAP, start_cell, unit.attack_range) # Récupère la portée d’attaque de l'attaquant
+	var attack_cells = get_attack_cells(start_cell, unit.attack_range) # Récupère la portée d’attaque de l'attaquant
 	highlight_cells(start_cell, attack_cells, 1) # Met en surbrillance les cases attaquables
 	
 func highlight_reset():
@@ -116,7 +116,7 @@ func get_occupied_cells(unit: CharacterBody2D) -> Array:
 	return cells # Retourne toutes les cellules occupées par l’unité
 
 
-func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
+func get_reachable_cells(start: Vector2i, max_range: int) -> Array:
 	"""
 	Calcule toutes les cases accessibles depuis une position donnée sur la carte (algorithme de Dijkstra simplifié).
 	Prend en compte les obstacles, le coût de déplacement et la portée maximale de l’unité.
@@ -166,7 +166,7 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 			var next = current_pos + offset
 
 			# Ignore les cases en dehors de la carte
-			if map.get_cell_source_id(next) == -1:
+			if MAP.get_cell_source_id(next) == -1:
 				continue
 			# Ignore les cases occupées par une unité ou un bâtiment (sauf la case de départ)
 			if next != start and occuppee.has(next):
@@ -190,7 +190,7 @@ func get_reachable_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> 
 
 	return reachable # Retourne la liste des cases accessibles
 
-func get_attack_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Array:
+func get_attack_cells(start: Vector2i, max_range: int) -> Array:
 	"""
 	Retourne les cases dans la portée d’attaque d’une unité.
 	"""
@@ -199,7 +199,7 @@ func get_attack_cells(map: TileMapLayer, start: Vector2i, max_range: int) -> Arr
 		for y in range(-max_range, max_range + 1):
 			var cell = start + Vector2i(x, y)
 			if start.distance_to(cell) <= max_range:
-				if map.get_cell_source_id(cell) != -1:
+				if MAP.get_cell_source_id(cell) != -1:
 					cells.append(cell)
 	return cells # Retourne les cases attaquables
 
@@ -231,7 +231,7 @@ func make_path(unit: CharacterBody2D, goal: Vector2i, max_range: int) -> Array:
 	# Vérifie si un calcul précédent peut être réutilisé
 	# Si les données sont vides ou si le point de départ a changé, on relance le calcul de portée
 	if last_came_from.is_empty() or start != last_start:
-		get_reachable_cells(MAP, start, max_range)
+		get_reachable_cells(start, max_range)
 
 	# Si la destination n’a pas été atteinte dans le calcul précédent, le chemin est inaccessible
 	if not last_came_from.has(goal):
