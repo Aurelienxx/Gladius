@@ -9,9 +9,9 @@ extends CharacterBody2D
 
 const buildingName = "QG"
 
-var current_player: int
+var current_player: int 
 # Statistiques et attributs de base du QG
-var max_hp: int 
+var max_hp: int = 500
 var damage: int
 var attack_range: int
 
@@ -41,8 +41,8 @@ func setup(_equipe: int) -> void:
 	:param _equipe: (int) Numéro de l’équipe (1 ou 2).
 	:return: None
 	"""
-	equipe = _equipe
 	current_hp = max_hp
+	equipe = _equipe
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
 	_apply_color()
@@ -78,7 +78,8 @@ func take_damage(dmg:int) -> void:
 	"""
 	Met à jour la barre de vie et déclenche l’animation de clignotement du QG.
 	"""
-	health_bar.value = current_hp - dmg
+	current_hp -= dmg 
+	health_bar.value = current_hp
 	anim.modulate = Color(2, 2, 2, 1)
 	hit_flash_timer.start()
 
@@ -111,13 +112,14 @@ func upgrade(lvl: int) -> void:
 			lv += 1
 			apply_level_bonus()
 			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
-					
 	else:
 		if EconomyManager.money_check(HQ3Data["prix"]):
 			EconomyManager.buy_something(HQ3Data["prix"])
 			lv += 1
 			apply_level_bonus()
-			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
+			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv3/ButtonLv3").queue_free()
+	flag.stop()
+	flag.play()
 			
 func apply_level_bonus() -> void:
 	"""
@@ -139,6 +141,7 @@ func apply_level_bonus() -> void:
 			current_gain =  HQ3Data["gain"]
 			anim.play("Level3")
 	
+	flag.play()
 	if equipe == GameState.current_player:
 		EconomyManager.change_money_gain(current_gain)
 	
