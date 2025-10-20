@@ -120,7 +120,7 @@ func upgrade(lvl: int) -> void:
 			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv3/ButtonLv3").queue_free()
 	flag.stop()
 	flag.play()
-
+			
 func apply_level_bonus() -> void:
 	"""
 	Applique les bonus selon le niveau actuel du QG :
@@ -141,6 +141,7 @@ func apply_level_bonus() -> void:
 			current_gain =  HQ3Data["gain"]
 			anim.play("Level3")
 	
+	flag.play()
 	if equipe == GameState.current_player:
 		EconomyManager.change_money_gain(current_gain)
 	
