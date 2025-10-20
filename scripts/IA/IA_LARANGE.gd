@@ -24,9 +24,10 @@ func IA_turn() -> void:
 			
 			var target_cell = null
 			var ally_nearby = get_closest_ally_nearby(unit)
+			var nearby_target = get_best_enemy_nearby(unit)
 			var closest_building = get_closest_building(unit,false,true)
 			
-			if await try_attacking(unit):
+			if await try_attacking_here(unit):
 				continue
 
 			map.display_movement(unit)
@@ -34,11 +35,15 @@ func IA_turn() -> void:
 			var cells = map.get_reachable_cells(map.MAP, unit_pos, unit.move_range)
 			if cells.is_empty():
 				continue
-
-			if ally_nearby != null:
+				
+			elif nearby_target != null :
+				var target_pos = map.get_position_on_map(nearby_target.global_position)
+				target_cell = get_closest_cell_to_target(cells, target_pos)
+				
+			elif ally_nearby != null:
 				var ally_pos = map.get_position_on_map(ally_nearby.global_position)
 				target_cell = get_closest_cell_to_target(cells, ally_pos)
-
+				
 			elif closest_building != null:
 				var building_pos = map.get_position_on_map(closest_building.global_position)
 				target_cell = get_closest_cell_to_target(cells, building_pos)
@@ -56,10 +61,8 @@ func IA_turn() -> void:
 				move.set_path(path)
 				unit.movement = true
 				map.highlight_reset()
-				await get_tree().create_timer(0.5).timeout
-				try_attacking(unit)
-
-
+				await get_tree().create_timer(1).timeout
+				try_attacking_here(unit)
 
 func dist(obj1, obj2):
 	return obj1.global_position.distance_to(obj2.global_position)
@@ -103,7 +106,7 @@ func get_target_in_attack_range(unit):
 	
 	return
 	
-func try_attacking(unit):
+func try_attacking_here(unit):
 	var target = get_target_in_attack_range(unit)
 	if target != null:
 		map.display_attack(unit)
@@ -157,6 +160,13 @@ func get_closest_building(unit, include_enemy := true, include_neutral := true):
 		return null
 	buildings.sort_custom(func(a, b): return compare_by_distance(a, b, unit))
 	return buildings[0]
+	
+func get_best_enemy_nearby(unit) :
+	var targets = get_enemy_targets()
+	for target in targets :
+		if dist(unit,target) <= unit.move_range + unit.attack_range :
+			if target.current_hp <= unit.damage :
+				return target
 
 func get_closest_cell_to_target(cells, target_pos):
 	if cells.is_empty():
