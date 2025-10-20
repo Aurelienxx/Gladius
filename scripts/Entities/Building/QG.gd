@@ -11,7 +11,7 @@ const buildingName = "HQ"
 
 var current_player: int
 # Statistiques et attributs de base du QG
-var max_hp: int 
+var max_hp: int = 1000
 var damage: int
 var attack_range: int
 
@@ -78,7 +78,8 @@ func take_damage(dmg:int) -> void:
 	"""
 	Met à jour la barre de vie et déclenche l’animation de clignotement du QG.
 	"""
-	health_bar.value = current_hp - dmg
+	current_hp -= dmg
+	health_bar.value = current_hp 
 	anim.modulate = Color(2, 2, 2, 1)
 	hit_flash_timer.start()
 

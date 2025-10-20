@@ -45,13 +45,17 @@ func IA_turn() -> void:
 				target_cell = get_closest_cell_to_target(cells, ally_pos)
 				
 			elif closest_building != null:
-				var building_pos = map.get_position_on_map(closest_building.global_position)
-				target_cell = get_closest_cell_to_target(cells, building_pos)
-			
-			elif closest_building == null :
-				closest_building = get_closest_building(unit,true,false)
-				var building_pos = map.get_position_on_map(closest_building.global_position)
-				target_cell = get_closest_cell_to_target(cells, building_pos)
+				var building_cell = get_closest_building_cell(unit, closest_building)
+				if building_cell != null:
+					target_cell = get_closest_cell_to_target(cells, building_cell)
+
+			elif closest_building == null:
+				closest_building = get_closest_building(unit, true, false)
+				if closest_building != null:
+					var building_cell = get_closest_building_cell(unit, closest_building)
+					if building_cell != null:
+						target_cell = get_closest_cell_to_target(cells, building_cell)
+
 
 			elif target_cell == null:
 				target_cell = cells.pick_random()
@@ -91,20 +95,24 @@ func get_target_in_attack_range(unit):
 	var building_target = null
 	
 	for target in targets:
-		var target_pos = map.get_position_on_map(target.global_position)
-		if unit_pos.distance_to(target_pos) <= unit.attack_range:
-			if target in GameState.all_units:
+		if target in GameState.all_units:
+			var target_pos = map.get_position_on_map(target.global_position)
+			if unit_pos.distance_to(target_pos) <= unit.attack_range:
 				enemy_target = target
-			elif target in GameState.all_buildings :
-				if enemy_target == null:
+				break
+		elif target in GameState.all_buildings:
+			var occupied_cells = map.get_occupied_cells(target)
+			for cell in occupied_cells:
+				if unit_pos.distance_to(cell) <= unit.attack_range:
 					building_target = target
+					break
 	
 	if enemy_target != null:
 		return enemy_target
 	elif building_target != null:
 		return building_target
-	
-	return
+	return null
+
 	
 func try_attacking_here(unit):
 	var target = get_target_in_attack_range(unit)
@@ -160,6 +168,23 @@ func get_closest_building(unit, include_enemy := true, include_neutral := true):
 		return null
 	buildings.sort_custom(func(a, b): return compare_by_distance(a, b, unit))
 	return buildings[0]
+	
+func get_closest_building_cell(unit, building):
+	var occupied_cells = map.get_occupied_cells(building)
+	if occupied_cells.is_empty():
+		return null
+	
+	var unit_pos = map.get_position_on_map(unit.global_position)
+	var closest = occupied_cells[0]
+	var min_dist = unit_pos.distance_to(closest)
+	
+	for cell in occupied_cells:
+		var d = unit_pos.distance_to(cell)
+		if d < min_dist:
+			min_dist = d
+			closest = cell
+			
+	return closest
 	
 func get_best_enemy_nearby(unit) :
 	var targets = get_enemy_targets()
