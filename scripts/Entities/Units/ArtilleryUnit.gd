@@ -22,6 +22,7 @@ extends CharacterBody2D
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int
 var equipe: int
+var isAI: bool = true
 
 var map:TileMapLayer
 
@@ -46,3 +47,6 @@ func take_damage(dmg : int) -> void :
 	"""
 	current_hp -= dmg
 	Movement.update_health_bar(current_hp, max_hp)
+
+func getEquipe():
+	return equipe

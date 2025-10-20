@@ -3,7 +3,6 @@ Si c'est le tour de l'équipe de l'IA, l'IA va attendre un certain signal pour j
 
 Elle va regarder l'entièreté des unités grâce à gamestate.all_units
 
-
 Elle va lister les différentes unités d'artilleries en jeu pour définir un ordre.
 Évidemment, s'il n'y en a qu'une, alors ce sera son tour de jouer
 

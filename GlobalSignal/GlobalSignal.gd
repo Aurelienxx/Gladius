@@ -3,14 +3,15 @@ extends Node
 signal Unit_Clicked(unit)
 signal Building_CLicked(building)
 signal Unit_Attack_Clicked(unit, target)
+signal attackUnit(unit, target)
 signal HeadQuarter_Clicked(headquarter)
 
 signal current_Money_Amount(amount:int)
 signal current_Money_Gain_Or_Loss(amount:int)
 
-signal spawn_Unit(unit)
-signal unitDied(_unit)
-signal unitBought(unit)
+signal spawnUnit(unit)
+signal spawnedUnit(unit)
+signal unitDied(unit)
 signal hq_Destroyed()
 signal new_player_turn(team:int)
 

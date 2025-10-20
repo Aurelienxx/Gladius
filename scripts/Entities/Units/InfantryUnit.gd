@@ -23,6 +23,7 @@ extends CharacterBody2D
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int
 var equipe: int
+var isAI: bool = false
 
 var map:TileMapLayer
 

@@ -12,7 +12,7 @@ extends CharacterBody2D
 @export var maintenance: int = 5
 @export var max_hp: int = 400
 @export var damage: int = 80
-@export var move_range: int = 5
+@export var move_range: int = 500
 @export var attack_range: int = 4  
 @export var movement: bool = false
 @export var attack: bool = false
@@ -22,6 +22,7 @@ extends CharacterBody2D
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int
 var equipe: int
+var isAI: bool = false
 
 var map:TileMapLayer
 

@@ -4,6 +4,7 @@ var selected_unit: CharacterBody2D # CharacterBody2D de l'unité séléctionnée
 
 @onready var all_units := GameState.all_units
 @onready var all_buildings := GameState.all_buildings
+@onready var all_AI := GameState.AIUnits
 
 var quick_select_index = -1
 
@@ -27,7 +28,8 @@ func _ready():
 	
 	#
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
-	GlobalSignal.spawn_Unit.connect(spawnUnit)
+	GlobalSignal.attackUnit.connect(_on_unit_attack)
+	GlobalSignal.spawnUnit.connect(spawnUnit)
 		
 	GlobalSignal.new_player_turn.connect(save_new_player)
 	
@@ -53,6 +55,7 @@ func _on_unit_clicked(unit: CharacterBody2D) -> void:
 		if unit.movement == false :
 			mode = "move"
 			
+<<<<<<< Updated upstream
 		# L’unité doit appartenir au joueur actif et ne pas avoir déjà bougé
 		if selected_unit.equipe == current_player and selected_unit.movement == false:
 			tileMapManager.display_movement(unit)
@@ -65,6 +68,17 @@ func _on_building_click(building: CharacterBody2D) -> void:
 	selected_unit = building
 	
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
+=======
+		if manager.is_selected:
+			# L’unité doit appartenir au joueur actif et ne pas avoir déjà bougé
+			if selected_unit.equipe == current_player and selected_unit.movement == false:
+				tileMapManager.display_movement(unit)
+				
+	if unit.is_in_group("buildings") and unit.buildingName== "QG" and current_player == unit.getTeam():
+		unit.showUpgradeHUD(unit.getTeam())
+
+func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D) -> bool:
+>>>>>>> Stashed changes
 	"""
 	Gère le comportement lorsqu'une unité attaque une autre unité ou un bâtiment.
 	Affiche également l'animation d'explosion et gère la mort des entités.
@@ -72,12 +86,12 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	if target == null:
 		# Vérifie que l’attaquant appartient bien au joueur actif et qu’il n’a pas déjà attaqué
 		if attacker.is_in_group("buildings") or attacker.equipe != current_player or attacker.attack == true:
-			return
+			return false
 
 		attack_unit = attacker
 		mode = "attack"
 		tileMapManager.display_attack(attacker)
-		return
+		return false
 
 	# Si la cible appartient à une équipe différente de celle de l'attaquant
 	if target.equipe != attacker.equipe:
@@ -101,9 +115,8 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 
 			if target.current_hp <= 0:
 				# Si c’est une unité
-				if target.is_in_group("units"):
+				if target.is_in_group("units") or target.is_in_group("AIUnits"):
 					# Supprime l'entité du terrain et de la liste des unités
-					GlobalSignal.unitDied.emit(target, false)
 					GameState.unregister_unit(target)
 				else:
 					# Supprime le Head Quarter et appelle la fonction de fin du jeu
@@ -112,6 +125,7 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	attack_unit = null # L'unité n'attaque plus
 	mode = "" # Réinitialise le mode 
 	tileMapManager.highlight_reset()  # Supprime la surbrillance pour éviter la superposition
+	return true
 
 func move_manager() -> void:
 	"""
@@ -202,10 +216,11 @@ func spawnUnit(unit) -> void:
 		var new_unit = spawn.spawn_unit(unit.name_Unite,current_player) # Instancie une nouvelle unité dans léquipe
 		add_child(new_unit) # Ajoute l'unité au terrain 
 		all_units = get_tree().get_nodes_in_group("units") # Ajoute l'unité à la liste des unités
+		if unit.isAI == true:
+			all_AI = get_tree().get_nodes_in_group("AIUnits")
 		# Mets à jour l'économie du joueur
 		EconomyManager.buy_something(unit.cost)
 		EconomyManager.change_money_loss(unit.maintenance)
-		GlobalSignal.unitBought.emit(unit, true)
 
 func _input(event):
 	"""
