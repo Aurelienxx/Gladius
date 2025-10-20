@@ -217,10 +217,7 @@ func _input(event):
 	elif Input.is_action_pressed("space"):
 		quick_select()
 	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		#pass
-		print(event.position)
-		#print("player truc : ",GameState.current_player)
-		#print("Economy State : ",EconomyManager.EconomyTab)
+		pass
 	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if mode == "move": 
 			move_manager()
