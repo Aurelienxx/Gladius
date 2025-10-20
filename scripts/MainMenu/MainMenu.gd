@@ -60,10 +60,8 @@ func _on_parameters_button_pressed() -> void:
 
 func _on_settings_visibility_changed() -> void:
 	if not buttons.visible:
-		print("hello")
 		buttons.visible = true
 	else:
-		print("bye")
 		buttons.visible = false
 		
 func _on_back_parameters_pressed() -> void:
