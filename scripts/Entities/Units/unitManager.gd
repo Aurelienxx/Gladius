@@ -1,6 +1,8 @@
 extends Node
 
 @onready var character: CharacterBody2D = get_parent()
+@onready var effectsPlayer = $"../Effects"
+
 @export var area2D : Area2D 
 @export var move_speed: float = 200.0
 @export var MaskOverlay:AnimatedSprite2D
@@ -45,26 +47,17 @@ func _ready() -> void:
 	"""
 	Connexion des signaux globaux et des clics de l’Area2D à leurs fonctions de gestion.
 	"""
-	GlobalSignal.Unit_Clicked.connect(_on_unit_clicked)
 	area2D.clicked.connect(_on_shape_clicked)
 	area2D.attack_clicked.connect(_on_shape_attack_clicked)
-
-func _on_unit_clicked(unit):
-	"""
-	Désélectionne l'unité si une autre est sélectionnée.
-	
-	:param unit: (CharacterBody2D) L’unité qui a été cliquée.
-	:return: None
-	"""
-	if unit != character:
-		is_selected = false
 
 func _on_shape_clicked():
 	"""
 	Sélectionne cette unité et envoie un signal global pour notifier la sélection.
 	"""
-	is_selected = true
+	is_selected = !is_selected
 	GlobalSignal.Unit_Clicked.emit(character)
+	if is_selected:
+		effectsPlayer.play("pulse")
 
 func _on_shape_attack_clicked():
 	"""
@@ -85,6 +78,7 @@ func set_path(new_path: Array):
 func move_to_next_cell():
 	if path.is_empty():
 		is_moving = false
+		GlobalSignal.unit_finished_moving.emit()
 		return
 	var next_cell: Vector2i = path.pop_front()
 	target_position = map_ref.map_to_local(next_cell)
