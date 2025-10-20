@@ -29,7 +29,7 @@ func IA_turn() -> void:
 			
 			if await try_attacking_here(unit):
 				continue
-
+				
 			map.display_movement(unit)
 			await get_tree().create_timer(0.5).timeout
 			var cells = map.get_reachable_cells(map.MAP, unit_pos, unit.move_range)
@@ -48,7 +48,7 @@ func IA_turn() -> void:
 				var building_cell = get_closest_building_cell(unit, closest_building)
 				if building_cell != null:
 					target_cell = get_closest_cell_to_target(cells, building_cell)
-
+					
 			elif closest_building == null:
 				closest_building = get_closest_building(unit, true, false)
 				if closest_building != null:
@@ -56,15 +56,18 @@ func IA_turn() -> void:
 					if building_cell != null:
 						target_cell = get_closest_cell_to_target(cells, building_cell)
 
-
 			elif target_cell == null:
 				target_cell = cells.pick_random()
 
 			if target_cell != null:
-				var path = map.make_path(unit, target_cell, unit.move_range)
+				var path = map.find_path_a_star(unit_pos, target_cell)
+
+				path = map.make_path(unit,target_cell,unit.move_range)
+
 				move.set_path(path)
 				unit.movement = true
 				map.highlight_reset()
+
 				await get_tree().create_timer(1).timeout
 				try_attacking_here(unit)
 
