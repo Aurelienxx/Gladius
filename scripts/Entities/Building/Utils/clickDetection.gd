@@ -15,8 +15,7 @@ func _input_event(viewport, event, shape_idx):
 	:param shape_idx: (int) Index de la forme cliquée dans l’Area2D.
 	:return: None
 	"""
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			emit_signal("clicked")
-		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			emit_signal("attack_clicked")
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		emit_signal("clicked")
+	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		emit_signal("attack_clicked")
