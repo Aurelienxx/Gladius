@@ -50,17 +50,17 @@ func _has_attackable_target(unit) -> bool:
 	:return: (bool) True si une cible est à portée, sinon False.
 	"""
 	var start_cell = tileMapManager.get_position_on_map(unit.global_position)
-	var all_targets = GameState.all_units + GameState.all_buildings
-
-	for target in all_targets:
+	
+	for target in GameState.all_units + GameState.all_buildings:
 		if target.equipe == unit.equipe or target.equipe == 0:
 			continue
-
+			
 		var target_cell = tileMapManager.get_position_on_map(target.global_position)
-		if start_cell.distance_to(target_cell) <= unit.attack_range:
+		if start_cell.distance_to(target_cell) <= float(unit.attack_range) + 0.1:
 			return true
-
+			
 	return false
+
 
 
 func _make_decision(unit) -> void:
@@ -75,21 +75,24 @@ func _make_decision(unit) -> void:
 	if unit.current_hp <= 0:
 		return
 
-	if _has_attackable_target(unit):
-		_attack_target(unit)
+	# Vérifie d'abord s'il y a une cible à portée et choisis la meilleure
+	var attack_data = _score_attack(unit)
+	if attack_data["target"] != null:
+		print("→ Attaque directe :", attack_data["target"], "avec un score de", attack_data["score"])
+		await _attack_target(unit, attack_data["target"])
 		return
 
+	# Sinon, on calcule les autres options
 	var results = {
-		"attack_only": _score_attack(unit),
+		"attack_only": attack_data,
 		"move_then_attack": _score_move_then_attack(unit),
 		"move_only": _score_move_only(unit)
 	}
 
-
 	var best_action = _choose_action(results)
 	var chosen = results[best_action]
 	print(results)
-	print(chosen)
+	print("Action choisie :", best_action, "→", chosen)
 
 	match best_action:
 		"attack_only":
@@ -118,17 +121,24 @@ func _get_target_score(unit, target) -> float:
 	if "name_Unite" in target:
 		var base_priority = float(_get_unit_priority(target))
 		var hp_ratio = float(target.current_hp) / float(target.max_hp)
+		var missing_hp_ratio = 1.0 - hp_ratio
+		var score = base_priority * (1.5 - hp_ratio)
+
+		score += missing_hp_ratio * 5.0
+
 		if target.current_hp <= unit.damage:
-			return base_priority + 8.0
-		return base_priority * (1.5 - hp_ratio)
+			score += 8.0
+
+		return score
 
 	elif "buildingName" in target:
-			if target.equipe == 1:
-				if target.buildingName == "QG":
+		if target.equipe == 1:
+			match target.buildingName:
+				"QG":
 					return 10.0
-				elif target.buildingName in ["Village", "Town"]:
+				"Village", "Town":
 					return 3.0
-			return 0.0
+		return 0.0
 
 	else:
 		return 0.0
@@ -212,6 +222,12 @@ func _score_attack(unit) -> Dictionary:
 
 
 func _score_move_then_attack(unit) -> Dictionary:
+	"""
+	Calcule un score si l’unité peut attaquer après s'être déplacé.
+
+	:param unit: (Node) L’unité d’artillerie.
+	:return: (Dictionary) Contient le score, la cible et la cellule associée.
+	"""
 	var start_cell = tileMapManager.get_position_on_map(unit.global_position)
 	var best_score = -INF
 	var best_target = null
@@ -250,16 +266,11 @@ func _score_move_then_attack(unit) -> Dictionary:
 			distance_covered += cost
 			var dist = cell.distance_to(target_cell)
 
-			print("Test cell:", cell, "dist_to_target_cell:", dist, 
-				  "attack_range:", unit.attack_range, "enemy_range:", enemy_attack_range)
-
 			# Si on peut tirer depuis cette case, et qu'on reste hors de portée ennemie
 			if dist <= unit.attack_range and dist > enemy_attack_range:
 				var score = _get_target_score(unit, target)
 				score += (unit.attack_range - dist) * 2
 				score -= distance_covered * 0.1  # légère pénalité pour long trajet
-
-				print("=> Cell valide pour attaque:", cell, "score:", score)
 
 				if score > best_score:
 					best_score = score
@@ -271,9 +282,6 @@ func _score_move_then_attack(unit) -> Dictionary:
 		return {"score": -1.0, "target": null, "cell": null}
 
 	return {"score": best_score, "target": best_target, "cell": best_cell}
-
-
-
 
 
 func _score_move_only(unit) -> Dictionary:
@@ -344,7 +352,6 @@ func _choose_action(results: Dictionary) -> String:
 	
 
 	if best_names.size() > 0:
-		print("pref move", best_names)
 		return best_names[0]
 	return "move_only"
 
