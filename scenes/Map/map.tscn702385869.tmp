@@ -393,7 +393,5 @@ shape = SubResource("RectangleShape2D_2yrau")
 
 [node name="AiManager" type="Node" parent="."]
 
-[node name="AiTankCotar" type="Node" parent="AiManager" node_paths=PackedStringArray("tilemap", "main")]
+[node name="AiCotar" type="Node" parent="AiManager"]
 script = ExtResource("15_aasa8")
-tilemap = NodePath("../../TileMapContainer")
-main = NodePath("../..")
