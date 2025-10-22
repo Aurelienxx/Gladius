@@ -6,13 +6,11 @@ var equipe_ia: int = 2 # Numéro d’équipe de l’IA
 @export var tileMapManager: Node
 @export var main: Node
 
-
 func _ready():
 	"""
 	Connecte le signal de changement de tour à la fonction de gestion du tour IA.
 	"""
 	GlobalSignal.new_player_turn.connect(_on_new_player_turn)
-
 
 func _on_new_player_turn(player: int):
 	"""
@@ -32,7 +30,6 @@ func _on_new_player_turn(player: int):
 	await do_your_thing()
 	controled_units.clear()
 
-
 func do_your_thing() -> void:
 	"""
 	Fait agir successivement chaque artillerie contrôlée par l’IA avec une pause entre chaque actions.
@@ -40,7 +37,6 @@ func do_your_thing() -> void:
 	for unit in controled_units:
 		await _make_decision(unit)
 		await get_tree().create_timer(0.3).timeout
-
 
 func _has_attackable_target(unit) -> bool:
 	"""
@@ -60,8 +56,38 @@ func _has_attackable_target(unit) -> bool:
 			return true
 			
 	return false
+	
+func _predict_enemy_position(enemy) -> Vector2i:
+	
+	var start_cell = tileMapManager.get_position_on_map(enemy.global_position)
+	if enemy.current_hp <= 0:
+		return start_cell
 
+	# On suppose que l'ennemi se déplacera vers la cible prioritaire la plus proche
+	var target = _get_priority_target(enemy)
+	if target == null:
+		return start_cell
 
+	var target_cell = tileMapManager.get_position_on_map(target.global_position)
+	var full_path = tileMapManager.find_path_a_star(start_cell, target_cell)
+	if full_path.size() <= 1:
+		return start_cell
+
+	var move_distance = enemy.move_range
+	var distance_covered = 0
+	var next_cell = start_cell
+
+	for i in range(1, full_path.size()):
+		var cell = full_path[i]
+		var step_cost = tileMapManager.get_terrain_cost(cell)
+		if step_cost < 0:
+			break
+		if distance_covered + step_cost > move_distance:
+			break
+		distance_covered += step_cost
+		next_cell = cell
+
+	return next_cell
 
 func _make_decision(unit) -> void:
 	"""
@@ -78,7 +104,6 @@ func _make_decision(unit) -> void:
 	# Vérifie d'abord s'il y a une cible à portée et choisis la meilleure
 	var attack_data = _score_attack(unit)
 	if attack_data["target"] != null:
-		print("→ Attaque directe :", attack_data["target"], "avec un score de", attack_data["score"])
 		await _attack_target(unit, attack_data["target"])
 		return
 
@@ -91,9 +116,6 @@ func _make_decision(unit) -> void:
 
 	var best_action = _choose_action(results)
 	var chosen = results[best_action]
-	print(results)
-	print("Action choisie :", best_action, "→", chosen)
-
 	match best_action:
 		"attack_only":
 			await _attack_target(unit, chosen["target"])
@@ -103,7 +125,6 @@ func _make_decision(unit) -> void:
 			await _attack_target(unit, chosen["target"])
 		"move_only":
 			await _move_to_target(unit, chosen["cell"])
-
 
 # =====================================================
 # ===                 CALCULS DE SCORE              ===
@@ -143,7 +164,6 @@ func _get_target_score(unit, target) -> float:
 	else:
 		return 0.0
 
-
 func _get_unit_priority(enemy) -> int:
 	"""
 	Retourne la priorité de base d’une unité selon son type.
@@ -162,7 +182,6 @@ func _get_unit_priority(enemy) -> int:
 			return 4
 		_:
 			return 3
-
 
 func _get_priority_target(unit):
 	"""
@@ -196,7 +215,6 @@ func _get_priority_target(unit):
 
 	return best_target
 
-
 func _score_attack(unit) -> Dictionary:
 	"""
 	Calcule un score si l’unité peut attaquer sans se déplacer.
@@ -220,45 +238,35 @@ func _score_attack(unit) -> Dictionary:
 
 	return {"score": best_score, "target": best_target, "cell": null}
 
-
 func _score_move_then_attack(unit) -> Dictionary:
-	"""
-	Calcule un score si l’unité peut attaquer après s'être déplacé.
-
-	:param unit: (Node) L’unité d’artillerie.
-	:return: (Dictionary) Contient le score, la cible et la cellule associée.
+	""" 
+	Calcule un score si l’unité peut attaquer après s'être déplacé. 
+	L'IA cherche à attaquer en restant hors de portée ennemie et à maximiser la distance à sa cible. 
+	
+	:param unit: (Node) L’unité d’artillerie. 
+	:return: (Dictionary) Contient le score, la cible et la cellule associée. 
 	"""
 	var start_cell = tileMapManager.get_position_on_map(unit.global_position)
 	var best_score = -INF
 	var best_target = null
 	var best_cell = null
 
+
 	for target in GameState.all_units + GameState.all_buildings:
 		if target.equipe == unit.equipe or target.equipe == 0:
 			continue
 
 		var target_cell = tileMapManager.get_position_on_map(target.global_position)
-		var dist_to_target = start_cell.distance_to(target_cell)
-		var enemy_attack_range = 0
-		if "attack_range" in target:
-			enemy_attack_range = target.attack_range
-
-		# Vérifie si la cible est accessible (mouvement + portée d'attaque)
-		if dist_to_target > unit.move_range + unit.attack_range:
-			continue
 
 		var path = tileMapManager.find_path_a_star(start_cell, target_cell)
 		if path.size() <= 1:
 			continue
 
 		var distance_covered = 0.0
-
-		# On teste toutes les cases atteignables dans le move_range
 		for i in range(1, path.size()):
 			var cell = path[i]
 			var cost = tileMapManager.get_terrain_cost(cell)
 			if cost < 0:
-				print("Case infranchissable:", cell)
 				break
 			if distance_covered + cost > unit.move_range:
 				break
@@ -266,23 +274,19 @@ func _score_move_then_attack(unit) -> Dictionary:
 			distance_covered += cost
 			var dist = cell.distance_to(target_cell)
 
-			# Si on peut tirer depuis cette case, et qu'on reste hors de portée ennemie
-			if dist <= unit.attack_range and dist > enemy_attack_range:
-				var score = _get_target_score(unit, target)
-				score += (unit.attack_range - dist) * 2
-				score -= distance_covered * 0.1  # légère pénalité pour long trajet
-
+			# On ne garde que les positions qui permettent d'attaquer
+			if dist <= unit.attack_range:
+				var score = _get_target_score(unit, target) + 10.0 * (1.0 - abs(unit.attack_range - dist))
+				score -= distance_covered * 0.1
 				if score > best_score:
 					best_score = score
 					best_target = target
 					best_cell = cell
 
 	if best_score == -INF:
-		print("Aucune case trouvée pour move+attack")
 		return {"score": -1.0, "target": null, "cell": null}
 
 	return {"score": best_score, "target": best_target, "cell": best_cell}
-
 
 func _score_move_only(unit) -> Dictionary:
 	"""
@@ -321,7 +325,6 @@ func _score_move_only(unit) -> Dictionary:
 	var score = _get_target_score(unit, target) - start_cell.distance_to(target_cell) * 0.2
 	return {"score": score, "target": target, "cell": last_free_cell}
 
-
 # =====================================================
 # ===        CHOIX DE LA MEILLEURE ACTION          ===
 # =====================================================
@@ -355,7 +358,6 @@ func _choose_action(results: Dictionary) -> String:
 		return best_names[0]
 	return "move_only"
 
-
 # =====================================================
 # ===              DÉPLACEMENT & ATTAQUE            ===
 # =====================================================
@@ -372,15 +374,12 @@ func _move_to_target(unit, cell) -> void:
 		return
 
 	var path = tileMapManager.make_path(unit, cell, unit.move_range)
-	print(path)
-	print(cell)
 	if path.is_empty():
 		return
 
 	var manager: Node = unit.get_node("MovementManager")
 	manager.set_path(path)
 	await get_tree().create_timer(0.5).timeout
-
 
 func _attack_target(unit, target = null) -> void:
 	"""
