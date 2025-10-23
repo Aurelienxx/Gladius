@@ -1,0 +1,152 @@
+[gd_scene load_steps=16 format=3 uid="uid://dogkmflijdlsd"]
+
+[ext_resource type="Script" uid="uid://c6k1n0k2eqnby" path="res://scripts/Entities/Units/InfantryUnit.gd" id="1_0ra5x"]
+[ext_resource type="Texture2D" uid="uid://dsohn3oisr61f" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Sprites/Idle/Infantry_sprite_1.png" id="2_2c4uk"]
+[ext_resource type="Texture2D" uid="uid://b82l7dmeuo44h" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Sprites/Idle/Infantry_sprite_2.png" id="3_7px28"]
+[ext_resource type="Texture2D" uid="uid://xb7wyr3omawg" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Mask/Idle/infantry_overlay_1.png" id="4_e7so8"]
+[ext_resource type="Texture2D" uid="uid://cypi67og5m3ms" path="res://assets/sprites/EntitySprite/Units/SpriteInfantry/Mask/Idle/infantry_overlay_2.png" id="5_41rrf"]
+[ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="6_a2j0f"]
+[ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/unitManager.gd" id="7_6fpy0"]
+
+[sub_resource type="Animation" id="Animation_vhdrv"]
+resource_name = "pulse"
+length = 0.375
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UnitSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1875, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UnitSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1668, 0.3543),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vcqc8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UnitSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UnitSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4quyo"]
+_data = {
+&"RESET": SubResource("Animation_vcqc8"),
+&"pulse": SubResource("Animation_vhdrv")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y68kv"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("2_2c4uk")
+}, {
+"duration": 2.0,
+"texture": ExtResource("3_7px28")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6on2y"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("4_e7so8")
+}, {
+"duration": 2.0,
+"texture": ExtResource("5_41rrf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsick"]
+size = Vector2(31, 27)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ul1d2"]
+bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6on2y"]
+bg_color = Color(0.16862746, 0.7058824, 0, 1)
+
+[node name="InfantryUnit" type="CharacterBody2D"]
+script = ExtResource("1_0ra5x")
+thumbnail = ExtResource("2_2c4uk")
+
+[node name="Effects" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4quyo")
+}
+
+[node name="UnitSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_y68kv")
+frame_progress = 0.20359853
+
+[node name="MaskSprite" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_6on2y")
+frame_progress = 0.23078063
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("6_a2j0f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_wsick")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -12.0
+offset_top = -17.0
+offset_right = 12.0
+offset_bottom = -16.0
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_ul1d2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6on2y")
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D", "MaskOverlay", "anim")]
+script = ExtResource("7_6fpy0")
+area2D = NodePath("../Area2D")
+MaskOverlay = NodePath("../MaskSprite")
+anim = NodePath("../UnitSprite")

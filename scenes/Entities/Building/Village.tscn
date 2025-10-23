@@ -1,9 +1,8 @@
 [gd_scene load_steps=23 format=3 uid="uid://c5c5f8kx2dv0a"]
 
-[ext_resource type="Script" uid="uid://b4mns7eseov1w" path="res://scripts/Entities/Building/Village.gd" id="1_3474o"]
-[ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/clickDetection.gd" id="2_cckd5"]
+[ext_resource type="Script" uid="uid://b4mns7eseov1w" path="res://scripts/Entities/Building/Village/Village.gd" id="1_3474o"]
+[ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/Utils/clickDetection.gd" id="2_cckd5"]
 [ext_resource type="Texture2D" uid="uid://be3l8ubmitx1f" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_1.png" id="2_j06gx"]
-[ext_resource type="Script" uid="uid://cl31n5dcmv557" path="res://scripts/Entities/Building/villageTownManager.gd" id="3_htqd3"]
 [ext_resource type="Texture2D" uid="uid://crdqiwcwy6tlw" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_2.png" id="3_oab2s"]
 [ext_resource type="Texture2D" uid="uid://rfoaebx5napw" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_3.png" id="4_f0ppp"]
 [ext_resource type="Texture2D" uid="uid://ctdijs8iqpm8g" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageFlagSprite/Village_flag_4.png" id="5_n1hs6"]
@@ -17,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://c6acm85j6cn0t" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageSprite/Village_5.png" id="13_hdcl0"]
 [ext_resource type="Texture2D" uid="uid://dmnsavrmsx062" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageSprite/Village_6.png" id="14_cwrib"]
 [ext_resource type="Texture2D" uid="uid://b8t2mtw2bjrr1" path="res://assets/sprites/EntitySprite/Buildings/Village/VillageSprite/Village_7.png" id="15_r464k"]
+[ext_resource type="Script" uid="uid://dq8dfi7d3l263" path="res://scripts/Entities/Building/Utils/BuildingClickManager.gd" id="17_j06gx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4u8ht"]
 animations = [{
@@ -103,8 +103,8 @@ visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_qyp71")
 
-[node name="VillageTownManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
-script = ExtResource("3_htqd3")
+[node name="ClickManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
+script = ExtResource("17_j06gx")
 area2D = NodePath("../Area2D")
 
 [node name="HealthBar" type="ProgressBar" parent="."]

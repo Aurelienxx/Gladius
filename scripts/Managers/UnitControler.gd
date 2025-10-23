@@ -3,7 +3,7 @@ extends Node2D
 @export var unit_truck : PackedScene = preload("res://scenes/Entities/Units/TruckUnit.tscn")
 @export var unit_artillery : PackedScene = preload("res://scenes/Entities/Units/ArtilleryUnit.tscn")
 @export var unit_tank : PackedScene = preload("res://scenes/Entities/Units/TankUnit.tscn")
-@export var unit_infantry : PackedScene = preload("res://scenes/Entities/Units/Infantry.tscn")
+@export var unit_infantry : PackedScene = preload("res://scenes/Entities/Units/InfantryUnit.tscn")
 @export var head_quarter : PackedScene = preload("res://scenes/Entities/Building/QG.tscn")
 @export var village : PackedScene = preload("res://scenes/Entities/Building/Village.tscn")
 @export var ville : PackedScene = preload("res://scenes/Entities/Building/Town.tscn")
@@ -14,8 +14,8 @@ extends Node2D
 @export var spawn_radius: float = 100.0 # distance autour du point
 
 @export var qg_positions: Array[Vector2] = [Vector2(-200, -250), Vector2(950, 500)]
-@export var village_positions :  Array[Vector2] = [Vector2(-150, 50), Vector2(150, -250),Vector2(900, 200), Vector2(600, 500)]
-@export var ville_position : Vector2 = Vector2(350, 150)
+@export var village_positions :  Array[Vector2] = [Vector2(-150, 50), Vector2(150, -250),Vector2(932, 132), Vector2(500, 500)]
+@export var ville_position : Vector2 = Vector2(432, 164)
 
 func _ready() -> void:
 	"""
@@ -24,7 +24,7 @@ func _ready() -> void:
 	# Création des Head Quarters
 	for i in range(qg_positions.size()):
 		create_building(head_quarter, qg_positions[i], i + 1)
-
+	
 	# Création des villages
 	for pos in village_positions:
 		create_building(village, pos, 0)

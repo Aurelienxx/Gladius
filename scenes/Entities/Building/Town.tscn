@@ -1,12 +1,10 @@
 [gd_scene load_steps=23 format=3 uid="uid://bli16w6k7bhcv"]
 
-[ext_resource type="Script" uid="uid://b2epgc8lwp40v" path="res://scripts/Entities/Building/Town.gd" id="1_luyv0"]
+[ext_resource type="Script" uid="uid://b2epgc8lwp40v" path="res://scripts/Entities/Building/Town/Town.gd" id="1_qvucj"]
 [ext_resource type="Texture2D" uid="uid://ddlxvf6jks0h1" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_1.png" id="2_qvucj"]
 [ext_resource type="Texture2D" uid="uid://dfwxt5kjtb24d" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_1.png" id="2_qwbet"]
 [ext_resource type="Texture2D" uid="uid://ccdwqq5gm7361" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_2.png" id="3_86ecn"]
 [ext_resource type="Texture2D" uid="uid://bls7ydeak2f71" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_2.png" id="3_d6vyx"]
-[ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/clickDetection.gd" id="3_n84a3"]
-[ext_resource type="Script" uid="uid://cl31n5dcmv557" path="res://scripts/Entities/Building/villageTownManager.gd" id="3_tfqh3"]
 [ext_resource type="Texture2D" uid="uid://cunn0j4lrrol0" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_3.png" id="4_26uyw"]
 [ext_resource type="Texture2D" uid="uid://bmxm6hlmidl3u" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_3.png" id="4_ehlsc"]
 [ext_resource type="Texture2D" uid="uid://cuqmu765vyw36" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_4.png" id="5_g0i04"]
@@ -17,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://b0lsxxc3o1q8o" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_6.png" id="7_r8bm4"]
 [ext_resource type="Texture2D" uid="uid://bff6fymlsitbb" path="res://assets/sprites/EntitySprite/Buildings/City/CityFlagSprite/city_flag_7.png" id="8_5pb7e"]
 [ext_resource type="Texture2D" uid="uid://bk6a2agc2ilxr" path="res://assets/sprites/EntitySprite/Buildings/City/CitySprite/city_7.png" id="8_yye7j"]
+[ext_resource type="Script" uid="uid://gtgtjb1us7bs" path="res://scripts/Entities/Building/Utils/clickDetection.gd" id="16_d6vyx"]
+[ext_resource type="Script" uid="uid://dq8dfi7d3l263" path="res://scripts/Entities/Building/Utils/BuildingClickManager.gd" id="17_ehlsc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s1vbc"]
 animations = [{
@@ -86,7 +86,7 @@ bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
 bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
 [node name="Town" type="CharacterBody2D"]
-script = ExtResource("1_luyv0")
+script = ExtResource("1_qvucj")
 
 [node name="FlagSprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
@@ -96,15 +96,15 @@ sprite_frames = SubResource("SpriteFrames_s1vbc")
 sprite_frames = SubResource("SpriteFrames_n84a3")
 
 [node name="Area2D" type="Area2D" parent="."]
-script = ExtResource("3_n84a3")
+script = ExtResource("16_d6vyx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_2ffi7")
 
-[node name="townManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
-script = ExtResource("3_tfqh3")
+[node name="ClickManager" type="Node" parent="." node_paths=PackedStringArray("area2D")]
+script = ExtResource("17_ehlsc")
 area2D = NodePath("../Area2D")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
