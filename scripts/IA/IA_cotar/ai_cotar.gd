@@ -49,8 +49,6 @@ func bidule() -> void:
 		if target_cell != null:
 			var path = tilemap.make_path(unit, target_cell, unit.move_range)
 			move.set_path(path)
-			
-		# Attente d'une seconde avant de passer à l'unité suivante
 		await get_tree().create_timer(1.0).timeout
 		if await attack_target(unit):
 			continue
