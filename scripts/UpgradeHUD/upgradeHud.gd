@@ -30,10 +30,10 @@ func updateCard(card: Panel, HQData: Dictionary):
 		card.get_node("MarginContainer/HBoxContainer/CenterContainer/DMG").text = "Dégâts : " + str(HQData["damage"])
 		card.get_node("Cost").text = "Coût : " + str(HQData["prix"])
 	card.get_node("BuildingSprite").play()
+	
 func _unhandled_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		visible = false
-
 
 func _on_button_lv_2_pressed() -> void:
 	emit_signal("achatLvl2", 2)

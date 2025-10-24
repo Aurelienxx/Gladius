@@ -27,7 +27,7 @@ func unregister_building(building):
 	building.queue_free()
 
 func capture_building(building):
-	if building.buildingName == "HQ":
+	if building.buildingName == "QG":
 		GlobalSignal.hq_Destroyed.emit()
 	else: 
 		# lance la capture du batiment si ce n'est pas un QG
