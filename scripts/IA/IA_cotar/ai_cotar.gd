@@ -13,7 +13,7 @@ func _ready() -> void:
 func _on_new_player_turn(player: int):
 	"""
 	Exécuté à chaque début de tour. Si c’est le tour de l’équipe IA,
-	elle sélectionne ses unités d’artillerie et exécute leurs décisions.
+	elle sélectionne ses unités de tank et exécute leurs décisions.
 	:param player: (int) Numéro de l’équipe dont c’est le tour.
 	"""
 	if player != equipe_ia:
@@ -27,6 +27,9 @@ func _on_new_player_turn(player: int):
 	controled_units.clear() 
 	
 func bidule() -> void:
+	"""
+	Fonction qui permet a l'ia d'effectuer ses déplacements et attaque
+	"""
 	for unit in controled_units:
 		var target_cell=null
 		var move = unit.get_node("MovementManager")
@@ -60,7 +63,7 @@ func bidule() -> void:
 func get_enemy_target()->Array:
 	
 	"""
-	Fonction Permettannt de recupérer tout les ennemis
+	Fonction permettant de recupérer tout les ennemis
 	"""
 	var targets:Array=[]
 	for unit in GameState.all_units:
@@ -76,8 +79,7 @@ func get_enemy_target()->Array:
 func get_close_ennemy(unit):
 	"""
 	Renvoie la cible ennemie la plus proche de l'unité donnée.
-	:param unit: (Node) Unité dont on veut trouver la cible la plus proche.
-	:return: (Node) La cible ennemie la plus proche ou null si aucune trouvée.
+	:param unit: permet de recupérer le tank.
 	"""
 	var targets = get_enemy_target()
 	if targets.is_empty():
@@ -100,6 +102,12 @@ func get_close_ennemy(unit):
 	
 
 func get_closed_target_cell(unit_pos, reachable_cells, target_pos):
+	"""
+	cherche la cellule la plus proche de la cible 
+	:param unit_pos: permet de recupérer la postion de l'unité.
+	:param reachable_cells: permet de recupérer les cellule disponible.
+	:param target_pos: permet de recupérer les coordonée de la cible.
+	"""
 	if reachable_cells.is_empty():
 		return null
 	var path = tilemap.find_path_a_star(unit_pos, target_pos)
@@ -124,8 +132,7 @@ func get_closed_target_cell(unit_pos, reachable_cells, target_pos):
 func ennemy_in_range(unit):
 	"""
 	Renvoie les cibles ennemie dans la range.
-	:param unit: (Node) Unité dont on veut trouver la cible la plus proche.
-	:return: (Node) La cible ennemie la plus proche ou null si aucune trouvée.
+	:param unit: permet de recupérer le tank.
 	"""
 	var targets = get_enemy_target()
 	if targets.is_empty():
@@ -148,6 +155,10 @@ func ennemy_in_range(unit):
 	
 	
 func attack_target(unit):
+	"""
+	Attaque les ennemie ciblé.
+	:param unit: permet de recupérer le tank.
+	"""
 	var target = ennemy_in_range(unit)
 	if target!=null:
 		main._on_unit_attack(unit,target)
