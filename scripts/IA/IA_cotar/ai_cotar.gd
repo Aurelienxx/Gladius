@@ -33,11 +33,13 @@ func bidule() -> void:
 		var unit_pos = tilemap.get_position_on_map(unit.global_position)
 		var cell = tilemap.get_reachable_cells(tilemap.MAP, unit_pos, unit.move_range)
 		var close_ennemi=get_close_ennemy(unit)
+		if await attack_target(unit):
+			continue
 		if cell.is_empty():
 			continue
 		if close_ennemi !=null:
 			var ennemi_pos=tilemap.get_position_on_map(close_ennemi.global_position)
-			target_cell=get_closed_target_cell(cell,ennemi_pos)
+			target_cell=get_closed_target_cell(unit_pos,cell,ennemi_pos)
 		else:
 			target_cell = cell.pick_random()
 		
@@ -45,8 +47,13 @@ func bidule() -> void:
 			var path = tilemap.make_path(unit, target_cell, unit.move_range)
 			move.set_path(path)
 			
-			# Attente d'une seconde avant de passer à l'unité suivante
-			await get_tree().create_timer(1.0).timeout
+		# Attente d'une seconde avant de passer à l'unité suivante
+		await get_tree().create_timer(1.0).timeout
+		if await attack_target(unit):
+			continue
+			
+			
+			
 			
 			
 	
@@ -91,16 +98,60 @@ func get_close_ennemy(unit):
 	return closest_target
 	
 	
-func get_closed_target_cell(cells,target_pos):
-	if cells.is_empty():
-		return
-	var closest=cells[0]
-	var min_dist=closest.distance_to(target_pos)
-	for cell in cells:
-		var u=cell.distance_to(target_pos)
-		if u<min_dist:
-			closest=cell
-	return closest
-	
+
+func get_closed_target_cell(unit_pos, reachable_cells, target_pos):
+	if reachable_cells.is_empty():
+		return null
+	var path = tilemap.find_path_a_star(unit_pos, target_pos)
+	var best_cell = reachable_cells[0]
+	var best_score = INF
+
+	for cell in reachable_cells:
+		var dist_to_target = cell.distance_to(target_pos)
+		var dist_to_path = INF
+
+		for path_cell in path:
+			dist_to_path = min(dist_to_path, cell.distance_to(path_cell))
+
+		var score = dist_to_target + dist_to_path * 0.5
+		if score < best_score:
+			best_score = score
+			best_cell = cell
+
+	return best_cell
+
+
+func ennemy_in_range(unit):
+	"""
+	Renvoie les cibles ennemie dans la range.
+	:param unit: (Node) Unité dont on veut trouver la cible la plus proche.
+	:return: (Node) La cible ennemie la plus proche ou null si aucune trouvée.
+	"""
+	var targets = get_enemy_target()
+	if targets.is_empty():
+		return null
+		
+	var unit_pos = tilemap.get_position_on_map(unit.global_position)
+	var ennemy_range = null
 
 	
+	for target in targets:
+		var target_pos = tilemap.get_position_on_map(target.global_position)
+		var distance = unit_pos.distance_to(target_pos)
+		
+		if distance < unit.attack_range:
+		
+			ennemy_range=target
+			break
+			
+	return ennemy_range
+	
+	
+func attack_target(unit):
+	var target = ennemy_in_range(unit)
+	if target!=null:
+		main._on_unit_attack(unit,target)
+		await get_tree().create_timer(0.5).timeout
+		return true
+	return false
+		
