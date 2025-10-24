@@ -197,13 +197,16 @@ func get_best_enemy_nearby(unit : CharacterBody2D) -> CharacterBody2D :
 	
 	# On récupère toutes les cibles ennemies
 	var targets : Array = get_enemy_targets()
+	var unit_pos: Vector2i = map.get_position_on_map(unit.global_position)
 	if targets.is_empty() :
 		return null
 	
 	# Si distance <= portée_mouvement + portée attaque
 	# Autrement dit, si la cible sera attaquable juste après le déplacement
 	for target in targets :
-		if unit.global_position.distance_to(target.global_position) <= unit.move_range + unit.attack_range :
+		var target_pos: Vector2i = map.get_position_on_map(target.global_position)
+
+		if unit_pos.distance_to(target_pos) <= unit.move_range + unit.attack_range:
 			# Si la cible a moins de vie que la capacité d'attaque de l'unité
 			if target.current_hp <= unit.damage :
 				return target
