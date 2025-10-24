@@ -9,10 +9,7 @@ var UNIT_VALUES = {
 	"Artillerie": 150,
 	"Camion": 50,
 	"Tank": 200,
-	"QG": 300
 }
-
-const ATTACK_THRESHOLD = 0
 
 func _ready():
 	GlobalSignal.new_player_turn.connect(_on_new_player_turn)
@@ -40,41 +37,59 @@ func Ai_Truck(unit):
 	
 	var start = tileMapManager.get_position_on_map(unit.global_position)
 	var attack_cells = tileMapManager.get_attack_cells(tileMapManager.MAP, start, unit.attack_range)
+	var reachable_cells = tileMapManager.get_reachable_cells(tileMapManager.MAP, start, unit.move_range + unit.attack_range)
+		
+	var neutral_village = find_nearest_neutral_village(unit)
+	var enemy_village = find_nearest_enemy_village(unit)
+	var enemy_hq = get_enemy_hq(equipe)
 	
-	var best_target = null
+	# Recherche un village neutre à capturer
+	if neutral_village != null:
+		await move_to_target(unit, neutral_village.global_position)
+		unit.movement = true
+		
+	# Sinon cherche un village ennemi à détruire
+	elif enemy_village != null:
+		await move_to_target(unit, enemy_village.global_position)
+		unit.movement = true
+		
+	# Sinon déplacement vers le QG ennemi
+	elif enemy_hq != null:
+		await move_to_target(unit,enemy_hq.global_position)
+		unit.movement = true
+		
+	# Recherche de l'unité à attaquer
+	var best_unit = null
 	var best_value = 0
 	
-	# Recherche de cibles ennemies à portée
-	for other in all_units:
-		if other.equipe == equipe:
+	var unit_pos = tileMapManager.get_position_on_map(unit.global_position)
+	for verify_unit in all_units:
+		if verify_unit.equipe == equipe:
 			continue
-		var target_cell = tileMapManager.get_position_on_map(other.global_position)
-		if target_cell in attack_cells:
-			var value = UNIT_VALUES.get(other.name_Unite)
-			if value > best_value:
-				best_value = value
-				best_target = other
-	
-	# Si une cible intéressante est trouvée : attaque
-	if best_target != null and best_value >= ATTACK_THRESHOLD:
-		await attack_target(unit, best_target)
-		unit.movement = true
-		unit.attack = true
+		var unit_cell = tileMapManager.get_position_on_map(verify_unit.global_position)
+		if unit_pos.distance_to(unit_cell) <= unit.attack_range:
+			var current_value = UNIT_VALUES.get(verify_unit.name_Unite, 0)
+			if current_value > best_value:
+				print(best_value)
+				best_value = current_value
+				best_unit = verify_unit
+
+	if best_unit != null:
+		await attack_target(unit, best_unit)
 		return
+
+	# Recherche d’un bâtiment à portée d’attaque
+	for building in all_buildings:
+		print("oui")
+		if building.equipe == equipe:
+			print("non")
+			continue
+		var building_cell = tileMapManager.get_position_on_map(building.global_position)
+		if unit_pos.distance_to(building_cell) <= unit.attack_range:
+			await attack_target(unit, building)
+			return
+
 	
-	# Sinon cherche un village neutre à capturer
-	var village = find_nearest_village(unit)
-	if village != null:
-		await move_to_target(unit, village.global_position)
-		unit.movement = true
-		return
-	
-	# Sinon, avance vers le QG ennemi
-	var enemy_hq = get_enemy_hq(equipe)
-	if enemy_hq != null:
-		await move_to_target(unit, enemy_hq.global_position)
-		unit.movement = true
-		return
 
 # --- MOUVEMENT GÉNÉRIQUE ---
 func move_to_target(unit, target_pos):
@@ -93,24 +108,41 @@ func move_to_target(unit, target_pos):
 			best_dist = dist
 			best_cell = cell
 			
+	if best_cell == null:
+		return
+		
 	await get_tree().create_timer(0.5).timeout
 	var path = tileMapManager.make_path(unit, best_cell, unit.move_range)
 	move.set_path(path)
 	tileMapManager.highlight_reset()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1.75).timeout
 
 # --- ATTAQUE ---
-func attack_target(attacker, target):
-	var main = get_tree().get_first_node_in_group("MainScene")
-	if main != null:
-		main._on_unit_attack(attacker, target)
+func attack_target(unit, target):
+	tileMapManager.display_attack(unit)
+	await get_tree().create_timer(0.5).timeout
+	main._on_unit_attack(unit, target)
+	unit.movement = true
+	unit.attack = true
 
 # --- RECHERCHE DE VILLAGE ---
-func find_nearest_village(unit):
+func find_nearest_neutral_village(unit):
 	var nearest = null
 	var best_dist = INF
 	for b in GameState.all_buildings:
-		if b.buildingName == "Village" and b.equipe != unit.equipe:
+		if ( b.buildingName == "Village" or b.buildingName == "Town" ) and b.equipe == 0:
+			var dist = unit.global_position.distance_to(b.global_position)
+			if dist < best_dist:
+				best_dist = dist
+				nearest = b
+	return nearest
+	
+# --- RECHERCHE DE VILLAGE ENNEMI ---
+func find_nearest_enemy_village(unit):
+	var nearest = null
+	var best_dist = INF
+	for b in GameState.all_buildings:
+		if ( b.buildingName == "Village" or b.buildingName == "Town" ) and b.equipe == 1:
 			var dist = unit.global_position.distance_to(b.global_position)
 			if dist < best_dist:
 				best_dist = dist
@@ -120,6 +152,6 @@ func find_nearest_village(unit):
 # --- RECHERCHE DU QG ENNEMI ---
 func get_enemy_hq(equipe: int):
 	for b in GameState.all_buildings:
-		if b.buildingName == "HQ" and b.equipe != equipe:
+		if b.buildingName == "QG" and b.equipe != equipe:
 			return b
 	return null

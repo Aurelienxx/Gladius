@@ -274,3 +274,66 @@ func attack_gaz(QG:CharacterBody2D)->void:
 		var taille_liste= len(liste)
 		var i :int=randi_range(0,taille_liste-1)
 		gaz_cell(liste[i])
+
+func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
+	"""
+    A* classique pour obtenir le chemin le plus court entre start et goal.
+    Ignore uniquement les obstacles infranchissables.
+    """
+	var open_list: Array = [start]
+	var closed_list: Array = []
+	var came_from: Dictionary = {}
+	var g_score: Dictionary = {start: 0}
+	var f_score: Dictionary = {start: start.distance_to(goal)}
+
+	# Directions possibles (4 directions)
+	var directions = [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]
+
+	while open_list.size() > 0:
+		# Noeud avec le plus petit f_score
+		var current = open_list[0]
+		for node in open_list:
+			if f_score.get(node, INF) < f_score.get(current, INF):
+				current = node
+
+		# Si on atteint l'objectif, reconstruire le chemin
+		if current == goal:
+			var path: Array = []
+			var node = current
+			while node in came_from:
+				path.insert(0, node)
+				node = came_from[node]
+			path.insert(0, start)
+			return path
+
+		open_list.erase(current)
+		closed_list.append(current)
+
+		for offset in directions:
+			var neighbor = current + offset
+
+			# Ignore les cases hors carte
+			if MAP.get_cell_source_id(neighbor) == -1:
+				continue
+
+			# Ignore les obstacles infranchissables
+			if get_terrain_cost(neighbor) < 0:
+				continue
+
+			if neighbor in closed_list:
+				continue
+
+			var tentative_g = g_score[current] + get_terrain_cost(neighbor)
+
+			if neighbor not in open_list:
+				open_list.append(neighbor)
+			elif tentative_g >= g_score.get(neighbor, INF):
+				continue
+
+			# Mise à jour du chemin
+			came_from[neighbor] = current
+			g_score[neighbor] = tentative_g
+			f_score[neighbor] = tentative_g + neighbor.distance_to(goal)
+
+	# Si aucun chemin trouvé, retourne vide
+	return []
