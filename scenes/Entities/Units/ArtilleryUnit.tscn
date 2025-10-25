@@ -108,7 +108,6 @@ bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
 [node name="ArtilleryUnit" type="CharacterBody2D"]
 script = ExtResource("1_wso3m")
-move_range = 10
 thumbnail = ExtResource("2_x6c4b")
 
 [node name="Effects" type="AnimationPlayer" parent="."]

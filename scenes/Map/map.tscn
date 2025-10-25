@@ -5,18 +5,18 @@
 [ext_resource type="PackedScene" uid="uid://casx0iw2asrlb" path="res://scenes/HUD/HUD.tscn" id="2_aasa8"]
 [ext_resource type="PackedScene" uid="uid://n3ggusxw272m" path="res://scenes/Map/utils/player_view.tscn" id="2_app3p"]
 [ext_resource type="Texture2D" uid="uid://brxd7ajeu6321" path="res://assets/sprites/TileSet/tile_set_grass.png" id="2_exngo"]
-[ext_resource type="Script" uid="uid://bgbetnujlhn1r" path="res://scripts/Map/turn_manager.gd" id="2_mnaup"]
+[ext_resource type="Script" path="res://scripts/Map/turn_manager.gd" id="2_mnaup"]
 [ext_resource type="Texture2D" uid="uid://ciotxau2s77sa" path="res://assets/sprites/TileSet/tile_set_dirt.png" id="3_2rm8l"]
-[ext_resource type="Script" uid="uid://mff1k0ifkbeh" path="res://scripts/Map/effects_manager.gd" id="3_ehssc"]
+[ext_resource type="Script" path="res://scripts/Map/effects_manager.gd" id="3_ehssc"]
 [ext_resource type="Script" uid="uid://cw3ty15gjfhmy" path="res://scripts/Managers/UnitControler.gd" id="6_2yrau"]
 [ext_resource type="Texture2D" uid="uid://4545fuvmbm6m" path="res://assets/sprites/TileSet/HighlightSpriteSheet.png" id="6_57bgo"]
 [ext_resource type="Texture2D" uid="uid://c3ohhb3hnicse" path="res://assets/sprites/TileSet/HighlightAttackSpriteSheet.png" id="7_57bgo"]
-[ext_resource type="Texture2D" uid="uid://cr02mv6at1bvg" path="res://assets/sprites/TileSet/tile_set_grass_2.png" id="9_53cjn"]
-[ext_resource type="Texture2D" uid="uid://dnqm2cpkt8kr7" path="res://assets/sprites/TileSet/tile_set_forest.png" id="10_aasa8"]
+[ext_resource type="Texture2D" uid="uid://bufdgwviuhj21" path="res://assets/sprites/TileSet/tile_set_grass_2.png" id="9_53cjn"]
+[ext_resource type="Texture2D" uid="uid://x6cy1jcobgtp" path="res://assets/sprites/TileSet/tile_set_forest.png" id="10_aasa8"]
 [ext_resource type="Script" uid="uid://ch3mn8hahtl6q" path="res://scripts/TileMapManager/tile_map_manager.gd" id="10_wdqq6"]
-[ext_resource type="Texture2D" uid="uid://c54x8v1keu8wa" path="res://assets/sprites/TileSet/tile_set_water.png" id="12_b8hlp"]
+[ext_resource type="Texture2D" uid="uid://c7jgdfes45wxi" path="res://assets/sprites/TileSet/tile_set_water.png" id="12_b8hlp"]
 [ext_resource type="Texture2D" uid="uid://cu68h6d3ictdf" path="res://assets/sprites/TileSet/Obstacle_Object.png" id="13_b8hlp"]
-[ext_resource type="Texture2D" uid="uid://by1j0cuhbcnp7" path="res://assets/sprites/TileSet/clif_tile_set.png" id="13_wdqq6"]
+[ext_resource type="Texture2D" uid="uid://dx4tby7dfrvda" path="res://assets/sprites/TileSet/clif_tile_set.png" id="13_wdqq6"]
 [ext_resource type="Texture2D" uid="uid://d22dmhi2ruqn0" path="res://assets/sprites/TileSet/gas.png" id="14_wdqq6"]
 [ext_resource type="Texture2D" uid="uid://dvjkhlgcuf8to" path="res://assets/sprites/TileSet/Unit_Highlight.png" id="15_53cjn"]
 
@@ -1152,6 +1152,8 @@ script = ExtResource("1_4rr3d")
 script = ExtResource("2_53cjn")
 tileMapManager = NodePath("../../TileMapContainer")
 main = NodePath("../..")
+
+[node name="Node2D" type="Node2D" parent="AiManager"]
 
 [node name="TurnManager" type="Node2D" parent="."]
 script = ExtResource("2_mnaup")
