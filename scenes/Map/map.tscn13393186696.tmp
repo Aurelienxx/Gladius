@@ -1150,7 +1150,6 @@ script = ExtResource("1_4rr3d")
 [node name="AiManager" type="Node" parent="."]
 
 [node name="AiInfoVisualisator" type="Node2D" parent="AiManager"]
-visible = false
 z_index = 1000
 script = ExtResource("2_ehssc")
 

@@ -71,44 +71,46 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 	Gère le comportement lorsqu'une unité attaque une autre unité ou un bâtiment.
 	Affiche également l'animation d'explosion et gère la mort des entités.
 	"""
-	if target == null:
+	if target == null :
 		# Vérifie que l’attaquant appartient bien au joueur actif et qu’il n’a pas déjà attaqué
 		if attacker.is_in_group("buildings") or attacker.equipe != current_player or attacker.attack == true:
 			return
-
-		attack_unit = attacker
-		mode = "attack"
-		tileMapManager.display_attack(attacker)
-		return
+		
+		if not attacker.is_AI:
+			attack_unit = attacker
+			mode = "attack"
+			tileMapManager.display_attack(attacker)
+			return
 
 	# Si la cible appartient à une équipe différente de celle de l'attaquant
-	if target.equipe != attacker.equipe:
-		var attacker_pos = attacker.global_position
-		var building_cells = tileMapManager.get_occupied_cells(target) # Récupère la taille du bâtiment
-		var attacker_cell = tileMapManager.get_position_on_map(attacker_pos) # Récupère la cellule de l'attaquant
-		var in_range = false
-		# Si une des cases du bâtiment est à portée d'attaque de l'unité, alors le bâtiment peut être attaqué par celle-ci
-		for cell in building_cells:
-			if attacker_cell.distance_to(cell) <= attacker.attack_range:
-				in_range = true
-				break
-		
-		if in_range:
-			# Change les variables d’attaque et de mouvement pour rendre l’unité inactive pendant le reste du tour
-			attacker.attack = true
-			attacker.movement = true
+	else:
+		if target.equipe != attacker.equipe:
+			var attacker_pos = attacker.global_position
+			var building_cells = tileMapManager.get_occupied_cells(target) # Récupère la taille du bâtiment
+			var attacker_cell = tileMapManager.get_position_on_map(attacker_pos) # Récupère la cellule de l'attaquant
+			var in_range = false
+			# Si une des cases du bâtiment est à portée d'attaque de l'unité, alors le bâtiment peut être attaqué par celle-ci
+			for cell in building_cells:
+				if attacker_cell.distance_to(cell) <= attacker.attack_range:
+					in_range = true
+					break
 			
-			GlobalSignal.attack_occured_pos.emit(target.position)
-			target.take_damage(attacker.damage) # Appelle la fonction de mise à jour de la barre de vie de la cible
+			if in_range:
+				# Change les variables d’attaque et de mouvement pour rendre l’unité inactive pendant le reste du tour
+				attacker.attack = true
+				attacker.movement = true
+				
+				GlobalSignal.attack_occured_pos.emit(target.position)
+				target.take_damage(attacker.damage) # Appelle la fonction de mise à jour de la barre de vie de la cible
 
-			if target.current_hp <= 0:
-				# Si c’est une unité
-				if target.is_in_group("units"):
-					# Supprime l'entité du terrain et de la liste des unités
-					target.death()
-				else:
-					# Supprime le Head Quarter et appelle la fonction de fin du jeu
-					GameState.capture_building(target)
+				if target.current_hp <= 0:
+					# Si c’est une unité
+					if target.is_in_group("units"):
+						# Supprime l'entité du terrain et de la liste des unités
+						target.death()
+					else:
+						# Supprime le Head Quarter et appelle la fonction de fin du jeu
+						GameState.capture_building(target)
 
 	attack_unit = null # L'unité n'attaque plus
 	mode = "" # Réinitialise le mode 
@@ -226,10 +228,8 @@ func _input(event):
 	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if mode == "move": 
 			move_manager()
-	"""
+
 	elif Input.is_action_pressed("debug"):
-		# passe le jeu en mode "debug" 
-		# spécifiquement pour le teste des IA 
-		while true:
-			GlobalSignal.pass_turn.emit()
-	"""
+		var AiInfoVisualisator = $AiManager/AiInfoVisualisator
+		AiInfoVisualisator.visible = !AiInfoVisualisator.visible
+		
