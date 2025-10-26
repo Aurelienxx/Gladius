@@ -11,9 +11,10 @@ const buildingName = "QG"
 
 var current_player: int 
 # Statistiques et attributs de base du QG
-var max_hp: int = 500
+var max_hp: int = 2000
 var damage: int
 var attack_range: int
+var isAI : bool = false
 
 var lv: int = 1
 var size_x: int = 3
@@ -149,5 +150,9 @@ func showUpgradeHUD(equipe: int):
 	current_player = equipe
 	upgradeHUD.displayCards(HQ1Data, HQ2Data, HQ3Data)
 	upgradeHUD.visible = true
-	
-	
+
+func getName():
+	return buildingName
+
+func getEquipe():
+	return equipe

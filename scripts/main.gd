@@ -46,39 +46,28 @@ func _on_unit_clicked(unit: CharacterBody2D) -> void:
 	"""
 	Gère la sélection d'une unité pour le déplacement ou l'attaque.
 	"""
-	var manager: Node = unit.get_node("MovementManager")
-	
-	if manager.is_selected:
-		selected_unit = unit
-	
-		# Vérifie que l'unité ne s'est pas déjà déplacée
-		if unit.movement == false :
-			mode = "move"
-			
-<<<<<<< Updated upstream
-		# L’unité doit appartenir au joueur actif et ne pas avoir déjà bougé
-		if selected_unit.equipe == current_player and selected_unit.movement == false:
-			tileMapManager.display_movement(unit)
-	else:
-		tileMapManager.highlight_reset()
+	if !(unit.isAI):
+		var manager: Node = unit.get_node("MovementManager")
+		
+		if manager.is_selected:
+			selected_unit = unit
+		
+			# Vérifie que l'unité ne s'est pas déjà déplacée
+			if unit.movement == false :
+				mode = "move"
+				
+			# L’unité doit appartenir au joueur actif et ne pas avoir déjà bougé
+			if selected_unit.equipe == current_player and selected_unit.movement == false:
+				tileMapManager.display_movement(unit)
+		else:
+			tileMapManager.highlight_reset()
 		
 func _on_building_click(building: CharacterBody2D) -> void:
 	if building.buildingName== "QG" and current_player == building.equipe:
 		building.showUpgradeHUD(building.equipe)
 	selected_unit = building
-	
-func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
-=======
-		if manager.is_selected:
-			# L’unité doit appartenir au joueur actif et ne pas avoir déjà bougé
-			if selected_unit.equipe == current_player and selected_unit.movement == false:
-				tileMapManager.display_movement(unit)
-				
-	if unit.is_in_group("buildings") and unit.buildingName== "QG" and current_player == unit.getTeam():
-		unit.showUpgradeHUD(unit.getTeam())
 
 func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D) -> bool:
->>>>>>> Stashed changes
 	"""
 	Gère le comportement lorsqu'une unité attaque une autre unité ou un bâtiment.
 	Affiche également l'animation d'explosion et gère la mort des entités.
@@ -89,7 +78,8 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D) -> bool
 			return false
 
 		attack_unit = attacker
-		mode = "attack"
+		if attacker.isAI == false:
+			mode = "attack"
 		tileMapManager.display_attack(attacker)
 		return false
 
@@ -233,8 +223,6 @@ func _input(event):
 		GlobalSignal.pass_turn.emit()
 	elif Input.is_action_pressed("space"):
 		quick_select()
-	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		print(event.position)
 	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if mode == "move": 
 			move_manager()

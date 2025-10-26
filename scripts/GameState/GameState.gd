@@ -41,3 +41,10 @@ func capture_building(building):
 	else: 
 		# lance la capture du batiment si ce n'est pas un QG
 		building.capture()
+
+func reset():
+	all_entities.clear()
+	AIUnits.clear()
+	all_units.clear()
+	all_buildings.clear()
+	current_player = 0

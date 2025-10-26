@@ -22,8 +22,7 @@ extends CharacterBody2D
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int
 var equipe: int
-var isAI: bool = true
-
+var isAI: bool 
 var map:TileMapLayer
 
 func setup(_equipe: int, _map:TileMapLayer) -> void:
@@ -32,7 +31,11 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
 	map = _map
-
+	if equipe == 1:
+		isAI = true
+	elif equipe == 2:
+		isAI = false
+	
 	if equipe == 2:
 		anim.flip_h = true
 		MaskOverlay.flip_h = true
@@ -50,3 +53,18 @@ func take_damage(dmg : int) -> void :
 
 func getEquipe():
 	return equipe
+
+func getDamage():
+	return damage
+
+func getAttackRange():
+	return attack_range
+
+func getHealth():
+	return current_hp
+
+func getName():
+	return name_Unite
+
+func getMoveRange():
+	return move_range

@@ -50,3 +50,18 @@ func take_damage(dmg : int) -> void :
 	"""
 	current_hp -= dmg
 	Movement.update_health_bar(current_hp, max_hp)
+
+func getEquipe():
+	return equipe
+
+func getDamage():
+	return damage
+
+func getAttackRange():
+	return attack_range
+
+func getHealth():
+	return current_hp
+
+func getName():
+	return name_Unite

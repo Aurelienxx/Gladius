@@ -59,11 +59,11 @@ func building_economy():
 			EconomyManager.change_money_gain(buiding.current_gain)
 
 ##### Gaz
-
 func gaz_attack() -> void: 
 	for build in all_buildings:
-		if build.get_script().resource_path.find("QG.gd") != -1 and build.equipe == current_player and build.lv==3:
-			tileMapManager.attack_gaz(build)
+		if build.equipe == current_player and build.lv==3:
+			if build.buildingName == "QG.gd":
+				tileMapManager.attack_gaz(build)
 
 func gaz_process() -> void:
 	for unit in all_units:
