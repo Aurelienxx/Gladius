@@ -12,8 +12,8 @@ extends CharacterBody2D
 @export var maintenance: int = 3
 @export var max_hp: int = 150
 @export var damage: int = 30
-@export var move_range: int = 100 #10
-@export var attack_range: int = 10 #3  
+@export var move_range: int = 10
+@export var attack_range: int = 3  
 @export var movement: bool = false
 @export var attack: bool = false
 @export var name_Unite: String = "Camion"

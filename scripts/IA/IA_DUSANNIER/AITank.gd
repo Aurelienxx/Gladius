@@ -12,13 +12,13 @@ var ASSIGNED_TEAM:int = 2
 
 # Score attribué a toute les entités du jeux
 var entity_scoring: Dictionary = {
-	"Tank"       : 1.0,
+	"Tank"       : 2.0,
 	"Infanterie" : 5.0,
 	"Artillerie" : 10.0,
-	"Camion"     : 2.0,
-	"QG"         : 20.0,
-	"Town"       : 10.0,
-	"Village"    : 5.0
+	"Camion"     : 7.0,
+	"QG"         : 5.0,
+	"Town"       : 5.0,
+	"Village"    : 2.0
 }
 
 #### Setup 
@@ -54,11 +54,12 @@ func compute_danger_map() -> Dictionary:
 		if enemy.equipe != ASSIGNED_TEAM:
 			var enemy_cell = tileMapManager.get_position_on_map(enemy.global_position)
 			
-			var range = enemy.attack_range + 5
+			# on augmente légérement le range de l'attack enemi pour que l'unité en se prévienne du danger
+			var range = enemy.attack_range + 2 
 			var range_cells = tileMapManager.get_attack_cells(enemy_cell, range)
 			
-			# Base du danger = 20 % des dégâts potentiels de l’unité ennemie
-			var base_danger = enemy.damage * 0.2
+			# Base du danger = 10 % des dégâts potentiels de l’unité ennemie
+			var base_danger = enemy.damage * 0.1
 
 			for cell in range_cells:
 				var dist = enemy_cell.distance_to(cell)
@@ -100,6 +101,9 @@ func get_nearest_targets(unit_cell) -> Dictionary:
 
 # get_best_target_attack : l'unité cherche la cible la plus judicieuse à attaquer
 func get_best_target_attack(unit) -> Node2D:
+	"""
+	Réalise l'évaluation de la meilleur unité a attacker autour de l'unité 
+	"""
 	var best_target: Node2D = null
 	var best_score: float = -INF
 
@@ -119,14 +123,14 @@ func get_best_target_attack(unit) -> Node2D:
 		var hp_ratio = float(target.current_hp) / float(target.max_hp)
 		score += (1.0 - hp_ratio) * 3.0
 		
-		
+		# On ajoute le score qu'on attribut a l'unité ou le batiment 
 		if target in all_units:
 			score += entity_scoring[target.name_Unite]
 
 		if target in all_buildings:
 			score += entity_scoring[target.buildingName]
 		
-		# si on l'entité est attaquable 
+		# si on l'entité est attaquable on donne un gros bonus 
 		if dist <= unit.attack_range:
 			score += 10.0
 
@@ -137,6 +141,9 @@ func get_best_target_attack(unit) -> Node2D:
 	return best_target
 	
 func get_best_cell(start_cell, unit, target):
+	"""
+	Permet de choisir la meilleure cellule sur laquelle se déplacé pour attaquer une unité adverse
+	"""
 	debug_visualition.reset()
 	var danger_map = compute_danger_map()
 	
@@ -160,15 +167,15 @@ func get_best_cell(start_cell, unit, target):
 		var can_attack_target: bool = dist_to_target <= unit.attack_range
 
 		# Calcul du score influencé par le courage
-		score -= danger * (1.0 / courage)  # plus peureux = plus sensible au danger
+		score -= danger * (1.0 / courage)  # moins de courage = plus sensible au danger
 
 		if can_attack_target:
-			score += 15.0 * courage  # plus de PV = plus d'envie d'attaquer
+			score += 15.0 * courage  # plus de PV = on prend plus de risques 
 			score -= dist_to_target * 0.1
 		else:
 			score -= dist_to_target * (1.0 / courage)
 
-		# avance si possible (bonus modulé par le courage)
+		# avance si possible 
 		if not can_attack_target and dist_to_target < start_cell.distance_to(target_cell):
 			score += 3.0 * courage
 
