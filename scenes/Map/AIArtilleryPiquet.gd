@@ -5,7 +5,6 @@ var listeEntities : Array = GameState.all_entities
 var listeArtilleriesAlly : Array
 var listeEntitiesEnnemies : Array
 var listeUnitesEnnemies : Array
-var listeAIUnits : Array = GameState.AIUnits
 var unitsValues : Dictionary
 var entitiesInRange : Array
 
@@ -99,7 +98,7 @@ func getDangerValue(cell, ennemies):
 			danger += (7 - dist) * 3
 	var mapSize = MapManager.MAP.get_used_rect().size
 	var edgeDistance = min(cell.x, cell.y, mapSize.x - cell.x, mapSize.y - cell.y)
-	danger -= edgeDistance * 0.5
+	danger += edgeDistance * 2
 	return danger
 
 func getAreaDanger(center, enemies, radius) -> float:
@@ -120,32 +119,24 @@ func bestGoal(unit, enemies):
 	var safestBuilding = null
 	var lowestScore = INF
 	
+	var unitPos = MapManager.get_position_on_map(unit.global_position)
+
 	for building in listeEntities:
 		if building.is_in_group("buildings") and building.getEquipe() != 1:
-			var buildingPos = MapManager.get_position_on_map(building.global_position)
-			# Vérifie s'il y a des ennemis autour
-			var nearbyEnemies = false
-			for enemy in enemies:
-				var enemyPos = MapManager.get_position_on_map(enemy.global_position)
-				if MapManager.distance(buildingPos, enemyPos) <= 4: # rayon de danger
-					nearbyEnemies = true
-					break
-			
-			var distanceScore = MapManager.distance(unit, building)
-			var dangerScore = 0.0
-			if nearbyEnemies:
-				dangerScore = getAreaDanger(buildingPos, enemies, 4)
-			
-			var score = distanceScore + dangerScore
-			
-			# Si aucun ennemi autour, on réduit fortement le score pour priorité
-			if not nearbyEnemies:
-				score *= 0.1
-			
+			var buildingCells = MapManager.get_occupied_cells(building)
+			var minDist = INF
+			for cell in buildingCells:
+				var d = MapManager.distance(unitPos, cell)
+				if d < minDist:
+					minDist = d
+			var dangerScore = getAreaDanger(MapManager.get_position_on_map(building.global_position), enemies, 4)
+
+			var score = (minDist * 1.0) + (dangerScore * 2.0)
+			if dangerScore < 1.0:
+				score *= 0.5
 			if score < lowestScore:
 				lowestScore = score
 				safestBuilding = building
-	
 	return safestBuilding
 
 # Pour chaque artillerie, appelle la fonction "doYourStuff"
@@ -163,6 +154,7 @@ func yourTurn():
 func doYourStuff(unit):
 	var attackRange = unit.getAttackRange()
 	var targetBuilding = bestGoal(unit, listeUnitesEnnemies)
+	print(targetBuilding)
 	var unitPos = MapManager.get_position_on_map(unit.global_position)
 	var targetPos = MapManager.get_position_on_map(targetBuilding.global_position)
 	var everyTarget = MapManager.get_occupied_cells(targetBuilding) # Liste des cellules autour de targetPos
