@@ -304,7 +304,7 @@ func get_valid_path(unit: CharacterBody2D, goal: Vector2i) -> Array:
 
 		valid_path.append(step)
 
-	return make_path(unit,valid_path[-1],unit.move_range)
+	return make_path(unit,valid_path[-1],99)
 
 	
 func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
@@ -351,7 +351,8 @@ func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
 			# Ignore les obstacles infranchissables
 			if get_terrain_cost(neighbor) < 0:
 				continue
-
+			
+				
 			if neighbor in closed_list:
 				continue
 

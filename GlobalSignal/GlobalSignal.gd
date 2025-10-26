@@ -19,4 +19,4 @@ signal pass_turn()
 
 signal attack_occured_pos(attack_position:Vector2i)
 signal unit_spawn_pos(spawn_position:Vector2i)
-signal unit_finished_moving()
+signal unit_finished_moving(unit)

@@ -16,9 +16,9 @@ var entity_scoring: Dictionary = {
 	"Infanterie" : 5.0,
 	"Artillerie" : 10.0,
 	"Camion"     : 7.0,
-	"QG"         : 5.0,
-	"Town"       : 5.0,
-	"Village"    : 2.0
+	"QG"         : 15.0,
+	"Town"       : 10.0,
+	"Village"    : 10.0
 }
 
 #### Setup 
@@ -239,6 +239,8 @@ func ai_logic() -> void:
 		else: 
 			ai_move_toward_target(unit,target)
 		
+		#await GlobalSignal.unit_finished_moving
+		
 		# On regarde encore quelle cible est la meilleur a attaquer maintenant
 		target = get_best_target_attack(unit)
 		
@@ -251,3 +253,5 @@ func ai_logic() -> void:
 		
 		if in_range:
 			main._on_unit_attack(unit, target)
+		
+		#await get_tree().create_timer(0.3).timeout
