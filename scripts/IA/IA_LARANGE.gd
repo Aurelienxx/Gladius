@@ -50,6 +50,7 @@ func IA_turn() -> void:
 			
 			# On tente d'attaquer tout de suite, si réussi, on passe à l'unité suivante
 			if await try_attacking_here(unit):
+				print("INFANTERIE : J'attaque un ennemi à proximité")
 				continue
 			
 			# Affichage du range de déplacement pour simuler le comportement joueur, petite attente pour la même raison
