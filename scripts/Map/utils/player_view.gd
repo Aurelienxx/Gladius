@@ -85,11 +85,9 @@ func _input(event):
 	- Clic gauche maintenu : activer drag caméra
 	"""
 	if Input.is_action_just_released("MwU"):
-		#print("vers le haut")
 		cam.zoom += Vector2(zoom_step, zoom_step)
 		cam.zoom = cam.zoom.clamp(min_zoom, max_zoom)
 	elif Input.is_action_just_released("MwD"):
-		#print("vers le bas")
 		cam.zoom -= Vector2(zoom_step, zoom_step)
 		cam.zoom = cam.zoom.clamp(min_zoom, max_zoom)
 	

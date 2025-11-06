@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var health_bar: ProgressBar = $HealthBar 
 
 @onready var Movement: Node = $MovementManager
+@onready var IA: Node = $IA
 
 @export var cost: int = 90
 @export var maintenance: int = 3
