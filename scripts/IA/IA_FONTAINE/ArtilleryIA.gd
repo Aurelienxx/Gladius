@@ -6,40 +6,6 @@ var equipe_ia: int = 2 # Numéro d’équipe de l’IA
 @export var tileMapManager: Node
 @export var main: Node
 
-func _ready():
-	"""
-	Connecte le signal de changement de tour à la fonction gérant le tour de l’IA.
-	"""
-	GlobalSignal.new_player_turn.connect(_on_new_player_turn)
-
-func _on_new_player_turn(player: int):
-	"""
-	Exécuté au début de chaque tour. Si c’est le tour de l’équipe IA,
-	on sélectionne ses unités d’artillerie et on exécute leur logique d’action.
-
-	:param player: (int) Numéro de l’équipe dont c’est le tour.
-	"""
-	if player != equipe_ia:
-		return
-
-	controled_units.clear()
-	for unit in GameState.all_units:
-		# Sélectionne uniquement les artilleries appartenant à l’IA
-		if unit.equipe == player and unit.name_Unite == "Artillerie":
-			controled_units.append(unit)
-
-	await do_your_thing()
-	controled_units.clear()
-
-func do_your_thing() -> void:
-	"""
-	Fait agir successivement chaque artillerie contrôlée, 
-	avec une courte pause entre chaque action pour éviter les actions instantanées.
-	"""
-	for unit in controled_units: 
-		await _make_decision(unit)# Pour chaque unité, on détermine l'action à effectuer
-		await get_tree().create_timer(0.3).timeout  # Pause de 3 secondes entre les unités
-
 func _has_attackable_target(unit) -> bool:
 	"""
 	Vérifie si une cible ennemie est à portée d’attaque de l’unité.
@@ -92,7 +58,7 @@ func _make_decision(unit) -> void:
 			await _attack_target(unit, chosen["target"])
 		"move_then_attack":
 			await _move_to_target(unit, chosen["cell"])
-			await get_tree().create_timer(0.1).timeout # Pause d'une seconde entre les deux actions
+			#await get_tree().create_timer(0.1).timeout # Pause d'une seconde entre les deux actions
 			await _attack_target(unit, chosen["target"])
 		"move_only":
 			await _move_to_target(unit, chosen["cell"])
@@ -347,11 +313,12 @@ func _move_to_target(unit, cell) -> void:
 
 	var path = tileMapManager.make_path(unit, cell, unit.move_range) # Créer le chemin vers la case
 	if path.is_empty():
+		GlobalSignal.unit_finished_moving.emit()
 		return
 
 	var manager: Node = unit.get_node("MovementManager") # Récupere de Node de deplacement de l'unité
 	manager.set_path(path) # Déplace l'unité
-	await get_tree().create_timer(0.5).timeout # Pause de 5 secondes pour laisser le temps de se déplacer à l'unité
+	#await get_tree().create_timer(0.5).timeout # Pause de 5 secondes pour laisser le temps de se déplacer à l'unité
 
 func _attack_target(unit, target = null) -> void:
 	"""

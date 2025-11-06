@@ -39,7 +39,6 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 		anim.flip_h = true
 		MaskOverlay.flip_h = true
 		is_AI = true
-		AiSignal.register_ai_tank.emit(self)
 
 	# On confie la couleur et les animations au MovementManager
 	Movement._apply_color(equipe)
@@ -47,8 +46,6 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 
 func death() -> void:
 	GameState.unregister_unit(self)
-	if is_AI:
-		AiSignal.unregister_ai_tank.emit(self)
 	
 func take_damage(dmg : int) -> void :
 	"""

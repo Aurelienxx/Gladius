@@ -3,7 +3,7 @@ extends Node
 var EconomyTab = []
 
 var ValueStorage = {
-	"current_money":  200, 
+	"current_money":  200000, #200, 
 	"money_gain":     0, 
 	"money_loss" :    0, 
 	"money_result":   0

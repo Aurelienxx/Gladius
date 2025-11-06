@@ -21,25 +21,6 @@ var entity_scoring: Dictionary = {
 	"Village"    : 10.0
 }
 
-#### Setup 
-
-func _ready():
-	AiSignal.register_ai_tank.connect(register_unit)
-	AiSignal.unregister_ai_tank.connect(unregister_unit)
-	GlobalSignal.new_turn.connect(new_player_turn)
-
-func new_player_turn() -> void:
-	if GameState.current_player == ASSIGNED_TEAM:
-		ai_logic()
-
-# Registration
-
-func register_unit(unit) -> void:
-	controled_units.append(unit)
-
-func unregister_unit(unit) -> void:
-	controled_units.erase(unit)
-
 #### CORE GAMEPLAY 
 
 # Carte du danger : plus le score est élevé, plus le danger est important
@@ -74,7 +55,6 @@ func compute_danger_map() -> Dictionary:
 				danger_map[cell] = danger_map.get(cell, 0.0) + danger_score
 
 	return danger_map
-
 
 func get_nearest_targets(unit_cell) -> Dictionary:
 	"""
@@ -199,7 +179,6 @@ func get_best_cell(start_cell, unit, target):
 	
 	move_unit_along_path(unit, full_path)
 
-
 func ai_move_toward_target(unit,target) -> void:
 	"""
 	Fais simplement le chemin entre l'unité et son objectif, rien de plus.
@@ -224,34 +203,30 @@ func move_unit_along_path(unit, path) -> void:
 	manager.set_path(path)
 	unit.movement = true
 	
-#### IA decision
+#### AI decision
 
-func ai_logic() -> void:
+func _ai_logic(unit) -> void:
 	var target # sert a stocker la cible 
 	var danger_map:Dictionary = compute_danger_map()
-	for unit in controled_units:
-		# On choisi la cible vers laquelle on doit se déplacé/se repositionner
-		target = get_best_target_attack(unit)
-		
-		var current_cell = tileMapManager.get_position_on_map(unit.global_position)
-		if current_cell in danger_map:
-			get_best_cell(current_cell,unit,target)
-		else: 
-			ai_move_toward_target(unit,target)
-		
-		#await GlobalSignal.unit_finished_moving
-		
-		# On regarde encore quelle cible est la meilleur a attaquer maintenant
-		target = get_best_target_attack(unit)
-		
-		var new_cell = tileMapManager.get_position_on_map(unit.global_position)
-		var in_range = false
-		for cell in tileMapManager.get_occupied_cells(target):
-			if new_cell.distance_to(cell) <= unit.attack_range:
-				in_range = true
-				break
-		
-		if in_range:
-			main._on_unit_attack(unit, target)
-		
-		#await get_tree().create_timer(0.3).timeout
+
+	# On choisi la cible vers laquelle on doit se déplacé/se repositionner
+	target = get_best_target_attack(unit)
+	
+	var current_cell = tileMapManager.get_position_on_map(unit.global_position)
+	if current_cell in danger_map:
+		get_best_cell(current_cell,unit,target)
+	else: 
+		ai_move_toward_target(unit,target)
+	
+	# On regarde encore quelle cible est la meilleur a attaquer maintenant
+	target = get_best_target_attack(unit)
+	
+	var new_cell = tileMapManager.get_position_on_map(unit.global_position)
+	var in_range = false
+	for cell in tileMapManager.get_occupied_cells(target):
+		if new_cell.distance_to(cell) <= unit.attack_range:
+			in_range = true
+			break
+	
+	if in_range:
+		main._on_unit_attack(unit, target)

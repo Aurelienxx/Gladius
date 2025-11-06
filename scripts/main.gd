@@ -230,6 +230,7 @@ func _input(event):
 			move_manager()
 
 	elif Input.is_action_pressed("debug"):
-		var AiInfoVisualisator = $AiManager/AiInfoVisualisator
-		AiInfoVisualisator.visible = !AiInfoVisualisator.visible
+		pass
+		#var AiInfoVisualisator = $AiManager/AiInfoVisualisator
+		#AiInfoVisualisator.visible = !AiInfoVisualisator.visible
 		

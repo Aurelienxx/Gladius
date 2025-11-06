@@ -20,7 +20,6 @@ config/icon="res://assets/sprites/icon.svg"
 GlobalSignal="*res://GlobalSignal/GlobalSignal.gd"
 EconomyManager="*res://scripts/Economy/EconomyManager.gd"
 GameState="*res://scripts/GameState/GameState.gd"
-AiSignal="*res://scripts/IA/AI_Signals/AISignal.gd"
 
 [display]
 
