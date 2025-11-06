@@ -202,12 +202,14 @@ func spawnUnit(unit) -> void:
 	var spawn = get_node("Units/PlayerUnits")
 
 	if EconomyManager.money_check(unit.cost):
-		var new_unit = spawn.spawn_unit(unit.name_Unite,current_player) # Instancie une nouvelle unité dans léquipe
+		var new_unit = null
+		new_unit = spawn.spawn_unit(unit.name_Unite,current_player) # Instancie une nouvelle unité dans léquipe
 		add_child(new_unit) # Ajoute l'unité au terrain 
 		all_units = get_tree().get_nodes_in_group("units") # Ajoute l'unité à la liste des unités
 		# Mets à jour l'économie du joueur
-		EconomyManager.buy_something(unit.cost)
-		EconomyManager.change_money_loss(unit.maintenance)
+		if new_unit != null :
+			EconomyManager.buy_something(unit.cost)
+			EconomyManager.change_money_loss(unit.maintenance)
 
 func _input(event):
 	"""
