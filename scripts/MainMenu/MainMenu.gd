@@ -80,3 +80,12 @@ func _on_exit_button_pressed():
 	Quitte le jeu proprement.
 	"""
 	get_tree().quit()
+
+
+
+# Lien vers le document utilisateur 
+func on_docu_button_pressed():
+	"""
+	Redirige vers la documentation utilisateur
+	"""
+	OS.shell_open("https://aurelienxx.github.io/Gladius/userNotice.html")

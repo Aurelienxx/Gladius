@@ -228,6 +228,15 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_gwiro")
 theme_override_styles/hover = SubResource("StyleBoxTexture_3hnqi")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1800.0
+offset_top = 11.0
+offset_right = 1910.0
+offset_bottom = 121.0
+theme_override_font_sizes/font_size = 128
+text = "?"
+
 [node name="MainMenue" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -308,6 +317,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 [connection signal="pressed" from="GameChoise/GameChoice/VBoxContainer/JoueurContreIA" to="." method="_on_joueur_contre_ia_pressed"]
 [connection signal="pressed" from="GameChoise/GameChoice/VBoxContainer/IAContreIA" to="." method="_on_ia_contre_ia_pressed"]
 [connection signal="pressed" from="GameChoise/GameChoice/VBoxContainer/BackChoice" to="." method="_on_back_choice_pressed"]
+[connection signal="pressed" from="Button" to="." method="on_docu_button_pressed"]
 [connection signal="pressed" from="MainMenue/Buttons/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainMenue/Buttons/ParametersButton" to="." method="_on_parameters_button_pressed"]
 [connection signal="pressed" from="MainMenue/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]
