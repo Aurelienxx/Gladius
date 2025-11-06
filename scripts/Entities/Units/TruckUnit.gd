@@ -12,8 +12,8 @@ extends CharacterBody2D
 @export var maintenance: int = 3
 @export var max_hp: int = 150
 @export var damage: int = 30
-@export var move_range: int = 100 #10
-@export var attack_range: int = 100 #3  
+@export var move_range: int = 10
+@export var attack_range: int = 3  
 @export var movement: bool = false
 @export var attack: bool = false
 @export var name_Unite: String = "Camion"
@@ -24,6 +24,8 @@ var current_hp: int
 var equipe: int
 
 var map:TileMapLayer
+
+var is_AI:bool = false 
 
 func setup(_equipe: int, _map:TileMapLayer) -> void:
 	equipe = _equipe
@@ -41,6 +43,9 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	Movement._apply_color(equipe)
 	Movement.init(self, health_bar, anim, MaskOverlay, map)
 
+func death() -> void:
+	GameState.unregister_unit(self)
+	
 func take_damage(dmg : int) -> void :
 	"""
 	Fonction de prise de dégats d'une unité et de mise à jour de la barre de vie

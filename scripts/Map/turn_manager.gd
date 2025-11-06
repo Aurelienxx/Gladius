@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 const EndScreen = preload("res://scenes/EndScreen/EndScreen.tscn")
 const TurnPanel = preload("res://scenes/HUD/turn_panel.tscn")
