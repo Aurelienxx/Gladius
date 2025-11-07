@@ -79,21 +79,23 @@ Vous pouvez y régler le volume, passer en plein écran, ou quitter le jeu propr
   
 **Apparition d'unités**
 
+<div style="display: flex;">
 
   <p align="left">
     <img src="img/HUD/unites.png" width="90%">
   </p>
 
 
-  | Icône | Signification                 |
-  | ---                                   | ---                                                                                 |
-  | <img src="img/HUD/cout.png" >         | Un coût, qui vous sera débité de   votre réserve d'or au placement de l'unité       |
-  | <img src="img/HUD/degats.png" >       | Une capacité de dégâts, à infliger aux adversaires                                  |
-  | <img src="img/HUD/pv.png" >           | Un nombre de points de vie, qui baisse face aux dégâts reçus jusqu'à la destruction |
-  | <img src="img/HUD/attaque.png" >      | Une portée d'attaque en nombre de cases                                             |
-  | <img src="img/HUD/deplacement.png" >  | Une portée de déplacement en nombre de cases                                        |
-  | <img src="img/HUD/maintenance.png" >  | Un coût de maintenance, qui augmente votre déficit de tour pour chaque unité en vie (Si vous aviez +15/tour, vous aurez +13/tour en plaçant une de ces unités) |
-  
+| Icône | Signification                 |
+| ---                                   | ---                                                                                 |
+| <img src="img/HUD/cout.png" >         | Un coût, qui vous sera débité de   votre réserve d'or au placement de l'unité       |
+| <img src="img/HUD/degats.png" >       | Une capacité de dégâts, à infliger aux adversaires                                  |
+| <img src="img/HUD/pv.png" >           | Un nombre de points de vie, qui baisse face aux dégâts reçus jusqu'à la destruction |
+| <img src="img/HUD/attaque.png" >      | Une portée d'attaque en nombre de cases                                             |
+| <img src="img/HUD/deplacement.png" >  | Une portée de déplacement en nombre de cases                                        |
+| <img src="img/HUD/maintenance.png" >  | Un coût de maintenance, qui augmente votre déficit de tour pour chaque unité en vie (Si vous aviez +15/tour, vous aurez +13/tour en plaçant une de ces unités) |
+
+</div>
 
 
 
@@ -107,17 +109,19 @@ Vous pouvez y régler le volume, passer en plein écran, ou quitter le jeu propr
 Le terrain de jeu de Gladius Dominus repsésente un champ de bataille.  
 Sur cette carte se trouvent différents terrains ayant leurs propriétés
 
+<div style="display: flex;">
 
   <p align="center">
     <img src="img/map.png" width="80%">
   </p>
 
     
-  | Terrain                                                          | Description   |
-  | ---                                                              | ---       |
-  |<img src="img/terrain/grass.png"><img src="img/terrain/pont.png">| **L'herbe ou les ponts** : le type de terrain le plus commun, il permet aux unités de se déplacer librement selon peur portée de déplacement    |
-  | <img src="img/terrain/dirt.png">| **La boue** :  Ralentit les unités passant dessus, chaque case comptant pour 2 cases conssomées dans leur portée de déplacement       |
-  | <img src="img/terrain/obstacle.png"> <img src="img/terrain/obstacle2.png">  | **Les obstacles**  : Empêchent totalement le passage des unités, qui devront le countourner jusqu'à trouver un terrain acceptable pour passer      |  
+| Terrain                                                          | Description   |
+| ---                                                              | ---       |
+|<img src="img/terrain/grass.png"><img src="img/terrain/pont.png">| **L'herbe ou les ponts** : le type de terrain le plus commun, il permet aux unités de se déplacer librement selon peur portée de déplacement    |
+| <img src="img/terrain/dirt.png">| **La boue** :  Ralentit les unités passant dessus, chaque case comptant pour 2 cases conssomées dans leur portée de déplacement       |
+| <img src="img/terrain/obstacle.png"> <img src="img/terrain/obstacle2.png">  | **Les obstacles**  : Empêchent totalement le passage des unités, qui devront le countourner jusqu'à trouver un terrain acceptable pour passer      |  
+</div>
 
 
 ## **Présentation des unités** 
