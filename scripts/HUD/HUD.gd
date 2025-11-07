@@ -1,14 +1,15 @@
 extends CanvasLayer
 
-@export var displayGold :Label
-@export var displayGainOrLoss :Label
-
+@export var displayGold: Label
+@export var displayGainOrLoss: Label
+@export var teamColor: NinePatchRect
 @export var OptionsMenue :Control
 
 func _ready() -> void:
 	"""
 	Connecte les signaux globaux de gestion d’argent aux fonctions locales d’affichage.
 	"""
+	GlobalSignal.new_turn.connect(changeTeamColor)
 	GlobalSignal.current_Money_Amount.connect(_update_Current_Money_Displayed)
 	GlobalSignal.current_Money_Gain_Or_Loss.connect(_update_Current_Gain_Or_Loss)
 
@@ -78,3 +79,11 @@ func _on_parameter_button_pressed() -> void:
 func _input(event):
 	if Input.is_action_just_pressed("Escape"):
 		_on_parameter_button_pressed()
+
+func changeTeamColor():
+	var color:Color = Color("white")
+	if GameState.current_player == 1:
+		color = Color("Blue")
+	else:
+		color = Color("red")
+	teamColor.modulate = color
