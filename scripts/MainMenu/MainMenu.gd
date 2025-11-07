@@ -1,6 +1,6 @@
 extends Control
 @export var buttons: VBoxContainer 
-@export var settings: VBoxContainer 
+@export var settings: Control 
 @export var gamechoice: VBoxContainer
 
 func _ready():
@@ -11,7 +11,7 @@ func _ready():
 	settings.visible = false
 	buttons.visible = true
 	gamechoice.visible = false
-	
+	GlobalSignal.showButtons.connect(displayButtons)
 
 # Bouton "Jouer"
 func _on_start_button_pressed() -> void:
@@ -21,7 +21,6 @@ func _on_start_button_pressed() -> void:
 	"""
 	gamechoice.visible = true
 	buttons.visible = false
-
 
 # Choix de jeu
 func _on_joueur_contre_joueur_pressed() -> void:
@@ -49,7 +48,6 @@ func _on_back_choice_pressed() -> void:
 	gamechoice.visible = false
 	buttons.visible = true
 
-
 # Paramètres
 func _on_parameters_button_pressed() -> void:
 	"""
@@ -57,22 +55,7 @@ func _on_parameters_button_pressed() -> void:
 	et masque les boutons principaux.
 	"""
 	settings.visible = true
-
-func _on_settings_visibility_changed() -> void:
-	if not buttons.visible:
-		print("hello")
-		buttons.visible = true
-	else:
-		print("bye")
-		buttons.visible = false
-		
-func _on_back_parameters_pressed() -> void:
-	"""
-	Retour au menu principal depuis le menu des paramètres.
-	"""
-	settings.visible = false
-	buttons.visible = true
-
+	buttons.visible = false
 
 # Quitter le jeu 
 func _on_exit_button_pressed():
@@ -81,11 +64,12 @@ func _on_exit_button_pressed():
 	"""
 	get_tree().quit()
 
-
-
 # Lien vers le document utilisateur 
 func on_docu_button_pressed():
 	"""
 	Redirige vers la documentation utilisateur
 	"""
 	OS.shell_open("https://aurelienxx.github.io/Gladius/userNotice.html")
+
+func displayButtons():
+	buttons.visible = true

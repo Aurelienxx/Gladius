@@ -1,7 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://l5psbttjcf8j"]
+[gd_scene load_steps=15 format=3 uid="uid://l5psbttjcf8j"]
 
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="1_1q6jj"]
-[ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_bpxx6"]
 [ext_resource type="Script" uid="uid://sk6bahj7cobp" path="res://scripts/OptionMenu/settings.gd" id="1_x8icr"]
 [ext_resource type="Texture2D" uid="uid://s4rqve086ibo" path="res://assets/sprites/Interface/OptionMenue/OptionMenuIcons.png" id="2_n4ll7"]
 [ext_resource type="Texture2D" uid="uid://dxhqodbio7qh6" path="res://assets/sprites/Interface/OptionMenue/MuteMusic.png" id="2_rpd78"]
@@ -10,15 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://c2yse4fvv4skk" path="res://assets/sprites/Interface/OptionMenue/Checked.png" id="5_n4ll7"]
 [ext_resource type="Texture2D" uid="uid://djnkplc6tixeq" path="res://assets/sprites/Interface/OptionMenue/GrabberSelected.png" id="6_72f4l"]
 [ext_resource type="Texture2D" uid="uid://bx6ewya7ybcvj" path="res://assets/sprites/Interface/OptionMenue/UnChecked.png" id="6_rpd78"]
-[ext_resource type="Texture2D" uid="uid://d1pxuf47nm8f6" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="8_8e11p"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x8icr"]
-texture = ExtResource("2_n4ll7")
-region_rect = Rect2(0, 160, 32, 32)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_11ink"]
-texture = ExtResource("2_n4ll7")
-region_rect = Rect2(64, 162, 32, 30)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_72f4l"]
 texture = ExtResource("2_n4ll7")
@@ -44,16 +34,6 @@ texture_margin_right = 3.0
 texture_margin_bottom = 4.0
 region_rect = Rect2(20, 145, 8, 14)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c21t1"]
-texture = ExtResource("8_8e11p")
-region_rect = Rect2(0, 128, 128, 32)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_70638"]
-texture = ExtResource("8_8e11p")
-region_rect = Rect2(0, 162, 128, 30)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n875s"]
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w7e1t"]
 texture = ExtResource("2_n4ll7")
 region_rect = Rect2(0, 0, 128, 32)
@@ -62,7 +42,7 @@ region_rect = Rect2(0, 0, 128, 32)
 texture = ExtResource("2_n4ll7")
 region_rect = Rect2(0, 35, 128, 29)
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("volume_slider", "fullscreen_toggle", "quit_button", "back_button", "close_button")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("volume_slider", "fullscreen_toggle", "back_button")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -78,9 +58,7 @@ grow_vertical = 2
 script = ExtResource("1_x8icr")
 volume_slider = NodePath("MarginContainer/VBoxContainer/SettingsContainer/Sound/HScrollBar")
 fullscreen_toggle = NodePath("MarginContainer/VBoxContainer/FullScreen/CheckButton")
-quit_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ExitButton")
 back_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/BackButton")
-close_button = NodePath("MarginContainer/ExitButton/MarginContainer/Button")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(1000, 500)
@@ -111,17 +89,6 @@ mouse_filter = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = -40
 theme_override_constants/margin_right = -40
-
-[node name="Button" type="Button" parent="MarginContainer/ExitButton/MarginContainer"]
-z_index = 1
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-focus_mode = 1
-focus_behavior_recursive = 1
-theme_override_styles/normal = SubResource("StyleBoxTexture_x8icr")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_11ink")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_11ink")
-theme_override_styles/hover = SubResource("StyleBoxTexture_11ink")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
 layout_mode = 2
@@ -258,25 +225,11 @@ theme_override_constants/separation = 21
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(384, 96)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_bpxx6")
-theme_override_font_sizes/font_size = 38
-theme_override_styles/normal = SubResource("StyleBoxTexture_c21t1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_70638")
-theme_override_styles/hover = SubResource("StyleBoxTexture_70638")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_n875s")
-
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(384, 96)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_w7e1t")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_b5nfd")
 theme_override_styles/hover = SubResource("StyleBoxTexture_b5nfd")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
