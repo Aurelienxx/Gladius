@@ -67,12 +67,12 @@ Vous pouvez y régler le volume, passer en plein écran, ou quitter le jeu propr
   </p>
 
     
-  | Caractéristique  | Description                                                                            |
-  | ---              | ---                                                                                    |
-  | `Réserve d'or`   | Indique combien d'or vous possédez + le gain/perte qui sera subi au prochain tour      |
-  | `La roue dentée` | Permet d'accéder aux paramètres                                                        |
-  | `EndTurn`        | Met fin à votre tour et permet au joueur adverse de commencer le sien                  |
-  | `Menu hamburger` | Déroule la liste des unités                                                            |
+| Caractéristique  | Description                                                                            |
+| ---              | ---                                                                                    |
+| `Réserve d'or`   | Indique combien d'or vous possédez + le gain/perte qui sera subi au prochain tour      |
+| `La roue dentée` | Permet d'accéder aux paramètres                                                        |
+| `EndTurn`        | Met fin à votre tour et permet au joueur adverse de commencer le sien                  |
+| `Menu hamburger` | Déroule la liste des unités                                                            |
   
 </div>
 
@@ -237,10 +237,10 @@ Ce bâtiment peut être amélioré, moyennant un coût, pour augmenter davantage
 ## **Présentation des contrôles**
 
 ### **Clic sur unité**
-| Contrôle              | Explication                             | Affichage                          
-| ---                        | ---                                | ---                               
-| **Clic gauche** | Sélectionne une unité pour afficher les cases où elle peut se déplacer.  Un clic gauche sur une des cases lui permet de s'y rendre. | <img src="img/deplacement.png" width="40%"> |
-| **Clic droit** | Sélectionne une unité pour afficher les cases où elle peut attaquer.   Un clic gauche sur une unité ennemie se trouvant des cette zone permet de lui infliger des dégâts. | <img src="img/attaque.png" width="40%"> |
+| Contrôle              | Explication                             | Affichage |                 
+| ---                   | ---                                     | ---       |                  
+| **Clic gauche**       | Sélectionne une unité pour afficher les cases où elle peut se déplacer.  Un clic gauche sur une des cases lui permet de s'y rendre.                                                       | <img src="img/deplacement.png" width="40%"> |
+| **Clic droit**        | Sélectionne une unité pour afficher les cases où elle peut attaquer.   Un clic gauche sur une unité ennemie se trouvant des cette zone permet de lui infliger des dégâts.                 | <img src="img/attaque.png" width="40%"> |
 
 
 ### **Clic gauche sur QG**  
