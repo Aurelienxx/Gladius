@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://casx0iw2asrlb"]
+[gd_scene load_steps=21 format=3 uid="uid://casx0iw2asrlb"]
 
 [ext_resource type="Script" uid="uid://lt886747n8qu" path="res://scripts/HUD/HUD.gd" id="1_kbjyg"]
 [ext_resource type="PackedScene" uid="uid://cc1okjsltc6ac" path="res://scenes/Entities/Units/TankUnit.tscn" id="2_6n7by"]
@@ -29,6 +29,8 @@ region_rect = Rect2(0, 96, 32, 32)
 texture = ExtResource("29_a1o1e")
 region_rect = Rect2(64, 98, 32, 30)
 
+[sub_resource type="Theme" id="Theme_wa322"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a1o1e"]
 texture = ExtResource("29_a1o1e")
 region_rect = Rect2(0, 32, 128, 32)
@@ -45,10 +47,11 @@ region_rect = Rect2(0, 192, 64, 32)
 texture = ExtResource("29_a1o1e")
 region_rect = Rect2(64, 192, 64, 30)
 
-[node name="InGameUI" type="CanvasLayer" node_paths=PackedStringArray("displayGold", "displayGainOrLoss", "OptionsMenue")]
+[node name="InGameUI" type="CanvasLayer" node_paths=PackedStringArray("displayGold", "displayGainOrLoss", "teamColor", "OptionsMenue")]
 script = ExtResource("1_kbjyg")
 displayGold = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer/GoldDisplay")
 displayGainOrLoss = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer/GainOrLoss")
+teamColor = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect3")
 OptionsMenue = NodePath("Settings")
 
 [node name="TankUnit" parent="." instance=ExtResource("2_6n7by")]
@@ -152,6 +155,19 @@ theme_override_colors/font_color = Color(0, 0.59, 0.049166616, 1)
 theme_override_font_sizes/font_size = 52
 text = "5"
 
+[node name="NinePatchRect3" type="NinePatchRect" parent="MenuDisplay/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_wa322")
+texture = ExtResource("29_a1o1e")
+region_rect = Rect2(0, 64, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 4
+patch_margin_right = 8
+patch_margin_bottom = 4
+
 [node name="Button" type="Button" parent="MenuDisplay/VBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
@@ -187,7 +203,6 @@ visible = false
 layout_mode = 2
 
 [node name="ConstructionDisplay" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
-visible = false
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
 theme_override_constants/separation = 20

@@ -9,16 +9,17 @@ var ValueStorage = {
 	"money_result":   0
 }
 
-const TEAM_COUNT = 2
+var TEAM_COUNT
 var current_player = 0 # no team 
 
 func _ready() -> void:
 	GlobalSignal.new_player_turn.connect(new_player)
+	TEAM_COUNT = GameState.MAX_PLAYER
 	for i in range(TEAM_COUNT):
 		EconomyTab.append(ValueStorage.duplicate(true))
 
-func new_player(new_player:int):
-	current_player = new_player
+func new_player(newPlayer:int):
+	current_player = newPlayer
 
 func _get_team_tab():
 	var index = current_player - 1

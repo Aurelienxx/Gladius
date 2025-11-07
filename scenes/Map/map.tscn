@@ -8,15 +8,15 @@
 [ext_resource type="Script" uid="uid://bgbetnujlhn1r" path="res://scripts/Map/turn_manager.gd" id="2_mnaup"]
 [ext_resource type="Script" uid="uid://xhpuxpfcgir3" path="res://scripts/IA/ai_manager.gd" id="2_tmn6y"]
 [ext_resource type="Texture2D" uid="uid://ciotxau2s77sa" path="res://assets/sprites/TileSet/tile_set_dirt.png" id="3_2rm8l"]
-[ext_resource type="Script" uid="uid://mff1k0ifkbeh" path="res://scripts/Map/effects_manager.gd" id="3_ehssc"]
+[ext_resource type="Script" path="res://scripts/Map/effects_manager.gd" id="3_ehssc"]
 [ext_resource type="Script" uid="uid://7ar6gav46p2u" path="res://scripts/IA/IA_FONTAINE/ArtilleryIA.gd" id="4_fobre"]
 [ext_resource type="Script" uid="uid://cw3ty15gjfhmy" path="res://scripts/Managers/UnitControler.gd" id="6_2yrau"]
 [ext_resource type="Texture2D" uid="uid://4545fuvmbm6m" path="res://assets/sprites/TileSet/HighlightSpriteSheet.png" id="6_57bgo"]
 [ext_resource type="Texture2D" uid="uid://c3ohhb3hnicse" path="res://assets/sprites/TileSet/HighlightAttackSpriteSheet.png" id="7_57bgo"]
-[ext_resource type="Texture2D" uid="uid://fat47baf1vmr" path="res://assets/sprites/TileSet/tile_set_grass_2.png" id="9_53cjn"]
-[ext_resource type="Texture2D" uid="uid://3ka06uv38gal" path="res://assets/sprites/TileSet/tile_set_forest.png" id="10_aasa8"]
+[ext_resource type="Texture2D" uid="uid://bufdgwviuhj21" path="res://assets/sprites/TileSet/tile_set_grass_2.png" id="9_53cjn"]
+[ext_resource type="Texture2D" uid="uid://x6cy1jcobgtp" path="res://assets/sprites/TileSet/tile_set_forest.png" id="10_aasa8"]
 [ext_resource type="Script" uid="uid://ch3mn8hahtl6q" path="res://scripts/TileMapManager/tile_map_manager.gd" id="10_wdqq6"]
-[ext_resource type="Texture2D" uid="uid://k1c8jh61jgfw" path="res://assets/sprites/TileSet/tile_set_water.png" id="12_b8hlp"]
+[ext_resource type="Texture2D" uid="uid://c7jgdfes45wxi" path="res://assets/sprites/TileSet/tile_set_water.png" id="12_b8hlp"]
 [ext_resource type="Texture2D" uid="uid://cu68h6d3ictdf" path="res://assets/sprites/TileSet/Obstacle_Object.png" id="13_b8hlp"]
 [ext_resource type="Texture2D" uid="uid://by1j0cuhbcnp7" path="res://assets/sprites/TileSet/clif_tile_set.png" id="13_wdqq6"]
 [ext_resource type="Texture2D" uid="uid://d22dmhi2ruqn0" path="res://assets/sprites/TileSet/gas.png" id="14_wdqq6"]
@@ -1172,6 +1172,7 @@ script = ExtResource("3_ehssc")
 [node name="InGameUI" parent="." instance=ExtResource("2_aasa8")]
 
 [node name="Player_view" parent="." instance=ExtResource("2_app3p")]
+position = Vector2(-201, -200)
 
 [node name="TileMapContainer" type="Node2D" parent="."]
 script = ExtResource("10_wdqq6")
