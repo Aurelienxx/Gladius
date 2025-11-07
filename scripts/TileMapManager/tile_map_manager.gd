@@ -312,6 +312,12 @@ func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
 	A* classique pour obtenir le chemin le plus court entre start et goal.
 	Ignore uniquement les obstacles infranchissables.
 	"""
+
+func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
+	"""
+    A* classique pour obtenir le chemin le plus court entre start et goal.
+    Ignore uniquement les obstacles infranchissables.
+    """
 	var open_list: Array = [start]
 	var closed_list: Array = []
 	var came_from: Dictionary = {}
