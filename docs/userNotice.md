@@ -62,7 +62,7 @@ Vous pouvez y régler le volume, passer en plein écran, ou quitter le jeu propr
 
 
   <p align="left">
-    <img src="img/HUD/HUD.png" width="90%">
+    <img src="img/HUD/HUD.png" width="50%">
   </p>
 
 | Caractéristique  | Description                                                                            |
@@ -78,7 +78,7 @@ Vous pouvez y régler le volume, passer en plein écran, ou quitter le jeu propr
 
 
   <p align="left">
-    <img src="img/HUD/unites.png" width="90%">
+    <img src="img/HUD/unites.png" width="50%">
   </p>
 
 
