@@ -60,13 +60,11 @@ Vous pouvez y régler le volume, passer en plein écran, ou quitter le jeu propr
 
 **HUD**
 
-<div style="display: flex;">
 
   <p align="left">
     <img src="img/HUD/HUD.png" width="90%">
   </p>
 
-    
 | Caractéristique  | Description                                                                            |
 | ---              | ---                                                                                    |
 | `Réserve d'or`   | Indique combien d'or vous possédez + le gain/perte qui sera subi au prochain tour      |
@@ -74,12 +72,10 @@ Vous pouvez y régler le volume, passer en plein écran, ou quitter le jeu propr
 | `EndTurn`        | Met fin à votre tour et permet au joueur adverse de commencer le sien                  |
 | `Menu hamburger` | Déroule la liste des unités                                                            |
   
-</div>
 
   
 **Apparition d'unités**
 
-<div style="display: flex;">
 
   <p align="left">
     <img src="img/HUD/unites.png" width="90%">
@@ -95,7 +91,6 @@ Vous pouvez y régler le volume, passer en plein écran, ou quitter le jeu propr
 | <img src="img/HUD/deplacement.png" >  | Une portée de déplacement en nombre de cases                                        |
 | <img src="img/HUD/maintenance.png" >  | Un coût de maintenance, qui augmente votre déficit de tour pour chaque unité en vie (Si vous aviez +15/tour, vous aurez +13/tour en plaçant une de ces unités) |
 
-</div>
 
 
 
@@ -109,19 +104,18 @@ Vous pouvez y régler le volume, passer en plein écran, ou quitter le jeu propr
 Le terrain de jeu de Gladius Dominus repsésente un champ de bataille.  
 Sur cette carte se trouvent différents terrains ayant leurs propriétés
 
-<div style="display: flex;">
 
-  <p align="center">
-    <img src="img/map.png" width="80%">
-  </p>
+<p align="center">
+  <img src="img/map.png" width="80%">
+</p>
 
     
 | Terrain                                                          | Description   |
 | ---                                                              | ---       |
-|<img src="img/terrain/grass.png"><img src="img/terrain/pont.png">| **L'herbe ou les ponts** : le type de terrain le plus commun, il permet aux unités de se déplacer librement selon peur portée de déplacement    |
+|<img src="img/terrain/grass.png"> <img src="img/terrain/pont.png">| **L'herbe ou les ponts** : le type de terrain le plus commun, il permet aux unités de se déplacer librement selon peur portée de déplacement    |
 | <img src="img/terrain/dirt.png">| **La boue** :  Ralentit les unités passant dessus, chaque case comptant pour 2 cases conssomées dans leur portée de déplacement       |
 | <img src="img/terrain/obstacle.png"> <img src="img/terrain/obstacle2.png">  | **Les obstacles**  : Empêchent totalement le passage des unités, qui devront le countourner jusqu'à trouver un terrain acceptable pour passer      |  
-</div>
+
 
 
 ## **Présentation des unités** 
@@ -237,10 +231,11 @@ Ce bâtiment peut être amélioré, moyennant un coût, pour augmenter davantage
 ## **Présentation des contrôles**
 
 ### **Clic sur unité**
+
 | Contrôle              | Explication                             | Affichage |                 
 | ---                   | ---                                     | ---       |                  
-| **Clic gauche**       | Sélectionne une unité pour afficher les cases où elle peut se déplacer.  Un clic gauche sur une des cases lui permet de s'y rendre.                                                       | <img src="img/deplacement.png" width="40%"> |
-| **Clic droit**        | Sélectionne une unité pour afficher les cases où elle peut attaquer.   Un clic gauche sur une unité ennemie se trouvant des cette zone permet de lui infliger des dégâts.                 | <img src="img/attaque.png" width="40%"> |
+| `Clic gauche`   | Sélectionne une unité pour afficher les cases où elle peut se déplacer.  Un clic gauche sur une des cases lui permet de s'y rendre. | <img src="img/deplacement.png" width="40%"> |
+| `Clic droit`      | Sélectionne une unité pour afficher les cases où elle peut attaquer.   Un clic gauche sur une unité ennemie se trouvant des cette zone permet de lui infliger des dégâts. | <img src="img/attaque.png" width="40%"> |
 
 
 ### **Clic gauche sur QG**  
@@ -248,7 +243,7 @@ Permet d'ouvrir la page d'amélioration de votre QG.
 Un clic gauche sur une la prochaine amélioration achetable l'achète si vous avez les moyens.  
 Un clic gauche en dehors de cette fenêtre la ferme.
 <p align="center">
-  <img src="img/HUD/HUD_amelioration.png" width="50%">
+  <img src="img/HUD/HUD_amelioration.png" width="60%">
 </p>
 
 
