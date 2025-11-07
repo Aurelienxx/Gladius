@@ -8,7 +8,6 @@ var selected_unit: CharacterBody2D # CharacterBody2D de l'unité séléctionnée
 var quick_select_index = -1
 
 var attack_unit: CharacterBody2D = null # CharacterBody2D de l'unité attaquée
-var mode: String = "" # Mode d'action de l'unité séléctionnée
 
 var current_player = GameState.current_player
 @onready var tileMapManager = $TileMapContainer
@@ -25,8 +24,9 @@ func _ready():
 	GlobalSignal.Unit_Clicked.connect(_on_something_clicked)
 	GlobalSignal.Building_CLicked.connect(_on_something_clicked)
 	
-	#
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
+	#
+	
 	GlobalSignal.spawn_Unit.connect(spawnUnit)
 		
 	GlobalSignal.new_player_turn.connect(save_new_player)
@@ -37,8 +37,8 @@ func save_new_player(player:int):
 	current_player = player 
 
 func _on_something_clicked(object:CharacterBody2D) -> void:
-	if mode == "attack" and attack_unit != null and object != attack_unit:
-		_on_unit_attack(attack_unit, object)
+	if attack_unit:
+		try_attacking(object)
 
 func _on_unit_clicked(unit: CharacterBody2D) -> void:
 	"""
@@ -50,58 +50,81 @@ func _on_unit_clicked(unit: CharacterBody2D) -> void:
 		
 		if manager.is_selected:
 			selected_unit = unit
-		
-			# Vérifie que l'unité ne s'est pas déjà déplacée
-			if unit.movement == false :
-				mode = "move"
 				
 			# L’unité doit appartenir au joueur actif et ne pas avoir déjà bougé
 			if selected_unit.equipe == current_player and selected_unit.movement == false:
 				tileMapManager.display_movement(unit)
 		else:
 			tileMapManager.highlight_reset()
+
+func _on_unit_attack(unit:CharacterBody2D) -> void :
+	"""
+	Cette fonction se déclanche quand le joueur vient de faire un clique droit 
+	sur une unité
+	"""
+	if not unit.is_AI and unit.equipe == GameState.current_player and unit.attack == false:
+		var manager: Node = unit.get_node("MovementManager")
 		
+		if manager.is_attacking:
+			attack_unit = unit
+			
+			tileMapManager.display_attack(unit)
+		else:
+			tileMapManager.highlight_reset()
+
 func _on_building_click(building: CharacterBody2D) -> void:
 	if building.buildingName== "QG" and current_player == building.equipe:
 		building.showUpgradeHUD(building.equipe)
 	selected_unit = building
-	
-func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
-	"""
-	Gère le comportement lorsqu'une unité attaque une autre unité ou un bâtiment.
-	Affiche également l'animation d'explosion et gère la mort des entités.
-	"""
-	if target == null :
-		# Vérifie que l’attaquant appartient bien au joueur actif et qu’il n’a pas déjà attaqué
-		if attacker.is_in_group("buildings") or attacker.equipe != current_player or attacker.attack == true:
-			return
-		
-		if not attacker.is_AI:
-			attack_unit = attacker
-			mode = "attack"
-			tileMapManager.display_attack(attacker)
-			return
 
-	# Si la cible appartient à une équipe différente de celle de l'attaquant
-	else:
-		if target.equipe != attacker.equipe:
-			var attacker_pos = attacker.global_position
+func move_manager() -> void:
+	"""
+	Gère les clics de souris sur la carte pour déplacer une unité.
+	Ignore les clics si le mode attaque est actif ou si aucune unité n’est sélectionnée.
+
+	:return: None
+	"""
+	if selected_unit not in GameState.all_buildings : # les batiments ne peuvent pas bouger 
+		var mouse_pos = get_global_mouse_position()
+		var cell_position = tileMapManager.get_position_on_map(mouse_pos) # Récupère la position de la case cliquée
+		var manager: Node = selected_unit.get_node("MovementManager")
+		
+		if tileMapManager.is_highlighted_cell(cell_position):
+			# Si la case n'est pas occupé alors l'unité s'y déplace
+			if not tileMapManager.is_cell_occupied(cell_position):
+				var path = tileMapManager.make_path(selected_unit, cell_position, selected_unit.move_range) # Recherche du chemin de déplacement
+				manager.set_path(path) # Déplace l'unité selon le chemin 
+				selected_unit.movement = true # Change la variable de mouvement pour que l'unité ne puisse plus se déplacée durant le tour
+				
+		else:
+			manager.is_selected = false
+			
+		selected_unit = null
+		tileMapManager.highlight_reset()# Supprime la surbrillance pour éviter la superposition
+
+func try_attacking(target:CharacterBody2D) -> void:
+	if target :
+		
+		if target.equipe != GameState.current_player:
+			#print("a essayer d'attaquer : ",target)
+			
+			var attacker_pos = attack_unit.global_position
 			var building_cells = tileMapManager.get_occupied_cells(target) # Récupère la taille du bâtiment
 			var attacker_cell = tileMapManager.get_position_on_map(attacker_pos) # Récupère la cellule de l'attaquant
 			var in_range = false
 			# Si une des cases du bâtiment est à portée d'attaque de l'unité, alors le bâtiment peut être attaqué par celle-ci
 			for cell in building_cells:
-				if attacker_cell.distance_to(cell) <= attacker.attack_range:
+				if attacker_cell.distance_to(cell) <= attack_unit.attack_range:
 					in_range = true
 					break
 			
 			if in_range:
 				# Change les variables d’attaque et de mouvement pour rendre l’unité inactive pendant le reste du tour
-				attacker.attack = true
-				attacker.movement = true
+				attack_unit.attack = true
+				attack_unit.movement = true
 				
 				GlobalSignal.attack_occured_pos.emit(target.position)
-				target.take_damage(attacker.damage) # Appelle la fonction de mise à jour de la barre de vie de la cible
+				target.take_damage(attack_unit.damage) # Appelle la fonction de mise à jour de la barre de vie de la cible
 
 				if target.current_hp <= 0:
 					# Si c’est une unité
@@ -112,34 +135,11 @@ func _on_unit_attack(attacker: CharacterBody2D, target: CharacterBody2D):
 						# Supprime le Head Quarter et appelle la fonction de fin du jeu
 						GameState.capture_building(target)
 
-	attack_unit = null # L'unité n'attaque plus
-	mode = "" # Réinitialise le mode 
-	tileMapManager.highlight_reset()  # Supprime la surbrillance pour éviter la superposition
-
-func move_manager() -> void:
-	"""
-	Gère les clics de souris sur la carte pour déplacer une unité.
-	Ignore les clics si le mode attaque est actif ou si aucune unité n’est sélectionnée.
-
-	:return: None
-	"""
-	var mouse_pos = get_global_mouse_position()
-	var cell_position = tileMapManager.get_position_on_map(mouse_pos) # Récupère la position de la case cliquée
-	var manager: Node = selected_unit.get_node("MovementManager")
-	
-	if tileMapManager.is_highlighted_cell(cell_position):
-		# Si la case n'est pas occupé alors l'unité s'y déplace
-		if not tileMapManager.is_cell_occupied(cell_position):
-			var path = tileMapManager.make_path(selected_unit, cell_position, selected_unit.move_range) # Recherche du chemin de déplacement
-			manager.set_path(path) # Déplace l'unité selon le chemin 
-			selected_unit.movement = true # Change la variable de mouvement pour que l'unité ne puisse plus se déplacée durant le tour
-			
-	else:
-		manager.is_selected = false
+	var manager: Node = attack_unit.get_node("MovementManager")
+	manager.is_attacking = false
+	attack_unit = null
+	tileMapManager.highlight_reset()
 		
-	selected_unit = null
-	mode = "" 
-	tileMapManager.highlight_reset()# Supprime la surbrillance pour éviter la superposition
 
 func quick_select():
 	"""
@@ -181,7 +181,7 @@ func quick_select():
 				var unit = all_units[unit_index]
 				if unit.equipe == current_player and unit.attack == false:
 					# Sélection automatique pour l’attaque
-					_on_unit_attack(unit, null)
+					#_on_unit_attack( null)
 					# Déplace la caméra sur l’unité
 					var pos = unit.position
 					var cam = get_node("./Player_view")
@@ -222,17 +222,15 @@ func _input(event):
 		GlobalSignal.pass_turn.emit()
 	elif Input.is_action_pressed("space"):
 		quick_select()
-	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		pass
-		#print(event.position)
-		#print("player truc : ",GameState.current_player)
-		#print("Economy State : ",EconomyManager.EconomyTab)
-	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if mode == "move": 
-			move_manager()
-
-	elif Input.is_action_pressed("debug"):
-		pass
-		#var AiInfoVisualisator = $AiManager/AiInfoVisualisator
-		#AiInfoVisualisator.visible = !AiInfoVisualisator.visible
-		
+	elif (
+		Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or 
+		Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
+	):
+		var mouse_pos = get_global_mouse_position()
+		var cell_position = tileMapManager.get_position_on_map(mouse_pos)
+		if tileMapManager.is_highlighted_cell(cell_position): # si la position cliquer n'est pas un highlight
+			if selected_unit:
+				move_manager()
+		else:
+			if attack_unit:
+				try_attacking(null)

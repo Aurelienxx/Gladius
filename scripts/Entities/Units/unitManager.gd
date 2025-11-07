@@ -9,6 +9,8 @@ extends Node
 @export var anim:AnimatedSprite2D
 
 var is_selected: bool = false
+var is_attacking: bool = false
+
 var path: Array = []
 var target_position: Vector2
 var is_moving: bool = false
@@ -64,7 +66,8 @@ func _on_shape_attack_clicked():
 	"""
 	Émet un signal global pour indiquer que l'unité est attaqué.
 	"""
-	GlobalSignal.Unit_Attack_Clicked.emit(character, null)
+	is_attacking = !is_attacking
+	GlobalSignal.Unit_Attack_Clicked.emit(character)
 
 func set_path(new_path: Array):
 	"""
