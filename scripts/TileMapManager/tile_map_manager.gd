@@ -282,11 +282,11 @@ func get_valid_path(unit: CharacterBody2D, goal: Vector2i) -> Array:
 	"""
 	var start = get_position_on_map(unit.global_position)
 	var full_path = find_path_a_star(start, goal)
-
+	
 	var move_range = unit.move_range
 	var valid_path: Array = []
 	var total_cost = 0
-
+		
 	# On commence le chemin par la case de départ
 	valid_path.append(full_path[0])
 
@@ -304,14 +304,8 @@ func get_valid_path(unit: CharacterBody2D, goal: Vector2i) -> Array:
 
 		valid_path.append(step)
 
-	return make_path(unit,valid_path[-1],99)
+	return make_path(unit,valid_path[-1],move_range+2)
 
-	
-func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
-	"""
-	A* classique pour obtenir le chemin le plus court entre start et goal.
-	Ignore uniquement les obstacles infranchissables.
-	"""
 
 func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
 	"""
@@ -357,8 +351,7 @@ func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
 			# Ignore les obstacles infranchissables
 			if get_terrain_cost(neighbor) < 0:
 				continue
-			
-				
+							
 			if neighbor in closed_list:
 				continue
 

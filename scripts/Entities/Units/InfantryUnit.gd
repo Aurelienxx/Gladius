@@ -39,7 +39,11 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	if equipe == 2:
 		anim.flip_h = true
 		MaskOverlay.flip_h = true
-
+	
+	var current_player = GameState.current_player
+	if GameState.is_player_ai(current_player): # si le joueur qui créer l'unité est une IA
+		is_AI = true
+	
 	# On confie la couleur et les animations au MovementManager
 	Movement._apply_color(equipe)
 	Movement.init(self, health_bar, anim, MaskOverlay, map)

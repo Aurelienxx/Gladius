@@ -37,7 +37,7 @@ func _on_button_button_down() -> void:
 	"""
 	Émet un signal global lorsque le bouton "Next Turn" est pressé.
 	"""
-	GlobalSignal.pass_turn.emit()
+	GameState.try_ending_turn()
 
 
 func _on_infantry_display_pressed() -> void:

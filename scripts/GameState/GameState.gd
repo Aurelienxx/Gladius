@@ -5,15 +5,47 @@ var all_buildings: Array = []
 
 var MAX_PLAYER = 2
 var current_player:int = 0 # initialisation a 0 -> c'est le tour a personne de jouer
+
+
+#####
+# Gestions des infos des joueurs 
+
 var playerInfos: Array
-var gameMode = {
-	"isAI":  0
+var playerInfo = {
+	"isAI": false
 }
 
 func _ready():
 	for i in range (MAX_PLAYER):
-		playerInfos.append(gameMode.duplicate(true))
+		playerInfos.append(playerInfo.duplicate(true))
 	print(playerInfos)
+	
+
+func switch_player_to_ai(index:int) -> void:
+	"""
+		Le joueur dont on passe l'index en parametre sera concideré comme IA 
+		pour le joueur 1, on donne l'index 1
+	"""
+	var switch_player =  playerInfos.get(index-1)
+	if switch_player:
+		switch_player["isAI"] = true
+	else:
+		print("Tentative de modification d'info joueur sur un joueur inexistant")
+
+func is_player_ai(index:int) -> bool:
+	"""
+		Renvoie si oui on non le joueur dont on passe l'index est une IA 
+		est une IA = true
+		pour le joueur 1, on donne l'index 1
+	"""
+	var player_info =  playerInfos.get(index-1)
+	if player_info:
+		return player_info["isAI"]
+	else:
+		print("Tentative de récupération d'info joueur sur un joueur inexistant")
+		return false
+	
+#####
 
 func next_player() -> void:
 	current_player = (current_player % MAX_PLAYER) + 1
@@ -34,6 +66,14 @@ func register_building(building):
 func unregister_building(building):
 	all_buildings.erase(building)
 	building.queue_free()
+
+func try_ending_turn() -> bool:
+	"""
+		Fonction pour passer au tour suivant, elles opéres les vérifications necessaire pour vérifié 
+		si on est autorisé ou non a terminé de joué.
+	"""
+	GlobalSignal.pass_turn.emit()
+	return true
 
 func capture_building(building):
 	if building.buildingName == "QG":

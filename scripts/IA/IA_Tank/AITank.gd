@@ -4,11 +4,14 @@ var controled_units: Array = []
 var all_buildings: Array = GameState.all_buildings
 var all_units: Array = GameState.all_units
 
-var ASSIGNED_TEAM:int = 2
+var ASSIGNED_TEAM:int
 
 @export var tileMapManager:Node2D
 @export var main:Node2D
-@export var debug_visualition: Node2D
+
+###################
+# Code pour équipe 1. De léothen
+###################
 
 # Score attribué a toute les entités du jeux
 var entity_scoring: Dictionary = {
@@ -124,7 +127,6 @@ func get_best_cell(start_cell, unit, target):
 	"""
 	Permet de choisir la meilleure cellule sur laquelle se déplacé pour attaquer une unité adverse
 	"""
-	debug_visualition.reset()
 	var danger_map = compute_danger_map()
 	
 	var reachable = tileMapManager.get_reachable_cells(start_cell, unit.move_range)
@@ -172,9 +174,6 @@ func get_best_cell(start_cell, unit, target):
 			best_score = score
 			best_cell = cell
 
-		debug_visualition.score_map[cell] = score
-		
-	debug_visualition.queue_redraw()
 	var full_path = tileMapManager.get_valid_path(unit, best_cell)
 	
 	move_unit_along_path(unit, full_path)
@@ -192,6 +191,41 @@ func ai_move_toward_target(unit,target) -> void:
 	
 	move_unit_along_path(unit, full_path)
 
+func move_unit_random_around(unit):
+	var current_cell = tileMapManager.get_position_on_map(unit.global_position)
+	
+	var neighbors = [
+		current_cell + Vector2i(1,0), 
+		current_cell + Vector2i(-1,0), 
+		current_cell + Vector2i(0,1), 
+		current_cell + Vector2i(0,-1)
+	]
+
+	var valid_neighbors = []
+
+	for cell in neighbors:
+		if tileMapManager.MAP.get_cell_source_id(cell) == -1:
+			continue
+
+		var terrain_cost = tileMapManager.get_terrain_cost(cell)
+		if terrain_cost < 0: # obstacle
+			continue
+
+		if tileMapManager.is_cell_occupied(cell):
+			continue
+
+		var path = tileMapManager.get_valid_path(unit, cell)
+		if path.size() > 1:  # si size == 1 → pas de déplacement
+			valid_neighbors.append({"cell": cell, "path": path})
+
+	if valid_neighbors.is_empty():
+		return
+
+	var choice = valid_neighbors[randi() % valid_neighbors.size()]
+	var path = choice["path"]
+
+	move_unit_along_path(unit, path)
+
 func move_unit_along_path(unit, path) -> void:
 	"""
 	Déplace l'unité en utilisant un chemin donné
@@ -204,29 +238,208 @@ func move_unit_along_path(unit, path) -> void:
 	unit.movement = true
 	
 #### AI decision
+var ai_waiting_data := {}
 
-func _ai_logic(unit) -> void:
-	var target # sert a stocker la cible 
+func _ai_Logic_team_1(unit) -> void:
+	ASSIGNED_TEAM = unit.equipe
 	var danger_map:Dictionary = compute_danger_map()
 
-	# On choisi la cible vers laquelle on doit se déplacé/se repositionner
-	target = get_best_target_attack(unit)
-	
-	var current_cell = tileMapManager.get_position_on_map(unit.global_position)
-	if current_cell in danger_map:
-		get_best_cell(current_cell,unit,target)
-	else: 
-		ai_move_toward_target(unit,target)
-	
-	# On regarde encore quelle cible est la meilleur a attaquer maintenant
-	target = get_best_target_attack(unit)
-	
+	var target = get_best_target_attack(unit)
+	var old_cell = tileMapManager.get_position_on_map(unit.global_position)
+
+	ai_waiting_data[unit] = {
+		"old_cell": old_cell,
+		"target": target,
+	}
+
+	if old_cell in danger_map:
+		get_best_cell(old_cell, unit, target)
+	else:
+		ai_move_toward_target(unit, target)
+
+	GlobalSignal.unit_finished_moving.connect(_on_unit_finished_move.bind(unit), CONNECT_ONE_SHOT)
+
+func _on_unit_finished_move(unit):
+	if not ai_waiting_data.has(unit):
+		return
+
+	var data = ai_waiting_data[unit]
+	var old_cell = data["old_cell"]
+	var target = data["target"]
+
 	var new_cell = tileMapManager.get_position_on_map(unit.global_position)
+	var moved = new_cell != old_cell
+
+	if not moved:
+		var tcell = tileMapManager.get_position_on_map(target.global_position)
+		if old_cell.distance_to(tcell) > 1:
+			move_unit_random_around(unit)
+
+	var final_cell = tileMapManager.get_position_on_map(unit.global_position)
+	var best_target = get_best_target_attack(unit)
+
 	var in_range = false
-	for cell in tileMapManager.get_occupied_cells(target):
-		if new_cell.distance_to(cell) <= unit.attack_range:
+	for cell in tileMapManager.get_occupied_cells(best_target):
+		if final_cell.distance_to(cell) <= unit.attack_range:
 			in_range = true
 			break
-	
+
 	if in_range:
-		main._on_unit_attack(unit, target)
+		main.attack_unit = unit
+		main.try_attacking(best_target)
+
+	ai_waiting_data.erase(unit)
+
+
+###################
+# Code pour équipe 2. De Cotar
+###################
+
+
+func _ai_Logic_team_2(unit) -> void:
+	"""
+	Fonction qui permet a l'ia d'effectuer ses déplacements et attaque
+	"""
+	var target_cell=null
+	var move = unit.get_node("MovementManager")
+	var unit_pos = tileMapManager.get_position_on_map(unit.global_position)
+	var cell = tileMapManager.get_reachable_cells(unit_pos, unit.move_range)
+	var close_ennemi=get_close_ennemy(unit)
+	if await attack_target(unit):
+		return
+	if cell.is_empty():
+		return
+	if close_ennemi !=null:
+		var ennemi_pos=tileMapManager.get_position_on_map(close_ennemi.global_position)
+		target_cell=get_closed_target_cell(unit_pos,cell,ennemi_pos)
+	else:
+		target_cell = cell.pick_random()
+	
+	if target_cell != null:
+		var path = tileMapManager.make_path(unit, target_cell, unit.move_range)
+		move.set_path(path)
+	await get_tree().create_timer(1.0).timeout
+	attack_target(unit)
+
+	
+func get_enemy_target()->Array:
+	"""
+	Fonction permettant de recupérer tout les ennemis
+	"""
+	var targets:Array=[]
+	for unit in GameState.all_units:
+		if unit.equipe!=GameState.current_player:
+			targets.append(unit)
+	for building in GameState.all_buildings:
+		if building.equipe!=0 and building.equipe!=GameState.current_player:
+			targets.append(building)
+			
+	return targets
+	
+	
+func get_close_ennemy(unit):
+	"""
+	Renvoie la cible ennemie la plus proche de l'unité donnée.
+	:param unit: permet de recupérer le tank.
+	"""
+	var targets = get_enemy_target()
+	if targets.is_empty():
+		return null
+		
+	var unit_pos = tileMapManager.get_position_on_map(unit.global_position)
+	var closest_target = null
+	var min_distance = INF
+	
+	for target in targets:
+		var target_pos = tileMapManager.get_position_on_map(target.global_position)
+		var distance = unit_pos.distance_to(target_pos)
+		
+		if distance < min_distance:
+			min_distance = distance
+			closest_target = target
+			
+	return closest_target
+	
+	
+func get_closed_target_cell(unit_pos, reachable_cells, target_pos):
+	"""
+	cherche la cellule la plus proche de la cible 
+	:param unit_pos: permet de recupérer la postion de l'unité.
+	:param reachable_cells: permet de recupérer les cellule disponible.
+	:param target_pos: permet de recupérer les coordonée de la cible.
+	"""
+	if reachable_cells.is_empty():
+		return null
+	var path = tileMapManager.find_path_a_star(unit_pos, target_pos)
+	var best_cell = reachable_cells[0]
+	var best_score = INF
+
+	for cell in reachable_cells:
+		var dist_to_target = cell.distance_to(target_pos)
+		var dist_to_path = INF
+
+		for path_cell in path:
+			dist_to_path = min(dist_to_path, cell.distance_to(path_cell))
+
+		var score = dist_to_target + dist_to_path * 0.5
+		if score < best_score:
+			best_score = score
+			best_cell = cell
+
+	return best_cell
+
+func ennemy_in_range(unit):
+	"""
+	Renvoie les cibles ennemie dans la range.
+	:param unit: permet de recupérer le tank.
+	"""
+	var targets = get_enemy_target()
+	if targets.is_empty():
+		return null
+		
+	var unit_pos = tileMapManager.get_position_on_map(unit.global_position)
+	var ennemy_range = null
+
+	for target in targets:
+		var target_pos = tileMapManager.get_position_on_map(target.global_position)
+		var distance = unit_pos.distance_to(target_pos)
+		
+		if distance < unit.attack_range:
+		
+			ennemy_range=target
+			break
+			
+	return ennemy_range
+	
+	
+func attack_target(unit):
+	"""
+	Attaque les ennemie ciblé.
+	:param unit: permet de recupérer le tank.
+	"""
+	var target = ennemy_in_range(unit)
+	if target!=null:
+		main.attack_unit = unit
+		main.try_attacking(target)
+		await get_tree().create_timer(0.5).timeout
+		return true
+	return false
+
+
+
+###################
+# Fais joué 
+###################
+
+
+func play_unit(unit:CharacterBody2D)->void:
+	"""
+		Fais joué l'unité par rapport a l'equipe donné 
+	"""
+	match unit.equipe:
+		1:
+			_ai_Logic_team_1(unit)
+		2:
+			_ai_Logic_team_2(unit)
+		_:
+			_ai_Logic_team_1(unit)

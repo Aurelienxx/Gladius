@@ -12,7 +12,7 @@ extends CharacterBody2D
 @export var maintenance: int = 3
 @export var max_hp: int = 150
 @export var damage: int = 30
-@export var move_range: int = 1000 #10
+@export var move_range: int = 10
 @export var attack_range: int = 3  
 @export var movement: bool = false
 @export var attack: bool = false
@@ -38,7 +38,11 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	if equipe == 2:
 		anim.flip_h = true
 		MaskOverlay.flip_h = true
-
+	
+	var current_player = GameState.current_player
+	if GameState.is_player_ai(current_player): # si le joueur qui créer l'unité est une IA
+		is_AI = true
+	
 	# On confie la couleur et les animations au MovementManager
 	Movement._apply_color(equipe)
 	Movement.init(self, health_bar, anim, MaskOverlay, map)

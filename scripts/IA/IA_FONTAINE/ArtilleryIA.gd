@@ -346,4 +346,5 @@ func _attack_target(unit, target = null) -> void:
 
 
 	if target != null:
-		main._on_unit_attack(unit, target) # Attaque la cible
+		main.attack_unit = unit
+		main.try_attacking(target)

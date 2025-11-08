@@ -33,13 +33,16 @@ func _on_joueur_contre_ia_pressed() -> void:
 	"""
 	Prévu pour lancer une partie en mode Joueur contre IA.
 	"""
-	pass  
+	GameState.switch_player_to_ai(2)
+	get_tree().change_scene_to_file("res://scenes/Map/map.tscn")  
 	
 func _on_ia_contre_ia_pressed() -> void:
 	"""
 	Prévu pour lancer une partie en mode IA contre IA.
 	"""
-	pass  
+	GameState.switch_player_to_ai(1)
+	GameState.switch_player_to_ai(2)
+	get_tree().change_scene_to_file("res://scenes/Map/map.tscn")  
 
 func _on_back_choice_pressed() -> void:
 	"""
