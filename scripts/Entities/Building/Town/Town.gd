@@ -158,3 +158,9 @@ func check_nearby_units_for_capture() -> void:
 		if global_position.distance_to(unit.global_position) <= capture_radius:
 			capture()
 			break
+
+func getName():
+	return buildingName
+
+func getEquipe():
+	return equipe

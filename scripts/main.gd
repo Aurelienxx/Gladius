@@ -4,6 +4,7 @@ var selected_unit: CharacterBody2D # CharacterBody2D de l'unité séléctionnée
 
 @onready var all_units := GameState.all_units
 @onready var all_buildings := GameState.all_buildings
+@onready var all_AI := GameState.AIUnits
 
 var quick_select_index = -1
 
@@ -206,6 +207,8 @@ func spawnUnit(unit) -> void:
 		new_unit = spawn.spawn_unit(unit.name_Unite,current_player) # Instancie une nouvelle unité dans léquipe
 		add_child(new_unit) # Ajoute l'unité au terrain 
 		all_units = get_tree().get_nodes_in_group("units") # Ajoute l'unité à la liste des unités
+		if unit.isAI == true:
+			all_AI = get_tree().get_nodes_in_group("AIUnits")
 		# Mets à jour l'économie du joueur
 		if new_unit != null :
 			EconomyManager.buy_something(unit.cost)

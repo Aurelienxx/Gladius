@@ -14,9 +14,6 @@ func displayCards(HQ1Data: Dictionary, HQ2Data: Dictionary, HQ3Data: Dictionary)
 	updateCard(HQCard3, HQ3Data)
 
 func updateCard(card: Panel, HQData: Dictionary):
-	if not card:
-		print("Erreur: card est null !")
-		return
 	if HQData["lvl"] == 3:
 		card.get_node("Name").text = "Nom : " + HQData["name"]
 		card.get_node("MarginContainer/HBoxContainer/VBoxContainer/GoldGeneration").text = "Génération d'or : " + str(HQData["gain"])

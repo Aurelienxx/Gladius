@@ -27,6 +27,7 @@ func _on_joueur_contre_joueur_pressed() -> void:
 	"""
 	Lance une partie en mode Joueur contre Joueur.
 	"""
+	GameState.reset()
 	get_tree().change_scene_to_file("res://scenes/Map/map.tscn")
 	
 func _on_joueur_contre_ia_pressed() -> void:

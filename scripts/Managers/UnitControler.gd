@@ -133,12 +133,14 @@ func spawn_unit(unit_type: String, equipe: int):
 	
 	unit.call_deferred("setup", equipe, MAP)
 	unit.add_to_group("units") # Ajoute l'unité à au groupe des unités
-	
-	
-	GameState.register_unit(unit)
-	
+	if unit.isAI == true:
+		unit.add_to_group("AIUnits")
+	call_deferred("register_unit_after_setup", unit)
 	var local_pos = MAP.map_to_local(cell)
 	unit.position = MAP.to_global(local_pos)
-	
 	GlobalSignal.unit_spawn_pos.emit(local_pos)
 	return unit
+
+func register_unit_after_setup(unit):
+	GameState.register_unit(unit)
+	GlobalSignal.spawnedUnit.emit(unit)

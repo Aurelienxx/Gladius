@@ -44,8 +44,7 @@ func init(_character: CharacterBody2D, _health_bar: ProgressBar, _anim: Animated
 	hit_flash_timer.timeout.connect(_on_hit_flash_end)
 	
 	base_modulate = anim.modulate
-	
-	
+
 func _ready() -> void:
 	"""
 	Connexion des signaux globaux et des clics de l’Area2D à leurs fonctions de gestion.
@@ -142,35 +141,8 @@ func update_health_bar(current_hp: int, max_hp: int) -> void:
 	anim.modulate = Color(2, 2, 2, 1)
 	hit_flash_timer.start()
 
-
 func _on_hit_flash_end() -> void:
 	"""
 	Restaure la couleur d’origine du sprite après le flash de dégâts.
 	"""
 	anim.modulate = base_modulate
-
-func _capture_nearby_neutral_village():
-	"""
-	Cherche les villages neutres à proximité immédiate
-	et les capture pour l’équipe de l’unité si possible.
-	"""
-	var unit_pos = character.global_position
-	var radius = 1 # Taille de recherche autour de l'unité
-	var villages = get_tree().get_nodes_in_group("Village") # Récupération des Villages
-	for village in villages:
-		if village.has_method("capture"):
-			var v_pos = village.global_position
-			if unit_pos.distance_to(v_pos) <= radius:
-				if village.equipe == 0:
-					print("Capture par équipe ", character.equipe)
-					village.capture(character.equipe)
-					
-					
-	var villes = get_tree().get_nodes_in_group("Villes") # Récupération des Villages
-	for ville in villes:
-		if ville.has_method("capture"):
-			var v_pos = ville.global_position
-			if unit_pos.distance_to(v_pos) <= radius:
-				if ville.equipe == 0:
-					print("Capture par équipe ", character.equipe)
-					ville.capture(character.equipe)

@@ -12,7 +12,7 @@ extends CharacterBody2D
 @export var maintenance: int = 5
 @export var max_hp: int = 400
 @export var damage: int = 80
-@export var move_range: int = 5
+@export var move_range: int = 500
 @export var attack_range: int = 4  
 @export var movement: bool = false
 @export var attack: bool = false
@@ -22,6 +22,7 @@ extends CharacterBody2D
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int
 var equipe: int
+var isAI: bool = false
 
 var map:TileMapLayer
 
@@ -33,7 +34,6 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
 	map = _map
-	#print(map,_map)
 
 	if equipe == 2:
 		anim.flip_h = true
@@ -56,3 +56,18 @@ func take_damage(dmg : int) -> void :
 	"""
 	current_hp -= dmg
 	Movement.update_health_bar(current_hp, max_hp)
+
+func getEquipe():
+	return equipe
+
+func getDamage():
+	return damage
+
+func getAttackRange():
+	return attack_range
+
+func getHealth():
+	return current_hp
+
+func getName():
+	return name_Unite
