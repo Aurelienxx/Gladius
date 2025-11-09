@@ -6,13 +6,13 @@ var all_buildings: Array = []
 var MAX_PLAYER = 2
 var current_player:int = 0 # initialisation a 0 -> c'est le tour a personne de jouer
 var playerInfos: Array
-var gameMode = {
-	"isAI":  0
+var playerState = {
+	"isAI":  false
 }
 
 func _ready():
 	for i in range (MAX_PLAYER):
-		playerInfos.append(gameMode.duplicate(true))
+		playerInfos.append(playerState.duplicate(true))
 	print(playerInfos)
 
 func next_player() -> void:

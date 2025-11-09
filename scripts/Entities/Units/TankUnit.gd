@@ -35,7 +35,7 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	map = _map
 	#print(map,_map)
 
-	if equipe == 2:
+	if equipe == 2 and GameState.playerInfos[1].isAI == true:
 		anim.flip_h = true
 		MaskOverlay.flip_h = true
 		is_AI = true
