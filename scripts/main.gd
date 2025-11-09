@@ -28,7 +28,7 @@ func _ready():
 	GlobalSignal.Unit_Attack_Clicked.connect(_on_unit_attack)
 	#
 	
-	GlobalSignal.spawn_Unit.connect(spawnUnit)
+	GlobalSignal.spawnUnit.connect(spawnUnit)
 		
 	GlobalSignal.new_player_turn.connect(save_new_player)
 	

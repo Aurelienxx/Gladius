@@ -23,5 +23,4 @@ signal unit_spawn_pos(spawn_position:Vector2i)
 signal unit_finished_moving(unit)
 
 signal showButtons()
-signal unit_finished_moving()
 signal AI_finished_turn()

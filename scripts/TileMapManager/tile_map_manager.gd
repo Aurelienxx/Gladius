@@ -306,6 +306,85 @@ func get_valid_path(unit: CharacterBody2D, goal: Vector2i) -> Array:
 
 	return make_path(unit,valid_path[-1],move_range+2)
 
+func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
+	"""
+	A* classique pour obtenir le chemin le plus court entre start et goal.
+	Ignore uniquement les obstacles infranchissables.
+	"""
+	var open_list: Array = [start]
+	var closed_list: Array = []
+	var came_from: Dictionary = {}
+	var g_score: Dictionary = {start: 0}
+	var f_score: Dictionary = {start: start.distance_to(goal)}
+
+	# Directions possibles (4 directions)
+	var directions = [
+		Vector2i(1,0),
+		Vector2i(-1,0),
+		Vector2i(0,1),
+		Vector2i(0,-1)
+	]
+
+	while open_list.size() > 0:
+
+		# Noeud avec le plus petit f_score
+		var current = open_list[0]
+		for node in open_list:
+			if f_score.get(node, INF) < f_score.get(current, INF):
+				current = node
+
+		# Si on atteint l'objectif, reconstruire le chemin
+		if current == goal:
+			var path: Array = []
+			var node = current
+			while node in came_from:
+				path.insert(0, node)
+				node = came_from[node]
+			path.insert(0, start)
+			return path
+
+		open_list.erase(current)
+		closed_list.append(current)
+
+		for offset in directions:
+			var neighbor = current + offset
+
+			# Ignore les cases hors carte
+			if MAP.get_cell_source_id(neighbor) == -1:
+				continue
+
+			# Ignore les obstacles infranchissables
+			if get_terrain_cost(neighbor) < 0:
+				continue
+
+			if neighbor in closed_list:
+				continue
+
+			var tentative_g = g_score[current] + get_terrain_cost(neighbor)
+
+			if neighbor not in open_list:
+				open_list.append(neighbor)
+			elif tentative_g >= g_score.get(neighbor, INF):
+				continue
+
+			# Mise à jour du chemin
+			came_from[neighbor] = current
+			g_score[neighbor] = tentative_g
+			f_score[neighbor] = tentative_g + neighbor.distance_to(goal)
+
+	# Si aucun chemin trouvé, retourne vide
+	return []
+
+
+# Fonction qui retourne le meilleur chemin entre une position et plusieurs objectifs
+func closest_goal_distance(pos: Vector2i, goals: Array) -> float:
+	var best = INF
+	for g in goals:
+		var d = pos.distance_to(g)
+		if d < best:
+			best = d
+	return best
+
 # Renvoie la distance entre 2 unités ou cases en nombre de cases Manhattan
 func distance(unit1, unit2):
 	var pos1 : Vector2i
@@ -333,20 +412,27 @@ func isCellOccupied(cell, unit):
 				return true
 	return false
 
-func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
+func find_path_a_star_unique(start, goals, unit) -> Array:
 	"""
-    A* classique pour obtenir le chemin le plus court entre start et goal.
-    Ignore uniquement les obstacles infranchissables.
-    """
-	var open_list: Array = [start]
-	var closed_list: Array = []
-	var came_from: Dictionary = {}
-	var g_score: Dictionary = {start: 0}
-	var f_score: Dictionary = {start: start.distance_to(goal)}
+	A* classique pour obtenir le chemin le plus court entre start et goal.
+	Ignore les obstacles infranchissables et les cases déja occupées.
+	"""
+	var open_list: Array = [start] # Liste des noeuds (cases) à explorer
+	var closed_list: Array = [] # Liste des cases déjà explorées
+	var came_from: Dictionary = {} # Dictionnaire pour reconstruire le chemin
+	var g_score: Dictionary = {start: 0} # Coût le plus bas pour atteindre un noeud depuis start
+	var f_score: Dictionary = {start: closest_goal_distance(start, goals)} # Estimation total (heuristique + g_score)
 
 	# Directions possibles (4 directions)
 	var directions = [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]
+	# Les 4 directions possibles, Droite, Gauche, Bas, Haut
+	
+	# Liste des différentes cases autour du bâtiment
+	for direction in directions:
+		goals.append(goals[0] + (direction * 2))
 
+	# Début de la boucle principale du A*. On récupère la valeur dans
+	# open_list avec le plus petit f_score
 	while open_list.size() > 0:
 		# Noeud avec le plus petit f_score
 		var current = open_list[0]
@@ -398,16 +484,7 @@ func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
 			# Mise à jour du chemin
 			came_from[neighbor] = current
 			g_score[neighbor] = tentative_g
-			f_score[neighbor] = tentative_g + neighbor.distance_to(goal)
+			f_score[neighbor] = tentative_g + closest_goal_distance(neighbor, goals)
 
 	# Si aucun chemin trouvé, retourne vide
 	return []
-			
-# Fonction qui retourne le meilleur chemin entre une position et plusieurs objectifs
-func closest_goal_distance(pos: Vector2i, goals: Array) -> float:
-	var best = INF
-	for g in goals:
-		var d = pos.distance_to(g)
-		if d < best:
-			best = d
-	return best

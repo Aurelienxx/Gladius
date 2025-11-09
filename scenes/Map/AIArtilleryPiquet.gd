@@ -173,7 +173,7 @@ func doYourStuff(unit):
 					attackableCells.append(cell)
 
 	if attackableCells.size() > 0:
-		var path = MapManager.find_path_a_star(unitPos, attackableCells, unit)
+		var path = MapManager.find_path_a_star_unique(unitPos, attackableCells, unit)
 		if path.size() > 1:
 			var manager = unit.get_node("MovementManager")
 			manager.set_path(path)
