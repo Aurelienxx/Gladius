@@ -34,14 +34,6 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
 	map = _map
-	if equipe == 1:
-		isAI = true
-	elif equipe == 2:
-		isAI = false
-	
-	if equipe == 2:
-		anim.flip_h = true
-		MaskOverlay.flip_h = true
 	
 	var current_player = GameState.current_player
 	if GameState.is_player_ai(current_player): # si le joueur qui créer l'unité est une IA

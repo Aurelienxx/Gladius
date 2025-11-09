@@ -134,11 +134,19 @@ func apply_level_bonus() -> void:
 			damage = HQ1Data["damage"]
 			anim.play("Level1")
 		2:
+			max_hp = 750
+			health_bar.max_value = max_hp
+			current_hp += 250
+			health_bar.value = current_hp
 			current_gain =  HQ2Data["gain"]
 			damage += 5
 			attack_range += 3
 			anim.play("Level2")
 		3:
+			max_hp = 1000
+			health_bar.max_value = max_hp
+			current_hp += 250
+			health_bar.value = current_hp
 			current_gain =  HQ3Data["gain"]
 			anim.play("Level3")
 	
