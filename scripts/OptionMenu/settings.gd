@@ -48,4 +48,4 @@ func _load_settings() -> void:
 
 func _on_back_button_pressed() -> void:
 	visible = false
-	GlobalSignal.showButtons.emit()
+	GlobalSignal.showMainButtons.emit()

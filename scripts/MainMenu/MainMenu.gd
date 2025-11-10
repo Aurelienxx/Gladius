@@ -1,7 +1,7 @@
 extends Control
 @export var buttons: VBoxContainer 
 @export var settings: Control 
-@export var gamechoice: VBoxContainer
+@export var gamechoice: Control
 
 func _ready():
 	"""
@@ -11,7 +11,7 @@ func _ready():
 	settings.visible = false
 	buttons.visible = true
 	gamechoice.visible = false
-	GlobalSignal.showButtons.connect(displayButtons)
+	GlobalSignal.showMainButtons.connect(displayButtons)
 
 # Bouton "Jouer"
 func _on_start_button_pressed() -> void:
@@ -20,37 +20,7 @@ func _on_start_button_pressed() -> void:
 	et masque les boutons principaux.
 	"""
 	gamechoice.visible = true
-	buttons.visible = false
-
-# Choix de jeu
-func _on_joueur_contre_joueur_pressed() -> void:
-	"""
-	Lance une partie en mode Joueur contre Joueur.
-	"""
-	GameState.reset()
-	get_tree().change_scene_to_file("res://scenes/Map/map.tscn")
-	
-func _on_joueur_contre_ia_pressed() -> void:
-	"""
-	Prévu pour lancer une partie en mode Joueur contre IA.
-	"""
-	GameState.switch_player_to_ai(2)
-	get_tree().change_scene_to_file("res://scenes/Map/map.tscn")  
-	
-func _on_ia_contre_ia_pressed() -> void:
-	"""
-	Prévu pour lancer une partie en mode IA contre IA.
-	"""
-	GameState.switch_player_to_ai(1)
-	GameState.switch_player_to_ai(2)
-	get_tree().change_scene_to_file("res://scenes/Map/map.tscn")  
-
-func _on_back_choice_pressed() -> void:
-	"""
-	Retour au menu principal depuis le menu de choix de jeu.
-	"""
-	gamechoice.visible = false
-	buttons.visible = true
+	buttons.visible = false  
 
 # Paramètres
 func _on_parameters_button_pressed() -> void:

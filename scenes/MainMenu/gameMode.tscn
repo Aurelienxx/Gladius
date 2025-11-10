@@ -1,0 +1,166 @@
+[gd_scene load_steps=17 format=3 uid="uid://ccn5m25p2ke3j"]
+
+[ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="1_4hon4"]
+[ext_resource type="Script" uid="uid://cb1j0eoqex5i2" path="res://scripts/MainMenu/gameMode.gd" id="1_f0sef"]
+[ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="2_f0sef"]
+[ext_resource type="Texture2D" uid="uid://baajk4w7yhych" path="res://assets/sprites/Interface/StartingMenuIcons/StartingMenuIcons.png" id="3_18yej"]
+[ext_resource type="Texture2D" uid="uid://s4rqve086ibo" path="res://assets/sprites/Interface/OptionMenue/OptionMenuIcons.png" id="4_gafu6"]
+[ext_resource type="PackedScene" uid="uid://bh4w3jptm1ttl" path="res://scenes/MainMenu/teamChoice.tscn" id="6_18yej"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6seat"]
+texture = ExtResource("3_18yej")
+region_rect = Rect2(0, 0, 128, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jejo1"]
+bg_color = Color(0.45840502, 0.45840508, 0.45840502, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5d763"]
+texture = ExtResource("3_18yej")
+region_rect = Rect2(0, 34, 128, 30)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_768sb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5islu"]
+texture = ExtResource("3_18yej")
+region_rect = Rect2(0, 64, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4520l"]
+texture = ExtResource("3_18yej")
+region_rect = Rect2(0, 97, 128, 31)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1b0bs"]
+texture = ExtResource("3_18yej")
+region_rect = Rect2(0, 128, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t4pcn"]
+texture = ExtResource("3_18yej")
+region_rect = Rect2(0, 162, 128, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1onso"]
+texture = ExtResource("4_gafu6")
+region_rect = Rect2(0, 0, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lb5mo"]
+texture = ExtResource("4_gafu6")
+region_rect = Rect2(0, 34, 128, 30)
+
+[node name="GameModeNode" type="Control" node_paths=PackedStringArray("teamChoice", "gameModes")]
+custom_minimum_size = Vector2(100, 600)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1000.0
+offset_bottom = 600.0
+script = ExtResource("1_f0sef")
+teamChoice = NodePath("TeamChoice")
+gameModes = NodePath("GameModes")
+
+[node name="GameModes" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4hon4")
+region_rect = Rect2(0, 64, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameModes"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -232.0
+offset_right = 256.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="JoueurContreJoueur" type="Button" parent="GameModes/VBoxContainer"]
+custom_minimum_size = Vector2(512, 96)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_f0sef")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxTexture_6seat")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5d763")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
+
+[node name="JoueurContreIA" type="Button" parent="GameModes/VBoxContainer"]
+custom_minimum_size = Vector2(512, 96)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_f0sef")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxTexture_5islu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4520l")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
+text = "
+"
+
+[node name="IAContreIA" type="Button" parent="GameModes/VBoxContainer"]
+custom_minimum_size = Vector2(512, 96)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_f0sef")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxTexture_1b0bs")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_t4pcn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
+
+[node name="Control" type="Control" parent="GameModes/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackChoice" type="Button" parent="GameModes/VBoxContainer"]
+custom_minimum_size = Vector2(512, 96)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_f0sef")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxTexture_1onso")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lb5mo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
+
+[node name="TeamChoice" parent="." instance=ExtResource("6_18yej")]
+visible = false
+layout_mode = 0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = 900.0
+offset_bottom = 550.0
+
+[connection signal="pressed" from="GameModes/VBoxContainer/JoueurContreJoueur" to="." method="_on_joueur_contre_joueur_pressed"]
+[connection signal="pressed" from="GameModes/VBoxContainer/JoueurContreIA" to="." method="_on_joueur_contre_ia_pressed"]
+[connection signal="pressed" from="GameModes/VBoxContainer/IAContreIA" to="." method="_on_ia_contre_ia_pressed"]
+[connection signal="pressed" from="GameModes/VBoxContainer/BackChoice" to="." method="_on_back_button_pressed"]
