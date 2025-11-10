@@ -15,11 +15,6 @@ var size_x: int = 3
 var size_y: int = 3
 var upgrade_cost: int = 60
 
-# Différents niveaux du village
-var Vlg1 = {"name": "Village", "gain": 10, "lv": 1}
-var Vlg2 = {"name": "Village", "cost": 65, "gain": 13, "lv": 2}
-var Vlg3 = {"name": "Village", "attack": 15, "cost": 80, "gain": 15, "lv": 3}
-
 # Variables d’état
 var current_gain: int = 0
 var current_hp: int

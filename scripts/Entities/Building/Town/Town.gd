@@ -15,11 +15,6 @@ var size_x: int = 3
 var size_y: int = 3
 var upgrade_cost: int = 60
 
-# Différents niveaux de la ville
-var Town1 = {"name": "Town", "gain": 15, "lv": 1}
-var Town2 = {"name": "Town", "cost": 85, "gain": 18, "lv": 2}
-var Town3 = {"name": "Town", "attack": 15, "cost": 100, "gain": 20, "lv": 3}
-
 # Variables d’état
 var current_gain: int = 0
 var current_hp: int
