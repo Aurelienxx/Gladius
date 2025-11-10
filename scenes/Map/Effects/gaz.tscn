@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://c2q2e85nvtxvu"]
+
+[ext_resource type="Script" uid="uid://daeeku5qrae51" path="res://scripts/Map/Effects/EffectManager.gd" id="1_6afud"]
+[ext_resource type="Texture2D" uid="uid://b30o47dimvgt5" path="res://assets/sprites/Effects/AnimationSpawnGaz/animation_spawn_gaz_1.png" id="1_wi63c"]
+[ext_resource type="Texture2D" uid="uid://1d8n6oi15u4g" path="res://assets/sprites/Effects/AnimationSpawnGaz/animation_spawn_gaz_2.png" id="2_httpy"]
+[ext_resource type="Texture2D" uid="uid://d232rmvxj3d8u" path="res://assets/sprites/Effects/AnimationSpawnGaz/animation_spawn_gaz_3.png" id="3_xfd1f"]
+[ext_resource type="Texture2D" uid="uid://dkw8dwj5irwv0" path="res://assets/sprites/Effects/AnimationSpawnGaz/animation_spawn_gaz_4.png" id="4_xc7bn"]
+[ext_resource type="Texture2D" uid="uid://2xc4ftiqxfv7" path="res://assets/sprites/Effects/AnimationSpawnGaz/animation_spawn_gaz_5.png" id="5_re61b"]
+[ext_resource type="Texture2D" uid="uid://bl16g3ktjwov3" path="res://assets/sprites/Effects/AnimationSpawnGaz/animation_spawn_gaz_6.png" id="6_vf8fj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yh4l8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wi63c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_httpy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xfd1f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xc7bn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_re61b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vf8fj")
+}],
+"loop": false,
+"name": &"gaz",
+"speed": 15.0
+}]
+
+[node name="Gaz" type="AnimatedSprite2D"]
+z_index = 10
+sprite_frames = SubResource("SpriteFrames_yh4l8")
+animation = &"gaz"
+script = ExtResource("1_6afud")

@@ -72,6 +72,7 @@ func gaz_cell(gaz_cells):
 	"""
 	GAZ.clear() # Supprime la surbillance pour éviter la superposition 
 	GAZ.set_cell(gaz_cells,0, Vector2i(0,0))
+	GlobalSignal.hq_attack_occured_pos.emit(gaz_cells)
 
 func get_terrain_cost(cell: Vector2i) -> int:
 	"""
