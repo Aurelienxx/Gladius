@@ -77,7 +77,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("1_w5xwf")
-region_rect = Rect2(32, 224, 32, 32)
+region_rect = Rect2(32, 288, 32, 32)
 
 [node name="MaxHPValue" type="Label" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/MaxHP_Damage/MaxHP"]
 layout_mode = 2
@@ -91,7 +91,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("1_w5xwf")
-region_rect = Rect2(64, 256, 32, 32)
+region_rect = Rect2(64, 320, 32, 32)
 
 [node name="DamageValue" type="Label" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/MaxHP_Damage/Damage"]
 layout_mode = 2
@@ -108,7 +108,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("1_w5xwf")
-region_rect = Rect2(0, 224, 32, 32)
+region_rect = Rect2(0, 288, 32, 32)
 
 [node name="AttackRangeValue" type="Label" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/AttackRange_Gain/AttackRange"]
 layout_mode = 2
@@ -122,7 +122,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("1_w5xwf")
-region_rect = Rect2(0, 256, 32, 32)
+region_rect = Rect2(96, 288, 32, 32)
 
 [node name="GainValue" type="Label" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/AttackRange_Gain/Gain"]
 layout_mode = 2
