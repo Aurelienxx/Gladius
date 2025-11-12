@@ -41,11 +41,11 @@ region_rect = Rect2(0, 0, 128, 32)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l5g1i"]
 texture = ExtResource("29_a1o1e")
-region_rect = Rect2(0, 192, 64, 32)
+region_rect = Rect2(0, 256, 64, 32)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6n7by"]
 texture = ExtResource("29_a1o1e")
-region_rect = Rect2(64, 192, 64, 30)
+region_rect = Rect2(64, 258, 64, 30)
 
 [node name="InGameUI" type="CanvasLayer" node_paths=PackedStringArray("displayGold", "displayGainOrLoss", "teamColor", "OptionsMenue")]
 script = ExtResource("1_kbjyg")

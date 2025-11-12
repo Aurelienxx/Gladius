@@ -1,13 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://c1e4qtotfslu8"]
+[gd_scene load_steps=21 format=3 uid="uid://c1e4qtotfslu8"]
 
 [ext_resource type="Script" uid="uid://018u7ywc34y1" path="res://scripts/MainMenu/MainMenu.gd" id="1_gwiro"]
-[ext_resource type="Texture2D" uid="uid://c6crtc706nwu3" path="res://assets/sprites/Interface/Other/screenshot.png" id="2_7j8ul"]
-[ext_resource type="AudioStream" uid="uid://m4420alungvr" path="res://assets/sound/Snare drum solo, snare drum march, snare solo, military drums.mp3" id="2_mqas3"]
+[ext_resource type="Texture2D" uid="uid://csd0h7ne6kquk" path="res://assets/sprites/Interface/Other/screenshot.png" id="2_7j8ul"]
+[ext_resource type="AudioStream" uid="uid://cwriswjg763cb" path="res://assets/sound/Snare drum solo, snare drum march, snare solo, military drums.mp3" id="2_mqas3"]
 [ext_resource type="PackedScene" uid="uid://l5psbttjcf8j" path="res://scenes/Settings/settings.tscn" id="3_y5ja3"]
-[ext_resource type="Texture2D" uid="uid://d1pxuf47nm8f6" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="5_0qq82"]
+[ext_resource type="Texture2D" uid="uid://b3n5m7xq3mcqk" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="5_0qq82"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="5_7j8ul"]
 [ext_resource type="PackedScene" uid="uid://ccn5m25p2ke3j" path="res://scenes/MainMenu/gameMode.tscn" id="5_y5ja3"]
-[ext_resource type="Texture2D" uid="uid://cnjv4uukpmd1f" path="res://assets/sprites/Interface/Other/logoGladius.png" id="8_oy0qi"]
+[ext_resource type="Texture2D" uid="uid://cnfhd0qc16l7u" path="res://assets/sprites/Interface/Other/logoGladius.png" id="8_oy0qi"]
+[ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="9_y5ja3"]
 
 [sub_resource type="Theme" id="Theme_7j8ul"]
 
@@ -36,6 +37,18 @@ region_rect = Rect2(0, 128, 128, 32)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bung8"]
 texture = ExtResource("5_0qq82")
 region_rect = Rect2(0, 162, 128, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oj5b0"]
+texture = ExtResource("9_y5ja3")
+region_rect = Rect2(0, 192, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ovde5"]
+texture = ExtResource("9_y5ja3")
+region_rect = Rect2(64, 194, 32, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_un4i7"]
+texture = ExtResource("9_y5ja3")
+region_rect = Rect2(64, 194, 32, 30)
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("buttons", "settings", "gamechoice")]
 layout_mode = 3
@@ -168,7 +181,10 @@ offset_top = 11.0
 offset_right = 1910.0
 offset_bottom = 121.0
 theme_override_font_sizes/font_size = 128
-text = "?"
+theme_override_styles/normal = SubResource("StyleBoxTexture_oj5b0")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ovde5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_un4i7")
+action_mode = 0
 
 [connection signal="visibility_changed" from="SettingsNode" to="." method="_on_settings_visibility_changed"]
 [connection signal="pressed" from="MainButtons/Buttons/StartButton" to="." method="_on_start_button_pressed"]

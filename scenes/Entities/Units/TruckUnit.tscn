@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4cxrrugw53mu"]
+[gd_scene load_steps=18 format=3 uid="uid://c4cxrrugw53mu"]
 
 [ext_resource type="Script" uid="uid://gy8ueqbl0fb7" path="res://scripts/Entities/Units/TruckUnit.gd" id="1_wsuu6"]
 [ext_resource type="Texture2D" uid="uid://cmb0ndwemusua" path="res://assets/sprites/EntitySprite/Units/Spritetruck/Sprites/Idle/Truck_1.png" id="2_vhdrv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_vcqc8"]
 [ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/unitManager.gd" id="5_4quyo"]
 [ext_resource type="Texture2D" uid="uid://br7rs4r8xnhs" path="res://assets/sprites/EntitySprite/Units/Spritetruck/Mask/Idle/Truck_Mask_2.png" id="5_khpsq"]
+[ext_resource type="Texture2D" uid="uid://djk21cvbaiuk6" path="res://assets/sprites/EntitySprite/Units/healthbar.png" id="7_vcqc8"]
 
 [sub_resource type="Animation" id="Animation_vcqc8"]
 length = 0.001
@@ -100,11 +101,22 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wsick"]
 size = Vector2(31, 27)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rj4l"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4quyo"]
 bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ti684"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khpsq"]
 bg_color = Color(0.16862746, 0.7058824, 0, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pabl4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_vcqc8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="TruckUnit" type="CharacterBody2D"]
 script = ExtResource("1_wsuu6")
@@ -134,13 +146,19 @@ shape = SubResource("RectangleShape2D_wsick")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = -12.0
-offset_top = -16.0
+offset_top = -17.0
 offset_right = 12.0
 offset_bottom = -15.0
 theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_styles/background = SubResource("StyleBoxFlat_7rj4l")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ti684")
+theme_override_styles/background = SubResource("StyleBoxFlat_4quyo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_khpsq")
 show_percentage = false
+
+[node name="HealthBarSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -14.951795)
+scale = Vector2(0.2931858, 0.06995234)
+sprite_frames = SubResource("SpriteFrames_pabl4")
+offset = Vector2(-0.005, -13.28)
 
 [node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D", "MaskOverlay", "anim")]
 script = ExtResource("5_4quyo")

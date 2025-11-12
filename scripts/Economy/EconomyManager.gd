@@ -24,7 +24,12 @@ func new_player(newPlayer:int):
 func _get_team_tab():
 	var index = current_player - 1
 	return EconomyTab.get(index) # on covertie la team en index
-
+	
+func get_team_current_money() -> int:
+	var money = EconomyTab[current_player]["current_money"]
+	
+	return money
+	
 func _update_profit(valueStorage) -> void:
 	valueStorage["money_result"] = valueStorage["money_gain"] - valueStorage["money_loss"]
 	GlobalSignal.current_Money_Gain_Or_Loss.emit(valueStorage["money_result"])

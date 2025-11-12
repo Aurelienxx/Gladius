@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cnywfqbg0wjpb"]
+[gd_scene load_steps=18 format=3 uid="uid://cnywfqbg0wjpb"]
 
 [ext_resource type="Script" uid="uid://o5smydf2bdkc" path="res://scripts/Entities/Units/ArtilleryUnit.gd" id="1_wso3m"]
 [ext_resource type="Texture2D" uid="uid://dt6qw6o2r3fpg" path="res://assets/sprites/EntitySprite/Units/SpriteArtillery/Sprites/Idle/artillery_1.png" id="2_x6c4b"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cb8byr7cvgp20" path="res://scripts/Entities/Units/clickDetection.gd" id="4_srvsw"]
 [ext_resource type="Script" uid="uid://ban6umbhgcv5u" path="res://scripts/Entities/Units/unitManager.gd" id="5_36nl8"]
 [ext_resource type="Texture2D" uid="uid://dkd7vcn6ho6y1" path="res://assets/sprites/EntitySprite/Units/SpriteArtillery/Mask/Idle/artillery_Mask_2.png" id="5_lsb2e"]
+[ext_resource type="Texture2D" uid="uid://djk21cvbaiuk6" path="res://assets/sprites/EntitySprite/Units/healthbar.png" id="8_srvsw"]
 
 [sub_resource type="Animation" id="Animation_vcqc8"]
 length = 0.001
@@ -106,6 +107,17 @@ bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5iw1w"]
 bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_36nl8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_srvsw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="ArtilleryUnit" type="CharacterBody2D"]
 script = ExtResource("1_wso3m")
 thumbnail = ExtResource("2_x6c4b")
@@ -133,13 +145,19 @@ shape = SubResource("RectangleShape2D_wsick")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = -12.0
-offset_top = -16.0
+offset_top = -17.0
 offset_right = 12.0
 offset_bottom = -15.0
 theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_vff3r")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5iw1w")
 show_percentage = false
+
+[node name="HealthBarSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -14.951795)
+scale = Vector2(0.2931858, 0.06995234)
+sprite_frames = SubResource("SpriteFrames_36nl8")
+offset = Vector2(-0.005, -13.28)
 
 [node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D", "MaskOverlay", "anim")]
 script = ExtResource("5_36nl8")
