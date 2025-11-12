@@ -72,8 +72,7 @@ func gaz_cell(gaz_cells):
 	"""
 	GAZ.clear() # Supprime la surbillance pour éviter la superposition 
 	GAZ.set_cell(gaz_cells,0, Vector2i(0,0))
-	GlobalSignal.hq_attack_occured_pos.emit(gaz_cells)
-
+	
 func get_terrain_cost(cell: Vector2i) -> int:
 	"""
 	Retourne le coût de déplacement pour une case donnée selon le terrain.
@@ -270,11 +269,12 @@ func attack_gaz(QG:CharacterBody2D)->void:
 		if unit.equipe != QG.equipe:
 			var pos_unit=MAP.local_to_map(unit.global_position)
 			if is_adjacent_cells(pos_qg,pos_unit,QG.attack_range):
-				liste.append(pos_unit)
+				liste.append(unit)
 	if liste != []:
 		var taille_liste= len(liste)
 		var i :int=randi_range(0,taille_liste-1)
-		gaz_cell(liste[i])
+		gaz_cell(MAP.local_to_map(liste[i].global_position))
+		GlobalSignal.hq_attack_occured_pos.emit(liste[i].position)
 
 func get_valid_path(unit: CharacterBody2D, goal: Vector2i) -> Array:
 	"""

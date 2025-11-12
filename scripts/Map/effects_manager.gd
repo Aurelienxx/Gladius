@@ -24,7 +24,7 @@ func play_anim_gaz(gaz_position:Vector2i):
 	var gaz = gazEffect.instantiate()
 	gaz.position = gaz_position
 	add_child(gaz)
-		
+
 #### Spawn animation
 
 func play_anim_spawn(spawn_pos:Vector2i):
