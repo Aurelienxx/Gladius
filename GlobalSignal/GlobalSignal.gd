@@ -26,3 +26,5 @@ signal unit_finished_moving(unit)
 signal showMainButtons()
 signal showGameModeButtons()
 signal AI_finished_turn()
+
+signal buyingUpgrade(level: int)

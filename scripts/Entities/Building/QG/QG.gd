@@ -15,15 +15,16 @@ var max_hp: int = 2000
 var damage: int
 var attack_range: int
 var isAI : bool = false
+var bonus : String
 
 var lv: int = 1
 var size_x: int = 3
 var size_y: int = 3
 
 # Différents niveaux du QG
-var HQ1Data = {"name":"QG Niveau 1", "damage":15, "gain" : 15, "prix": 0, "lvl":1, "Sprite" : "res://assets/sprites/EntitySprite/Buildings/HQ/HQ_sketch.png"}
-var HQ2Data = {"name":"QG Niveau 2", "damage":20, "gain" : 30, "prix": 150, "lvl":2, "Sprite" : "res://assets/sprites/EntitySprite/Buildings/HQ/HQ_sketch.png"}
-var HQ3Data = {"name":"QG Niveau 3", "damage":30, "gain" : 50, "prix": 275, "lvl":3, "bonus":"Gaz Moutarde", "Sprite" : "res://assets/sprites/EntitySprite/Buildings/HQ/HQ_sketch.png"}
+var HQ1Data = {"name":"QG Niveau 1", "max_hp": 500 ,"damage":0, "attack_range": 0, "gain" : 15, "prix": 0, "lvl":1, "bonus":"", "Sprite" : "res://assets/sprites/EntitySprite/Buildings/HQ/Level_1/HQ_Level_1_1.png"}
+var HQ2Data = {"name":"QG Niveau 2", "max_hp": 750, "damage":0, "attack_range": 0, "gain" : 30, "prix": 150, "lvl":2, "bonus":"", "Sprite" : "res://assets/sprites/EntitySprite/Buildings/HQ/Level_2/HQ_Level_2_1.png"}
+var HQ3Data = {"name":"QG Niveau 3", "max_hp": 1000, "damage":15, "attack_range": 5, "gain" : 50, "prix": 275, "lvl":3, "bonus":"Gaz Moutarde", "Sprite" : "res://assets/sprites/EntitySprite/Buildings/HQ/Level_3/HQ_Level_3_1.png"}
 
 # Variables d’état
 var current_gain: int = 0
@@ -64,16 +65,9 @@ func _ready():
 
 	base_modulate = anim.modulate
 	upgradeHUD.visible = false
-	upgradeHUD.achatLvl2.connect(upgradeLvl2Signal)
-	upgradeHUD.achatLvl3.connect(upgradeLvl3Signal)
 	anim.play("Level1")
 	flag.play()
-	
-func upgradeLvl2Signal(lvl: int):
-	upgrade(lvl)
-
-func upgradeLvl3Signal(lvl: int):
-	upgrade(lvl)
+	GlobalSignal.buyingUpgrade.connect(upgrade)
 
 func take_damage(dmg:int) -> void:
 	"""
@@ -112,16 +106,19 @@ func upgrade(lvl: int) -> void:
 			EconomyManager.buy_something(HQ2Data["prix"])
 			lv += 1
 			apply_level_bonus()
-			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv2/ButtonLv2").queue_free()
+			upgradeHUD.hideBuyButton(2)
+		flag.stop()
+		flag.play()
 	else:
-		if EconomyManager.money_check(HQ3Data["prix"]):
-			EconomyManager.buy_something(HQ3Data["prix"])
-			lv += 1
-			apply_level_bonus()
-			upgradeHUD.get_node("UpgradeHUD/HBoxContainer/LevelCardLv3/ButtonLv3").queue_free()
-	flag.stop()
-	flag.play()
-			
+		if getLevel() == 2:
+			if EconomyManager.money_check(HQ3Data["prix"]):
+				EconomyManager.buy_something(HQ3Data["prix"])
+				lv += 1
+				apply_level_bonus()
+				upgradeHUD.hideBuyButton(3)
+		flag.stop()
+		flag.play()
+
 func apply_level_bonus() -> void:
 	"""
 	Applique les bonus selon le niveau actuel du QG :
@@ -130,23 +127,25 @@ func apply_level_bonus() -> void:
 	"""
 	match lv:
 		1:
-			current_gain =  HQ1Data["gain"]
+			max_hp = HQ1Data["max_hp"]
 			damage = HQ1Data["damage"]
+			attack_range = HQ1Data["attack_range"]
+			current_gain =  HQ1Data["gain"]
 			anim.play("Level1")
 		2:
-			max_hp = 750
-			health_bar.max_value = max_hp
-			current_hp += 250
+			health_bar.max_value = HQ2Data["max_hp"]
+			current_hp += (HQ2Data["max_hp"] - HQ1Data["max_hp"])
 			health_bar.value = current_hp
+			damage = HQ2Data["damage"]
+			attack_range = HQ2Data["attack_range"]
 			current_gain =  HQ2Data["gain"]
-			damage += 5
-			attack_range += 3
 			anim.play("Level2")
 		3:
-			max_hp = 1000
-			health_bar.max_value = max_hp
-			current_hp += 250
+			health_bar.max_value = HQ3Data["max_hp"]
+			current_hp += (HQ3Data["max_hp"] - HQ2Data["max_hp"])
 			health_bar.value = current_hp
+			damage = HQ3Data["damage"]
+			attack_range = HQ3Data["attack_range"]
 			current_gain =  HQ3Data["gain"]
 			anim.play("Level3")
 	
@@ -154,8 +153,8 @@ func apply_level_bonus() -> void:
 	if equipe == GameState.current_player:
 		EconomyManager.change_money_gain(current_gain)
 	
-func showUpgradeHUD(equipe: int):
-	current_player = equipe
+func showUpgradeHUD(team: int):
+	current_player = team
 	upgradeHUD.displayCards(HQ1Data, HQ2Data, HQ3Data)
 	upgradeHUD.visible = true
 
@@ -164,3 +163,6 @@ func getName():
 
 func getEquipe():
 	return equipe
+
+func getLevel():
+	return lv

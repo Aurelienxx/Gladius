@@ -49,10 +49,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -333.7143
-offset_top = -219.0
-offset_right = 333.71436
-offset_bottom = 219.0
+offset_left = -334.0
+offset_top = -220.0
+offset_right = 334.0
+offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x8icr")
@@ -74,21 +74,6 @@ offset_right = 500.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="ExitButton" type="HBoxContainer" parent="MarginContainer"]
-z_index = 1
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ExitButton"]
-z_index = -1
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-mouse_filter = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = -40
-theme_override_constants/margin_right = -40
 
 [node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
 layout_mode = 2
