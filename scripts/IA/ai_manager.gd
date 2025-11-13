@@ -3,6 +3,7 @@ extends Node
 @export var AiTankManager: Node
 @export var AiArtilleryManager: Node
 @export var AiTruckManager: Node
+@export var AiInfantryManager: Node
 
 func _ready() -> void:
 	GlobalSignal.new_turn.connect(_play_AI_turn)
@@ -24,7 +25,8 @@ func _play_turn(index_player:int) -> void:
 
 		match unit_name:
 			"Infanterie":
-				print("Unité non gérée : ", unit_name)
+				print("Infanterie joue...")
+				AiInfantryManager.IA_turn(unit)
 			"Camion":
 				print("Camion joue...")
 				AiTruckManager.Ai_Truck(unit)

@@ -3,117 +3,90 @@ extends Node
 @export var map : Node
 @export var main : Node
 
-
-
-# --- TOUR DE L'IA ---
-func _ready() -> void:
-	"""
-	Connexion du signal de changement de tour pour commencer l'appel IA
-	"""
-	GlobalSignal.new_player_turn.connect(_on_new_player_turn)
-
-func _on_new_player_turn(player : int) -> void:
-	"""Appel du tour IA pour le joueur 2"""
-	for unit in GameState.all_units:
-		if unit.equipe == GameState.current_player:
-			# On remet les valeurs à false pour que les unités puissent agir
-			unit.movement = false
-			unit.attack = false
-	# Appel du tour d'IA si c'est le tour du joueur 2
-	if GameState.current_player == 2:
-		IA_turn()
-
-func IA_turn() -> void:
+func IA_turn(unit) -> void:
 	"""
 	Tour de l'IA, pour chaque unité
 	Par ordre de priorité, tente d'attaquer ici puis
 	définit une cible prioritaire où se rendre (ennemi faible, allié, bâtiment neutre/ennemi).
 	gère ensuite le déplacement vers cette cible
 	"""
-	var all_units : Array = GameState.all_units
+
+	# ---- Initialisation des variable utilitaires ----
+	var move : Node = unit.get_node("MovementManager")
+	var target_cell : Variant = null # Cellule où se rendra l'unité
+	var unit_pos : Vector2i = map.get_position_on_map(unit.global_position) # Position de l'unité sur le niveau
+	var ally_nearby : CharacterBody2D = null # Allié proche potentiel
+	var units_numbers : Array = get_units_numbers() # Nombre d'unités alliées/ennemies
+	var nearby_target : CharacterBody2D = get_best_enemy_nearby(unit) # Ennemi rejoignable et attaquable ce tour
+	var closest_building : CharacterBody2D = get_closest_building(unit,false,true) # Bâtiment NEUTRE le plus proche
 	
-	for unit in all_units:
-		if unit.equipe == GameState.current_player and not unit.movement and unit.name_Unite == "Infanterie":
-			
-			# ---- Initialisation des variable utilitaires ----
-			var move : Node = unit.get_node("MovementManager")
-			var target_cell : Variant = null # Cellule où se rendra l'unité
-			var unit_pos : Vector2i = map.get_position_on_map(unit.global_position) # Position de l'unité sur le niveau
-			var ally_nearby : CharacterBody2D = null # Allié proche potentiel
-			var units_numbers : Array = get_units_numbers() # Nombre d'unités alliées/ennemies
-			var nearby_target : CharacterBody2D = get_best_enemy_nearby(unit) # Ennemi rejoignable et attaquable ce tour
-			var closest_building : CharacterBody2D = get_closest_building(unit,false,true) # Bâtiment NEUTRE le plus proche
-			
-			# 2x plus d'ennemis que d'alliés : On cherche un allié autour de soi (move_range*3)
-			if units_numbers[1] > (units_numbers[0]*2) :
-				ally_nearby = get_closest_ally_nearby(unit, 3)
-			
-			# On tente d'attaquer tout de suite, si réussi, on passe à l'unité suivante
-			if await try_attacking_here(unit):
-				print("INFANTERIE : J'attaque un ennemi à proximité")
-				continue
-			
-			# Affichage du range de déplacement pour simuler le comportement joueur, petite attente pour la même raison
-			map.display_movement(unit)
-			var reachable_cells : Array = map.get_reachable_cells(map.MAP, unit_pos, unit.move_range)
-			await get_tree().create_timer(0.5).timeout
-			
-			# Si on ne peut pas bouger, on passe à l'unité suivante
-			if reachable_cells.is_empty():
-				continue
-				
-			# On a trouvé une cible faible à rejoindre puis attaquer ce tour
-			elif nearby_target != null :
-				print("INFANTERIE : Je me rapproche d'un ennemi pour l'attaquer")
-				var target_pos : Vector2i = map.get_position_on_map(nearby_target.global_position)
-				# On cherche à s'en approcher
-				target_cell = get_closest_cell_to_target(unit_pos,reachable_cells, target_pos)
-				
-			# On a trouvé un allié à rejoindre
-			elif ally_nearby != null:
-				print("INFANTERIE : Il y a trop d'ennemis, je rejoins un allié")
-				var ally_pos : Vector2i = map.get_position_on_map(ally_nearby.global_position)
-				# On cherche à s'en approcher
-				target_cell = get_closest_cell_to_target(unit_pos,reachable_cells, ally_pos)
-				
-			# On a trouvé un bâtiment neutre
-			elif closest_building != null:
-				print("INFANTERIE : Je me rapproche un bâtiment neutre pour le capturer")
-				var building_cell : Vector2i = get_closest_building_cell(unit, closest_building) # Cellule à rejoindre (car bâtiments font 3*3)
-				if building_cell != null:
-					# On cherche à s'en approcher
-					target_cell = get_closest_cell_to_target(unit_pos,reachable_cells, building_cell)
-					
-			# Pas de bâtiment neutre, on cherche un bâtiment ennemi
-			elif closest_building == null:
-				closest_building = get_closest_building(unit, true, false)
-				if closest_building != null:
-					print("INFANTERIE : Je rejoins un bâtiment ennemi pour l'attaquer")
-					var building_cell : Vector2i = get_closest_building_cell(unit, closest_building) # Cellule à rejoindre (car bâtiments font 3*3)
-					if building_cell != null:
-						# On cherche à s'en approcher
-						target_cell = get_closest_cell_to_target(unit_pos,reachable_cells, building_cell)
+	# 2x plus d'ennemis que d'alliés : On cherche un allié autour de soi (move_range*3)
+	if units_numbers[1] > (units_numbers[0]*2) :
+		ally_nearby = get_closest_ally_nearby(unit, 3)
+	
+	# On tente d'attaquer tout de suite, si réussi, on passe à l'unité suivante
+	if await try_attacking_here(unit):
+		#print("INFANTERIE : J'attaque un ennemi à proximité")
+		return
 
-			# Aucun objectif détecté
-			# NOTE : n'est pas censé de produire car le QG ennemi existe toujours 
-			# et on a cherché un bâtiment ennemi avant cette condition
-			elif target_cell == null:
-				# Choix de cellule aléatoire
-				target_cell = reachable_cells.pick_random()
+	var reachable_cells : Array = map.get_reachable_cells(unit_pos, unit.move_range)
+	await get_tree().create_timer(0.5).timeout
+	
+	# Si on ne peut pas bouger, on passe à l'unité suivante
+	if reachable_cells.is_empty():
+		return
+		
+	# On a trouvé une cible faible à rejoindre puis attaquer ce tour
+	elif nearby_target != null :
+		#print("INFANTERIE : Je me rapproche d'un ennemi pour l'attaquer")
+		var target_pos : Vector2i = map.get_position_on_map(nearby_target.global_position)
+		# On cherche à s'en approcher
+		target_cell = get_closest_cell_to_target(unit_pos,reachable_cells, target_pos)
+		
+	# On a trouvé un allié à rejoindre
+	elif ally_nearby != null:
+		#print("INFANTERIE : Il y a trop d'ennemis, je rejoins un allié")
+		var ally_pos : Vector2i = map.get_position_on_map(ally_nearby.global_position)
+		# On cherche à s'en approcher
+		target_cell = get_closest_cell_to_target(unit_pos,reachable_cells, ally_pos)
+		
+	# On a trouvé un bâtiment neutre
+	elif closest_building != null:
+		#print("INFANTERIE : Je me rapproche un bâtiment neutre pour le capturer")
+		var building_cell : Vector2i = get_closest_building_cell(unit, closest_building) # Cellule à rejoindre (car bâtiments font 3*3)
+		if building_cell != null:
+			# On cherche à s'en approcher
+			target_cell = get_closest_cell_to_target(unit_pos,reachable_cells, building_cell)
+			
+	# Pas de bâtiment neutre, on cherche un bâtiment ennemi
+	elif closest_building == null:
+		closest_building = get_closest_building(unit, true, false)
+		if closest_building != null:
+			#print("INFANTERIE : Je rejoins un bâtiment ennemi pour l'attaquer")
+			var building_cell : Vector2i = get_closest_building_cell(unit, closest_building) # Cellule à rejoindre (car bâtiments font 3*3)
+			if building_cell != null:
+				# On cherche à s'en approcher
+				target_cell = get_closest_cell_to_target(unit_pos,reachable_cells, building_cell)
 
-			# Un objectif a été défini
-			if target_cell != null:
-				# On s'y rend
-				var path : Array = map.make_path(unit,target_cell,unit.move_range)
-				move.set_path(path)
-				
-				# Modification des valeurs et petite attente
-				unit.movement = true
-				map.highlight_reset()
-				await get_tree().create_timer(0.5).timeout
-				
-				# On tente d'attaquer après le déplacement
-				try_attacking_here(unit)
+	# Aucun objectif détecté
+	# NOTE : n'est pas censé de produire car le QG ennemi existe toujours 
+	# et on a cherché un bâtiment ennemi avant cette condition
+	elif target_cell == null:
+		# Choix de cellule aléatoire
+		target_cell = reachable_cells.pick_random()
+
+	# Un objectif a été défini
+	if target_cell != null:
+		# On s'y rend
+		var path : Array = map.make_path(unit,target_cell,unit.move_range)
+		move.set_path(path)
+		
+		# Modification des valeurs et petite attente
+		unit.movement = true
+		await get_tree().create_timer(0.5).timeout
+		
+		# On tente d'attaquer après le déplacement
+		try_attacking_here(unit)
 
 
 func get_units_numbers() -> Array :
@@ -344,8 +317,6 @@ func try_attacking_here(unit : CharacterBody2D) -> bool:
 	# Recherche d'une cible attaquable dans la portée d'attaque
 	var target = get_target_in_attack_range(unit)
 	if target != null:
-		# Cible trouvée, on l'attaque en simulant le comportement joueur (affichage et attente)
-		map.display_attack(unit)
 		await get_tree().create_timer(0.5).timeout
 		main._on_unit_attack(unit, target)
 		# Changement des valeurs, l'unité ne peut plus agir
