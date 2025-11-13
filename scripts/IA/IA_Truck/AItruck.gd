@@ -10,27 +10,7 @@ var UNIT_VALUES = {
 	"Camion": 1,
 	"Tank": 15,
 }
-# 2 fonctions permettant de démarrer l'IA lors du changement de tour
-func _ready():
-	GlobalSignal.new_player_turn.connect(_on_new_player_turn)
-	
-func _on_new_player_turn(player : int):
-	for unit in GameState.all_units:
-		if unit.equipe == GameState.current_player:
-			unit.movement = false
-	if GameState.current_player == 2:
-		await IA_turn()
 
-# --- TOUR DE L’IA ---
-func IA_turn():
-	# Récupération de toutes les unités présentes sur le terrain
-	var all_units = GameState.all_units
-	
-	# Vérification pour toutes les unités afin de déterminer si l'IA doit être utilisée pour cette unité
-	for unit in all_units:
-		if unit.equipe == GameState.current_player and not unit.movement and unit.name_Unite == "Camion":
-			await Ai_Truck(unit)
-			
 # --- LOGIQUE POUR L'IA DES CAMIONS ---
 func Ai_Truck(unit):
 	
@@ -117,10 +97,8 @@ func move_to_target(unit, target_pos):
 	var move = unit.get_node("MovementManager")
 	# Récupération de la position de l'unité 
 	var unit_pos = tileMapManager.get_position_on_map(unit.global_position)
-	# Affichage de la porté de déplacement de l'unité ( cases rayées vertes sur la carte )
-	tileMapManager.display_movement(unit)
 	# Récupération des cellules atteignables en fonction du terrain et de la porté de déplacement
-	var cells = tileMapManager.get_reachable_cells(tileMapManager.MAP, unit_pos, unit.move_range)
+	var cells = tileMapManager.get_reachable_cells(unit_pos, unit.move_range)
 	
 	# Récupération de la position de la case vers laquelle on souhaite se rendre
 	var target_cell = tileMapManager.get_position_on_map(target_pos)
@@ -143,19 +121,15 @@ func move_to_target(unit, target_pos):
 	var path = tileMapManager.make_path(unit, best_cell, unit.move_range)
 	# Déplacement vers la case
 	move.set_path(path)
-	# Suppression des cases de couleurs affichants la portée de déplacement
-	tileMapManager.highlight_reset()
-	# Délai de 1.75 secondes avant de passer au prochain camion de l'équipe
-	await get_tree().create_timer(1.75).timeout
 
 # --- FONCTION D'ATTAQUE ---
 func attack_target(unit, target):
-	# Affichage de la portée d'attaque du camion
-	tileMapManager.display_attack(unit)
 	# Délai de 0.5 secondes
 	await get_tree().create_timer(0.5).timeout
 	# Réalisation de l'attaque
-	main._on_unit_attack(unit, target)
+	
+	main.attack_unit = unit
+	main.try_attacking(target)
 	unit.movement = true
 	unit.attack = true
 

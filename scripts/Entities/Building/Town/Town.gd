@@ -113,13 +113,17 @@ func level_bonus():
 	
 	EconomyManager.change_money_gain(current_gain)
 	
-func capture(new_team:int):
+func capture(new_team=null):
 	"""
 	Permet la capture de la ville par une autre équipe :
 	- Si neutre, change simplement d’équipe
 	- Si occupée, elle perd de la vie avant d’être capturée
 	"""
-	equipe = new_team
+	if not new_team:
+		equipe = GameState.current_player
+	else:
+		equipe = new_team
+		
 	current_hp = max_hp 
 	
 	_update_health_bar()

@@ -2,6 +2,7 @@ extends Node
 
 @export var AiTankManager: Node
 @export var AiArtilleryManager: Node
+@export var AiTruckManager: Node
 
 func _ready() -> void:
 	GlobalSignal.new_turn.connect(_play_AI_turn)
@@ -22,8 +23,11 @@ func _play_turn(index_player:int) -> void:
 		var unit_name: String = unit.name_Unite
 
 		match unit_name:
-			"Camion", "Infanterie":
+			"Infanterie":
 				print("Unité non gérée : ", unit_name)
+			"Camion":
+				print("Camion joue...")
+				AiTruckManager.Ai_Truck(unit)
 			"Artillerie":
 				print("Artillerie joue...")
 				AiArtilleryManager._make_decision(unit)
@@ -34,10 +38,10 @@ func _play_turn(index_player:int) -> void:
 				print("Unité inconnue : ", unit_name)
 
 		# Petite pause pour le rythme visuel (facultatif)
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(2).timeout
 	
 	# apres avoir fais joué toute les unités, on met fin au tour 
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(2).timeout
 	GameState.try_ending_turn()
 
 func _play_AI_turn() -> void:

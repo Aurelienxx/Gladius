@@ -87,7 +87,7 @@ func capture_building(building):
 		GlobalSignal.hq_Destroyed.emit()
 	else: 
 		# lance la capture du batiment si ce n'est pas un QG
-		building.capture()
+		building.capture(null)
 
 func reset():
 	all_entities.clear()
