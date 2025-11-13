@@ -20,7 +20,7 @@
    4. [Tank](#tank)
 5. [Bâtiments](#présentation-des-bâtiments)
    1. [Villages](#village)
-   2. [Villes](#ville)
+   2. [Ville](#ville)
    3. [QG](#qg)
 6. [Contrôles](#présentation-des-contrôles)
 
@@ -113,7 +113,7 @@ Sur cette carte se trouvent différents terrains ayant leurs propriétés
 | Terrain                                                          | Description   |
 | ---                                                              | ---       |
 |<img src="img/terrain/grass.png"> <img src="img/terrain/pont.png">| **L'herbe ou les ponts** : le type de terrain le plus commun, il permet aux unités de se déplacer librement selon peur portée de déplacement    |
-| <img src="img/terrain/dirt.png">| **La boue** :  Ralentit les unités passant dessus, chaque case comptant pour 2 cases conssomées dans leur portée de déplacement       |
+| <img src="img/terrain/dirt.png">| **La boue** :  Ralentit les unités passant dessus, chaque case comptant pour 2 cases consommées dans leur portée de déplacement       |
 | <img src="img/terrain/obstacle.png"> <img src="img/terrain/obstacle2.png">  | **Les obstacles**  : Empêchent totalement le passage des unités, qui devront le countourner jusqu'à trouver un terrain acceptable pour passer      |  
 
 
@@ -216,12 +216,12 @@ Il se trouve au centre de la carte et sera donc un emplacement de tensions lors 
 ### **QG**
 Le QG est l'objectif principal du jeu.  
 Vous devez établir une stratégie pour protéger le vôtre tout en attaquant celui de votre adversaire.  
-Ce bâtiment peut être amélioré, moyennant un coût, pour augmenter davantage le gain par tour, ou même gagner la capacité d'infliger des dégâts aux unités qui approchent.
+Ce bâtiment peut être amélioré, moyennant un coût, pour augmenter davantage le gain par tour, ou même gagner la capacité d'infliger des dégâts aux unités qui approchent en gazant certaines cases.
 
 | Statistique                | Niveau 1                           | Niveau 2                           | Niveau 3                           |
 | ---                        | ---                                | ---                                | ---                                |
 | `Apparence`                |<img src="img/batiment/qg_lvl1.png" width="40%">|<img src="img/batiment/qg_lvl2.png" width="40%">|<img src="img/batiment/qg_lvl3.png" width="50%">|
-| `Vie`                      | 1000                               | 1000                                | 1000                              |
+| `Vie`                      | 500                               | 750                                | 1000                              |
 | `Gain`                     | +15 par tour                       | +30 par tour                        | +50 par tour                      |
 | `Coût d'amélioration`      | /                                  | 150                                 | 275                               |
 | `Dégâts`                   | /                                  | /                                   | 15 par tour sur la case visée     |
