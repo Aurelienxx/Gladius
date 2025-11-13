@@ -114,6 +114,14 @@ func _apply_color(equipe : int) -> void:
 		color = Color("red")
 	MaskOverlay.modulate = color
 
+func play_move_sound():
+	match character.name_Unite:
+		"Tank":GlobalSignal.playSound.emit("roule")
+		"Infanterie":GlobalSignal.playSound.emit("marche")
+		"Camion":GlobalSignal.playSound.emit("roule")
+		"Artillerie":GlobalSignal.playSound.emit("artillerie")
+		_: return null
+		
 func _physics_process(delta: float) -> void:
 	"""
 	Gestion du mouvement de l’unité à chaque frame physique.
@@ -124,6 +132,7 @@ func _physics_process(delta: float) -> void:
 	if is_moving:
 		var direction = target_position - character.global_position
 		if direction.length() > 2:
+			play_move_sound()
 			character.velocity = direction.normalized() * move_speed
 			character.move_and_slide()
 			
