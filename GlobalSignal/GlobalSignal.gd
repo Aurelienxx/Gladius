@@ -28,3 +28,5 @@ signal showGameModeButtons()
 signal AI_finished_turn()
 
 signal buyingUpgrade(level: int)
+
+signal playSound(sound:String)

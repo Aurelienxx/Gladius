@@ -119,7 +119,9 @@ func try_attacking(target:CharacterBody2D) -> void:
 					in_range = true
 					break
 			
-			if in_range:
+			if in_range: # on peut attaquer 
+				GlobalSignal.playSound.emit("explosion")
+				
 				# Change les variables d’attaque et de mouvement pour rendre l’unité inactive pendant le reste du tour
 				attack_unit.attack = true
 				attack_unit.movement = true
@@ -139,7 +141,7 @@ func try_attacking(target:CharacterBody2D) -> void:
 	reset_attack_and_move_values()
 
 func reset_attack_and_move_values():
-	if selected_unit : 
+	if selected_unit and selected_unit not in GameState.all_buildings : 
 		var manager: Node = selected_unit.get_node("MovementManager")
 		manager.is_selected = false
 		

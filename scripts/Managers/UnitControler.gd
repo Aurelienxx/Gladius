@@ -14,7 +14,7 @@ extends Node2D
 @export var spawn_radius: float = 100.0 # distance autour du point
 
 @export var qg_positions: Array[Vector2] = [Vector2(-200, -200), Vector2(950, 500)]
-@export var village_positions :  Array[Vector2] = [Vector2(-150, 150), Vector2(150, -250),Vector2(932, 132), Vector2(500, 500)]
+@export var village_positions :  Array[Vector2] = [Vector2(-150, 150), Vector2(150, -250),Vector2(932, 032), Vector2(500, 500)]
 @export var ville_position : Vector2 = Vector2(432, 164)
 
 func _ready() -> void:
