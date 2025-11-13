@@ -6,7 +6,6 @@ extends CharacterBody2D
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var MaskOverlay : AnimatedSprite2D = $MaskSprite # Mask de couleur de l'équipe
 @onready var anim:AnimatedSprite2D = $UnitSprite # Sprite de l'unité
-
 @onready var Movement: Node = $MovementManager
 
 @export var cost: int = 15

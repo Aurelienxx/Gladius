@@ -23,6 +23,7 @@ func new_player(newPlayer:int):
 
 func _get_team_tab():
 	var index = current_player - 1
+	#print(index)
 	return EconomyTab.get(index) # on covertie la team en index
 	
 func get_team_current_money() -> int:
