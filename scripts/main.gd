@@ -135,12 +135,22 @@ func try_attacking(target:CharacterBody2D) -> void:
 					else:
 						# Supprime le Head Quarter et appelle la fonction de fin du jeu
 						GameState.capture_building(target)
+	
+	reset_attack_and_move_values()
 
-	var manager: Node = attack_unit.get_node("MovementManager")
-	manager.is_attacking = false
-	attack_unit = null
-	tileMapManager.highlight_reset()
+func reset_attack_and_move_values():
+	if selected_unit : 
+		var manager: Node = selected_unit.get_node("MovementManager")
+		manager.is_selected = false
 		
+		selected_unit = null
+
+	if attack_unit:
+		var manager: Node = attack_unit.get_node("MovementManager")
+		manager.is_attacking = false
+		attack_unit = null
+	
+	tileMapManager.highlight_reset()
 
 func quick_select():
 	"""
@@ -201,7 +211,9 @@ func spawnUnit(unit) -> void:
 	:param unit: (Object) L’objet représentant le type d’unité à créer (nom, coût, maintenance, etc.).
 	"""
 	var spawn = get_node("Units/PlayerUnits")
-
+	
+	reset_attack_and_move_values()
+	
 	if EconomyManager.money_check(unit.cost):
 		var new_unit = null
 		new_unit = spawn.spawn_unit(unit.name_Unite,current_player) # Instancie une nouvelle unité dans léquipe

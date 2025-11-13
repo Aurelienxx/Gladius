@@ -26,6 +26,8 @@ var equipe: int
 var isAI: bool 
 var map:TileMapLayer
 
+var current_real_position 
+
 var is_AI:bool = false
 
 func setup(_equipe: int, _map:TileMapLayer) -> void:
@@ -34,6 +36,8 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
 	map = _map
+	
+	current_real_position = self.global_position
 	
 	var current_player = GameState.current_player
 	if GameState.is_player_ai(current_player): # si le joueur qui créer l'unité est une IA

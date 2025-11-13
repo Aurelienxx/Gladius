@@ -44,6 +44,8 @@ func init(_character: CharacterBody2D, _health_bar: ProgressBar, _anim: Animated
 	hit_flash_timer.timeout.connect(_on_hit_flash_end)
 	
 	base_modulate = anim.modulate
+	
+	GlobalSignal.new_turn.connect(_on_end_turn_event)
 
 func _ready() -> void:
 	"""
@@ -56,17 +58,25 @@ func _on_shape_clicked():
 	"""
 	Sélectionne cette unité et envoie un signal global pour notifier la sélection.
 	"""
-	is_selected = !is_selected
-	GlobalSignal.Unit_Clicked.emit(character)
-	if is_selected:
-		effectsPlayer.play("pulse")
+	if not is_moving:
+		is_selected = !is_selected
+		GlobalSignal.Unit_Clicked.emit(character)
+		if is_selected:
+			effectsPlayer.play("pulse")
 
 func _on_shape_attack_clicked():
 	"""
 	Émet un signal global pour indiquer que l'unité est attaqué.
 	"""
-	is_attacking = !is_attacking
-	GlobalSignal.Unit_Attack_Clicked.emit(character)
+	if not is_moving:
+		is_attacking = !is_attacking
+		GlobalSignal.Unit_Attack_Clicked.emit(character)
+
+func _on_end_turn_event() -> void:
+	if is_moving:
+		is_moving = false
+		character.global_position = character.current_real_position
+		GlobalSignal.unit_finished_moving.emit()
 
 func set_path(new_path: Array):
 	"""
@@ -75,6 +85,12 @@ func set_path(new_path: Array):
 	:param new_path: (Array) Liste des cellules à parcourir.
 	:param map: (TileMapLayer) Référence à la carte pour convertir les cellules en positions.
 	"""
+	var cell = new_path.back()
+	var local_pos = map_ref.map_to_local(cell)
+	var global_pos = map_ref.to_global(local_pos)
+	character.current_real_position = global_pos
+
+	print(character.current_real_position )
 	path = new_path
 	move_to_next_cell()
 

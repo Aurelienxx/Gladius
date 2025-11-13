@@ -26,7 +26,9 @@ var isAI: bool = false
 
 var map:TileMapLayer
 
-var is_AI:bool = false 
+var current_real_position 
+
+var is_AI:bool = false
 
 func setup(_equipe: int, _map:TileMapLayer) -> void:
 	equipe = _equipe
@@ -34,6 +36,8 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
 	map = _map
+	
+	current_real_position = self.global_position
 
 	if equipe == 2:
 		anim.flip_h = true

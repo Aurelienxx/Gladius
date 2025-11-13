@@ -20,8 +20,6 @@ var playerInfo = {
 func _ready():
 	for i in range (MAX_PLAYER):
 		playerInfos.append(playerInfo.duplicate(true))
-	print(playerInfos)
-	
 
 func switch_player_to_ai(index:int) -> void:
 	"""

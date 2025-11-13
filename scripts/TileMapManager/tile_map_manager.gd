@@ -97,7 +97,7 @@ func get_occupied_cells(unit: CharacterBody2D) -> Array:
 	Prend en compte la taille de l’entité si elle occupe plusieurs cases.
 	"""
 	var cells = [] # Liste des cases occupées
-	var center_cell = MAP.local_to_map(unit.global_position) # Convertit la position en coordonnées de cellule
+	var center_cell = MAP.local_to_map(unit.current_real_position) # Convertit la position en coordonnées de cellule
 
 	# Définit la taille de l’unité (1x1 par défaut)
 	var size_x = 1
@@ -263,7 +263,7 @@ func is_adjacent_cells(a: Vector2i, b: Vector2i, range: int) -> bool:
 func attack_gaz(QG:CharacterBody2D)->void:
 	"fonction qui attaque automatiquement une unité qui s'approche d'un QG"
 	
-	var pos_qg=MAP.local_to_map(QG.global_position)
+	var pos_qg=MAP.local_to_map(QG.current_real_position)
 	var liste=[]
 	for unit in all_units:
 		if unit.equipe != QG.equipe:
@@ -391,11 +391,11 @@ func distance(unit1, unit2):
 	var pos1 : Vector2i
 	var pos2 : Vector2i
 	if unit1 is Node2D:
-		pos1 = get_position_on_map(unit1.global_position)
+		pos1 = get_position_on_map(unit1.current_real_position)
 	elif unit1 is Vector2i or unit1 is Vector2:
 		pos1 = unit1
 	if unit2 is Node2D:
-		pos2 = get_position_on_map(unit2.global_position)
+		pos2 = get_position_on_map(unit2.current_real_position)
 	elif unit2 is Vector2i or unit2 is Vector2:
 		pos2 = unit2
 	return abs(pos1.x - pos2.x) + abs(pos1.y - pos2.y)

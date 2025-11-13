@@ -37,12 +37,16 @@ var attack := true
 var hit_flash_timer: Timer
 var base_modulate: Color
 
+var current_real_position
+
 func setup(_equipe: int) -> void:
 	"""
 	Initialise le QG selon l’équipe à laquelle il appartient.
 	:param _equipe: (int) Numéro de l’équipe (1 ou 2).
 	:return: None
 	"""
+	current_real_position = self.global_position
+	
 	current_hp = max_hp
 	equipe = _equipe
 	health_bar.max_value = max_hp

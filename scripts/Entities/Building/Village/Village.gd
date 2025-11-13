@@ -31,12 +31,16 @@ const EQUIPE_TWO = 2
 var hit_flash_timer: Timer
 var base_modulate: Color
 
+var current_real_position 
+
 func setup(_equipe: int) -> void:
 	"""
 	Initialise le QG selon l’équipe à laquelle il appartient.
 	:param _equipe: (int) Numéro de l’équipe (1 ou 2).
 	:return: None
 	"""
+	current_real_position = self.global_position
+	
 	GlobalSignal.unit_finished_moving.connect(check_nearby_units_for_capture)
 	
 	equipe = _equipe
@@ -110,13 +114,13 @@ func level_bonus():
 	
 	EconomyManager.change_money_gain(current_gain)
 	
-func capture():
+func capture(new_team:int):
 	"""
 	Permet la capture de la ville par une autre équipe :
 	- Si neutre, change simplement d’équipe
 	- Si occupée, elle perd de la vie avant d’être capturée
 	"""
-	equipe = GameState.current_player
+	equipe = new_team
 	current_hp = max_hp 
 	
 	_update_health_bar()
@@ -150,8 +154,8 @@ func check_nearby_units_for_capture() -> void:
 		return
 	var capture_radius := 150.0 # pixels autour 
 	for unit in GameState.all_units:
-		if global_position.distance_to(unit.global_position) <= capture_radius:
-			capture()
+		if global_position.distance_to(unit.current_real_position) <= capture_radius:
+			capture(unit.equipe)
 			break
 
 func getName():

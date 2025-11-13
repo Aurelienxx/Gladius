@@ -39,7 +39,6 @@ func _on_shape_attack_clicked():
 	pass
 	#GlobalSignal.Unit_Attack_Clicked.emit(building_body, null)
 
-
 func _show_hq_ui():
 	"""
 	Affiche le menu spécifique du batiment (ressources, production, améliorations...).
