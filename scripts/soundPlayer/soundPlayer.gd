@@ -6,6 +6,11 @@ extends Node2D
 const sound_library:Dictionary = {
 	"explosion" : "res://assets/sound/explosion_snd.mp3",
 	"gaz" : "res://assets/sound/gaz_snd.mp3",
+	"marche" : "res://assets/sound/walk_infanterie.mp3",
+	"roule" : "res://assets/sound/moteur_sound.mp3",
+	"artillerie" : "res://assets/sound/artillerie_sound.mp3"
+	
+	
 } 
 
 
@@ -15,9 +20,10 @@ func _ready() -> void:
 
 func play_a_sound(sound_name:String):
 	if sound_name in sound_library:
-		print("Playing sound ", sound_name, ".....")
-		var soundSfx = load(sound_library[sound_name])
-		sound_player_node.stream = soundSfx
-		sound_player_node.play()
+		if not sound_player_node.playing:
+			print("Playing sound ", sound_name, ".....")
+			var soundSfx = load(sound_library[sound_name])
+			sound_player_node.stream = soundSfx
+			sound_player_node.play()
 	else : 
 		print("Invalid sound name : ", sound_name)
