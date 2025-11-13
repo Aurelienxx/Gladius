@@ -4,7 +4,8 @@ extends Node2D
 
 # nom du son -> chemin vers le son depuis res
 const sound_library:Dictionary = {
-	"explosion" : "res://assets/sound/explosion_snd.mp3"
+	"explosion" : "res://assets/sound/explosion_snd.mp3",
+	"gaz" : "res://assets/sound/gaz_snd.mp3",
 } 
 
 

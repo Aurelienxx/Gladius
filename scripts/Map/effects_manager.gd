@@ -12,6 +12,7 @@ func _ready() -> void:
 #### Explosion animation 
 
 func play_anim_explosion(explo_position:Vector2i):
+	GlobalSignal.playSound.emit("explosion")
 	# Lance l'animation d'explosion sur l'unité attaquée
 	var explosion = explosionEffect.instantiate()
 	explosion.position = explo_position
@@ -20,6 +21,7 @@ func play_anim_explosion(explo_position:Vector2i):
 #### Gaz animation 
 
 func play_anim_gaz(gaz_position:Vector2i):
+	GlobalSignal.playSound.emit("gaz")
 	# Lance l'animation de gaz sur la cellulle concernée
 	var gaz = gazEffect.instantiate()
 	gaz.position = gaz_position

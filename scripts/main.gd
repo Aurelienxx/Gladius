@@ -120,8 +120,6 @@ func try_attacking(target:CharacterBody2D) -> void:
 					break
 			
 			if in_range: # on peut attaquer 
-				GlobalSignal.playSound.emit("explosion")
-				
 				# Change les variables d’attaque et de mouvement pour rendre l’unité inactive pendant le reste du tour
 				attack_unit.attack = true
 				attack_unit.movement = true
