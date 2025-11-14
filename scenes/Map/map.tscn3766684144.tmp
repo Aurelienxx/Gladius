@@ -1155,13 +1155,12 @@ script = ExtResource("1_4rr3d")
 
 [node name="InGameUI" parent="." instance=ExtResource("2_aasa8")]
 
-[node name="AiManager" type="Node" parent="." node_paths=PackedStringArray("AiTankManager", "AiArtilleryManager", "AiTruckManager", "AiInfantryManager", "AiArtilleryManagerspecial")]
+[node name="AiManager" type="Node" parent="." node_paths=PackedStringArray("AiTankManager", "AiArtilleryManager", "AiTruckManager", "AiInfantryManager")]
 script = ExtResource("2_tmn6y")
 AiTankManager = NodePath("AiTank")
 AiArtilleryManager = NodePath("AiArtillery")
 AiTruckManager = NodePath("AiTruck")
 AiInfantryManager = NodePath("AiInfantry")
-AiArtilleryManagerspecial = NodePath("Node")
 
 [node name="Node" type="Node" parent="AiManager" node_paths=PackedStringArray("MapManager", "Main")]
 script = ExtResource("4_fet2j")
