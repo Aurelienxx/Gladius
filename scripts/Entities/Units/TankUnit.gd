@@ -39,7 +39,7 @@ func setup(_equipe: int, _map:TileMapLayer) -> void:
 	
 	current_real_position = self.global_position
 
-	if equipe == 2 and GameState.playerInfos[1].isAI == true:
+	if equipe == 2:
 		anim.flip_h = true
 		MaskOverlay.flip_h = true
 	
