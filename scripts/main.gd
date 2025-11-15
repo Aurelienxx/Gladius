@@ -8,7 +8,7 @@ var selected_unit: CharacterBody2D # CharacterBody2D de l'unité séléctionnée
 
 var quick_select_index = -1
 
-var attack_unit: CharacterBody2D = null # CharacterBody2D de l'unité attaquée
+var attack_unit: CharacterBody2D = null # CharacterBody2D de l'unité qui va attaquer
 
 var current_player = GameState.current_player
 @onready var tileMapManager = $TileMapContainer

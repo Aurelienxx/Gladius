@@ -375,27 +375,3 @@ func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
 
 	# Si aucun chemin trouvé, retourne vide
 	return []
-
-
-# Fonction qui retourne le meilleur chemin entre une position et plusieurs objectifs
-func closest_goal_distance(pos: Vector2i, goals: Array) -> float:
-	var best = INF
-	for g in goals:
-		var d = pos.distance_to(g)
-		if d < best:
-			best = d
-	return best
-
-# Renvoie la distance entre 2 unités ou cases en nombre de cases Manhattan
-func distance(unit1, unit2):
-	var pos1 : Vector2i
-	var pos2 : Vector2i
-	if unit1 is Node2D:
-		pos1 = get_position_on_map(unit1.current_real_position)
-	elif unit1 is Vector2i or unit1 is Vector2:
-		pos1 = unit1
-	if unit2 is Node2D:
-		pos2 = get_position_on_map(unit2.current_real_position)
-	elif unit2 is Vector2i or unit2 is Vector2:
-		pos2 = unit2
-	return abs(pos1.x - pos2.x) + abs(pos1.y - pos2.y)

@@ -428,7 +428,7 @@ func attack_target(unit):
 
 
 ###################
-# Fais joué 
+# Fais jouer
 ###################
 
 

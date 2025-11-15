@@ -37,7 +37,7 @@ func _on_fullscreen_toggled(enabled: bool) -> void:
 	ProjectSettings.set_setting("game/fullscreen", enabled)
 
 func _load_settings() -> void:
-	var volume = ProjectSettings.get_setting("game/volume", 100.0)
+	var volume = ProjectSettings.get_setting("game/volume", 30.0)
 	var muted = ProjectSettings.get_setting("game/muted", false)
 	var fullscreen = ProjectSettings.get_setting("game/fullscreen", false)
 
