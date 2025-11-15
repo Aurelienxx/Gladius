@@ -1,68 +1,24 @@
 extends Node
 # Intelligence Artificielle de l'unité d'artillerie pour l'équipe 1 (bleue)
 @export var MapManager : Node
+@export var Main : Node2D
+
 var listeEntities : Array = GameState.all_entities
-var listeArtilleriesAlly : Array
-var listeEntitiesEnnemies : Array
 var listeUnitesEnnemies : Array
 var unitsValues : Dictionary
-var entitiesInRange : Array
-
-func _ready() -> void:
-	GlobalSignal.new_turn.connect(yourTurn)
-	GlobalSignal.spawnedUnit.connect(addToLists)
-	GlobalSignal.unitDied.connect(removeFromList)
-
-# Ajoute des unités aux listes lorsqu'une unité est achetée
-func addToLists(unit):
-	for entity in listeEntities:
-		if entity.equipe != 1:
-			listeEntitiesEnnemies.append(entity)
-		if entity.is_in_group("units"):
-			listeUnitesEnnemies.append(entity)
-	if (unit.name_Unite == "Artillerie" and unit.equipe == 1):
-		listeArtilleriesAlly.append(unit)
-		doYourStuff(unit)
-
-# Supprime des unités des listes quand elles meurent
-func removeFromList(unit):
-	for enemy in listeEntitiesEnnemies:
-		if enemy == unit:
-			listeEntitiesEnnemies.erase(unit)
-	for enemy in listeUnitesEnnemies:
-		if enemy == unit:
-			listeUnitesEnnemies.erase(unit)
-	for artillerie in listeArtilleriesAlly:
-		if artillerie == unit:
-			listeArtilleriesAlly.erase(artillerie)
 
 # Renvoie le bâtiment ennemi le plus proche
 func closestBuilding(unit):
 	var buildingTarget
 	var dist = 0
 	var smallestDistance = INF
-	for entity in listeEntitiesEnnemies:
-		if entity.is_in_group("buildings") and entity.getTeam() != 1:
+	for entity in GameState.all_buildings:
+		if entity.getTeam() != 1:
 			dist = MapManager.distance(unit, entity)
 			if (dist <= smallestDistance):
 				smallestDistance = dist
 				buildingTarget = entity
 	return buildingTarget
-
-# Renvoie un tableau avec les entités qui sont en range d'attaque de l'unité courante.
-func entitiesThatAreInRange(unit):
-	var unitPos = MapManager.get_position_on_map(unit.global_position)
-	for entity in listeEntitiesEnnemies:
-		var entityPos = MapManager.get_position_on_map(entity.global_position)
-		if entity.is_in_group("units"):
-			if MapManager.distance(unitPos, entityPos) <= unit.getAttackRange():
-				entitiesInRange.append(entity)
-		elif entity.is_in_group("buildings"):
-			var positions = MapManager.get_occupied_cells(entity)
-			for position in positions:
-				if MapManager.distance(unitPos, position) <= unit.getAttackRange():
-					entitiesInRange.append(entity)
-	return entitiesInRange
 
 # Renvoie l'entité la plus proche.
 func closestEntityDistance(unit, closeUnitsList):
@@ -75,19 +31,6 @@ func closestEntityDistance(unit, closeUnitsList):
 			smallestDistance = dist
 			closestEntity = entity
 	return closestEntity
-
-# Renvoie le tableau de valeurs des entités après modification si nécessaire
-func valueForEntities():
-	unitsValues = {
-		"Artillerie" : 50,
-		"Camion" : 40,
-		"Infanterie" : 30,
-		"Tank" : 20
-	}
-	for unite in listeUnitesEnnemies:
-		if unite.getHealth() < 75:
-			unitsValues[unite.getName()] =+ 100
-	return unitsValues
 
 func getDangerValue(cell, ennemies):
 	var danger = 0.0
@@ -115,11 +58,17 @@ func getAreaDanger(center, enemies, radius) -> float:
 		return 0.0
 	return total_danger / cell_count
 
-func bestGoal(unit, enemies):
+func bestGoal(unit):
 	var safestBuilding = null
 	var lowestScore = INF
 	
 	var unitPos = MapManager.get_position_on_map(unit.global_position)
+	
+	var enemies:Array = []
+	for potential_enemie in GameState.all_units:
+		if potential_enemie.equipe != unit.equipe:
+			enemies.append(potential_enemie)
+	
 
 	for building in listeEntities:
 		if building.is_in_group("buildings") and building.getEquipe() != 1:
@@ -139,59 +88,39 @@ func bestGoal(unit, enemies):
 				safestBuilding = building
 	return safestBuilding
 
-# Pour chaque artillerie, appelle la fonction "doYourStuff"
-func yourTurn():
-	if GameState.current_player == 1:
-		if listeArtilleriesAlly.is_empty() == false:
-			for artillery in listeArtilleriesAlly:
-				if artillery == listeArtilleriesAlly[0]:
-					doYourStuff(artillery)
-				else:
-					await GlobalSignal.AI_finished_turn
-					doYourStuff(artillery)
-
 # Appelle toutes les fonctions qui serviront à l'IA pour jouer
 func doYourStuff(unit):
-	var attackRange = unit.getAttackRange()
-	var targetBuilding = bestGoal(unit, listeUnitesEnnemies)
-	print(targetBuilding)
+	var targetBuilding = bestGoal(unit)
+	
+	#print(targetBuilding)
+	
 	var unitPos = MapManager.get_position_on_map(unit.global_position)
 	var targetPos = MapManager.get_position_on_map(targetBuilding.global_position)
 	var everyTarget = MapManager.get_occupied_cells(targetBuilding) # Liste des cellules autour de targetPos
-	for singleTarget in everyTarget:
-		if MapManager.distance(unitPos, singleTarget) <= attackRange:
-			GlobalSignal.attackUnit.emit(unit, targetBuilding)
-			GlobalSignal.AI_finished_turn.emit()
-			return
+	
+	var in_range = false
+	for cell in everyTarget:
+		if unitPos.distance_to(cell) <= unit.attack_range:
+			in_range = true
+			break
 
-	var attackableCells = []
-	for xOffset in range(-attackRange, attackRange + 1):
-		for yOffset in range(-attackRange, attackRange + 1):
-			var cell = targetPos + Vector2i(xOffset, yOffset)
-			if MapManager.distance(cell, targetPos) <= attackRange:
-				if MapManager.MAP.get_cell_source_id(cell) != -1 and not MapManager.isCellOccupied(cell, unit):
-					attackableCells.append(cell)
+	if in_range:
+		Main.attack_unit = unit
+		Main.try_attacking(targetBuilding)
+	
+	var path = MapManager.get_valid_path(unit, targetPos) # Récupere le chemin entre l'unité et la cible avec A*
+	if path.size() <= 1: # Le chemin est vide
+		return
+	
+	var manager = unit.get_node("MovementManager")
+	manager.set_path(path)
+	
+	in_range = false
+	for cell in everyTarget:
+		if unitPos.distance_to(cell) <= unit.attack_range:
+			in_range = true
+			break
 
-	if attackableCells.size() > 0:
-		var path = MapManager.find_path_a_star_unique(unitPos, attackableCells, unit)
-		if path.size() > 1:
-			var manager = unit.get_node("MovementManager")
-			manager.set_path(path)
-			await GlobalSignal.unit_finished_moving
-
-	entitiesInRange.clear()
-	entitiesInRange = entitiesThatAreInRange(unit)
-	if entitiesInRange.size() > 0:
-		var unitsValuesDict = valueForEntities()
-		var bestValue = -INF
-		var target : Node = null
-		for entity in entitiesInRange:
-			var val = unitsValuesDict.get(entity.getName(), 0)
-			if val > bestValue:
-				bestValue = val
-				target = entity
-		
-		if target != null:
-			GlobalSignal.attackUnit.emit(unit, target)
-
-	GlobalSignal.AI_finished_turn.emit()
+	if in_range:
+		Main.attack_unit = unit
+		Main.try_attacking(targetBuilding)
