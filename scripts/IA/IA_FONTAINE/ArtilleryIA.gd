@@ -537,6 +537,7 @@ func play_unit(unit:CharacterBody2D)->void:
 	"""
 	match unit.equipe:
 		1:
-			doYourStuff(unit)
+			_make_decision(unit)
+			#doYourStuff(unit)
 		2:
 			_make_decision(unit)

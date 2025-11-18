@@ -233,29 +233,24 @@ func _input(event):
 	:param event: (InputEvent) L’événement d’entrée clavier détecté.
 	"""
 	
-	# a décommenter quand on aura une IA pour les QG qui gereront eu meme leurs tours 
-	#if not GameState.is_player_ai(GameState.current_player): # si le joueur actuel n'est pas une IA 
-		#if Input.is_action_just_pressed("enter"):
-			#GameState.try_ending_turn()
-		#elif Input.is_action_pressed("space"):
-			#quick_select()
-			
-	if Input.is_action_just_pressed("enter"):
-		GameState.try_ending_turn()
-	elif Input.is_action_pressed("space"):
-		quick_select()
-	elif (
-		Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or 
-		Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
-	):
-		var mouse_pos = get_global_mouse_position()
-		var cell_position = tileMapManager.get_position_on_map(mouse_pos)
-		# si la position cliquer n'est pas un highlight
-		if not tileMapManager.is_highlighted_cell(cell_position): 
-			selected_unit = null
-			if attack_unit:
-				try_attacking(null)
-		else:
-			if selected_unit:
-				move_manager()
-			
+	if not GameState.is_player_ai(GameState.current_player): # si le joueur actuel n'est pas une IA 
+				
+		if Input.is_action_just_pressed("enter"):
+			GameState.try_ending_turn()
+		elif Input.is_action_pressed("space"):
+			quick_select()
+		elif (
+			Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or 
+			Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
+		):
+			var mouse_pos = get_global_mouse_position()
+			var cell_position = tileMapManager.get_position_on_map(mouse_pos)
+			# si la position cliquer n'est pas un highlight
+			if not tileMapManager.is_highlighted_cell(cell_position): 
+				selected_unit = null
+				if attack_unit:
+					try_attacking(null)
+			else:
+				if selected_unit:
+					move_manager()
+				

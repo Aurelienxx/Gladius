@@ -47,12 +47,13 @@ region_rect = Rect2(0, 256, 64, 32)
 texture = ExtResource("29_a1o1e")
 region_rect = Rect2(64, 258, 64, 30)
 
-[node name="InGameUI" type="CanvasLayer" node_paths=PackedStringArray("displayGold", "displayGainOrLoss", "teamColor", "OptionsMenue")]
+[node name="InGameUI" type="CanvasLayer" node_paths=PackedStringArray("displayGold", "displayGainOrLoss", "teamColor", "OptionsMenue", "buttonNextTurn")]
 script = ExtResource("1_kbjyg")
 displayGold = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer/GoldDisplay")
 displayGainOrLoss = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect2/VBoxContainer/GainOrLoss")
 teamColor = NodePath("MenuDisplay/VBoxContainer/HBoxContainer/NinePatchRect3")
 OptionsMenue = NodePath("Settings")
+buttonNextTurn = NodePath("MenuDisplay/VBoxContainer/ButtonNextTurn")
 
 [node name="TankUnit" parent="." instance=ExtResource("2_6n7by")]
 visible = false
@@ -168,7 +169,7 @@ patch_margin_top = 4
 patch_margin_right = 8
 patch_margin_bottom = 4
 
-[node name="Button" type="Button" parent="MenuDisplay/VBoxContainer"]
+[node name="ButtonNextTurn" type="Button" parent="MenuDisplay/VBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -177,16 +178,18 @@ focus_behavior_recursive = 1
 theme_override_styles/normal = SubResource("StyleBoxTexture_a1o1e")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_271cc")
 theme_override_styles/hover = SubResource("StyleBoxTexture_271cc")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_271cc")
 
 [node name="MarginContainer" type="MarginContainer" parent="MenuDisplay/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 
-[node name="ContructionMenu" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer" node_paths=PackedStringArray("targetContainer")]
+[node name="ContructionMenu" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer" node_paths=PackedStringArray("targetContainer", "toggleButton")]
 layout_mode = 2
 theme_override_constants/separation = 70
 script = ExtResource("31_a1o1e")
 targetContainer = NodePath("ConstructionDisplay")
+toggleButton = NodePath("ToggleButton")
 
 [node name="ToggleButton" type="Button" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
 custom_minimum_size = Vector2(128, 64)
@@ -197,12 +200,14 @@ focus_behavior_recursive = 1
 theme_override_styles/normal = SubResource("StyleBoxTexture_l5g1i")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_6n7by")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6n7by")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_6n7by")
 
 [node name="ClickCatcher" type="Control" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
 visible = false
 layout_mode = 2
 
 [node name="ConstructionDisplay" type="VBoxContainer" parent="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu"]
+visible = false
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
 theme_override_constants/separation = 20
@@ -235,7 +240,7 @@ unite_Display = NodePath("../../../../../../TankUnit")
 visible = false
 
 [connection signal="pressed" from="MenuDisplay/VBoxContainer/HBoxContainer/ParameterButton" to="." method="_on_parameter_button_pressed"]
-[connection signal="button_down" from="MenuDisplay/VBoxContainer/Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="MenuDisplay/VBoxContainer/ButtonNextTurn" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ToggleButton" to="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu" method="_on_toggle_button_pressed"]
 [connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/InfantryDisplay" to="." method="_on_infantry_display_pressed"]
 [connection signal="pressed" from="MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TruckDisplay" to="." method="_on_truck_display_pressed"]

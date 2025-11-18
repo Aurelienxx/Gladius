@@ -2,6 +2,16 @@ extends VBoxContainer
 
 @export var targetContainer :VBoxContainer
 
+@export var toggleButton :Button
+
+func _ready() -> void:
+	GlobalSignal.new_turn.connect(_disable_button)
+
+func _disable_button() -> void:
+	var current_player_turn = GameState.current_player
+	if GameState.is_player_ai(current_player_turn):
+		toggleButton.disabled = true
+
 func toggleVisibility(object: Control) -> void:
 	"""
 	Bascule la visibilité d’un objet entre visible et caché.

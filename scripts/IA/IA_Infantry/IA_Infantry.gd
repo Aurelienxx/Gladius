@@ -318,7 +318,8 @@ func try_attacking_here(unit : CharacterBody2D) -> bool:
 	var target = get_target_in_attack_range(unit)
 	if target != null:
 		await get_tree().create_timer(0.5).timeout
-		main._on_unit_attack(unit, target)
+		main.attack_unit = unit
+		main.try_attacking(target)
 		# Changement des valeurs, l'unité ne peut plus agir
 		unit.movement = true
 		unit.attack = true

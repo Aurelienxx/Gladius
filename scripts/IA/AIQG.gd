@@ -2,7 +2,7 @@ extends Node
 
 @export var main: Node
 @export var playerUnit: Node
-@export var equipe_ia: int = 2
+@export var equipe_ia: int 
 @export var argent: int
 @export var QG = null
 
@@ -24,13 +24,10 @@ var unit_weights := {
 	"Camion": 1
 }
 
-func _ready():
-	GlobalSignal.new_player_turn.connect(_on_new_player_turn)
-
-
 # ========================================
 # ============= CHARGEMENT ===============
 # ========================================
+
 func _load_data():
 	var tab = EconomyManager._get_team_tab()
 	argent = tab["current_money"]
@@ -56,13 +53,15 @@ func _free_data():
 # ========================================
 # ============ DÉBUT DE TOUR =============
 # ========================================
-func _on_new_player_turn(player: int) -> void:
-	if player != equipe_ia:
-		return
+
+func _on_new_player_turn() -> void:
+	equipe_ia = GameState.current_player
 
 	_load_data()
 	await get_tree().process_frame
 	_ai_turn()
+	
+	return
 
 
 func _ai_turn():
@@ -108,6 +107,7 @@ func _ai_turn():
 # ========================================
 # =========== ÉVALUATION FORCES ==========
 # ========================================
+
 func evaluate_battlefield() -> String:
 	var ally_force = 0
 	var enemy_force = 0
@@ -146,6 +146,7 @@ func _compare_forces(ally_force, enemy_force):
 # ========================================
 # =========== ACHATS SIMPLES =============
 # ========================================
+
 func _try_buy_units_defensive() -> bool:
 	var order = ["Artillerie", "Tank", "Infanterie", "Camion"]
 	return _try_buy_units_order(order)
@@ -167,6 +168,7 @@ func _try_buy_units_order(order) -> bool:
 # ========================================
 # ======= UPGRADE DU QG (IA) =============
 # ========================================
+
 func _try_upgrade_hq() -> bool:
 	if QG == null:
 		return false
@@ -198,6 +200,7 @@ func _try_upgrade_hq() -> bool:
 # ========================================
 # ============ IA CONTEXTUELLE ===========
 # ========================================
+
 func _evaluate_needs() -> Dictionary:
 	var needs = {
 		"need_defense": 0.0,
@@ -326,6 +329,7 @@ func _try_buy_best_unit() -> bool:
 # ========================================
 # ============ ACHAT D’UNITÉ =============
 # ========================================
+
 func _buy_unit(unit_name):
 	var instance = null
 

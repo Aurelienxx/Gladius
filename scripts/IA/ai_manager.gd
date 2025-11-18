@@ -5,6 +5,8 @@ extends Node
 @export var AiTruckManager: Node
 @export var AiInfantryManager: Node
 
+@export var AIHqManager: Node
+
 func _ready() -> void:
 	GlobalSignal.new_turn.connect(_play_AI_turn)
 
@@ -32,8 +34,7 @@ func _play_turn(index_player:int) -> void:
 				AiTruckManager.Ai_Truck(unit)
 			"Artillerie":
 				print("Artillerie joue...")
-				AiArtilleryManager._make_decision(unit)
-				#AiArtilleryManagerspecial.doYourStuff(unit)
+				AiArtilleryManager.play_unit(unit)
 			"Tank":
 				print("Tank joue...")
 				AiTankManager.play_unit(unit)
@@ -41,16 +42,18 @@ func _play_turn(index_player:int) -> void:
 				print("Unité inconnue : ", unit_name)
 
 		# Petite pause pour le rythme visuel (facultatif)
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(1.5).timeout
 	
 	# apres avoir fais joué toute les unités, on met fin au tour 
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(2).timeout
 	GameState.try_ending_turn()
-
+	
 func _play_AI_turn() -> void:
 	"""
 		Verifie si le joueur a qui il est tour de joué est une IA, si oui, alors on fera joué toute les unités
 	"""
 	var current_player_turn = GameState.current_player
 	if GameState.is_player_ai(current_player_turn):
+		AIHqManager._on_new_player_turn()
+		await get_tree().create_timer(1).timeout
 		_play_turn(current_player_turn)

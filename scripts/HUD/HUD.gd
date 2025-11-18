@@ -5,6 +5,8 @@ extends CanvasLayer
 @export var teamColor: NinePatchRect
 @export var OptionsMenue :Control
 
+@export var buttonNextTurn :Button
+
 func _ready() -> void:
 	"""
 	Connecte les signaux globaux de gestion d’argent aux fonctions locales d’affichage.
@@ -12,6 +14,13 @@ func _ready() -> void:
 	GlobalSignal.new_turn.connect(changeTeamColor)
 	GlobalSignal.current_Money_Amount.connect(_update_Current_Money_Displayed)
 	GlobalSignal.current_Money_Gain_Or_Loss.connect(_update_Current_Gain_Or_Loss)
+	
+	GlobalSignal.new_turn.connect(_disable_button)
+
+func _disable_button() -> void:
+	var current_player_turn = GameState.current_player
+	if GameState.is_player_ai(current_player_turn):
+		buttonNextTurn.disabled = true
 
 func _update_Current_Money_Displayed(amount:int) -> void:
 	"""
