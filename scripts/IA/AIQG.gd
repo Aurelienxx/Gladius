@@ -204,7 +204,11 @@ func _evaluate_needs() -> Dictionary:
 		"need_capture": 0.0,
 		"need_mobility": 0.0,
 		"need_firepower": 0.0,
-		"need_anti_art": 0.0
+		"need_anti_art": 0.0,
+		"need_anti_infantry" : 0.0,
+		"need_breakthrough" :0.0,
+		"need_reinforce" : 0.0,
+		"need_fast_capture" :0.0
 	}
 
 	var ally_count = 0
@@ -214,6 +218,7 @@ func _evaluate_needs() -> Dictionary:
 	var enemy_art = 0
 	var injured_allies = 0
 	var enemies_near_qg = 0
+	var enemy_infantry = 0
 
 	for u in GameState.all_units:
 		var utype = u.name_Unite
@@ -238,12 +243,34 @@ func _evaluate_needs() -> Dictionary:
 	var nb_buildings = GameState.all_buildings.size()
 	if nb_buildings > 0:
 		needs["need_capture"] = clamp(float(nb_buildings - ally_infantry) * 0.5, 0, 2)
+		
+	for u in GameState.all_units:
+		if u.equipe != equipe_ia and u.name_Unite == "Infanterie":
+			enemy_infantry += 1
+			
+	var uncaptured_nearby = 0
+
+	for b in GameState.all_buildings:
+		if b.equipe != equipe_ia and QG and b.global_position.distance_to(QG.global_position) < 300:
+			uncaptured_nearby += 1
+			
+	var low_hp_enemies = 0
+
+	for u in GameState.all_units:
+		if u.equipe != equipe_ia and u.health < u.max_health * 0.5:
+			low_hp_enemies += 1
 
 	needs["need_defense"] += enemies_near_qg * 1.5
 	needs["need_defense"] += clamp(max(0, enemy_count - ally_count) * 0.4, 0, 3)
 	needs["need_mobility"] = clamp(injured_allies * 0.6, 0, 2)
 	needs["need_firepower"] = clamp(enemy_tanks + max(0, enemy_count - ally_count) * 0.3, 0, 3)
 	needs["need_anti_art"] = float(enemy_art)
+	needs["need_anti_infantry"] = clamp(enemy_infantry * 0.4, 0, 2)
+	needs["need_breakthrough"] = clamp(enemy_count * 0.2, 0, 2)
+	needs["need_reinforce"] = clamp(max(0, enemy_count - ally_count) * 0.3, 0, 2)
+	needs["need_fast_capture"] = clamp(uncaptured_nearby * 1.0, 0, 2)
+	needs["need_pursuit"] = clamp(low_hp_enemies * 0.4, 0, 2)
+	
 
 	return needs
 
@@ -257,22 +284,30 @@ func _score_unit_by_need(unit_name, needs):
 			util += needs["need_defense"]
 			util -= needs["need_mobility"] * 0.4
 			util -= needs["need_anti_art"] * 0.2
+			util += needs["need_anti_infantry"] * 0.7
+			util += needs["need_breakthrough"] * 1.0
+			util += needs["need_pursuit"] * 0.6
 
 		"Artillerie":
 			util += needs["need_anti_art"] * 1.5
 			util += needs["need_firepower"]
 			util += needs["need_defense"] * 0.3
+			util += needs["need_anti_infantry"] * 0.5
 
 		"Infanterie":
 			util += needs["need_capture"] * 1.6
 			util += needs["need_defense"] * 0.6
 			util += needs["need_mobility"] * 0.5
 			util -= needs["need_firepower"] * 0.3
+			util += needs["need_reinforce"] * 1.0
 
 		"Camion":
 			util += needs["need_mobility"] * 1.6
 			util += needs["need_capture"] * 0.8
 			util -= needs["need_firepower"] * 0.6
+			util -= needs["need_breakthrough"] * 0.8
+			util += needs["need_fast_capture"] * 0.8
+			util += needs["need_pursuit"] * 1.0
 
 	var cost = max(1.0, float(unit_data[unit_name].cost))
 	var score = util / cost
