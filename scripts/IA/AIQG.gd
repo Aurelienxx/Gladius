@@ -20,8 +20,8 @@ var unit_data := {
 var unit_weights := {
 	"Tank": 5,
 	"Artillerie": 4,
-	"Camion": 2,
-	"Infanterie": 1
+	"Camion": 1,
+	"Infanterie": 2
 }
 
 # ========================================
@@ -69,7 +69,7 @@ func _ai_turn():
 	print("État du plateau :", situation)
 
 	match situation:
-		"supériorité":
+		"economise":
 			if _try_upgrade_hq():
 				print("IA : amélioration du QG (supériorité).")
 			else:
@@ -77,20 +77,14 @@ func _ai_turn():
 			_free_data()
 			return
 
-		"égalité", "infériorité", "forte infériorité":
+		"achete":
 			var max_buys = 5
 			var buys = 0
 
 			for i in range(max_buys):
 				var success := false
 
-				if situation == "égalité":
-					success = _try_buy_best_unit()
-				elif situation == "infériorité":
-					success = _try_buy_units_defensive()
-				elif situation == "forte infériorité":
-					success = _try_buy_units_fast()
-
+				success = _try_buy_best_unit()
 				if not success:
 					break
 
@@ -123,46 +117,18 @@ func evaluate_battlefield() -> String:
 
 
 func _compare_forces(ally_force, enemy_force):
-	if enemy_force == ally_force :
-		return "égalité"
+	if enemy_force == ally_force or ally_force == 0:
+		return "achete"
 	if enemy_force == 0:
-		return "supériorité"
-	if ally_force == 0:
-		return "forte infériorité"
+		return "economise"
 
 	var ratio = float(ally_force) / float(enemy_force)
 
-	if ratio >= 1.5:
-		return "supériorité"
-	elif ratio >= 0.9:
-		return "égalité"
-	elif ratio >= 0.5:
-		return "infériorité"
+	if ratio >= 1:
+		return "economise"
 	else:
-		return "forte infériorité"
+		return "achete"
 
-
-
-# ========================================
-# =========== ACHATS SIMPLES =============
-# ========================================
-
-func _try_buy_units_defensive() -> bool:
-	var order = ["Artillerie", "Tank", "Infanterie", "Camion"]
-	return _try_buy_units_order(order)
-
-
-func _try_buy_units_fast() -> bool:
-	var order = [ "Tank", "Camion", "Infanterie", "Artillerie"]
-	return _try_buy_units_order(order)
-
-
-func _try_buy_units_order(order) -> bool:
-	for unit_name in order:
-		if argent >= unit_data[unit_name].cost:
-			_buy_unit(unit_name)
-			return true
-	return false
 
 
 # ========================================
@@ -229,11 +195,8 @@ func _evaluate_needs() -> Dictionary:
 
 		if is_ally:
 			ally_count += 1
-			if utype == "Infanterie": ally_infantry += 1
-
-			if "health" in u and "max_health" in u and u.max_health > 0:
-				if float(u.health) / u.max_health < LOW_HEALTH_RATIO:
-					injured_allies += 1
+			if utype == "Infanterie": 
+				ally_infantry += 1
 
 		else:
 			enemy_count += 1
@@ -298,11 +261,11 @@ func _score_unit_by_need(unit_name, needs):
 			util += needs["need_anti_infantry"] * 0.5
 
 		"Infanterie":
-			util += needs["need_capture"] * 1.6
+			util += needs["need_capture"] * 0.3
 			util += needs["need_defense"] * 0.6
 			util += needs["need_mobility"] * 0.5
 			util -= needs["need_firepower"] * 0.3
-			util += needs["need_reinforce"] * 1.0
+			util += needs["need_reinforce"] * 0.8
 
 		"Camion":
 			util += needs["need_mobility"] * 1.6
@@ -312,32 +275,40 @@ func _score_unit_by_need(unit_name, needs):
 			util += needs["need_fast_capture"] * 0.8
 			util += needs["need_pursuit"] * 1.0
 
-	var cost = max(1.0, float(unit_data[unit_name].cost))
-	var score = util / cost
+
+	#var cost = float(unit_data[unit_name].cost)
+	var score = util #/ cost
 
 	if util < 0.3:
 		score *= 0.5
-
+		
 	return score
 
 
 func _choose_best_unit_by_context() -> String:
 	var needs = _evaluate_needs()
+	
+	print("--------------------- Nouveau choix d'achat ---------------------")
+	print("Argent du joueur : ", argent)
+	print(needs)
 	var best_unit = ""
 	var best_score = -INF
 
-	for u in ["Tank", "Artillerie", "Infanterie", "Camion"]:
+	for u in ["Tank", "Artillerie", "Camion", "Infanterie"]:
 		var cost = unit_data[u].cost
 		var score = _score_unit_by_need(u, needs)
+		print("Unité : ", u,"| Prix : ", cost ," | Score : ", score)
 
 		if cost > argent:
 			score -= INF
-
+		
 		if score > best_score:
 			best_score = score
 			best_unit = u
+			
+		print("Meilleur choix : ", best_unit, " | Score :", best_score)
 
-	if best_score < 0.02:
+	if best_score < 0.002:
 		return ""
 
 	return best_unit

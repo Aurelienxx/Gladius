@@ -30,7 +30,7 @@ func IA_turn(unit) -> void:
 		return
 
 	var reachable_cells : Array = map.get_reachable_cells(unit_pos, unit.move_range)
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.1).timeout
 	
 	# Si on ne peut pas bouger, on passe à l'unité suivante
 	if reachable_cells.is_empty():
@@ -83,7 +83,7 @@ func IA_turn(unit) -> void:
 		
 		# Modification des valeurs et petite attente
 		unit.movement = true
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.1).timeout
 		
 		# On tente d'attaquer après le déplacement
 		try_attacking_here(unit)
@@ -317,14 +317,14 @@ func try_attacking_here(unit : CharacterBody2D) -> bool:
 	# Recherche d'une cible attaquable dans la portée d'attaque
 	var target = get_target_in_attack_range(unit)
 	if target != null:
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.1).timeout
 		main.attack_unit = unit
 		main.try_attacking(target)
 		# Changement des valeurs, l'unité ne peut plus agir
 		unit.movement = true
 		unit.attack = true
 		map.highlight_reset()
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.1).timeout
 		return true
 	return false
 
