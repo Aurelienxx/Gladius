@@ -32,8 +32,8 @@ func _play_turn(index_player:int) -> void:
 				AiTruckManager.Ai_Truck(unit)
 			"Artillerie":
 				print("Artillerie joue...")
-				#AiArtilleryManager._make_decision(unit)
-				AiArtilleryManagerspecial.doYourStuff(unit)
+				AiArtilleryManager._make_decision(unit)
+				#AiArtilleryManagerspecial.doYourStuff(unit)
 			"Tank":
 				print("Tank joue...")
 				AiTankManager.play_unit(unit)
@@ -44,7 +44,7 @@ func _play_turn(index_player:int) -> void:
 		await get_tree().create_timer(2).timeout
 	
 	# apres avoir fais joué toute les unités, on met fin au tour 
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(0.5).timeout
 	GameState.try_ending_turn()
 
 func _play_AI_turn() -> void:

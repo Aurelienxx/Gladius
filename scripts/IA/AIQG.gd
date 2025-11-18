@@ -6,10 +6,9 @@ extends Node
 @export var argent: int
 @export var QG = null
 
-# --- paramètres de comportement ---
+# --- paramètres comportement ---
 const QG_DEFEND_RADIUS = 200.0
 const LOW_HEALTH_RATIO = 0.5
-
 
 var unit_data := {
 	"Tank": null,
@@ -48,7 +47,6 @@ func _load_data():
 
 func _free_data():
 	QG = null
-
 	for key in unit_data.keys():
 		if unit_data[key] != null:
 			unit_data[key].queue_free()
@@ -68,27 +66,47 @@ func _on_new_player_turn(player: int) -> void:
 
 
 func _ai_turn():
-	# 1. analyse globale
 	var situation = evaluate_battlefield()
 	print("État du plateau :", situation)
 
-	# 2. stratégie selon situation
 	match situation:
-		"supériorité", "égalité":
-			_try_buy_best_unit()  # système contextuel
+		"supériorité":
+			if _try_upgrade_hq():
+				print("IA : amélioration du QG (supériorité).")
+			else:
+				print("IA en supériorité : pas besoin d’unités → économie.")
+			_free_data()
+			return
 
-		"infériorité":
-			_try_buy_units_defensive()
+		"égalité", "infériorité", "forte infériorité":
+			var max_buys = 5
+			var buys = 0
 
-		"forte infériorité":
-			_try_buy_units_fast()
+			for i in range(max_buys):
+				var success := false
 
-	_free_data()
+				if situation == "égalité":
+					success = _try_buy_best_unit()
+				elif situation == "infériorité":
+					success = _try_buy_units_defensive()
+				elif situation == "forte infériorité":
+					success = _try_buy_units_fast()
 
+				if not success:
+					break
+
+				buys += 1
+
+				# attendre une frame pour laisser le moteur/`main.spawnUnit` terminer l'ajout
+				await get_tree().process_frame
+
+			print("IA a acheté", buys, "unités.")
+			_free_data()
+			return
 
 
 # ========================================
-# ======= ÉVALUATION DU PLATEAU ==========
+# =========== ÉVALUATION FORCES ==========
 # ========================================
 func evaluate_battlefield() -> String:
 	var ally_force = 0
@@ -104,10 +122,9 @@ func evaluate_battlefield() -> String:
 	return _compare_forces(ally_force, enemy_force)
 
 
-func _compare_forces(ally_force: int, enemy_force: int) -> String:
+func _compare_forces(ally_force, enemy_force):
 	if enemy_force == 0:
 		return "supériorité"
-
 	if ally_force == 0:
 		return "forte infériorité"
 
@@ -125,31 +142,60 @@ func _compare_forces(ally_force: int, enemy_force: int) -> String:
 
 
 # ========================================
-# =========== ACHATS SIMPLE ==============
+# =========== ACHATS SIMPLES =============
 # ========================================
-func _try_buy_units_defensive():
+func _try_buy_units_defensive() -> bool:
 	var order = ["Artillerie", "Tank", "Infanterie", "Camion"]
-	_try_buy_units_order(order)
+	return _try_buy_units_order(order)
 
 
-func _try_buy_units_fast():
-	var order = ["Camion", "Infanterie", "Tank", "Artillerie"]
-	_try_buy_units_order(order)
+func _try_buy_units_fast() -> bool:
+	var order = [ "Tank", "Camion", "Infanterie", "Artillerie"]
+	return _try_buy_units_order(order)
 
 
-func _try_buy_units_order(order: Array):
+func _try_buy_units_order(order) -> bool:
 	for unit_name in order:
 		if argent >= unit_data[unit_name].cost:
 			_buy_unit(unit_name)
-			return
+			return true
+	return false
+
+
+# ========================================
+# ======= UPGRADE DU QG (IA) =============
+# ========================================
+func _try_upgrade_hq() -> bool:
+	if QG == null:
+		return false
+
+	var lv = QG.getLevel()
+
+	# QG niveau 1 -> tenter upgrade vers 2
+	if lv == 1:
+		var price = QG.HQ2Data["prix"]
+		if EconomyManager.money_check(price):
+			print("IA améliore QG vers niveau 2 (coût:", price, ")")
+			QG.upgrade(2)
+			argent -= price
+			return true
+
+	# QG niveau 2 -> tenter upgrade vers 3
+	if lv == 2:
+		var price = QG.HQ3Data["prix"]
+		if EconomyManager.money_check(price):
+			print("IA améliore QG vers niveau 3 (coût:", price, ")")
+			QG.upgrade(3)
+			argent -= price
+			return true
+
+	return false
 
 
 
 # ========================================
 # ============ IA CONTEXTUELLE ===========
 # ========================================
-
-# Analyse complète du plateau
 func _evaluate_needs() -> Dictionary:
 	var needs = {
 		"need_defense": 0.0,
@@ -178,6 +224,7 @@ func _evaluate_needs() -> Dictionary:
 			if "health" in u and "max_health" in u and u.max_health > 0:
 				if float(u.health) / u.max_health < LOW_HEALTH_RATIO:
 					injured_allies += 1
+
 		else:
 			enemy_count += 1
 			if utype == "Tank": enemy_tanks += 1
@@ -186,10 +233,10 @@ func _evaluate_needs() -> Dictionary:
 			if QG and u.global_position.distance_to(QG.global_position) <= QG_DEFEND_RADIUS:
 				enemies_near_qg += 1
 
-	# --- calcul des besoins ---
 	var nb_buildings = GameState.all_buildings.size()
 	if nb_buildings > 0:
 		needs["need_capture"] = clamp(float(nb_buildings - ally_infantry) * 0.5, 0, 2)
+
 	needs["need_defense"] += enemies_near_qg * 1.5
 	needs["need_defense"] += clamp(max(0, enemy_count - ally_count) * 0.4, 0, 3)
 	needs["need_mobility"] = clamp(injured_allies * 0.6, 0, 2)
@@ -199,8 +246,7 @@ func _evaluate_needs() -> Dictionary:
 	return needs
 
 
-# Score utilité / coût
-func _score_unit_by_need(unit_name: String, needs: Dictionary) -> float:
+func _score_unit_by_need(unit_name, needs):
 	var util = 0.0
 
 	match unit_name:
@@ -227,18 +273,17 @@ func _score_unit_by_need(unit_name: String, needs: Dictionary) -> float:
 			util -= needs["need_firepower"] * 0.6
 
 	var cost = max(1.0, float(unit_data[unit_name].cost))
-
 	var score = util / cost
+
 	if util < 0.3:
 		score *= 0.5
 
 	return score
 
 
-# Sélection intelligente d’unité
 func _choose_best_unit_by_context() -> String:
 	var needs = _evaluate_needs()
-	var best_unit = null
+	var best_unit = ""
 	var best_score = -INF
 
 	for u in ["Tank", "Artillerie", "Infanterie", "Camion"]:
@@ -258,8 +303,6 @@ func _choose_best_unit_by_context() -> String:
 	return best_unit
 
 
-
-# Achat contextuel
 func _try_buy_best_unit() -> bool:
 	var chosen = _choose_best_unit_by_context()
 
@@ -281,7 +324,7 @@ func _try_buy_best_unit() -> bool:
 # ========================================
 # ============ ACHAT D’UNITÉ =============
 # ========================================
-func _buy_unit(unit_name: String):
+func _buy_unit(unit_name):
 	var instance = null
 
 	match unit_name:

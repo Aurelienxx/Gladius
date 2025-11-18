@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://bli8po88bo6ci"]
+[gd_scene load_steps=44 format=4 uid="uid://bli8po88bo6ci"]
 
 [ext_resource type="Script" uid="uid://dkkr5exuxgoet" path="res://scripts/main.gd" id="1_4rr3d"]
 [ext_resource type="Script" uid="uid://c4tucc1cgkcao" path="res://scripts/IA/IA_Tank/AITank.gd" id="2_53cjn"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://xhpuxpfcgir3" path="res://scripts/IA/ai_manager.gd" id="2_tmn6y"]
 [ext_resource type="Texture2D" uid="uid://ciotxau2s77sa" path="res://assets/sprites/TileSet/tile_set_dirt.png" id="3_2rm8l"]
 [ext_resource type="Script" uid="uid://mff1k0ifkbeh" path="res://scripts/Map/effects_manager.gd" id="3_ehssc"]
+[ext_resource type="Script" path="res://scenes/Map/AIArtilleryPiquet.gd" id="4_fet2j"]
 [ext_resource type="Script" uid="uid://7ar6gav46p2u" path="res://scripts/IA/IA_FONTAINE/ArtilleryIA.gd" id="4_fobre"]
 [ext_resource type="Script" uid="uid://dubdfdedyab7y" path="res://scripts/IA/IA_Truck/AItruck.gd" id="4_qo2ly"]
 [ext_resource type="Script" uid="uid://cw3ty15gjfhmy" path="res://scripts/Managers/UnitControler.gd" id="6_2yrau"]
@@ -1161,7 +1162,10 @@ AiArtilleryManager = NodePath("AiArtillery")
 AiTruckManager = NodePath("AiTruck")
 AiInfantryManager = NodePath("AiInfantry")
 
-[node name="Node" type="Node" parent="AiManager"]
+[node name="Node" type="Node" parent="AiManager" node_paths=PackedStringArray("MapManager", "Main")]
+script = ExtResource("4_fet2j")
+MapManager = NodePath("../../TileMapContainer")
+Main = NodePath("../..")
 
 [node name="AiTruck" type="Node" parent="AiManager" node_paths=PackedStringArray("tileMapManager", "main")]
 script = ExtResource("4_qo2ly")
