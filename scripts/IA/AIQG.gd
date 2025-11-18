@@ -251,11 +251,11 @@ func _score_unit_by_need(unit_name, needs):
 			util -= needs["need_mobility"] * 0.4
 			util -= needs["need_anti_art"] * 0.2
 			util += needs["need_anti_infantry"] * 0.7
-			util += needs["need_breakthrough"] * 1.0
+			util += needs["need_breakthrough"] * 1.5
 			util += needs["need_pursuit"] * 0.6
 
 		"Artillerie":
-			util += needs["need_anti_art"] * 1.5
+			util += needs["need_anti_art"] * 1.0
 			util += needs["need_firepower"]
 			util += needs["need_defense"] * 0.3
 			util += needs["need_anti_infantry"] * 0.5
