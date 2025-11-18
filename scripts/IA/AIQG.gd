@@ -260,7 +260,7 @@ func _evaluate_needs() -> Dictionary:
 	var low_hp_enemies = 0
 
 	for u in GameState.all_units:
-		if u.equipe != equipe_ia and u.health < u.max_health * 0.5:
+		if u.equipe != equipe_ia and u.current_hp < u.max_hp * 0.5:
 			low_hp_enemies += 1
 
 	needs["need_defense"] += enemies_near_qg * 1.5
