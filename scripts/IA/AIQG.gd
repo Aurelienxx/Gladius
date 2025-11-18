@@ -123,6 +123,8 @@ func evaluate_battlefield() -> String:
 
 
 func _compare_forces(ally_force, enemy_force):
+	if enemy_force == ally_force :
+		return "égalité"
 	if enemy_force == 0:
 		return "supériorité"
 	if ally_force == 0:
