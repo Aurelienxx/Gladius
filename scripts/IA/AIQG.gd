@@ -20,8 +20,8 @@ var unit_data := {
 var unit_weights := {
 	"Tank": 5,
 	"Artillerie": 4,
-	"Infanterie": 2,
-	"Camion": 1
+	"Camion": 2,
+	"Infanterie": 1
 }
 
 func _ready():
