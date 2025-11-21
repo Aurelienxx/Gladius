@@ -248,6 +248,7 @@ func _input(event):
 			# si la position cliquer n'est pas un highlight
 			if not tileMapManager.is_highlighted_cell(cell_position): 
 				selected_unit = null
+				tileMapManager.highlight_reset()
 				if attack_unit:
 					try_attacking(null)
 			else:
