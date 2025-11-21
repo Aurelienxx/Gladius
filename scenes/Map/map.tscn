@@ -9,6 +9,10 @@
 [ext_resource type="Script" uid="uid://xhpuxpfcgir3" path="res://scripts/IA/ai_manager.gd" id="2_tmn6y"]
 [ext_resource type="Texture2D" uid="uid://ciotxau2s77sa" path="res://assets/sprites/TileSet/tile_set_dirt.png" id="3_2rm8l"]
 [ext_resource type="Script" uid="uid://mff1k0ifkbeh" path="res://scripts/Map/effects_manager.gd" id="3_ehssc"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="Script" uid="uid://jgwvj4ykwi2g" path="res://scripts/IA/IA_PIQUET/AIArtilleryPiquet.gd" id="4_fet2j"]
+>>>>>>> Stashed changes
 [ext_resource type="Script" uid="uid://7ar6gav46p2u" path="res://scripts/IA/IA_FONTAINE/ArtilleryIA.gd" id="4_fobre"]
 [ext_resource type="Script" uid="uid://dubdfdedyab7y" path="res://scripts/IA/IA_Truck/AItruck.gd" id="4_qo2ly"]
 [ext_resource type="Script" uid="uid://cw3ty15gjfhmy" path="res://scripts/Managers/UnitControler.gd" id="6_2yrau"]
@@ -1155,13 +1159,24 @@ script = ExtResource("1_4rr3d")
 
 [node name="InGameUI" parent="." instance=ExtResource("2_aasa8")]
 
+<<<<<<< Updated upstream
 [node name="AiManager" type="Node" parent="." node_paths=PackedStringArray("AiTankManager", "AiArtilleryManager", "AiTruckManager", "AiInfantryManager", "AIHqManager")]
+=======
+[node name="AiManager" type="Node" parent="." node_paths=PackedStringArray("AiTankManager", "AiArtilleryManager", "AiTruckManager", "AiInfantryManager")]
+>>>>>>> Stashed changes
 script = ExtResource("2_tmn6y")
 AiTankManager = NodePath("AiTank")
 AiArtilleryManager = NodePath("AiArtillery")
 AiTruckManager = NodePath("AiTruck")
 AiInfantryManager = NodePath("AiInfantry")
+<<<<<<< Updated upstream
 AIHqManager = NodePath("AiHQ")
+=======
+
+[node name="Node" type="Node" parent="AiManager" node_paths=PackedStringArray("Main")]
+script = ExtResource("4_fet2j")
+Main = NodePath("../..")
+>>>>>>> Stashed changes
 
 [node name="AiTruck" type="Node" parent="AiManager" node_paths=PackedStringArray("tileMapManager", "main")]
 script = ExtResource("4_qo2ly")

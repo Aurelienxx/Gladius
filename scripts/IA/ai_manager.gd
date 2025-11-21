@@ -16,12 +16,14 @@ func _play_turn(index_player:int) -> void:
 		pour le joueur 1, on donne l'index 1
 	"""
 	print("=== Nouveau tour de l'IA ===")
-	
+	var i = 0
 	for unit in GameState.all_units:
+		i = i + 1
 		if not unit.is_AI:
 			continue
 		if unit.equipe != index_player:
 			continue
+		await get_tree().create_timer(3).timeout
 
 		var unit_name: String = unit.name_Unite
 
@@ -33,6 +35,7 @@ func _play_turn(index_player:int) -> void:
 				print("Camion joue...")
 				AiTruckManager.Ai_Truck(unit)
 			"Artillerie":
+				print(i)
 				print("Artillerie joue...")
 				AiArtilleryManager.play_unit(unit)
 			"Tank":
@@ -41,16 +44,20 @@ func _play_turn(index_player:int) -> void:
 			_:
 				print("Unité inconnue : ", unit_name)
 
+<<<<<<< Updated upstream
 		# Petite pause pour le rythme visuel (facultatif)
 		await get_tree().create_timer(1).timeout
 	
+=======
+		# Petite pause pour le rythme visuel (facultatif)	
+>>>>>>> Stashed changes
 	# apres avoir fais joué toute les unités, on met fin au tour 
 	await get_tree().create_timer(1.5).timeout
 	GameState.try_ending_turn()
 	
 func _play_AI_turn() -> void:
 	"""
-		Verifie si le joueur a qui il est tour de joué est une IA, si oui, alors on fera joué toute les unités
+		Verifie si le joueur a qui il est tour de jouer est une IA, si oui, alors on fera jouer toutes les unités
 	"""
 	var current_player_turn = GameState.current_player
 	if GameState.is_player_ai(current_player_turn):

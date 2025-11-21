@@ -8,7 +8,7 @@ const buildingName = "Village"
 
 # Statistiques et attributs de base du village
 var lv: int = 1
-var max_hp: int = 200
+var max_hp: int = 2000
 var attack: int = 20
 var attack_range: int = 10
 var size_x: int = 3
