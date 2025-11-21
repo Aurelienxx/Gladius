@@ -75,3 +75,6 @@ func getHealth():
 
 func getName():
 	return name_Unite
+
+func getMoveRange():
+	return move_range

@@ -1,14 +1,39 @@
-[gd_scene load_steps=21 format=3 uid="uid://c1e4qtotfslu8"]
+[gd_scene load_steps=25 format=3 uid="uid://c1e4qtotfslu8"]
 
 [ext_resource type="Script" uid="uid://018u7ywc34y1" path="res://scripts/MainMenu/MainMenu.gd" id="1_gwiro"]
-[ext_resource type="Texture2D" uid="uid://c6crtc706nwu3" path="res://assets/sprites/Interface/Other/screenshot.png" id="2_7j8ul"]
+[ext_resource type="Texture2D" uid="uid://b2ahci6mrqsw5" path="res://assets/sprites/Interface/Other/screenshot.png" id="2_7j8ul"]
 [ext_resource type="AudioStream" uid="uid://0cbfjdix4i4i" path="res://assets/sound/2,5(1).mp3" id="2_y5ja3"]
 [ext_resource type="PackedScene" uid="uid://l5psbttjcf8j" path="res://scenes/Settings/settings.tscn" id="3_y5ja3"]
 [ext_resource type="Texture2D" uid="uid://d1pxuf47nm8f6" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="5_0qq82"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="5_7j8ul"]
 [ext_resource type="PackedScene" uid="uid://ccn5m25p2ke3j" path="res://scenes/MainMenu/gameMode.tscn" id="5_y5ja3"]
+[ext_resource type="PackedScene" uid="uid://p3jledhpjct" path="res://scenes/MainMenu/keybindsNode.tscn" id="6_mqas3"]
 [ext_resource type="Texture2D" uid="uid://cnjv4uukpmd1f" path="res://assets/sprites/Interface/Other/logoGladius.png" id="8_oy0qi"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="9_y5ja3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oj5b0"]
+texture = ExtResource("9_y5ja3")
+region_rect = Rect2(0, 224, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ovde5"]
+texture = ExtResource("9_y5ja3")
+region_rect = Rect2(64, 226, 32, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_un4i7"]
+texture = ExtResource("9_y5ja3")
+region_rect = Rect2(64, 226, 32, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hlhgs"]
+texture = ExtResource("9_y5ja3")
+region_rect = Rect2(0, 192, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o6xex"]
+texture = ExtResource("9_y5ja3")
+region_rect = Rect2(64, 192, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dw8ff"]
+texture = ExtResource("9_y5ja3")
+region_rect = Rect2(64, 192, 32, 32)
 
 [sub_resource type="Theme" id="Theme_7j8ul"]
 
@@ -38,19 +63,7 @@ region_rect = Rect2(0, 128, 128, 32)
 texture = ExtResource("5_0qq82")
 region_rect = Rect2(0, 162, 128, 30)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oj5b0"]
-texture = ExtResource("9_y5ja3")
-region_rect = Rect2(0, 192, 32, 32)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ovde5"]
-texture = ExtResource("9_y5ja3")
-region_rect = Rect2(64, 194, 32, 30)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_un4i7"]
-texture = ExtResource("9_y5ja3")
-region_rect = Rect2(64, 194, 32, 30)
-
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("buttons", "settings", "gamechoice")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("buttons", "settings", "gamechoice", "keybinds")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,6 +74,7 @@ script = ExtResource("1_gwiro")
 buttons = NodePath("MainButtons")
 settings = NodePath("SettingsNode")
 gamechoice = NodePath("GameModeNode")
+keybinds = NodePath("KeybindsNode")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_y5ja3")
@@ -76,28 +90,69 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_7j8ul")
 
+[node name="KeyBinds" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -265.0
+offset_right = -137.0
+offset_bottom = 128.0
+grow_horizontal = 0
+focus_mode = 1
+focus_behavior_recursive = 1
+theme_override_font_sizes/font_size = 128
+theme_override_styles/normal = SubResource("StyleBoxTexture_oj5b0")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ovde5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_un4i7")
+action_mode = 0
+
+[node name="ToDoc" type="Button" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_bottom = 128.0
+grow_horizontal = 0
+focus_mode = 1
+focus_behavior_recursive = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_hlhgs")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_o6xex")
+theme_override_styles/hover = SubResource("StyleBoxTexture_dw8ff")
+
 [node name="SettingsNode" parent="." instance=ExtResource("3_y5ja3")]
 visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 960.0
-offset_top = 540.0
-offset_right = 960.0
-offset_bottom = 540.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="GameModeNode" parent="." instance=ExtResource("5_y5ja3")]
 visible = false
-layout_mode = 0
-offset_left = 460.0
-offset_top = 240.0
-offset_right = 1460.0
-offset_bottom = 840.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KeybindsNode" parent="." instance=ExtResource("6_mqas3")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 
 [node name="MainButtons" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -174,20 +229,9 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_bung8")
 theme_override_styles/hover = SubResource("StyleBoxTexture_bung8")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 
-[node name="UserManual" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1800.0
-offset_top = 11.0
-offset_right = 1910.0
-offset_bottom = 121.0
-theme_override_font_sizes/font_size = 128
-theme_override_styles/normal = SubResource("StyleBoxTexture_oj5b0")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_ovde5")
-theme_override_styles/hover = SubResource("StyleBoxTexture_un4i7")
-action_mode = 0
-
+[connection signal="pressed" from="KeyBinds" to="." method="_on_key_binds_pressed"]
+[connection signal="pressed" from="ToDoc" to="." method="_on_to_doc_pressed"]
 [connection signal="visibility_changed" from="SettingsNode" to="." method="_on_settings_visibility_changed"]
 [connection signal="pressed" from="MainButtons/Buttons/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainButtons/Buttons/ParametersButton" to="." method="_on_parameters_button_pressed"]
 [connection signal="pressed" from="MainButtons/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="UserManual" to="." method="on_docu_button_pressed"]
