@@ -314,6 +314,9 @@ func _choose_best_unit_by_context() -> String:
 	return best_unit
 
 
+
+
+
 func _try_buy_best_unit() -> bool:
 	var chosen = _choose_best_unit_by_context()
 
@@ -325,6 +328,7 @@ func _try_buy_best_unit() -> bool:
 	if argent >= cost:
 		print("IA achète :", chosen, "(coût:", cost, ")")
 		_buy_unit(chosen)
+
 		return true
 
 	print("IA : choix pertinent mais pas assez d’argent :", chosen)
@@ -346,5 +350,5 @@ func _buy_unit(unit_name):
 		"Artillerie": instance = playerUnit.unit_artillery.instantiate()
 
 	main.spawnUnit(instance)
+	await get_tree().process_frame
 	argent -= instance.cost
-	EconomyManager.buy_something(instance.cost)
