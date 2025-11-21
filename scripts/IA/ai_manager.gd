@@ -45,7 +45,7 @@ func _play_turn(index_player:int) -> void:
 		await get_tree().create_timer(1).timeout
 	
 	# apres avoir fais joué toute les unités, on met fin au tour 
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1.5).timeout
 	GameState.try_ending_turn()
 	
 func _play_AI_turn() -> void:

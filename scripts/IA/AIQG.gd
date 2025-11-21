@@ -91,7 +91,7 @@ func _ai_turn():
 				buys += 1
 
 				# attendre une frame pour laisser le moteur/`main.spawnUnit` terminer l'ajout
-				await get_tree().process_frame
+				await get_tree().create_timer(0.1).timeout
 
 			print("IA a acheté", buys, "unités.")
 			_free_data()
@@ -124,7 +124,7 @@ func _compare_forces(ally_force, enemy_force):
 
 	var ratio = float(ally_force) / float(enemy_force)
 
-	if ratio >= 1:
+	if ratio >= 0.9:
 		return "economise"
 	else:
 		return "achete"
@@ -262,10 +262,10 @@ func _score_unit_by_need(unit_name, needs):
 
 		"Infanterie":
 			util += needs["need_capture"] * 0.3
-			util += needs["need_defense"] * 0.6
+			util += needs["need_defense"] * 0.5
 			util += needs["need_mobility"] * 0.5
 			util -= needs["need_firepower"] * 0.3
-			util += needs["need_reinforce"] * 0.8
+			util += needs["need_reinforce"] * 0.7
 
 		"Camion":
 			util += needs["need_mobility"] * 1.6
