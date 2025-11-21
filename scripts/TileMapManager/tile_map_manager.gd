@@ -318,8 +318,8 @@ func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
 	var g_score: Dictionary = {start: 0}
 	var f_score: Dictionary = {start: start.distance_to(goal)}
 
-	# Directions possibles (4 directions (droite, gauche, bas, haut))
-	var directionsCardinales = [
+	# Directions possibles (4 directions)
+	var directions = [
 		Vector2i(1,0),
 		Vector2i(-1,0),
 		Vector2i(0,1),
@@ -347,10 +347,8 @@ func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
 		open_list.erase(current)
 		closed_list.append(current)
 
-		for offset in directionsCardinales:
+		for offset in directions:
 			var neighbor = current + offset
-			if is_cell_occupied(neighbor) and neighbor != goal:
-				continue
 
 			# Ignore les cases hors carte
 			if MAP.get_cell_source_id(neighbor) == -1:
@@ -364,7 +362,7 @@ func find_path_a_star(start: Vector2i, goal: Vector2i) -> Array:
 				continue
 
 			var tentative_g = g_score[current] + get_terrain_cost(neighbor)
-			
+
 			if neighbor not in open_list:
 				open_list.append(neighbor)
 			elif tentative_g >= g_score.get(neighbor, INF):
