@@ -102,7 +102,7 @@ func level_bonus():
 	"""
 	match lv:
 		1:
-			current_gain=10
+			current_gain=15
 		2:
 			current_gain= 13
 			attack += 5

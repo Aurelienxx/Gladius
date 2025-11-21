@@ -11,7 +11,7 @@ const buildingName = "QG"
 
 var current_player: int 
 # Statistiques et attributs de base du QG
-var max_hp: int = 2000
+var max_hp: int = 500
 var damage: int
 var attack_range: int
 var isAI : bool = false

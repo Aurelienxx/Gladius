@@ -8,7 +8,7 @@ const buildingName = "Town"
 
 # Statistiques et attributs de base de la ville
 var lv: int = 1
-var max_hp: int = 200
+var max_hp: int = 300
 var attack: int = 20
 var attack_range: int = 10
 var size_x: int = 3
@@ -101,7 +101,7 @@ func level_bonus():
 	"""
 	match lv:
 		1:
-			current_gain=+15
+			current_gain=+20
 		2:
 			current_gain=18
 			attack += 5
