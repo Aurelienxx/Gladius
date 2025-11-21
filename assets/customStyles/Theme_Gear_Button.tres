@@ -1,7 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=4 uid="uid://ihy3bgxyoij6"]
-
-[ext_resource type="Texture2D" uid="uid://cx3j34x5ixg4b" path="res://assets/sprites/HUD/Gear/Gear_Unactive.jpg" id="1_5jh8j"]
-[ext_resource type="Texture2D" uid="uid://22npfgiahbq4" path="res://assets/sprites/HUD/Gear/Gear_Active.png" id="1_7764u"]
+[gd_resource type="Theme" load_steps=8 format=4 uid="uid://ihy3bgxyoij6"]
 
 [sub_resource type="Image" id="Image_7764u"]
 data = {
@@ -984,10 +981,8 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eshjs"]
-texture = ExtResource("1_7764u")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cpn6d"]
-texture = ExtResource("1_5jh8j")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oixag"]
 content_margin_left = 4.0

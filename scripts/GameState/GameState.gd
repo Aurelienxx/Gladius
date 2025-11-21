@@ -23,10 +23,10 @@ func _ready():
 
 func switch_player_to_ai(index:int) -> void:
 	"""
-		Le joueur dont on passe l'index en parametre sera concideré comme IA 
+		Le joueur dont on passe l'index en parametre sera considéré comme étant une IA 
 		pour le joueur 1, on donne l'index 1
 	"""
-	var switch_player =  playerInfos.get(index-1)
+	var switch_player = playerInfos.get(index-1)
 	if switch_player:
 		switch_player["isAI"] = true
 	else:
@@ -38,7 +38,7 @@ func is_player_ai(index:int) -> bool:
 		est une IA = true
 		pour le joueur 1, on donne l'index 1
 	"""
-	var player_info =  playerInfos.get(index-1)
+	var player_info = playerInfos.get(index-1)
 	if player_info:
 		return player_info["isAI"]
 	else:

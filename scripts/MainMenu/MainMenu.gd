@@ -2,6 +2,7 @@ extends Control
 @export var buttons: VBoxContainer 
 @export var settings: Control 
 @export var gamechoice: Control
+@export var keybinds: Control
 
 func _ready():
 	"""
@@ -38,12 +39,21 @@ func _on_exit_button_pressed():
 	"""
 	get_tree().quit()
 
-# Lien vers le document utilisateur 
-func on_docu_button_pressed():
+func displayButtons():
+	buttons.visible = true
+
+# Afficher les contrôles
+func _on_to_doc_pressed() -> void:
 	"""
 	Redirige vers la documentation utilisateur
+	Affiche les contrôles du jeu
 	"""
 	OS.shell_open("https://aurelienxx.github.io/Gladius/userNotice.html")
 
-func displayButtons():
-	buttons.visible = true
+
+func _on_key_binds_pressed() -> void:
+	"""
+	Affiche les contrôles du jeu
+	"""
+	keybinds.visible = true
+	buttons.visible = false
