@@ -20,8 +20,7 @@ func _on_input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> v
 	:param shape_idx: (int) Index de la forme de collision qui a déclenché l’événement.
 	:return: None
 	"""
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			emit_signal("clicked")
-		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			emit_signal("attack_clicked")
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): 
+		emit_signal("clicked")
+	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		emit_signal("attack_clicked")

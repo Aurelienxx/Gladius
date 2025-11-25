@@ -1,0 +1,354 @@
+extends Node
+
+@export var main: Node
+@export var playerUnit: Node
+@export var equipe_ia: int 
+@export var argent: int
+@export var QG = null
+
+# --- paramètres comportement ---
+const QG_DEFEND_RADIUS = 200.0
+const LOW_HEALTH_RATIO = 0.5
+
+var unit_data := {
+	"Tank": null,
+	"Artillerie": null,
+	"Infanterie": null,
+	"Camion": null
+}
+
+var unit_weights := {
+	"Tank": 5,
+	"Artillerie": 4,
+	"Camion": 1,
+	"Infanterie": 2
+}
+
+# ========================================
+# ============= CHARGEMENT ===============
+# ========================================
+
+func _load_data():
+	var tab = EconomyManager._get_team_tab()
+	argent = tab["current_money"]
+
+	for hq in GameState.all_buildings:
+		if hq.buildingName == "QG" and hq.equipe == equipe_ia:
+			QG = hq
+
+	unit_data["Tank"] = playerUnit.unit_tank.instantiate()
+	unit_data["Infanterie"] = playerUnit.unit_infantry.instantiate()
+	unit_data["Camion"] = playerUnit.unit_truck.instantiate()
+	unit_data["Artillerie"] = playerUnit.unit_artillery.instantiate()
+
+
+func _free_data():
+	QG = null
+	for key in unit_data.keys():
+		if unit_data[key] != null:
+			unit_data[key].queue_free()
+	unit_data.clear()
+
+
+# ========================================
+# ============ DÉBUT DE TOUR =============
+# ========================================
+
+func _on_new_player_turn() -> void:
+	equipe_ia = GameState.current_player
+
+	_load_data()
+	await get_tree().process_frame
+	_ai_turn()
+	
+	return
+
+
+func _ai_turn():
+	var situation = evaluate_battlefield()
+	print("État du plateau :", situation)
+
+	match situation:
+		"economise":
+			if _try_upgrade_hq():
+				print("IA : amélioration du QG (supériorité).")
+			else:
+				print("IA en supériorité : pas besoin d’unités → économie.")
+			_free_data()
+			return
+
+		"achete":
+			var max_buys = 5
+			var buys = 0
+
+			for i in range(max_buys):
+				var success := false
+
+				success = _try_buy_best_unit()
+				if not success:
+					break
+
+				buys += 1
+
+				# attendre une frame pour laisser le moteur/`main.spawnUnit` terminer l'ajout
+				await get_tree().create_timer(0.1).timeout
+
+			print("IA a acheté", buys, "unités.")
+			_free_data()
+			return
+
+
+# ========================================
+# =========== ÉVALUATION FORCES ==========
+# ========================================
+
+func evaluate_battlefield() -> String:
+	var ally_force = 0
+	var enemy_force = 0
+
+	for unit in GameState.all_units:
+		var w = unit_weights.get(unit.name_Unite, 1)
+		if unit.equipe == equipe_ia:
+			ally_force += w
+		else:
+			enemy_force += w
+
+	return _compare_forces(ally_force, enemy_force)
+
+
+func _compare_forces(ally_force, enemy_force):
+	if enemy_force == ally_force or ally_force == 0:
+		return "achete"
+	if enemy_force == 0:
+		return "economise"
+
+	var ratio = float(ally_force) / float(enemy_force)
+
+	if ratio >= 0.9:
+		return "economise"
+	else:
+		return "achete"
+
+
+
+# ========================================
+# ======= UPGRADE DU QG (IA) =============
+# ========================================
+
+func _try_upgrade_hq() -> bool:
+	if QG == null:
+		return false
+
+	var lv = QG.getLevel()
+
+	# QG niveau 1 -> tenter upgrade vers 2
+	if lv == 1:
+		var price = QG.HQ2Data["prix"]
+		if EconomyManager.money_check(price):
+			print("IA améliore QG vers niveau 2 (coût:", price, ")")
+			QG.upgrade(2)
+			argent -= price
+			return true
+
+	# QG niveau 2 -> tenter upgrade vers 3
+	if lv == 2:
+		var price = QG.HQ3Data["prix"]
+		if EconomyManager.money_check(price):
+			print("IA améliore QG vers niveau 3 (coût:", price, ")")
+			QG.upgrade(3)
+			argent -= price
+			return true
+
+	return false
+
+
+
+# ========================================
+# ============ IA CONTEXTUELLE ===========
+# ========================================
+
+func _evaluate_needs() -> Dictionary:
+	var needs = {
+		"need_defense": 0.0,
+		"need_capture": 0.0,
+		"need_mobility": 0.0,
+		"need_firepower": 0.0,
+		"need_anti_art": 0.0,
+		"need_anti_infantry" : 0.0,
+		"need_breakthrough" :0.0,
+		"need_reinforce" : 0.0,
+		"need_fast_capture" :0.0
+	}
+
+	var ally_count = 0
+	var enemy_count = 0
+	var ally_infantry = 0
+	var enemy_tanks = 0
+	var enemy_art = 0
+	var injured_allies = 0
+	var enemies_near_qg = 0
+	var enemy_infantry = 0
+
+	for u in GameState.all_units:
+		var utype = u.name_Unite
+		var is_ally = u.equipe == equipe_ia
+
+		if is_ally:
+			ally_count += 1
+			if utype == "Infanterie": 
+				ally_infantry += 1
+
+		else:
+			enemy_count += 1
+			if utype == "Tank": enemy_tanks += 1
+			if utype == "Artillerie": enemy_art += 1
+
+			if QG and u.global_position.distance_to(QG.global_position) <= QG_DEFEND_RADIUS:
+				enemies_near_qg += 1
+
+	var nb_buildings = GameState.all_buildings.size()
+	if nb_buildings > 0:
+		needs["need_capture"] = clamp(float(nb_buildings - ally_infantry) * 0.5, 0, 2)
+		
+	for u in GameState.all_units:
+		if u.equipe != equipe_ia and u.name_Unite == "Infanterie":
+			enemy_infantry += 1
+			
+	var uncaptured_nearby = 0
+
+	for b in GameState.all_buildings:
+		if b.equipe != equipe_ia and QG and b.global_position.distance_to(QG.global_position) < 300:
+			uncaptured_nearby += 1
+			
+	var low_hp_enemies = 0
+
+	for u in GameState.all_units:
+		if u.equipe != equipe_ia and u.current_hp < u.max_hp * 0.5:
+			low_hp_enemies += 1
+
+	needs["need_defense"] += enemies_near_qg * 1.5
+	needs["need_defense"] += clamp(max(0, enemy_count - ally_count) * 0.4, 0, 3)
+	needs["need_mobility"] = clamp(injured_allies * 0.6, 0, 2)
+	needs["need_firepower"] = clamp(enemy_tanks + max(0, enemy_count - ally_count) * 0.3, 0, 3)
+	needs["need_anti_art"] = float(enemy_art)
+	needs["need_anti_infantry"] = clamp(enemy_infantry * 0.4, 0, 2)
+	needs["need_breakthrough"] = clamp(enemy_count * 0.2, 0, 2)
+	needs["need_reinforce"] = clamp(max(0, enemy_count - ally_count) * 0.3, 0, 2)
+	needs["need_fast_capture"] = clamp(uncaptured_nearby * 1.0, 0, 2)
+	needs["need_pursuit"] = clamp(low_hp_enemies * 0.4, 0, 2)
+	
+
+	return needs
+
+
+func _score_unit_by_need(unit_name, needs):
+	var util = 0.0
+
+	match unit_name:
+		"Tank":
+			util += needs["need_firepower"] * 1.4
+			util += needs["need_defense"]
+			util -= needs["need_mobility"] * 0.4
+			util -= needs["need_anti_art"] * 0.2
+			util += needs["need_anti_infantry"] * 0.7
+			util += needs["need_breakthrough"] * 1.5
+			util += needs["need_pursuit"] * 0.6
+
+		"Artillerie":
+			util += needs["need_anti_art"] * 1.0
+			util += needs["need_firepower"]
+			util += needs["need_defense"] * 0.3
+			util += needs["need_anti_infantry"] * 0.5
+
+		"Infanterie":
+			util += needs["need_capture"] * 0.3
+			util += needs["need_defense"] * 0.5
+			util += needs["need_mobility"] * 0.5
+			util -= needs["need_firepower"] * 0.3
+			util += needs["need_reinforce"] * 0.7
+
+		"Camion":
+			util += needs["need_mobility"] * 1.6
+			util += needs["need_capture"] * 0.8
+			util -= needs["need_firepower"] * 0.6
+			util -= needs["need_breakthrough"] * 0.8
+			util += needs["need_fast_capture"] * 0.8
+			util += needs["need_pursuit"] * 1.0
+
+
+	#var cost = float(unit_data[unit_name].cost)
+	var score = util #/ cost
+
+	if util < 0.3:
+		score *= 0.5
+		
+	return score
+
+
+func _choose_best_unit_by_context() -> String:
+	var needs = _evaluate_needs()
+	
+	print("--------------------- Nouveau choix d'achat ---------------------")
+	print("Argent du joueur : ", argent)
+	print(needs)
+	var best_unit = ""
+	var best_score = -INF
+
+	for u in ["Tank", "Artillerie", "Camion", "Infanterie"]:
+		var cost = unit_data[u].cost
+		var score = _score_unit_by_need(u, needs)
+		print("Unité : ", u,"| Prix : ", cost ," | Score : ", score)
+
+		if cost > argent:
+			score -= INF
+		
+		if score > best_score:
+			best_score = score
+			best_unit = u
+			
+		print("Meilleur choix : ", best_unit, " | Score :", best_score)
+
+	if best_score < 0.002:
+		return ""
+
+	return best_unit
+
+
+
+
+
+func _try_buy_best_unit() -> bool:
+	var chosen = _choose_best_unit_by_context()
+
+	if chosen == "":
+		print("IA : aucun achat pertinent → économie")
+		return false
+
+	var cost = unit_data[chosen].cost
+	if argent >= cost:
+		print("IA achète :", chosen, "(coût:", cost, ")")
+		_buy_unit(chosen)
+
+		return true
+
+	print("IA : choix pertinent mais pas assez d’argent :", chosen)
+	return false
+
+
+
+# ========================================
+# ============ ACHAT D’UNITÉ =============
+# ========================================
+
+func _buy_unit(unit_name):
+	var instance = null
+
+	match unit_name:
+		"Tank": instance = playerUnit.unit_tank.instantiate()
+		"Infanterie": instance = playerUnit.unit_infantry.instantiate()
+		"Camion": instance = playerUnit.unit_truck.instantiate()
+		"Artillerie": instance = playerUnit.unit_artillery.instantiate()
+
+	main.spawnUnit(instance)
+	await get_tree().process_frame
+	argent -= instance.cost

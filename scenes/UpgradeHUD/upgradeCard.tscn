@@ -1,0 +1,172 @@
+[gd_scene load_steps=5 format=3 uid="uid://hb5yyxhe425u"]
+
+[ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_7k374"]
+[ext_resource type="Script" uid="uid://cngbgtbewm14i" path="res://scripts/UpgradeHUD/upgradeCard.gd" id="1_gdfu2"]
+[ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="1_w5xwf"]
+[ext_resource type="Texture2D" uid="uid://xa32imtabdfa" path="res://assets/sprites/LevelCard/Lock.png" id="4_gdfu2"]
+
+[node name="UpgradeCard" type="Control" node_paths=PackedStringArray("BuildingName", "MaxHPValue", "DamageValue", "AttackRangeValue", "GainValue", "Bonus", "Sprite", "CostValue", "BuyButton")]
+custom_minimum_size = Vector2(300, 375)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_gdfu2")
+BuildingName = NodePath("MarginContainer/CardInfos/VBoxContainer/Name")
+MaxHPValue = NodePath("MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/MaxHP_Damage/MaxHP/MaxHPValue")
+DamageValue = NodePath("MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/MaxHP_Damage/Damage/DamageValue")
+AttackRangeValue = NodePath("MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/AttackRange_Gain/AttackRange/AttackRangeValue")
+GainValue = NodePath("MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/AttackRange_Gain/Gain/GainValue")
+Bonus = NodePath("MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/Bonus")
+Sprite = NodePath("MarginContainer/CardInfos/VBoxContainer/Sprite/BuildingSprite")
+CostValue = NodePath("MarginContainer/CardInfos/VBoxContainer/Cost")
+BuyButton = NodePath("MarginContainer/BuyButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_right = 300.0
+offset_bottom = 375.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_w5xwf")
+region_rect = Rect2(0, 64, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 7
+
+[node name="CardInfos" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CardInfos"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 15
+
+[node name="Name" type="Label" parent="MarginContainer/CardInfos/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_7k374")
+text = "Nom : "
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Separator1" type="ColorRect" parent="MarginContainer/CardInfos/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Upgrades" type="MarginContainer" parent="MarginContainer/CardInfos/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="MaxHP_Damage" type="VBoxContainer" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer"]
+layout_mode = 2
+
+[node name="MaxHP" type="HBoxContainer" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/MaxHP_Damage"]
+layout_mode = 2
+
+[node name="MaxHPIcon" type="NinePatchRect" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/MaxHP_Damage/MaxHP"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("1_w5xwf")
+region_rect = Rect2(32, 288, 32, 32)
+
+[node name="MaxHPValue" type="Label" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/MaxHP_Damage/MaxHP"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="Damage" type="HBoxContainer" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/MaxHP_Damage"]
+layout_mode = 2
+
+[node name="DamageIcon" type="NinePatchRect" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/MaxHP_Damage/Damage"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("1_w5xwf")
+region_rect = Rect2(64, 320, 32, 32)
+
+[node name="DamageValue" type="Label" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/MaxHP_Damage/Damage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="AttackRange_Gain" type="VBoxContainer" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer"]
+layout_mode = 2
+
+[node name="AttackRange" type="HBoxContainer" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/AttackRange_Gain"]
+layout_mode = 2
+
+[node name="AttackRangeIcon" type="NinePatchRect" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/AttackRange_Gain/AttackRange"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("1_w5xwf")
+region_rect = Rect2(0, 288, 32, 32)
+
+[node name="AttackRangeValue" type="Label" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/AttackRange_Gain/AttackRange"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="Gain" type="HBoxContainer" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/AttackRange_Gain"]
+layout_mode = 2
+
+[node name="GainIcon" type="NinePatchRect" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/AttackRange_Gain/Gain"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("1_w5xwf")
+region_rect = Rect2(96, 288, 32, 32)
+
+[node name="GainValue" type="Label" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer/AttackRange_Gain/Gain"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="Bonus" type="Label" parent="MarginContainer/CardInfos/VBoxContainer/Upgrades/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+autowrap_mode = 2
+
+[node name="Separator2" type="ColorRect" parent="MarginContainer/CardInfos/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite" type="MarginContainer" parent="MarginContainer/CardInfos/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="BuildingSprite" type="TextureRect" parent="MarginContainer/CardInfos/VBoxContainer/Sprite"]
+custom_minimum_size = Vector2(200, 150)
+layout_mode = 2
+
+[node name="Separator3" type="ColorRect" parent="MarginContainer/CardInfos/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Cost" type="Label" parent="MarginContainer/CardInfos/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_7k374")
+text = "Coût :"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BuyButton" type="Button" parent="MarginContainer"]
+layout_mode = 2
+focus_mode = 1
+focus_behavior_recursive = 1
+icon = ExtResource("4_gdfu2")
+
+[connection signal="pressed" from="MarginContainer/BuyButton" to="." method="_on_buy_button_pressed"]

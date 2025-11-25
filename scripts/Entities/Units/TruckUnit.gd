@@ -6,6 +6,8 @@ extends CharacterBody2D
 @onready var anim:AnimatedSprite2D = $UnitSprite # Sprite de l'unité
 @onready var health_bar: ProgressBar = $HealthBar
 
+@onready var Movement: Node = $MovementManager
+
 @export var cost: int = 60
 @export var maintenance: int = 3
 @export var max_hp: int = 150
@@ -17,68 +19,62 @@ extends CharacterBody2D
 @export var name_Unite: String = "Camion"
 @export var thumbnail: Texture2D
 
-var hit_flash_timer: Timer
-var base_modulate: Color
-
 # État de l’unité (spécifique à chaque instance)
 var current_hp: int
 var equipe: int
+var isAI: bool = false
 
-func setup(_equipe: int) -> void:
-	"""
-	Configure l’équipe, les PV de départ et la barre de vie.
-	Inverse le sprite si nécessaire et applique la couleur d’équipe.
-	"""
+var map:TileMapLayer
+
+var current_real_position 
+
+var is_AI:bool = false
+
+func setup(_equipe: int, _map:TileMapLayer) -> void:
 	equipe = _equipe
 	current_hp = max_hp
 	health_bar.max_value = max_hp
 	health_bar.value = current_hp
+	map = _map
 	
+	current_real_position = self.global_position
+
 	if equipe == 2:
 		anim.flip_h = true
 		MaskOverlay.flip_h = true
-		
 	
-	_apply_color()  
-
-func _ready():
-	"""
-	Initialisation au chargement : couleur, timer de flash et couleur de base.
-	"""
-	_apply_color() 
+	var current_player = GameState.current_player
+	if GameState.is_player_ai(current_player): # si le joueur qui créer l'unité est une IA
+		is_AI = true
 	
-	hit_flash_timer = Timer.new()
-	hit_flash_timer.wait_time = 0.2
-	hit_flash_timer.one_shot = true
-	add_child(hit_flash_timer)
-	hit_flash_timer.timeout.connect(_on_hit_flash_end)
+	# On confie la couleur et les animations au MovementManager
+	Movement._apply_color(equipe)
+	Movement.init(self, health_bar, anim, MaskOverlay, map)
 
-	base_modulate = anim.modulate
-
+func death() -> void:
+	GameState.unregister_unit(self)
 	
-func update_health_bar() -> void:
+func take_damage(dmg : int) -> void :
 	"""
-	Met à jour la barre de vie et lance l’effet de flash sur le sprite.
+	Fonction de prise de dégats d'une unité et de mise à jour de la barre de vie
 	"""
-	health_bar.value = current_hp
-	anim.modulate = Color(2,2,2,1)
-	hit_flash_timer.start()
+	current_hp -= dmg
+	Movement.update_health_bar(current_hp, max_hp)
 
-	
+func getEquipe():
+	return equipe
 
-func _on_hit_flash_end() -> void:
-	"""
-	Restaure la couleur d’origine après le flash.
-	"""
-	anim.modulate = base_modulate
+func getDamage():
+	return damage
 
-func _apply_color() -> void:
-	"""
-	Applique une couleur selon l’équipe : bleu (1) ou rouge (2).
-	"""
-	var color:Color = Color("white")
-	if equipe == 1:
-		color = Color("Blue")
-	else:
-		color = Color("red")
-	MaskOverlay.modulate = color
+func getAttackRange():
+	return attack_range
+
+func getHealth():
+	return current_hp
+
+func getName():
+	return name_Unite
+
+func getMoveRange():
+	return move_range

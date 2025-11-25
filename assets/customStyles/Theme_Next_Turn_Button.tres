@@ -1,6 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=4 uid="uid://3nbsg02hdrcb"]
-
-[ext_resource type="Texture2D" uid="uid://h8qy5xs0oc8x" path="res://assets/sprites/HUD/NextTurn/Next_Turn_Button.png" id="1_8tg4l"]
+[gd_resource type="Theme" load_steps=7 format=4 uid="uid://3nbsg02hdrcb"]
 
 [sub_resource type="Image" id="Image_7764u"]
 data = {
@@ -993,7 +991,6 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cpn6d"]
-texture = ExtResource("1_8tg4l")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oixag"]
 content_margin_left = 4.0

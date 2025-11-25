@@ -9,20 +9,18 @@ func _on_main_menu_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")
 	
-func change_result(team: int):
+func change_result():
 	"""
 	Affiche le résultat de la partie selon l’équipe gagnante.
 	
 	:param team: (int) Numéro de l’équipe gagnante (1 = bleue, autre = rouge).
 	"""
-	if team == 1:
-		result.text = "L'équipe bleue a gagné !"
-		result.modulate = Color.BLUE
-	else:
+	if GameState.current_player == 2:
 		result.text = "L'équipe rouge a gagné !"
 		result.modulate = Color.RED
-		
-
+	else:
+		result.text = "L'équipe bleue a gagné !"
+		result.modulate = Color.BLUE
 
 func _on_exit_button_pressed() -> void:
 	"""

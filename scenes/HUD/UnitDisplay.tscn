@@ -106,7 +106,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_864lw")
-region_rect = Rect2(0, 256, 32, 32)
+region_rect = Rect2(0, 320, 32, 32)
 
 [node name="Cost" type="Label" parent="HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/GeneralInfo/CostDisplay"]
 layout_mode = 2
@@ -134,7 +134,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_864lw")
-region_rect = Rect2(64, 256, 32, 32)
+region_rect = Rect2(64, 320, 32, 32)
 
 [node name="Damage" type="Label" parent="HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay/DamageDisplay"]
 layout_mode = 2
@@ -148,7 +148,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_864lw")
-region_rect = Rect2(64, 224, 32, 32)
+region_rect = Rect2(64, 288, 32, 32.086)
 
 [node name="MoveRange" type="Label" parent="HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/LeftDisplay/MoveRangeDisplay"]
 layout_mode = 2
@@ -168,7 +168,7 @@ size_flags_horizontal = 0
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_864lw")
-region_rect = Rect2(32, 224, 32, 32)
+region_rect = Rect2(32, 288, 32, 32)
 
 [node name="Health" type="Label" parent="HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle/HealthDisplay"]
 layout_mode = 2
@@ -182,7 +182,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_864lw")
-region_rect = Rect2(32, 256, 32, 32)
+region_rect = Rect2(32, 320, 32, 32)
 
 [node name="Maintenance" type="Label" parent="HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/middle/MaintenanceDisplay"]
 layout_mode = 2
@@ -201,7 +201,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_864lw")
-region_rect = Rect2(0, 224, 32, 32)
+region_rect = Rect2(0, 288, 32, 32)
 
 [node name="AttackRAnge" type="Label" parent="HBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/StatsDisplay/RightDisplay2/AttackRangeDisplay"]
 layout_mode = 2

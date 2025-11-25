@@ -4,8 +4,8 @@ signal finished
 @export var label: Label 
 @export var background: ColorRect 
 
-func show_turn_async(player: int) -> void:
-	label.text = "Tour du Joueur %d" % player
+func show_turn_async() -> void:
+	label.text = "Tour du Joueur %d" % GameState.current_player
 	background.modulate = Color(1, 1, 1, 0)
 	visible = true
 

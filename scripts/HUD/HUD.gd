@@ -1,16 +1,26 @@
 extends CanvasLayer
 
-@export var displayGold :Label
-@export var displayGainOrLoss :Label
-
+@export var displayGold: Label
+@export var displayGainOrLoss: Label
+@export var teamColor: NinePatchRect
 @export var OptionsMenue :Control
+
+@export var buttonNextTurn :Button
 
 func _ready() -> void:
 	"""
 	Connecte les signaux globaux de gestion d’argent aux fonctions locales d’affichage.
 	"""
+	GlobalSignal.new_turn.connect(changeTeamColor)
 	GlobalSignal.current_Money_Amount.connect(_update_Current_Money_Displayed)
 	GlobalSignal.current_Money_Gain_Or_Loss.connect(_update_Current_Gain_Or_Loss)
+	
+	GlobalSignal.new_turn.connect(_disable_button)
+
+func _disable_button() -> void:
+	var current_player_turn = GameState.current_player
+	if GameState.is_player_ai(current_player_turn):
+		buttonNextTurn.disabled = true
 
 func _update_Current_Money_Displayed(amount:int) -> void:
 	"""
@@ -36,7 +46,7 @@ func _on_button_button_down() -> void:
 	"""
 	Émet un signal global lorsque le bouton "Next Turn" est pressé.
 	"""
-	GlobalSignal.Next_Turn_Pressed.emit()
+	GameState.try_ending_turn()
 
 
 func _on_infantry_display_pressed() -> void:
@@ -44,7 +54,7 @@ func _on_infantry_display_pressed() -> void:
 	Construit une unité d’infanterie via le menu de construction.
 	"""
 	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/InfantryDisplay.unite_Display
-	GlobalSignal.spawn_Unit.emit(unit)
+	GlobalSignal.spawnUnit.emit(unit)
 	
 
 func _on_truck_display_pressed() -> void:
@@ -52,21 +62,21 @@ func _on_truck_display_pressed() -> void:
 	Construit une unité de camion via le menu de construction.
 	"""
 	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TruckDisplay.unite_Display
-	GlobalSignal.spawn_Unit.emit(unit)
+	GlobalSignal.spawnUnit.emit(unit)
 	
 func _on_artillery_display_pressed() -> void:
 	"""
 	Construit une unité d’artillerie via le menu de construction.
 	"""
 	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/ArtilleryDisplay.unite_Display
-	GlobalSignal.spawn_Unit.emit(unit)
+	GlobalSignal.spawnUnit.emit(unit)
 	
 func _on_tank_display_pressed() -> void:
 	"""
 	Construit une unité de tank via le menu de construction.
 	"""
 	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TankDisplay.unite_Display
-	GlobalSignal.spawn_Unit.emit(unit)
+	GlobalSignal.spawnUnit.emit(unit)
 	
 
 func _on_parameter_button_pressed() -> void:
@@ -78,3 +88,11 @@ func _on_parameter_button_pressed() -> void:
 func _input(event):
 	if Input.is_action_just_pressed("Escape"):
 		_on_parameter_button_pressed()
+
+func changeTeamColor():
+	var color:Color = Color("white")
+	if GameState.current_player == 1:
+		color = Color("Blue")
+	else:
+		color = Color("red")
+	teamColor.modulate = color

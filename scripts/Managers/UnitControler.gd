@@ -3,19 +3,19 @@ extends Node2D
 @export var unit_truck : PackedScene = preload("res://scenes/Entities/Units/TruckUnit.tscn")
 @export var unit_artillery : PackedScene = preload("res://scenes/Entities/Units/ArtilleryUnit.tscn")
 @export var unit_tank : PackedScene = preload("res://scenes/Entities/Units/TankUnit.tscn")
-@export var unit_infantry : PackedScene = preload("res://scenes/Entities/Units/Infantry.tscn")
+@export var unit_infantry : PackedScene = preload("res://scenes/Entities/Units/InfantryUnit.tscn")
 @export var head_quarter : PackedScene = preload("res://scenes/Entities/Building/QG.tscn")
 @export var village : PackedScene = preload("res://scenes/Entities/Building/Village.tscn")
 @export var ville : PackedScene = preload("res://scenes/Entities/Building/Town.tscn")
 
-@onready var MAP: TileMapLayer = $"../../TileMapContainer/TileMap_Dirt"
+@export var MAP: TileMapLayer
 
 @export var spawn_count: int = 8            
 @export var spawn_radius: float = 100.0 # distance autour du point
 
-@export var qg_positions: Array[Vector2] = [Vector2(-200, -250), Vector2(950, 500)]
-@export var village_positions :  Array[Vector2] = [Vector2(-150, 50), Vector2(150, -250),Vector2(900, 200), Vector2(600, 500)]
-@export var ville_position : Vector2 = Vector2(350, 150)
+@export var qg_positions: Array[Vector2] = [Vector2(-200, -200), Vector2(950, 500)]
+@export var village_positions :  Array[Vector2] = [Vector2(-150, 150), Vector2(150, -250),Vector2(932, 032), Vector2(500, 500)]
+@export var ville_position : Vector2 = Vector2(432, 164)
 
 func _ready() -> void:
 	"""
@@ -24,7 +24,7 @@ func _ready() -> void:
 	# Création des Head Quarters
 	for i in range(qg_positions.size()):
 		create_building(head_quarter, qg_positions[i], i + 1)
-
+	
 	# Création des villages
 	for pos in village_positions:
 		create_building(village, pos, 0)
@@ -54,24 +54,25 @@ func create_building(building_scene: PackedScene, position: Vector2, equipe: int
 	var cell = MAP.local_to_map(MAP.to_local(position))
 	var snapped_pos = MAP.map_to_local(cell)
 	building.position = MAP.position + snapped_pos
-
+	
 	add_child(building)
+	GameState.register_building(building)
 	return building
 
 
-func spawn_unit(unit_type: String, actual_player: int):
+func spawn_unit(unit_type: String, equipe: int):
 	"""
 	Instancie une unité autour du QG du joueur si une case libre est disponible.
 
 	:param unit_type: (String) Type d’unité à créer ("Tank", "Infantry", "Truck", "Artillery").
-	:param actual_player: (int) Numéro du joueur (1 ou 2).
+	:param equipe: (int) Numéro du joueur (1 ou 2).
 	:return: (Node2D) L’unité instanciée ou null si aucune case libre disponible ou type invalide.
 	"""
 	var used_cells = MAP.get_used_cells()
 	var unit
 	
 	# Récupère la position du QG du joueur
-	var qg_pos = qg_positions[actual_player - 1]
+	var qg_pos = qg_positions[equipe - 1]
 	var qg_cell = MAP.local_to_map(MAP.to_local(qg_pos))
 	
 	if MAP.tile_set == null:
@@ -130,10 +131,16 @@ func spawn_unit(unit_type: String, actual_player: int):
 		"Artillerie": unit = unit_artillery.instantiate()
 		_: return null
 	
-	unit.call_deferred("setup", actual_player)
+	unit.call_deferred("setup", equipe, MAP)
 	unit.add_to_group("units") # Ajoute l'unité à au groupe des unités
-	
-	
+	if unit.isAI == true:
+		unit.add_to_group("AIUnits")
+	call_deferred("register_unit_after_setup", unit)
 	var local_pos = MAP.map_to_local(cell)
 	unit.position = MAP.to_global(local_pos)
+	GlobalSignal.unit_spawn_pos.emit(local_pos)
 	return unit
+
+func register_unit_after_setup(unit):
+	GameState.register_unit(unit)
+	GlobalSignal.spawnedUnit.emit(unit)

@@ -1,0 +1,135 @@
+[gd_scene load_steps=14 format=3 uid="uid://bh4w3jptm1ttl"]
+
+[ext_resource type="Script" uid="uid://er0sn3poxeji" path="res://scripts/MainMenu/teamChoice.gd" id="1_qvc0u"]
+[ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="2_gigm0"]
+[ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="3_5l347"]
+[ext_resource type="Texture2D" uid="uid://bui8ccjtdxdj6" path="res://assets/sprites/Interface/TeamChoice/TeamChoice.png" id="4_ulu58"]
+[ext_resource type="Texture2D" uid="uid://s4rqve086ibo" path="res://assets/sprites/Interface/OptionMenue/OptionMenuIcons.png" id="5_wswmf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6er0i"]
+texture = ExtResource("4_ulu58")
+region_rect = Rect2(0, 0, 128, 32.404198)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jejo1"]
+bg_color = Color(0.45840502, 0.45840508, 0.45840502, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_edydk"]
+texture = ExtResource("4_ulu58")
+region_rect = Rect2(0, 33.90084, 128, 30.052551)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_768sb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_arj0q"]
+texture = ExtResource("4_ulu58")
+region_rect = Rect2(0, 64.94084, 128, 30.973534)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wonx2"]
+texture = ExtResource("4_ulu58")
+region_rect = Rect2(0, 97.88678, 128, 30.11322)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1onso"]
+texture = ExtResource("5_wswmf")
+region_rect = Rect2(0, 0, 128, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lb5mo"]
+texture = ExtResource("5_wswmf")
+region_rect = Rect2(0, 34, 128, 30)
+
+[node name="TeamChoice" type="Control"]
+custom_minimum_size = Vector2(100, 500)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 800.0
+offset_bottom = 500.0
+script = ExtResource("1_qvc0u")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_gigm0")
+region_rect = Rect2(0, 64, 32, 32)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -198.0
+offset_right = 256.0
+offset_bottom = 198.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Quelle équipe voulez-vous jouer contre l'IA ?"
+autowrap_mode = 2
+
+[node name="TeamBleue" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(512, 96)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_5l347")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxTexture_6er0i")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_edydk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
+
+[node name="TeamRouge" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(512, 96)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_5l347")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxTexture_arj0q")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wonx2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
+text = "
+"
+
+[node name="Retour" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(512, 96)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_5l347")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxTexture_1onso")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lb5mo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
+
+[connection signal="pressed" from="VBoxContainer/TeamBleue" to="." method="_on_team_bleue_pressed"]
+[connection signal="pressed" from="VBoxContainer/TeamRouge" to="." method="_on_team_rouge_pressed"]
+[connection signal="pressed" from="VBoxContainer/Retour" to="." method="_on_retour_pressed"]
