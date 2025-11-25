@@ -98,16 +98,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsick"]
-size = Vector2(31, 27)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tfmm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pibhh"]
 bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv13f"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tfmm"]
 bg_color = Color(0.16862746, 0.7058824, 0, 1)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_820xi"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_lv13f"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -117,6 +114,9 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsick"]
+size = Vector2(31, 27)
 
 [node name="TankUnit" type="CharacterBody2D"]
 script = ExtResource("1_fwfjq")
@@ -136,6 +136,23 @@ frame_progress = 0.16549416
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_qnbdg")
 animation = &"idle"
+frame_progress = 0.2644013
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -12.695
+offset_top = -18.0
+offset_right = 14.045
+offset_bottom = -14.0
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_pibhh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5tfmm")
+show_percentage = false
+
+[node name="HealthBarSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.5016146, -14.34)
+scale = Vector2(0.32291663, 0.12499995)
+sprite_frames = SubResource("SpriteFrames_lv13f")
+offset = Vector2(-0.005, -13.28)
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("4_pibhh")
@@ -143,22 +160,6 @@ script = ExtResource("4_pibhh")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_wsick")
-
-[node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -12.0
-offset_top = -17.0
-offset_right = 12.0
-offset_bottom = -15.0
-theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_styles/background = SubResource("StyleBoxFlat_5tfmm")
-theme_override_styles/fill = SubResource("StyleBoxFlat_lv13f")
-show_percentage = false
-
-[node name="HealthBarSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -14.951795)
-scale = Vector2(0.2931858, 0.06995234)
-sprite_frames = SubResource("SpriteFrames_820xi")
-offset = Vector2(-0.005, -13.28)
 
 [node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D", "MaskOverlay", "anim")]
 script = ExtResource("5_5tfmm")
