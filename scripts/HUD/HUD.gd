@@ -78,7 +78,6 @@ func _on_tank_display_pressed() -> void:
 	var unit = $MenuDisplay/VBoxContainer/MarginContainer/ContructionMenu/ConstructionDisplay/TankDisplay.unite_Display
 	GlobalSignal.spawnUnit.emit(unit)
 	
-
 func _on_parameter_button_pressed() -> void:
 	if not OptionsMenue.visible:
 		OptionsMenue.visible = true
