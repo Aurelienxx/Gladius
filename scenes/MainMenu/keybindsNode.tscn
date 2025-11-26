@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="1_6q1ig"]
 [ext_resource type="Script" uid="uid://d2u8sqlcj0dp5" path="res://scripts/MainMenu/keybindsNode.gd" id="1_77gvl"]
 [ext_resource type="Texture2D" uid="uid://du16pwn8dqgnu" path="res://assets/keybinds/deplacement.png" id="2_81cxc"]
-[ext_resource type="Texture2D" uid="uid://britkft3owhdb" path="res://assets/keybinds/attaque.png" id="3_6xfup"]
+[ext_resource type="Texture2D" uid="uid://cx3lrdbt8xdsi" path="res://assets/keybinds/attaque.png" id="3_6xfup"]
 [ext_resource type="Texture2D" uid="uid://boe3liwskkeeq" path="res://assets/keybinds/upgrade_qg.png" id="4_ldh6q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81cxc"]
@@ -172,7 +172,7 @@ custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 56
-text = "Si un clic gauche ou droit a été effectué sur une unité, un simple clic gauche sur l'unité ou bien sur des cases hors portée de déplacement ou d'attaque de l'unité annulera la sélection. De même pour l'ouverture de l'interface d'amélioration des QG et celui d'achat des unités, un simple clic gauche en dehors de l'interface les fermera."
+text = "Un clic gauche en dehors d'une zone de sélection (unité ou amélioration QG) permet d'annuler la sélection"
 horizontal_alignment = 3
 vertical_alignment = 3
 autowrap_mode = 2
@@ -218,7 +218,7 @@ custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 56
-text = "Vous pouvez presser la touche espace de votre clavier pour mettre fin au tour."
+text = "Vous pouvez presser la touche Entrée de votre clavier pour mettre fin au tour."
 horizontal_alignment = 3
 vertical_alignment = 3
 autowrap_mode = 2
