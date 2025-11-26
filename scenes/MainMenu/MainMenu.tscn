@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://018u7ywc34y1" path="res://scripts/MainMenu/MainMenu.gd" id="1_gwiro"]
 [ext_resource type="Texture2D" uid="uid://bhf5dgk8c62l8" path="res://assets/sprites/Interface/Other/screenshot.png" id="2_7j8ul"]
-[ext_resource type="AudioStream" uid="uid://0cbfjdix4i4i" path="res://assets/sound/2,5(1).mp3" id="2_y5ja3"]
+[ext_resource type="AudioStream" uid="uid://0cbfjdix4i4i" path="res://assets/sound/main_menu_music.mp3" id="2_y5ja3"]
 [ext_resource type="PackedScene" uid="uid://l5psbttjcf8j" path="res://scenes/Settings/settings.tscn" id="3_y5ja3"]
 [ext_resource type="Texture2D" uid="uid://d1pxuf47nm8f6" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="5_0qq82"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="5_7j8ul"]
@@ -64,7 +64,7 @@ gamechoice = NodePath("GameModeNode")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_y5ja3")
-volume_db = -40.0
+volume_db = -50.0
 autoplay = true
 
 [node name="Background" type="NinePatchRect" parent="."]
