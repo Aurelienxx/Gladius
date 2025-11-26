@@ -11,6 +11,8 @@ func _disable_button() -> void:
 	var current_player_turn = GameState.current_player
 	if GameState.is_player_ai(current_player_turn):
 		toggleButton.disabled = true
+	else :
+		toggleButton.disabled = false
 
 func toggleVisibility(object: Control) -> void:
 	"""

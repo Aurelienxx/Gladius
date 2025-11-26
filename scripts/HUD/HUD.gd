@@ -21,6 +21,8 @@ func _disable_button() -> void:
 	var current_player_turn = GameState.current_player
 	if GameState.is_player_ai(current_player_turn):
 		buttonNextTurn.disabled = true
+	else: 
+		buttonNextTurn.disabled = false
 
 func _update_Current_Money_Displayed(amount:int) -> void:
 	"""
