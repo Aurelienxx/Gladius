@@ -13,6 +13,9 @@ signal buyingUpgrade(level: int)
 @export var BuyButton : Button
 
 var level: int
+
+signal levelUpgrade
+
 func updateInfos(BuildingData: Dictionary):
 	BuildingName.text = "Nom : " + BuildingData["name"]
 	MaxHPValue.text = str(BuildingData["max_hp"])
@@ -27,5 +30,8 @@ func updateInfos(BuildingData: Dictionary):
 func hideBuyButton():
 	BuyButton.visible = false
 
+func disableButton():
+	BuyButton.disabled = !BuyButton.disabled
+
 func _on_buy_button_pressed() -> void:
-	GlobalSignal.buyingUpgrade.emit((level))
+	levelUpgrade.emit(level)

@@ -1,9 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://hb5yyxhe425u"]
+[gd_scene load_steps=10 format=3 uid="uid://70qnd6was1xj"]
 
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="1_7k374"]
 [ext_resource type="Script" uid="uid://cngbgtbewm14i" path="res://scripts/UpgradeHUD/upgradeCard.gd" id="1_gdfu2"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="1_w5xwf"]
-[ext_resource type="Texture2D" uid="uid://xa32imtabdfa" path="res://assets/sprites/LevelCard/Lock.png" id="4_gdfu2"]
+[ext_resource type="Texture2D" uid="uid://jp4o171iyfoh" path="res://assets/sprites/LevelCard/Lock.png" id="4_gdfu2"]
+[ext_resource type="Texture2D" uid="uid://cpisr6f4w5274" path="res://assets/sprites/LevelCard/background.png" id="4_w618h"]
+[ext_resource type="Texture2D" uid="uid://dc78x3fwl1kc2" path="res://assets/sprites/LevelCard/background_hover.png" id="5_lc1v2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lc1v2"]
+texture = ExtResource("4_w618h")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bbpl4"]
+texture = ExtResource("5_lc1v2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gdfu2"]
+texture = ExtResource("4_gdfu2")
+texture_margin_left = 11.0
+texture_margin_right = 5.0
+region_rect = Rect2(0, 62, 319, 513)
 
 [node name="UpgradeCard" type="Control" node_paths=PackedStringArray("BuildingName", "MaxHPValue", "DamageValue", "AttackRangeValue", "GainValue", "Bonus", "Sprite", "CostValue", "BuyButton")]
 custom_minimum_size = Vector2(300, 375)
@@ -146,7 +160,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 
 [node name="BuildingSprite" type="TextureRect" parent="MarginContainer/CardInfos/VBoxContainer/Sprite"]
-custom_minimum_size = Vector2(200, 150)
+custom_minimum_size = Vector2(192, 192)
 layout_mode = 2
 
 [node name="Separator3" type="ColorRect" parent="MarginContainer/CardInfos/VBoxContainer"]
@@ -167,6 +181,8 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 focus_mode = 1
 focus_behavior_recursive = 1
-icon = ExtResource("4_gdfu2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lc1v2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bbpl4")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_gdfu2")
 
 [connection signal="pressed" from="MarginContainer/BuyButton" to="." method="_on_buy_button_pressed"]
