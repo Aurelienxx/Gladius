@@ -185,3 +185,5 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_1fmsb")
 show_percentage = false
 
 [node name="UpgradeHUD" parent="." instance=ExtResource("6_1fmsb")]
+
+[connection signal="upgradingLevel" from="UpgradeHUD" to="." method="upgrade"]

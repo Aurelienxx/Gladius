@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bibxvdufm4ljc"]
 
 [ext_resource type="Script" uid="uid://bey4gbm8sds1l" path="res://scripts/UpgradeHUD/upgradeHud.gd" id="1_6tx4s"]
-[ext_resource type="PackedScene" uid="uid://hb5yyxhe425u" path="res://scenes/UpgradeHUD/upgradeCard.tscn" id="2_6la3f"]
+[ext_resource type="PackedScene" uid="uid://70qnd6was1xj" path="res://scenes/UpgradeHUD/upgradeCard.tscn" id="2_6la3f"]
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("level1Card", "level2Card", "level3Card")]
 script = ExtResource("1_6tx4s")
@@ -30,3 +30,7 @@ layout_mode = 2
 
 [node name="UpgradeCard3" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_6la3f")]
 layout_mode = 2
+
+[connection signal="levelUpgrade" from="MarginContainer/HBoxContainer/UpgradeCard" to="." method="_on_upgrade_level_clicked"]
+[connection signal="levelUpgrade" from="MarginContainer/HBoxContainer/UpgradeCard2" to="." method="_on_upgrade_level_clicked"]
+[connection signal="levelUpgrade" from="MarginContainer/HBoxContainer/UpgradeCard3" to="." method="_on_upgrade_level_clicked"]

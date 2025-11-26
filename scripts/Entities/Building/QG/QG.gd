@@ -71,7 +71,6 @@ func _ready():
 	upgradeHUD.visible = false
 	anim.play("Level1")
 	flag.play()
-	GlobalSignal.buyingUpgrade.connect(upgrade)
 
 func take_damage(dmg:int) -> void:
 	"""
@@ -105,6 +104,7 @@ func upgrade(lvl: int) -> void:
 	"""
 	Augmente le niveau du QG et applique les bonus correspondants.
 	"""
+
 	if lvl == 2:
 		if EconomyManager.money_check(HQ2Data["prix"]):
 			EconomyManager.buy_something(HQ2Data["prix"])
