@@ -4,7 +4,8 @@ extends Control
 #@export var mute_button: Button 
 #@export var unmute_button: Button 
 @export var fullscreen_toggle: CheckButton 
-@export var back_button: Button 
+@export var back_button: Button
+@export var keybinds: Control
 
 func _ready() -> void:
 	# Connecte les signaux
@@ -49,3 +50,9 @@ func _load_settings() -> void:
 func _on_back_button_pressed() -> void:
 	visible = false
 	GlobalSignal.showMainButtons.emit()
+
+func _on_key_binds_pressed() -> void:
+	"""
+	Affiche les contrôles du jeu
+	"""
+	keybinds.visible = true
