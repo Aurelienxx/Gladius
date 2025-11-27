@@ -80,6 +80,7 @@ texture = ExtResource("2_n4ll7")
 region_rect = Rect2(64, 256, 32, 32)
 
 [node name="Settings" type="Control" node_paths=PackedStringArray("volume_slider", "fullscreen_toggle", "back_button", "keybinds")]
+custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

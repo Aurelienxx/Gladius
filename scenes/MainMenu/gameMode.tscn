@@ -49,22 +49,32 @@ texture = ExtResource("4_gafu6")
 region_rect = Rect2(0, 34, 128, 30)
 
 [node name="GameModeNode" type="Control" node_paths=PackedStringArray("teamChoice", "gameModes")]
-custom_minimum_size = Vector2(100, 600)
+custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1000.0
 offset_bottom = 600.0
 script = ExtResource("1_f0sef")
 teamChoice = NodePath("TeamChoice")
-gameModes = NodePath("GameModes")
+gameModes = NodePath("MarginContainer/GameModes")
 
-[node name="GameModes" type="NinePatchRect" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(1000, 600)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="GameModes" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
 texture = ExtResource("1_4hon4")
 region_rect = Rect2(0, 64, 32, 32)
 patch_margin_left = 5
@@ -72,7 +82,7 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 7
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameModes"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GameModes"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -87,7 +97,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="JoueurContreJoueur" type="Button" parent="GameModes/VBoxContainer"]
+[node name="JoueurContreJoueur" type="Button" parent="MarginContainer/GameModes/VBoxContainer"]
 custom_minimum_size = Vector2(512, 96)
 layout_mode = 2
 size_flags_vertical = 3
@@ -102,7 +112,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_5d763")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
 
-[node name="JoueurContreIA" type="Button" parent="GameModes/VBoxContainer"]
+[node name="JoueurContreIA" type="Button" parent="MarginContainer/GameModes/VBoxContainer"]
 custom_minimum_size = Vector2(512, 96)
 layout_mode = 2
 size_flags_vertical = 3
@@ -119,7 +129,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
 text = "
 "
 
-[node name="IAContreIA" type="Button" parent="GameModes/VBoxContainer"]
+[node name="IAContreIA" type="Button" parent="MarginContainer/GameModes/VBoxContainer"]
 custom_minimum_size = Vector2(512, 96)
 layout_mode = 2
 size_flags_vertical = 3
@@ -134,10 +144,10 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_t4pcn")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
 
-[node name="Control" type="Control" parent="GameModes/VBoxContainer"]
+[node name="Control" type="Control" parent="MarginContainer/GameModes/VBoxContainer"]
 layout_mode = 2
 
-[node name="BackChoice" type="Button" parent="GameModes/VBoxContainer"]
+[node name="BackChoice" type="Button" parent="MarginContainer/GameModes/VBoxContainer"]
 custom_minimum_size = Vector2(512, 96)
 layout_mode = 2
 size_flags_vertical = 3
@@ -154,13 +164,15 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
 
 [node name="TeamChoice" parent="." instance=ExtResource("6_18yej")]
 visible = false
-layout_mode = 0
-offset_left = 100.0
-offset_top = 50.0
-offset_right = 900.0
-offset_bottom = 550.0
+layout_mode = 1
+anchors_preset = 8
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -540.0
+offset_bottom = 540.0
+grow_vertical = 2
 
-[connection signal="pressed" from="GameModes/VBoxContainer/JoueurContreJoueur" to="." method="_on_joueur_contre_joueur_pressed"]
-[connection signal="pressed" from="GameModes/VBoxContainer/JoueurContreIA" to="." method="_on_joueur_contre_ia_pressed"]
-[connection signal="pressed" from="GameModes/VBoxContainer/IAContreIA" to="." method="_on_ia_contre_ia_pressed"]
-[connection signal="pressed" from="GameModes/VBoxContainer/BackChoice" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/GameModes/VBoxContainer/JoueurContreJoueur" to="." method="_on_joueur_contre_joueur_pressed"]
+[connection signal="pressed" from="MarginContainer/GameModes/VBoxContainer/JoueurContreIA" to="." method="_on_joueur_contre_ia_pressed"]
+[connection signal="pressed" from="MarginContainer/GameModes/VBoxContainer/IAContreIA" to="." method="_on_ia_contre_ia_pressed"]
+[connection signal="pressed" from="MarginContainer/GameModes/VBoxContainer/BackChoice" to="." method="_on_back_button_pressed"]

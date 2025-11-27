@@ -40,20 +40,34 @@ texture = ExtResource("5_wswmf")
 region_rect = Rect2(0, 34, 128, 30)
 
 [node name="TeamChoice" type="Control"]
-custom_minimum_size = Vector2(100, 500)
+custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 800.0
-offset_bottom = 500.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -960.0
+offset_right = 960.0
+offset_bottom = 1080.0
+grow_horizontal = 2
 script = ExtResource("1_qvc0u")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(800, 500)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -250.0
+offset_right = 400.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
 texture = ExtResource("2_gigm0")
 region_rect = Rect2(0, 64, 32, 32)
 patch_margin_left = 5
@@ -61,7 +75,7 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 7
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -69,21 +83,21 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -256.0
-offset_top = -198.0
+offset_top = -226.5
 offset_right = 256.0
-offset_bottom = 198.0
+offset_bottom = 226.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/NinePatchRect/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Quelle équipe voulez-vous jouer contre l'IA ?"
 autowrap_mode = 2
 
-[node name="TeamBleue" type="Button" parent="VBoxContainer"]
+[node name="TeamBleue" type="Button" parent="MarginContainer/NinePatchRect/VBoxContainer"]
 custom_minimum_size = Vector2(512, 96)
 layout_mode = 2
 size_flags_vertical = 3
@@ -98,7 +112,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_edydk")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
 
-[node name="TeamRouge" type="Button" parent="VBoxContainer"]
+[node name="TeamRouge" type="Button" parent="MarginContainer/NinePatchRect/VBoxContainer"]
 custom_minimum_size = Vector2(512, 96)
 layout_mode = 2
 size_flags_vertical = 3
@@ -115,7 +129,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
 text = "
 "
 
-[node name="Retour" type="Button" parent="VBoxContainer"]
+[node name="Retour" type="Button" parent="MarginContainer/NinePatchRect/VBoxContainer"]
 custom_minimum_size = Vector2(512, 96)
 layout_mode = 2
 size_flags_vertical = 3
@@ -130,6 +144,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_jejo1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_lb5mo")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_768sb")
 
-[connection signal="pressed" from="VBoxContainer/TeamBleue" to="." method="_on_team_bleue_pressed"]
-[connection signal="pressed" from="VBoxContainer/TeamRouge" to="." method="_on_team_rouge_pressed"]
-[connection signal="pressed" from="VBoxContainer/Retour" to="." method="_on_retour_pressed"]
+[connection signal="pressed" from="MarginContainer/NinePatchRect/VBoxContainer/TeamBleue" to="." method="_on_team_bleue_pressed"]
+[connection signal="pressed" from="MarginContainer/NinePatchRect/VBoxContainer/TeamRouge" to="." method="_on_team_rouge_pressed"]
+[connection signal="pressed" from="MarginContainer/NinePatchRect/VBoxContainer/Retour" to="." method="_on_retour_pressed"]
