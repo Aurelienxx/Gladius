@@ -98,9 +98,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsick"]
-size = Vector2(31, 27)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcqc8"]
 bg_color = Color(0.6855833, 0.09103761, 0.116925605, 1)
 
@@ -117,6 +114,9 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsick"]
+size = Vector2(31, 27)
 
 [node name="TruckUnit" type="CharacterBody2D"]
 script = ExtResource("1_wsuu6")
@@ -136,6 +136,24 @@ z_index = 1
 sprite_frames = SubResource("SpriteFrames_smnt6")
 animation = &"idle"
 
+[node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 9
+offset_left = -12.695002
+offset_top = -20.0
+offset_right = 14.044998
+offset_bottom = -16.0
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_vcqc8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4quyo")
+show_percentage = false
+
+[node name="HealthBarSprite" type="AnimatedSprite2D" parent="."]
+z_index = 10
+position = Vector2(0.5016129, -16.34)
+scale = Vector2(0.32291663, 0.12499995)
+sprite_frames = SubResource("SpriteFrames_khpsq")
+offset = Vector2(-0.005, -13.28)
+
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("4_vcqc8")
 
@@ -143,22 +161,6 @@ script = ExtResource("4_vcqc8")
 visible = false
 position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_wsick")
-
-[node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -12.695
-offset_top = -18.0
-offset_right = 14.045
-offset_bottom = -14.0
-theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_styles/background = SubResource("StyleBoxFlat_vcqc8")
-theme_override_styles/fill = SubResource("StyleBoxFlat_4quyo")
-show_percentage = false
-
-[node name="HealthBarSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.5016146, -14.34)
-scale = Vector2(0.32291663, 0.12499995)
-sprite_frames = SubResource("SpriteFrames_khpsq")
-offset = Vector2(-0.005, -13.28)
 
 [node name="MovementManager" type="Node" parent="." node_paths=PackedStringArray("area2D", "MaskOverlay", "anim")]
 script = ExtResource("5_4quyo")

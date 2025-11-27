@@ -139,6 +139,7 @@ sprite_frames = SubResource("SpriteFrames_6on2y")
 frame_progress = 0.42122188
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 9
 offset_left = -12.695002
 offset_top = -20.0
 offset_right = 14.044998
@@ -149,6 +150,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_7px28")
 show_percentage = false
 
 [node name="HealthBarSprite" type="AnimatedSprite2D" parent="."]
+z_index = 10
 position = Vector2(0.5016129, -16.34)
 scale = Vector2(0.32291663, 0.12499995)
 sprite_frames = SubResource("SpriteFrames_e7so8")

@@ -139,17 +139,19 @@ animation = &"idle"
 frame_progress = 0.2644013
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -12.695
-offset_top = -18.0
-offset_right = 14.045
-offset_bottom = -14.0
+z_index = 9
+offset_left = -12.695002
+offset_top = -20.0
+offset_right = 14.044998
+offset_bottom = -16.0
 theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_pibhh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5tfmm")
 show_percentage = false
 
 [node name="HealthBarSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.5016146, -14.34)
+z_index = 10
+position = Vector2(0.5016129, -16.34)
 scale = Vector2(0.32291663, 0.12499995)
 sprite_frames = SubResource("SpriteFrames_lv13f")
 offset = Vector2(-0.005, -13.28)
