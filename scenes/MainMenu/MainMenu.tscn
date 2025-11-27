@@ -1,12 +1,14 @@
-[gd_scene load_steps=21 format=3 uid="uid://c1e4qtotfslu8"]
+[gd_scene load_steps=26 format=3 uid="uid://c1e4qtotfslu8"]
 
 [ext_resource type="Script" uid="uid://018u7ywc34y1" path="res://scripts/MainMenu/MainMenu.gd" id="1_gwiro"]
 [ext_resource type="Texture2D" uid="uid://b2ahci6mrqsw5" path="res://assets/sprites/Interface/Other/screenshot.png" id="2_7j8ul"]
 [ext_resource type="AudioStream" uid="uid://cv4c68fxbe6ac" path="res://assets/sound/main_menu_music.mp3" id="2_y5ja3"]
 [ext_resource type="PackedScene" uid="uid://l5psbttjcf8j" path="res://scenes/Settings/settings.tscn" id="3_y5ja3"]
-[ext_resource type="Texture2D" uid="uid://d1pxuf47nm8f6" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="5_0qq82"]
+[ext_resource type="Texture2D" uid="uid://dwt42rf5ycuai" path="res://assets/sprites/Interface/MainMenue/MainMenueIcons.png" id="5_0qq82"]
 [ext_resource type="FontFile" uid="uid://dc88owywydkkx" path="res://assets/fonts/Pixel Digivolve.otf" id="5_7j8ul"]
+[ext_resource type="Texture2D" uid="uid://s4rqve086ibo" path="res://assets/sprites/Interface/OptionMenue/OptionMenuIcons.png" id="5_mqas3"]
 [ext_resource type="PackedScene" uid="uid://ccn5m25p2ke3j" path="res://scenes/MainMenu/gameMode.tscn" id="5_y5ja3"]
+[ext_resource type="PackedScene" uid="uid://cnn700d4wwhva" path="res://scenes/MainMenu/credits.tscn" id="6_oy0qi"]
 [ext_resource type="Texture2D" uid="uid://cnjv4uukpmd1f" path="res://assets/sprites/Interface/Other/logoGladius.png" id="8_oy0qi"]
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="9_y5ja3"]
 
@@ -21,6 +23,18 @@ region_rect = Rect2(64, 192, 32, 32)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dw8ff"]
 texture = ExtResource("9_y5ja3")
 region_rect = Rect2(64, 192, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oj5b0"]
+texture = ExtResource("5_mqas3")
+region_rect = Rect2(0, 288, 31, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ovde5"]
+texture = ExtResource("5_mqas3")
+region_rect = Rect2(64, 288, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_un4i7"]
+texture = ExtResource("5_mqas3")
+region_rect = Rect2(64, 288, 32, 32)
 
 [sub_resource type="Theme" id="Theme_7j8ul"]
 
@@ -50,7 +64,7 @@ region_rect = Rect2(0, 128, 128, 32)
 texture = ExtResource("5_0qq82")
 region_rect = Rect2(0, 162, 128, 30)
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("buttons", "settings", "gamechoice")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("buttons", "settings", "gamechoice", "credits")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,6 +75,7 @@ script = ExtResource("1_gwiro")
 buttons = NodePath("MainButtons")
 settings = NodePath("SettingsNode")
 gamechoice = NodePath("GameModeNode")
+credits = NodePath("CreditsNode")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_y5ja3")
@@ -90,6 +105,28 @@ focus_behavior_recursive = 1
 theme_override_styles/normal = SubResource("StyleBoxTexture_hlhgs")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_o6xex")
 theme_override_styles/hover = SubResource("StyleBoxTexture_dw8ff")
+
+[node name="Credits" type="Button" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 1
+focus_behavior_recursive = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_oj5b0")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ovde5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_un4i7")
+
+[node name="CreditsNode" parent="." instance=ExtResource("6_oy0qi")]
+visible = false
+layout_mode = 1
 
 [node name="SettingsNode" parent="." instance=ExtResource("3_y5ja3")]
 visible = false
@@ -190,6 +227,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_bung8")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gwiro")
 
 [connection signal="pressed" from="ToDoc" to="." method="_on_to_doc_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
 [connection signal="visibility_changed" from="SettingsNode" to="." method="_on_settings_visibility_changed"]
 [connection signal="pressed" from="MainButtons/Buttons/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainButtons/Buttons/ParametersButton" to="." method="_on_parameters_button_pressed"]

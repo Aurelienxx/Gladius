@@ -2,6 +2,7 @@ extends Control
 @export var buttons: VBoxContainer 
 @export var settings: Control 
 @export var gamechoice: Control
+@export var credits: Control
 
 func _ready():
 	"""
@@ -48,3 +49,8 @@ func _on_to_doc_pressed() -> void:
 	Affiche les contrôles du jeu
 	"""
 	OS.shell_open("https://aurelienxx.github.io/Gladius/userNotice.html")
+
+
+func _on_credits_pressed() -> void:
+	credits.visible = true
+	buttons.visible = false

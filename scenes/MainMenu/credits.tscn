@@ -1,0 +1,225 @@
+[gd_scene load_steps=13 format=3 uid="uid://cnn700d4wwhva"]
+
+[ext_resource type="Script" uid="uid://cdrntn05uhhx1" path="res://scenes/MainMenu/credits.gd" id="1_qmqu7"]
+[ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="1_tyhbe"]
+[ext_resource type="Texture2D" uid="uid://dqw8skh27jtcu" path="res://assets/credits/Samulus.png" id="2_8ayov"]
+[ext_resource type="Texture2D" uid="uid://b86ilug6xfl3f" path="res://assets/credits/Atoupik.png" id="3_y1cm7"]
+[ext_resource type="Texture2D" uid="uid://dbfkkagfm37ea" path="res://assets/credits/Noa.png" id="4_y1cm7"]
+[ext_resource type="Texture2D" uid="uid://be87bsdq71d3x" path="res://assets/credits/Kazuma.png" id="5_qpe8n"]
+[ext_resource type="Texture2D" uid="uid://djtiva8ng3x80" path="res://assets/credits/Cotar.png" id="6_eeow8"]
+[ext_resource type="Texture2D" uid="uid://d11e381bk4u2x" path="res://assets/credits/tank.png" id="7_llmwl"]
+[ext_resource type="Texture2D" uid="uid://rvev24qr1rea" path="res://assets/credits/drows.png" id="8_c18ld"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_48g4f"]
+texture = ExtResource("1_tyhbe")
+region_rect = Rect2(0, 128, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ayov"]
+texture = ExtResource("1_tyhbe")
+region_rect = Rect2(64, 128, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y1cm7"]
+texture = ExtResource("1_tyhbe")
+region_rect = Rect2(64, 128, 32, 32)
+
+[node name="Credits" type="Control" node_paths=PackedStringArray("credits")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qmqu7")
+credits = NodePath("NinePatchRect")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -425.0
+offset_right = 750.0
+offset_bottom = 425.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_tyhbe")
+region_rect = Rect2(4, 67, 24, 24)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="NinePatchRect"]
+custom_minimum_size = Vector2(1450, 800)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -725.0
+offset_top = -400.0
+offset_right = 725.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/ScrollContainer"]
+layout_mode = 2
+
+[node name="Trio1" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 325
+
+[node name="Samuel" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio1"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio1/Samuel"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("2_8ayov")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio1/Samuel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Samuel Larangé
+🖥️Développeur"
+horizontal_alignment = 1
+
+[node name="Noa" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio1"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio1/Noa"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("4_y1cm7")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio1/Noa"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Deletang-Devin Noa
+🖥️Développeur"
+horizontal_alignment = 1
+
+[node name="Clément" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio1"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio1/Clément"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("6_eeow8")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio1/Clément"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Cotar Clément
+🖥️Développeur
+🎬Monteur vidéo"
+horizontal_alignment = 1
+
+[node name="Trio2" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 325
+
+[node name="Edwyn" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio2"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio2/Edwyn"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("3_y1cm7")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio2/Edwyn"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Piquet Edwyn
+🖥️Développeur
+🧑‍💼Chef de projet
+🗒️Chargé de comm"
+horizontal_alignment = 1
+
+[node name="Aurélien" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio2"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio2/Aurélien"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("5_qpe8n")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio2/Aurélien"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Fontaine Aurélien
+🖥️Développeur
+🧑‍💼Chef d'équipe"
+horizontal_alignment = 1
+
+[node name="Léothen" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio2"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio2/Léothen"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("7_llmwl")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/Trio2/Léothen"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Dusannier Léothen
+🖥️Développeur
+🎨Artiste"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/ScrollContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("8_c18ld")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Drows
+🎵Compositeur"
+
+[node name="Leave" type="Button" parent="NinePatchRect"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -96.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 96.0
+grow_horizontal = 0
+focus_mode = 1
+focus_behavior_recursive = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_48g4f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ayov")
+theme_override_styles/hover = SubResource("StyleBoxTexture_y1cm7")
+
+[connection signal="pressed" from="NinePatchRect/Leave" to="." method="_on_leave_pressed"]

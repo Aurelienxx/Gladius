@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="1_6q1ig"]
 [ext_resource type="Script" uid="uid://d2u8sqlcj0dp5" path="res://scripts/MainMenu/keybindsNode.gd" id="1_77gvl"]
 [ext_resource type="Texture2D" uid="uid://du16pwn8dqgnu" path="res://assets/keybinds/deplacement.png" id="2_81cxc"]
-[ext_resource type="Texture2D" uid="uid://britkft3owhdb" path="res://assets/keybinds/attaque.png" id="3_6xfup"]
+[ext_resource type="Texture2D" uid="uid://cx3lrdbt8xdsi" path="res://assets/keybinds/attaque.png" id="3_6xfup"]
 [ext_resource type="Texture2D" uid="uid://boe3liwskkeeq" path="res://assets/keybinds/upgrade_qg.png" id="4_ldh6q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81cxc"]
@@ -145,7 +145,7 @@ custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 56
-text = "Clic gauche sur le QG de votre équipe affichera l'interface d'amélioration. Clic gauche sur le bouton cadenas du niveau supérieur permet d'acheter le QG au niveau supérieur."
+text = "Clic gauche sur le QG de votre équipe affichera l'interface d'amélioration. Clic gauche sur le bouton sans cadenas permet d'acheter le QG au niveau supérieur."
 autowrap_mode = 2
 
 [node name="Upgrade_QGImg" type="TextureRect" parent="NinePatchRect/ScrollContainer/VBoxContainer2/Upgrade_QG/HBoxContainer"]
@@ -195,7 +195,7 @@ custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 56
-text = "Si vous avez des unités présentes sur le terrain qui n'ont pas encore joué, alors appuyer sur la touche espace de votre clavier permet de naviguer entre chaque unité en plaçant la caméra dessus. Dans l'ordre, la caméra se déplacera d'abord sur les unités ne s'étant pas encore déplacé, et ensuite les unités n'ayant pas encore attaqué."
+text = "Si vous avez des unités présentes sur le terrain qui n'ont pas encore joué, alors appuyer sur la touche Espace de votre clavier permet de naviguer entre chaque unité en plaçant la caméra dessus. Dans l'ordre, la caméra se déplacera d'abord sur les unités pouvant encore se déplacer, et ensuite les unités pouvant encore attaquer."
 horizontal_alignment = 3
 vertical_alignment = 3
 autowrap_mode = 2
