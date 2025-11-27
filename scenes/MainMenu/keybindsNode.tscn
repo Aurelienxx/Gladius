@@ -236,7 +236,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 36
 
-[node name="CameraText" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer2/CameraContols"]
+[node name="FastTurnTexte" type="Label" parent="NinePatchRect/ScrollContainer/VBoxContainer2/CameraContols"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
