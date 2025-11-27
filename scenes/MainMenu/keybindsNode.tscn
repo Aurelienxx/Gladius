@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bgfwnpubndeva" path="res://assets/sprites/HUD/Icons.png" id="1_6q1ig"]
 [ext_resource type="Script" uid="uid://d2u8sqlcj0dp5" path="res://scripts/MainMenu/keybindsNode.gd" id="1_77gvl"]
 [ext_resource type="Texture2D" uid="uid://du16pwn8dqgnu" path="res://assets/keybinds/deplacement.png" id="2_81cxc"]
-[ext_resource type="Texture2D" uid="uid://cx3lrdbt8xdsi" path="res://assets/keybinds/attaque.png" id="3_6xfup"]
+[ext_resource type="Texture2D" uid="uid://britkft3owhdb" path="res://assets/keybinds/attaque.png" id="3_6xfup"]
 [ext_resource type="Texture2D" uid="uid://boe3liwskkeeq" path="res://assets/keybinds/upgrade_qg.png" id="4_ldh6q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81cxc"]

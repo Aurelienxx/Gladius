@@ -9,13 +9,11 @@ func _ready() -> void:
 func displayButtons():
 	KeyBinds.visible = true
 
-
 func _on_leave_pressed() -> void:
 	"""
 	Retour au menu principal depuis le menu de choix de jeu.
 	"""
 	visible = false
-	GlobalSignal.showMainButtons.emit()
 
 # Lien vers le document utilisateur 
 func on_docu_button_pressed():
