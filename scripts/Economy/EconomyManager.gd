@@ -15,6 +15,7 @@ var current_player = 0 # no team
 func _ready() -> void:
 	GlobalSignal.new_player_turn.connect(new_player)
 	TEAM_COUNT = GameState.MAX_PLAYER
+	EconomyTab.clear()
 	for i in range(TEAM_COUNT):
 		EconomyTab.append(ValueStorage.duplicate(true))
 

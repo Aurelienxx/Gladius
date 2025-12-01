@@ -68,5 +68,6 @@ func _on_main_menu_button_pressed() -> void:
 	"""
 	Reprend le jeu et retourne au menu principal.
 	"""
+	GameState.reset()
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/MainMenu/MainMenu.tscn")

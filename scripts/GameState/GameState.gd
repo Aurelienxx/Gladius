@@ -18,6 +18,7 @@ var playerInfo = {
 }
 
 func _ready():
+	playerInfos.clear()
 	for i in range (MAX_PLAYER):
 		playerInfos.append(playerInfo.duplicate(true))
 
@@ -90,6 +91,8 @@ func capture_building(building):
 		building.capture(null)
 
 func reset():
+	EconomyManager._ready()
+	_ready()
 	all_entities.clear()
 	AIUnits.clear()
 	all_units.clear()
